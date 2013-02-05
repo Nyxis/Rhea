@@ -1,0 +1,4 @@
+extia_front:
+    resource: "@ExtiaFrontBundle/Resources/config/routing.yml"
+    prefix:   /
+
