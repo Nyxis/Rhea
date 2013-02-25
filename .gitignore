@@ -15,7 +15,11 @@ app/config/parameters.yml
 
 # Application externe
 .idea/
-app/propel
 
 # Exe
 *.phar
+
+# Propel
+*/propel/*
+src/*/*Bundle/Model/*/map/*
+src/*/*Bundle/Model/*/om/*
