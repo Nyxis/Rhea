@@ -29,8 +29,7 @@ parameters:
 Create database and build it
 ```
 php app/console propel:database:create --connection=default
-php app/console propel:build
-php app/console propel:sql:insert --connection=default
+php app/console propel:build --insert-sql
 ```
 
 
