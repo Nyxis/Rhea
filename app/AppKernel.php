@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
             // EasyTask core bundles
+            new EasyTask\Bundle\LogBundle\EasyTaskLogBundle(),
             new EasyTask\Bundle\WorkflowBundle\EasyTaskWorkflowBundle(),
 
             // Extia bundles
