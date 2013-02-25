@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             // EasyTask core bundles
             new EasyTask\Bundle\LogBundle\EasyTaskLogBundle(),
             new EasyTask\Bundle\WorkflowBundle\EasyTaskWorkflowBundle(),
+            new EasyTask\Bundle\ThemeBundle\EasyTaskThemeBundle(),
 
             // Extia bundles
             new Extia\Bundle\FrontBundle\ExtiaFrontBundle()

@@ -18,11 +18,20 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('easy_task_workflow');
+        $rootNode = $treeBuilder->root('easy_task');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('base_layout')
+                    ->defaultValue('EasyTaskThemeBundle::layout.html.twig')
+                ->end()
+
+                ->scalarNode('timeline_template')
+                    ->defaultValue('EasyTaskThemeBundle:Timeline:timeline.html.twig')
+                ->end()
+            ->end();
+
         return $treeBuilder;
     }
 }

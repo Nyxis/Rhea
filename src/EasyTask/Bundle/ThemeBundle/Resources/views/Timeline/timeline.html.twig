@@ -1,0 +1,12 @@
+{% extends 'EasyTaskThemeBundle::layout.html.twig' %}
+
+{% block content %}
+    <h2>Timeline for {{ name|capitalize }}</h2>
+
+    {% for task in tasks %}
+        <section>{% render task.getCurrentStateView() with { 'task' : task, 'redirect_route' : current_route } %}</section>
+    {% else %}
+        <em>no tasks found</em>
+    {% endfor %}
+
+{% endblock content %}

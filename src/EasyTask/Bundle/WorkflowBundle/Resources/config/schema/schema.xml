@@ -6,7 +6,8 @@
            <parameter name="Engine" value="InnoDB"/>
         </vendor>
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
-        <column name="type" type="VARCHAR"  required="true" description="type of the task" />
+        <column name="type" type="VARCHAR" required="true" description="type of the task" />
+        <column name="created_by" type="VARCHAR" required="true" description="creator of this task" />
         <behavior name="timestampable" />
         <index>
             <index-column name="type"/>
@@ -20,6 +21,7 @@
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
         <column name="task_id" type="INTEGER" required="true" description="task fk" />
         <column name="code" type="VARCHAR"  required="true" description="current state code" />
+        <column name="assigned_to" type="VARCHAR" required="true" description="type of the task" />
         <column name="next" type="VARCHAR"  required="true" description="next state code" />
         <column name="current" type="BOOLEAN" required="true" />
         <behavior name="timestampable" />
