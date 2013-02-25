@@ -16,3 +16,5 @@ app/config/parameters.yml
 # Application externe
 .idea/
 
+# Exe
+*.phar

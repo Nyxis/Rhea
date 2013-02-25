@@ -43,6 +43,7 @@
     }],
     "scripts": {
         "post-install-cmd": [
+            "cp -u app/config/parameters.yml.dist app/config/parameters.yml",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
