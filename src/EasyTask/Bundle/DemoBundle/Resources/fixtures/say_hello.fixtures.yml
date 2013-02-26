@@ -1,0 +1,12 @@
+EasyTask\Bundle\WorkflowBundle\Model\Task:
+    sayHelloDemo:
+        Type: easy_task.task.say_hello
+        CreatedBy: nyxis
+
+EasyTask\Bundle\WorkflowBundle\Model\TaskState:
+    sayHelloDefaultState:
+        TaskId: sayHelloDemo
+        Code: meet
+        AssignedTo: nyxis
+        Next: talk
+        Current: true
