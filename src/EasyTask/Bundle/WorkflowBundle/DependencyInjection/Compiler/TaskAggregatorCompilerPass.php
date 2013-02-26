@@ -19,7 +19,7 @@ class TaskAggregatorCompilerPass implements CompilerPassInterface
 
         $definition = $container->getDefinition('easy_task.aggregator');
 
-        foreach ($container->findTaggedServiceIds('easy_task.aggregator') as $id => $attributes) {
+        foreach ($container->findTaggedServiceIds('easy_task.task') as $id => $attributes) {
             $definition->addMethodCall('addTask', array(
                 $id,
                 new Reference($id)
