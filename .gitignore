@@ -16,3 +16,10 @@ app/config/parameters.yml
 # Application externe
 .idea/
 
+# Exe
+*.phar
+
+# Propel
+*/propel/*
+src/*/*/*Bundle/Model/map/*
+src/*/*/*Bundle/Model/om/*

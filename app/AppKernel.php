@@ -14,15 +14,27 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Extia\Bundle\FrontBundle\ExtiaFrontBundle(),
+
+            // Propel
+            new Propel\PropelBundle\PropelBundle(),
+
+            // Tools bundles
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+
+            // EasyTask core bundles
+            new EasyTask\Bundle\LogBundle\EasyTaskLogBundle(),
+            new EasyTask\Bundle\WorkflowBundle\EasyTaskWorkflowBundle(),
+            new EasyTask\Bundle\ThemeBundle\EasyTaskThemeBundle(),
+            new EasyTask\Bundle\DemoBundle\EasyTaskDemoBundle(),
+
+            // Extia bundles
+            new Extia\Bundle\FrontBundle\ExtiaFrontBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
