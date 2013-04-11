@@ -1,4 +1,4 @@
-EasyTask
+Rhea
 ========
 
 Projet de gestion de tâches pour Extia.
