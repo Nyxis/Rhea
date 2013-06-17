@@ -1,5 +1,13 @@
-EasyTaskWorkflowBundle:
-    resource: "@EasyTaskWorkflowBundle/Resources/config/routing.yml"
+EasyTaskUserBundle:
+    resource: "@EasyTaskUserBundle/Resources/config/routing/login.yml"
+    prefix:   /
+
+EasyTaskWorkflowBundle_workflow:
+    resource: "@EasyTaskWorkflowBundle/Resources/config/routing/workflow.yml"
+    prefix:   /
+
+EasyTaskWorkflowBundle_timeline:
+    resource: "@EasyTaskWorkflowBundle/Resources/config/routing/timeline.yml"
     prefix:   /
 
 extia_front:

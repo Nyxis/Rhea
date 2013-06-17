@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('easy_task');
+        $rootNode = $treeBuilder->root('workflow');
 
         $rootNode
             ->addDefaultsIfNotSet()
@@ -29,6 +29,25 @@ class Configuration implements ConfigurationInterface
 
                 ->scalarNode('timeline_template')
                     ->defaultValue('EasyTaskThemeBundle:Timeline:timeline.html.twig')
+                ->end()
+
+                ->arrayNode('workflows')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                    ->children()
+                        ->scalarNode('id')->end()
+                        ->scalarNode('class')->end()
+                        ->arrayNode('nodes')
+                            ->useAttributeAsKey('name')
+                            ->prototype('array')
+                            ->children()
+                                ->scalarNode('id')->end()
+                                ->scalarNode('class')->end()
+                                ->scalarNode('route')->end()
+                                ->booleanNode('bootstrap')->end()
+                            ->end()
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
 

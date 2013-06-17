@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database defaultIdMethod="native" name="default" namespace="EasyTask\Bundle\LogBundle\Model">
+<database defaultIdMethod="native" name="default" namespace="EasyTask\Bundle\LogBundle\Model\Log">
 
     <!-- <behavior name="i18n">
         <parameter name="i18n_columns" value="title"/>

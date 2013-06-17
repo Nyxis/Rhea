@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database defaultIdMethod="native" name="default" namespace="EasyTask\Bundle\WorkflowBundle\Model">
+<database defaultIdMethod="native" name="default" namespace="EasyTask\Bundle\WorkflowBundle\Model\Workflow">
 
-    <table name="task">
-        <vendor type="mysql">
-           <parameter name="Engine" value="InnoDB"/>
-        </vendor>
+    <table name="workflow">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
         <column name="type" type="VARCHAR" required="true" description="type of the task" />
-        <column name="created_by" type="VARCHAR" required="true" description="creator of this task" />
+        <column name="title" type="VARCHAR" required="true" description="workflow title" />
+        <column name="description" type="LONGVARCHAR" required="false" description="workflow description" />
+        <column name="created_by" type="INTEGER" required="true" description="user fk" />
         <behavior name="timestampable" />
         <index>
             <index-column name="type"/>
         </index>
-    </table>
 
-    <table name="task_state">
-        <vendor type="mysql">
-           <parameter name="Engine" value="InnoDB"/>
-        </vendor>
-        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
-        <column name="task_id" type="INTEGER" required="true" description="task fk" />
-        <column name="code" type="VARCHAR"  required="true" description="current state code" />
-        <column name="assigned_to" type="VARCHAR" required="true" description="type of the task" />
-        <column name="next" type="VARCHAR"  required="true" description="next state code" />
-        <column name="current" type="BOOLEAN" required="true" />
-        <behavior name="timestampable" />
-
-        <foreign-key foreignTable="task" skipSql="true">
-            <reference local="task_id" foreign="id"/>
+        <foreign-key foreignTable="internal" skipSql="true">
+            <reference local="created_by" foreign="id"/>
         </foreign-key>
     </table>
 
-    <!-- <behavior name="i18n">
-        <parameter name="i18n_columns" value="title"/>
-        <parameter name="default_locale" value="fr" />
-    </behavior>
-    <unique>
-        <unique-column name="tag"/>
-        <unique-column name="universe_id"/>
-    </unique>
-    <foreign-key foreignTable="universe" skipSql="true">
-        <reference local="universe_id" foreign="id"/>
-    </foreign-key> -->
+    <table name="workflow_node">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
+        <column name="workflow_id" type="INTEGER" required="true" description="workflow fk" />
+        <column name="name" type="VARCHAR"  required="true" description="current state name" />
+        <column name="assigned_to" type="INTEGER" required="true" description="user fk" />
+        <column name="prev_id" type="VARCHAR"  required="false" description="prev state" />
+        <column name="next_id" type="VARCHAR"  required="false" description="next state" />
+        <column name="current" type="BOOLEAN" required="true" />
+
+        <foreign-key foreignTable="workflow" skipSql="true">
+            <reference local="workflow_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="workflow_node" skipSql="true">
+            <reference local="prev_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="workflow_node" skipSql="true">
+            <reference local="next_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="internal" skipSql="true">
+            <reference local="assigned_to" foreign="id"/>
+        </foreign-key>
+
+        <behavior name="timestampable" />
+    </table>
 
 </database>

@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -85,3 +85,18 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+easy_task_workflow:
+    workflows:
+        demo:
+            nodes:
+                say_hello:
+                    bootstrap: true
+                    route:     demo_say_hello
+                    class:     "EasyTask\\Bundle\\DemoBundle\\Controller\\SayHelloNodeController"
+                answer_hello:
+                    route: demo_answer_hello
+                    class: "EasyTask\\Bundle\\DemoBundle\\Controller\\AnswerHelloNodeController"
+                then_fight:
+                    route: demo_then_fight
+                    class: "EasyTask\\Bundle\\DemoBundle\\Controller\\ThenFightNodeController"

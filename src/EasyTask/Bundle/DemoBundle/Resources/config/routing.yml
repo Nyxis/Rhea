@@ -1,0 +1,11 @@
+demo_say_hello:
+    pattern: /demo/say_hello
+    defaults: { _controller: EasyTaskDemoBundle:SayHelloNodeController:node }
+
+demo_answer_hello:
+    pattern: /demo/answer_hello
+    defaults: { _controller: EasyTaskDemoBundle:AnswerHelloNodeController:node }
+
+demo_then_fight:
+    pattern: /demo/then_fight
+    defaults: { _controller: EasyTaskDemoBundle:ThenFightNodeController:node }

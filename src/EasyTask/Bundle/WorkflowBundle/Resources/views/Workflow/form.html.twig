@@ -1,0 +1,12 @@
+{% if workflow.new %}
+    {% set submit_url = path('new_workflow') %}
+{% else %}
+    {% set submit_url = path('edit_workflow', { 'workflow_id': workflow.id }) %}
+{% endif %}
+
+<form action="{{ submit_url }}" class="form-horizontal" method="post" {{ form_enctype(form) }}>
+
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-primary">{{ 'workflow_submit'|trans }}</button>
+</form>

@@ -29,7 +29,9 @@ class AppKernel extends Kernel
 
             // EasyTask core bundles
             new EasyTask\Bundle\LogBundle\EasyTaskLogBundle(),
+            new EasyTask\Bundle\UserBundle\EasyTaskUserBundle(),
             new EasyTask\Bundle\WorkflowBundle\EasyTaskWorkflowBundle(),
+
             new EasyTask\Bundle\ThemeBundle\EasyTaskThemeBundle(),
             new EasyTask\Bundle\DemoBundle\EasyTaskDemoBundle(),
 
