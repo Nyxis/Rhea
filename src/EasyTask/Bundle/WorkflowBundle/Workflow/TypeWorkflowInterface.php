@@ -17,6 +17,13 @@ interface TypeWorkflowInterface
     public function addNode($nodeName, TypeNodeControllerInterface $nodeType);
 
     /**
+     * return nodes by his alias
+     * @param string                      $nodeName
+     * @param TypeNodeControllerInterface $nodeType
+     */
+    public function getNode($nodeName);
+
+    /**
      * called by DI, defines which node ah to be call in first place
      * @param string $nodeName
      */
@@ -25,6 +32,7 @@ interface TypeWorkflowInterface
     /**
      * boot method for given Workflow
      * @param Workflow $workflow
+     * @param Pdo      $connection optionnal database connection used for transaction
      */
-    public function boot(Workflow $workflow);
+    public function boot(Workflow $workflow, \Pdo $connection = null);
 }

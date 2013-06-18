@@ -35,8 +35,8 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
                 $wfServiceId = $wfConfig['id'];
                 $wfService   = new Reference($wfServiceId);
             } else {
+                $wfServiceId = 'easy_task.type_workflow.'.$wfName;
                 $wfService   = new DefinitionDecorator('easy_task.type_workflow');
-                $wfServiceId = 'easy_task.type_workflow_'.$wfName;
 
                 $wfService->setClass(empty($wfConfig['class']) ?
                     $container->getParameter('easy_task.type_workflow.class') :
@@ -64,8 +64,8 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
                     $nodeServiceId = $nodeConfig['id'];
                     $nodeService   = new Reference($nodeConfig['id']);
                 } else {
-                    $nodeService   = new DefinitionDecorator('easy_task.type_workflow');
-                    $nodeServiceId = 'easy_task.type_node_'.$nodeName;
+                    $nodeService   = new DefinitionDecorator('easy_task.type_node');
+                    $nodeServiceId = 'easy_task.type_node.'.$nodeName;
 
                     if (!empty($nodeConfig['class'])) {
                         $nodeService->setClass($nodeConfig['class']);
@@ -76,6 +76,7 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
                 }
 
                 $nodeServiceDefinition = $container->getDefinition($nodeServiceId);
+                $nodeServiceDefinition->addMethodCall('setContainer', array(new Reference('service_container')));
                 $nodeServiceDefinition->addMethodCall('setName', array($nodeName));
 
                 if (!empty($nodeConfig['route'])) {

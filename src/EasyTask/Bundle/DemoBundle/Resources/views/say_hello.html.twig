@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h2>Hello !!!</h2>
+
+    <form action="{{ path('demo_say_hello', { 'workflowId' : node.workflowId }) }}" method="POST">
+        <input type="hidden" name="answer" value="1" />
+        <input type="submit" value="Répondre hello" />
+    </form>
+
+{% endblock content %}

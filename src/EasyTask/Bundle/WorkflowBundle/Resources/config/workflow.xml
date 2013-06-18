@@ -18,6 +18,7 @@
             <argument type="service" id="session" />
             <argument type="service" id="translator" />
         </service>
+        <service id="workflows" alias="easy_task.workflows_container" />
 
         <!-- Workflow Type basic definition -->
         <service id="easy_task.type_workflow" class="%easy_task.type_workflow.class%" />

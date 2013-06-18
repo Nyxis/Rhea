@@ -23,14 +23,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
-                ->scalarNode('base_layout')
-                    ->defaultValue('EasyTaskThemeBundle::layout.html.twig')
-                ->end()
-
-                ->scalarNode('timeline_template')
-                    ->defaultValue('EasyTaskThemeBundle:Timeline:timeline.html.twig')
-                ->end()
-
                 ->arrayNode('workflows')
                     ->useAttributeAsKey('name')
                     ->prototype('array')

@@ -10,6 +10,10 @@ EasyTaskWorkflowBundle_timeline:
     resource: "@EasyTaskWorkflowBundle/Resources/config/routing/timeline.yml"
     prefix:   /
 
+EasyTaskDemoBundle:
+    resource: "@EasyTaskDemoBundle/Resources/config/routing.yml"
+    prefix:   /
+
 extia_front:
     resource: "@ExtiaFrontBundle/Resources/config/routing.yml"
     prefix:   /

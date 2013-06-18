@@ -33,6 +33,14 @@ class TypeWorkflow implements TypeWorkflowInterface
     }
 
     /**
+     * @see TypeWorkflowInterface::getNode()
+     */
+    public function getNode($nodeName)
+    {
+        return $this->nodeBag->get($nodeName);
+    }
+
+    /**
      * @see TypeWorkflowInterface::setBootstrapNode()
      */
     public function setBootstrapNode($nodeName)
@@ -43,8 +51,8 @@ class TypeWorkflow implements TypeWorkflowInterface
     /**
      * @see TypeWorkflowInterface::boot()
      */
-    public function boot(Workflow $workflow)
+    public function boot(Workflow $workflow, \Pdo $connection = null)
     {
-
+        return $this->nodeBag->get($this->bootstrapNode)->notify($workflow, $connection);
     }
 }

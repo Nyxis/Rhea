@@ -2,6 +2,8 @@
 
 namespace EasyTask\Bundle\WorkflowBundle\Workflow;
 
+use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
+
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -36,9 +38,38 @@ class Aggregator extends ParameterBag
      * method called by DI, dynamically from compiler pass
      * @see EasyTask\Bundle\WorkflowBundle\DependencyInjection\Compiler\WorkflowAggregatorCompilerPass
      */
-    public function addWorkflow($wfName, TypeWorkflow $workflowType)
+    public function addWorkflow($wfName, TypeWorkflowInterface $workflowType)
     {
         return $this->set($wfName, $workflowType);
+    }
+
+    /**
+     * return required node for given workflow
+     *
+     * @param  Workflow                 $workflow
+     * @param  string                   $nodeName
+     * @return WorkflowNode
+     * @throws RuntimeException         if given workflow type is unknown
+     * @throws InvalidArgumentException if workflow does not support given node name
+     */
+    public function getNode(Workflow $workflow, $nodeName)
+    {
+        $workflowType = $this->get($workflow->getType());
+        if (empty($workflowType)) {
+            throw new \RuntimeException(sprintf('Given workflow has an unsupported type : "%s". Check your configuration.',
+                $workflow->getType()
+            ));
+        }
+
+        $nodeType = $workflowType->getNode($nodeName);
+        if (empty($nodeType)) {
+            throw new \RuntimeException(sprintf('Unknow given node for workflow "%s" : "%s". Check your configuration.',
+                $workflow->getType(),
+                $nodeName
+            ));
+        }
+
+        return $nodeType;
     }
 
     /**
@@ -49,7 +80,7 @@ class Aggregator extends ParameterBag
      */
     public function handle(FormInterface $form, Request $request)
     {
-        if (!$this->securityContext->isGranted('ROLE_INTERNAL')) {
+        if (!$this->securityContext->isGranted('ROLE_ADMIN')) {
             throw new \RuntimeException(sprintf('%s has not to be called without a firewall.', __METHOD__));
         }
 
@@ -59,20 +90,34 @@ class Aggregator extends ParameterBag
         // injects connected user into task
         $user = $this->securityContext->getToken()->getUser();
 
-        //
-        // /!\ TODO change when login will be implemented
-        //
-        // $wf->setCreatedBy($user->getId());
-        $wf->setCreatedBy(EasyTask\Bundle\UserBundle\Model\User\InternalQuery::create()->findOne()->getId());
+        $connection = \Propel::getConnection('default');
+        $connection->beginTransaction();
 
-        $wf->save();
+        try {
 
-        // edit case : nothing more to do
-        if (!$isNew) {
-            return;
+            //
+            // /!\ TODO change when login will be implemented
+            //
+            // $wf->setCreatedBy($user->getId());
+            $wf->setCreatedBy(\EasyTask\Bundle\UserBundle\Model\User\InternalQuery::create()->findOne()->getId());
+
+            $wf->save($connection);
+
+            // edit case : nothing more to do
+            if (!$isNew) {
+                return;
+            }
+
+            // boot workflow throught type service
+            $return = $this->get($wf->getType())->boot($wf, $connection);
+
+            $connection->commit();
+
+            return $return;
+
+        } catch (\Exception $e) {
+            $connection->rollback();
+            throw $e;
         }
-
-        // boot workflow throught type service
-        return $this->get($wf->getType())->boot($wf);
     }
 }

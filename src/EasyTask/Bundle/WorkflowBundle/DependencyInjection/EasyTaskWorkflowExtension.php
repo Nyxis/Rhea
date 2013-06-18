@@ -22,9 +22,7 @@ class EasyTaskWorkflowExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('easy_task.base_layout',       $config['base_layout']);
-        $container->setParameter('easy_task.timeline_template', $config['timeline_template']);
-        $container->setParameter('easy_task.workflows',         $config['workflows']);
+        $container->setParameter('easy_task.workflows', $config['workflows']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('workflow.xml');
