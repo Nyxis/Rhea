@@ -1,0 +1,171 @@
+Extia\Bundle\UserBundle\Model\User\Group:
+    crh:
+        code: crh
+    manager:
+        code: manager
+    consultant:
+        code: consultant
+
+Extia\Bundle\UserBundle\Model\User\GroupI18n:
+    crhfr:
+        id: crh
+        locale: fr
+        label: Consultant Ressources Humaine
+    crhen:
+        id: crh
+        locale: en
+        label: Human Ressources Consultant
+    managerfr:
+        id: manager
+        locale: fr
+        label: Manager
+    manageren:
+        id: manager
+        locale: en
+        label: Manager
+    consultantfr:
+        id: consultant
+        locale: fr
+        label: Consultant
+    consultanten:
+        id: consultant
+        locale: en
+        label: Consultant
+
+Extia\Bundle\UserBundle\Model\User\Internal:
+    arnaud:
+        email: afrey@extia.fr
+        firstname: Arnaud
+        lastname: Frey
+        password: <?php echo sha1('afrey')."\n" ?>
+        GroupId: manager
+        treeLeft: 1
+        treeRight: 10
+        treeLevel: 0
+    pauline:
+        email: pdantin@extia.fr
+        firstname: Pauline
+        lastname: Dantin
+        password: <?php echo sha1('pdantin')."\n" ?>
+        GroupId: crh
+        treeLeft: 2
+        treeRight: 7
+        treeLevel: 1
+    caroline:
+        email: cgautier@extia.fr
+        firstname: Caroline
+        lastname: Gautier
+        password: <?php echo sha1('cgautier')."\n" ?>
+        GroupId: manager
+        treeLeft: 8
+        treeRight: 9
+        treeLevel: 1
+
+Extia\Bundle\UserBundle\Model\User\Consultant:
+    kevin:
+        email: kevin.arbouin@gmail.com
+        firstname: Kevin
+        lastname: Arbouin
+        password: <?php echo sha1('karbouin')."\n" ?>
+        GroupId: consultant
+        CrhId: pauline
+        treeLeft: 3
+        treeRight: 4
+        treeLevel: 3
+    quentin:
+        email: quentin.cerny@gmail.com
+        firstname: Quentin
+        lastname: Cerny
+        password: <?php echo sha1('qcerny')."\n" ?>
+        GroupId: consultant
+        CrhId: pauline
+        treeLeft: 5
+        treeRight: 6
+        treeLevel: 3
+
+Extia\Bundle\UserBundle\Model\User\Mission:
+    tf1:
+        Label: e-Tf1
+        ManagerId: caroline
+    sfr:
+        Label: SFR
+        ManagerId: caroline
+
+Extia\Bundle\UserBundle\Model\User\ConsultantMission:
+    m_kevin:
+        ConsultantId: kevin
+        MissionId: sfr
+        BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+    m_quentin:
+        ConsultantId: quentin
+        MissionId: tf1
+        BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+
+Extia\Bundle\UserBundle\Model\User\Credential:
+    authentication:
+        code: authentication
+    user_create:
+        code: user_create
+    user_edit:
+        code: user_edit
+    user_delete:
+        code: user_delete
+
+Extia\Bundle\UserBundle\Model\User\CredentialI18n:
+    authentication_fr:
+        id: authentication
+        locale: fr
+        label: Connexion
+    user_create_fr:
+        id: user_create
+        locale: fr
+        label: Création d'un utilisateur
+    user_edit_fr:
+        id: user_edit
+        locale: fr
+        label: Edition d'un utilisateur
+    user_delete_fr:
+        id: user_delete
+        locale: fr
+        label: Supression d'un utilisateur
+    authentication_en:
+        id: authentication
+        locale: en
+        label: Authentication
+    user_create_en:
+        id: user_create
+        locale: en
+        label: User creation
+    user_edit_en:
+        id: user_edit
+        locale: en
+        label: User edition
+    user_delete_en:
+        id: user_delete
+        locale: en
+        label: User deletion
+
+Extia\Bundle\UserBundle\Model\User\GroupCredential:
+    gp_crh_auth:
+        GroupId: crh
+        CredentialId: authentication
+    gp_crh_create:
+        GroupId: crh
+        CredentialId: user_create
+    gp_crh_edit:
+        GroupId: crh
+        CredentialId: user_edit
+    gp_crh_delete:
+        GroupId: crh
+        CredentialId: user_delete
+    gp_manager_auth:
+        GroupId: manager
+        CredentialId: authentication
+    gp_manager_edit:
+        GroupId: manager
+        CredentialId: user_edit
+
+Extia\Bundle\UserBundle\Model\User\PersonCredential:
+    arnaud_cred:
+        PersonId: arnaud
+        CredentialId: user_create

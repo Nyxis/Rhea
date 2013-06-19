@@ -36,7 +36,7 @@ class UserProvider implements UserProviderInterface
                 // loads group
                 ->joinWith('Group')
                 ->joinWith('Group.GroupI18n')
-                ->joinWith('Group.GroupCredential')
+                ->joinWith('Group.GroupCredential', \Criteria::LEFT_JOIN)
                 ->joinWith('Group.GroupCredential.Credential', \Criteria::LEFT_JOIN)
                 ->joinWith('Group.GroupCredential.Credential.CredentialI18n', \Criteria::LEFT_JOIN)
 
