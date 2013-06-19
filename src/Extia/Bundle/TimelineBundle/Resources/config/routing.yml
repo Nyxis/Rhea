@@ -1,0 +1,5 @@
+UserTimeline:
+    pattern: '/{user_id}/{firstname}-{lastname}'
+    defaults:
+        _controller: ExtiaTimelineBundle:Timeline:userTimeline
+        _format: html

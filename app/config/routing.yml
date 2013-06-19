@@ -1,19 +1,26 @@
-EasyTaskUserBundle:
-    resource: "@EasyTaskUserBundle/Resources/config/routing/login.yml"
+# ---------------------------------------
+# Authentication
+# ---------------------------------------
+ExtiaUserBundle_login:
+    resource: "@ExtiaUserBundle/Resources/config/routing/login.yml"
     prefix:   /
 
+# ---------------------------------------
+# Workflow management
+# ---------------------------------------
 EasyTaskWorkflowBundle_workflow:
     resource: "@EasyTaskWorkflowBundle/Resources/config/routing/workflow.yml"
-    prefix:   /
+    prefix:   /workflow
 
-EasyTaskWorkflowBundle_timeline:
-    resource: "@EasyTaskWorkflowBundle/Resources/config/routing/timeline.yml"
-    prefix:   /
+# ---------------------------------------
+# Timeline routing
+# ---------------------------------------
+ExtiaTimelineBundle:
+    resource: "@ExtiaTimelineBundle/Resources/config/routing.yml"
+    prefix:   /timeline
 
-EasyTaskDemoBundle:
-    resource: "@EasyTaskDemoBundle/Resources/config/routing.yml"
-    prefix:   /
-
-extia_front:
-    resource: "@ExtiaFrontBundle/Resources/config/routing.yml"
-    prefix:   /
+Rhea_homepage:
+    pattern: /
+    defaults:
+        _controller: ExtiaTimelineBundle:Timeline:userTimeline
+        _format: html

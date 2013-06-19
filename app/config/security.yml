@@ -3,19 +3,22 @@ jms_security_extra:
     expressions: true
 
 security:
+
+    hide_user_not_found:  false
+
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        Extia\Bundle\UserBundle\Model\User\Internal:
+            algorithm:   sha1
+            iterations: 1
+            encode_as_base64: false
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        extia:
+            id: easy_task.user_provider
 
     firewalls:
         dev:
@@ -29,6 +32,7 @@ security:
         secured_area:
             pattern:    ^/
             form_login:
+                provider:   extia
                 check_path: easy_task_login_check
                 login_path: easy_task_login
             logout:
@@ -37,4 +41,4 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/, roles: [ROLE_USER, AUTHENTICATION] }

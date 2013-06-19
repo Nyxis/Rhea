@@ -8,6 +8,10 @@
         <column name="lastname" type="VARCHAR" size="255" required="true" />
         <column name="telephone" type="VARCHAR" size="255" required="false" />
         <column name="mobile" type="VARCHAR" size="255" required="false" />
+
+        <unique>
+            <unique-column name="email" />
+        </unique>
         <behavior name="timestampable" />
     </table>
 

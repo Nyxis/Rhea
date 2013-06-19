@@ -1,10 +1,8 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h2>{{ app.user.username|capitalize }} Timeline</h2>
+    <h2>{{ user.firstname|capitalize }} {{ user.lastname|capitalize }} Timeline</h2>
 
     {{ render(controller('EasyTaskWorkflowBundle:Workflow:form')) }}
-
-
 
 {% endblock content %}

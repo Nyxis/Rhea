@@ -4,17 +4,24 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="easy_task_user.example.class">Extia\Bundle\UserBundle\Example</parameter>
+        <parameter key="easy_task.user_provider.class">Extia\Bundle\UserBundle\Security\User\UserProvider</parameter>
+        <parameter key="easy_task.internal_voter.class">Extia\Bundle\UserBundle\Security\Authorization\Voter\InternalVoter</parameter>
     </parameters>
 
     <services>
-        <service id="easy_task_user.example" class="%easy_task_user.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+
+        <!-- User Provider -->
+        <service id="easy_task.user_provider" class="%easy_task.user_provider.class%">
+
         </service>
+
+        <!-- User voter -->
+        <service id="easy_task.internal_voter" class="%easy_task.internal_voter.class%">
+            <tag name="security.voter" />
+        </service>
+
+
     </services>
-    -->
+
 </container>

@@ -34,7 +34,10 @@ class AppKernel extends Kernel
             new EasyTask\Bundle\DemoBundle\EasyTaskDemoBundle(),
 
             // Extia bundles
-            new Extia\Bundle\UserBundle\EasyTaskUserBundle(),
+            new Extia\Bundle\UserBundle\ExtiaUserBundle(),
+            new Extia\Bundle\TimelineBundle\ExtiaTimelineBundle(),
+            new Extia\Bundle\SearchBundle\ExtiaSearchBundle(),
+
             new Extia\Bundle\FrontBundle\ExtiaFrontBundle(),
         );
 

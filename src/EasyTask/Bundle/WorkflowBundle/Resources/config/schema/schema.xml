@@ -11,10 +11,6 @@
         <index>
             <index-column name="type"/>
         </index>
-
-        <foreign-key foreignTable="internal" skipSql="true">
-            <reference local="created_by" foreign="id"/>
-        </foreign-key>
     </table>
 
     <table name="workflow_node">
@@ -34,9 +30,6 @@
         </foreign-key>
         <foreign-key foreignTable="workflow_node" skipSql="true">
             <reference local="next_id" foreign="id"/>
-        </foreign-key>
-        <foreign-key foreignTable="internal" skipSql="true">
-            <reference local="assigned_to" foreign="id"/>
         </foreign-key>
 
         <behavior name="timestampable" />

@@ -80,7 +80,7 @@ class Aggregator extends ParameterBag
      */
     public function handle(FormInterface $form, Request $request)
     {
-        if (!$this->securityContext->isGranted('ROLE_ADMIN')) {
+        if (!$this->securityContext->isGranted('ROLE_USER')) {
             throw new \RuntimeException(sprintf('%s has not to be called without a firewall.', __METHOD__));
         }
 
@@ -94,13 +94,7 @@ class Aggregator extends ParameterBag
         $connection->beginTransaction();
 
         try {
-
-            //
-            // /!\ TODO change when login will be implemented
-            //
-            // $wf->setCreatedBy($user->getId());
-            $wf->setCreatedBy(\EasyTask\Bundle\UserBundle\Model\User\InternalQuery::create()->findOne()->getId());
-
+            $wf->setCreatedBy($user->getUsername());
             $wf->save($connection);
 
             // edit case : nothing more to do

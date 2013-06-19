@@ -1,5 +1,0 @@
-timeline:
-    pattern: '/timeline'
-    defaults:
-        _controller: EasyTaskWorkflowBundle:Timeline:index
-        _format: html

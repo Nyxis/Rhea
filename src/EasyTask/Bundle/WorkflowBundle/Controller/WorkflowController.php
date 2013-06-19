@@ -24,7 +24,9 @@ class WorkflowController extends Controller
     {
         $wfId = $request->get('workflow_id');
         if ($wfId) {
-            $wf = WorkflowQuery::create()->findPk($wfId);
+            $wf = WorkflowQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->findPk($wfId);
             if (!$wf) {
                 throw new NotFoundHttpException('Any workflow found for given id : '.$wfId);
             }
