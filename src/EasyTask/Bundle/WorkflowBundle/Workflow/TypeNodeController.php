@@ -5,9 +5,12 @@ namespace EasyTask\Bundle\WorkflowBundle\Workflow;
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow\WorkflowNode;
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow\WorkflowNodeQuery;
+use EasyTask\Bundle\WorkflowBundle\Event\NodeEvent;
+use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvents;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -38,39 +41,45 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
     /**
      * @see TypeNodeControllerInterface:notify()
      */
-    public function notify(Workflow $workflow, \Pdo $connection = null)
+    public function notify(Workflow $workflow, Request $request, \Pdo $connection = null)
     {
-        $newNode = $this->beginNotify($workflow);
+        $newNode = $this->beginNotify($workflow, $request, $connection);
         if (empty($newNode)) { // no custom node used here
 
             // setup new
             $newNode = new WorkflowNode();
             $newNode->setWorkflow($workflow);
             $newNode->setName($this->name);
-            $newNode->setAssignedTo($workflow->getCreatedBy());
 
             // updates old node
             $oldNode = $workflow->getCurrentNode($connection);
 
             // hook method
-            $this->customNode($newNode, $oldNode);
+            $this->customNode($newNode, $oldNode, $request, $connection);
 
             if (!empty($oldNode)) {
                 $newNode->setPrevId($oldNode->getId());
-                $newNode->setAssignedTo($oldNode->getAssignedTo());
             }
 
             $newNode->setCurrent(true);
+
+            $nodeEvent = new NodeEvent($newNode, $workflow, $request, $connection);
+            $this->get('event_dispatcher')->dispatch(WorkflowEvents::WF_NODE_ACTIVATION, $nodeEvent);
+
             $newNode->save($connection);
 
             if (!empty($oldNode)) {
                 $oldNode->setCurrent(false);
                 $oldNode->setNextId($newNode->getId());
+
+                $nodeEvent = new NodeEvent($oldNode, $workflow, $request, $connection);
+                $this->get('event_dispatcher')->dispatch(WorkflowEvents::WF_NODE_SHUTDOWN, $nodeEvent);
+
                 $oldNode->save($connection);
             }
         }
 
-        $response = $this->endNotify($newNode);
+        $response = $this->endNotify($newNode, $request, $connection);
         if ($response instanceof Response) { // custom response given
 
             return $response;
@@ -92,25 +101,31 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
      * both nodes if needed
      *
      * @param WorkflowNode $newNode
-     * @param WorkflowNode $oldNode (null if current node is bootstrap)
+     * @param WorkflowNode $oldNode    (null if current node is bootstrap)
+     * @param Request      $request
+     * @param Pdo          $connection optionnal database connection used to create nodes
      */
-    protected function customNode(WorkflowNode $newNode, WorkflowNode $oldNode = null) { }
+    protected function customNode(WorkflowNode $newNode, WorkflowNode $oldNode = null, Request $request, \Pdo $connection = null) { }
 
     /**
      * hook method to handle post notification
      * if method returns a WorkflowNode, notify will use it instead of creating a new one
      *
-     * @param Workflow $workflow current workflow
+     * @param Workflow $workflow   current workflow
+     * @param Request  $request
+     * @param Pdo      $connection optionnal database connection used to create nodes
      */
-    protected function beginNotify(Workflow $workflow) { }
+    protected function beginNotify(Workflow $workflow, Request $request, \Pdo $connection = null) { }
 
     /**
      * hook method to handle end notification
      * if methods returns a Response, notify will return it, redirects on node route otherwise
      *
-     * @param Workflow $workflow current workflow
+     * @param Workflow $workflow   current workflow
+     * @param Request  $request
+     * @param Pdo      $connection optionnal database connection used to create nodes
      */
-    protected function endNotify(WorkflowNode $node) { }
+    protected function endNotify(WorkflowNode $node, Request $request, \Pdo $connection = null) { }
 
     /**
      * returns node and workflow for given id

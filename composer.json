@@ -1,6 +1,7 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "name": "extia/rhea",
+    "license": "MIT",
+    "description": "Human ressources management system",
     "autoload": {
         "psr-0": { "": "src/" }
     },

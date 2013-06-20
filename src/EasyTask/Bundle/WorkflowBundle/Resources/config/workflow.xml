@@ -14,14 +14,14 @@
 
         <!-- Workflow Aggregator -->
         <service id="easy_task.workflows_container" class="%easy_task.workflows_container.class%" >
-            <argument type="service" id="security.context" />
-            <argument type="service" id="session" />
-            <argument type="service" id="translator" />
+            <argument type="service" id="event_dispatcher" />
         </service>
         <service id="workflows" alias="easy_task.workflows_container" />
 
         <!-- Workflow Type basic definition -->
-        <service id="easy_task.type_workflow" class="%easy_task.type_workflow.class%" />
+        <service id="easy_task.type_workflow" class="%easy_task.type_workflow.class%" >
+            <argument type="service" id="event_dispatcher" />
+        </service>
 
         <!-- Workflow Node basic definition -->
         <service id="easy_task.type_node" class="%easy_task.type_node.class%">

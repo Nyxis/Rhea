@@ -19,7 +19,7 @@ parameters:
     database_driver:   mysql
     database_host:     localhost
     database_port:     ~
-    database_name:     easy_task
+    database_name:     what_you_want
     database_user:     root
     database_password: ~
 
@@ -30,6 +30,7 @@ Create database and build it
 ```
 php app/console propel:database:create --connection=default
 php app/console propel:build --insert-sql
+php app/console propel:fixtures:load
 ```
 
 

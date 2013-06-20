@@ -93,10 +93,10 @@ easy_task_workflow:
                 say_hello:
                     bootstrap: true
                     route:     demo_say_hello
-                    class:     "EasyTask\\Bundle\\DemoBundle\\Controller\\SayHelloNodeController"
+                    class:     EasyTask\Bundle\DemoBundle\Controller\SayHelloNodeController
                 answer_hello:
-                    route: demo_answer_hello
-                    class: "EasyTask\\Bundle\\DemoBundle\\Controller\\AnswerHelloNodeController"
+                    route:     demo_answer_hello
+                    class:     EasyTask\Bundle\DemoBundle\Controller\AnswerHelloNodeController
                 then_fight:
-                    route: demo_then_fight
-                    class: "EasyTask\\Bundle\\DemoBundle\\Controller\\ThenFightNodeController"
+                    route:     demo_then_fight
+                    class:     EasyTask\Bundle\DemoBundle\Controller\ThenFightNodeController

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="default" namespace="Extia\Bundle\ExtraWorkflowBundle\Model\Workflow">
+
+    <table name="task">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
+
+        <column name="workflow_node_id" type="INTEGER" required="true" description="workflow node fk" />
+        <foreign-key foreignTable="workflow_node" onDelete="cascade" onUpdate="cascade">
+            <reference local="workflow_node_id" foreign="id" />
+        </foreign-key>
+        <behavior name="delegate">
+            <parameter name="to" value="workflow_node" />
+        </behavior>
+
+        <column name="assigned_to" type="INTEGER" required="true" description="who have to handle this task" />
+        <foreign-key foreignTable="person" onDelete="setnull" onUpdate="cascade" phpName="UserAssigned" skipSql="true">
+            <reference local="assigned_to" foreign="id" />
+        </foreign-key>
+
+        <column name="workflow_created_by" type="INTEGER" required="true" description="user who create workflow" />
+        <foreign-key foreignTable="person" onDelete="setnull" onUpdate="cascade" phpName="UserCreatedWorkflow" skipSql="true">
+            <reference local="workflow_created_by" foreign="id" />
+        </foreign-key>
+
+        <column name="activation_date" type="TIMESTAMP" required="false" description="date on task have to be completed" />
+
+        <column name="user_target_id" type="INTEGER" required="false" description="user whos concerned by the task" />
+        <foreign-key foreignTable="person" onDelete="setnull" onUpdate="cascade" phpName="UserTarget" skipSql="true">
+            <reference local="user_target_id" foreign="id" />
+        </foreign-key>
+
+        <column name="data" type="LONGVARCHAR" required="false" description="json extra data for task" />
+
+        <behavior name="timestampable" />
+    </table>
+
+</database>

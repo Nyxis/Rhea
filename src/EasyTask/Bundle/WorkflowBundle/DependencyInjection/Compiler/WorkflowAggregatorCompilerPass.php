@@ -5,7 +5,6 @@ namespace EasyTask\Bundle\WorkflowBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 
 /**
  * compiler pass to catch all Workflow services under tag "easy_task.task_type"
@@ -36,7 +35,7 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
                 $wfService   = new Reference($wfServiceId);
             } else {
                 $wfServiceId = 'easy_task.type_workflow.'.$wfName;
-                $wfService   = new DefinitionDecorator('easy_task.type_workflow');
+                $wfService   = clone $container->getDefinition('easy_task.type_workflow');
 
                 $wfService->setClass(empty($wfConfig['class']) ?
                     $container->getParameter('easy_task.type_workflow.class') :
@@ -64,7 +63,7 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
                     $nodeServiceId = $nodeConfig['id'];
                     $nodeService   = new Reference($nodeConfig['id']);
                 } else {
-                    $nodeService   = new DefinitionDecorator('easy_task.type_node');
+                    $nodeService   = clone $container->getDefinition('easy_task.type_node');
                     $nodeServiceId = 'easy_task.type_node.'.$nodeName;
 
                     if (!empty($nodeConfig['class'])) {
@@ -76,7 +75,6 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
                 }
 
                 $nodeServiceDefinition = $container->getDefinition($nodeServiceId);
-                $nodeServiceDefinition->addMethodCall('setContainer', array(new Reference('service_container')));
                 $nodeServiceDefinition->addMethodCall('setName', array($nodeName));
 
                 if (!empty($nodeConfig['route'])) {

@@ -3,6 +3,7 @@
 namespace EasyTask\Bundle\WorkflowBundle\Workflow;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Type Node interface
@@ -26,8 +27,9 @@ interface TypeNodeControllerInterface
      * has to return a Response or null for redirecting on default
      *
      * @param  Workflow $workflow
+     * @param  Request  $request
      * @param  Pdo      $connection optionnal database connection used to create nodes
      * @return Response
      */
-    public function notify(Workflow $workflow, \Pdo $connection = null);
+    public function notify(Workflow $workflow, Request $request, \Pdo $connection = null);
 }

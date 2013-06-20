@@ -3,8 +3,12 @@
 namespace EasyTask\Bundle\WorkflowBundle\Workflow;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
+use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvent;
+use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvents;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * basic class for workflow type
@@ -13,15 +17,17 @@ use Symfony\Component\HttpFoundation\ParameterBag;
  */
 class TypeWorkflow implements TypeWorkflowInterface
 {
+    protected $eventDispatcher;
     protected $nodeBag;
     protected $bootstrapNode;
 
     /**
      * construct
      */
-    public function __construct()
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-        $this->nodeBag = new ParameterBag(array());
+        $this->eventDispatcher = $eventDispatcher;
+        $this->nodeBag         = new ParameterBag(array());
     }
 
     /**
@@ -51,8 +57,11 @@ class TypeWorkflow implements TypeWorkflowInterface
     /**
      * @see TypeWorkflowInterface::boot()
      */
-    public function boot(Workflow $workflow, \Pdo $connection = null)
+    public function boot(Workflow $workflow, Request $request, \Pdo $connection = null)
     {
-        return $this->nodeBag->get($this->bootstrapNode)->notify($workflow, $connection);
+        $wfEvent = new WorkflowEvent($workflow, $request, $connection);
+        $this->eventDispatcher->dispatch(WorkflowEvents::WF_BOOT, $wfEvent);
+
+        return $this->nodeBag->get($this->bootstrapNode)->notify($workflow, $request, $connection);
     }
 }

@@ -3,14 +3,14 @@
 namespace EasyTask\Bundle\WorkflowBundle\Workflow;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
+use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvent;
+use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvents;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * workflow aggregator
@@ -18,20 +18,15 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  */
 class Aggregator extends ParameterBag
 {
-    protected $securityContext;
-    protected $session;
-    protected $translator;
+    protected $eventDispatcher;
 
     /**
      * construct
-     * @param SecurityContextInterface $securityContext
-     * @param SessionInterface         $session
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(SecurityContextInterface $securityContext, SessionInterface $session, TranslatorInterface $translator)
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-        $this->securityContext = $securityContext;
-        $this->session         = $session;
-        $this->translator      = $translator;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -80,30 +75,28 @@ class Aggregator extends ParameterBag
      */
     public function handle(FormInterface $form, Request $request)
     {
-        if (!$this->securityContext->isGranted('ROLE_USER')) {
-            throw new \RuntimeException(sprintf('%s has not to be called without a firewall.', __METHOD__));
-        }
-
         $wf    = $form->getData();
         $isNew = $wf->isNew();
-
-        // injects connected user into task
-        $user = $this->securityContext->getToken()->getUser();
 
         $connection = \Propel::getConnection('default');
         $connection->beginTransaction();
 
         try {
-            $wf->setCreatedBy($user->getUsername());
             $wf->save($connection);
+
+            $workflowEvent = new WorkflowEvent($wf, $request, $connection);
 
             // edit case : nothing more to do
             if (!$isNew) {
+                $this->eventDispatcher->dispatch(WorkflowEvents::WF_EDIT, $workflowEvent);
+
                 return;
             }
 
+            $this->eventDispatcher->dispatch(WorkflowEvents::WF_CREATE, $workflowEvent);
+
             // boot workflow throught type service
-            $return = $this->get($wf->getType())->boot($wf, $connection);
+            $return = $this->get($wf->getType())->boot($wf, $request, $connection);
 
             $connection->commit();
 

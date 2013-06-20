@@ -43,13 +43,16 @@ class UserProvider implements UserProviderInterface
                 ->findOne();
             ;
 
+            if (empty($user)) {
+                throw new UsernameNotFoundException(sprintf('User "%s" not found or cannot be authenticated.', $username));
+            }
+
             return $user;
 
         } catch (\Exception $e) {
             throw $e;
         }
 
-        throw new UsernameNotFoundException(sprintf('User "%s" not found or cannot be authenticated.', $username));
     }
 
     /**

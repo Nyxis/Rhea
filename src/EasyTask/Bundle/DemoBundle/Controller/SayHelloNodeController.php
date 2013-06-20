@@ -2,7 +2,9 @@
 
 namespace EasyTask\Bundle\DemoBundle\Controller;
 
-use EasyTask\Bundle\WorkflowBundle\Workflow\TypeNodeController;
+use Extia\Bundle\ExtraWorkflowBundle\Workflow\TypeNodeController;
+
+// use EasyTask\Bundle\WorkflowBundle\Workflow\TypeNodeController;
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +24,7 @@ class SayHelloNodeController extends TypeNodeController
         if ($request->request->has('answer')) {
             $response = $this->get('workflows')
                 ->getNode($workflow, 'answer_hello')
-                ->notify($workflow);
+                ->notify($workflow, $request);
 
             if ($response instanceof Response) {
                 return $response;

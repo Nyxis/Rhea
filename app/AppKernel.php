@@ -27,14 +27,15 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
-            // EasyTask core bundles
-            new EasyTask\Bundle\LogBundle\EasyTaskLogBundle(),
-            new EasyTask\Bundle\WorkflowBundle\EasyTaskWorkflowBundle(),
-
-            new EasyTask\Bundle\DemoBundle\EasyTaskDemoBundle(),
-
-            // Extia bundles
+            // Lib bundles
             new Extia\Bundle\UserBundle\ExtiaUserBundle(),
+            new EasyTask\Bundle\LogBundle\EasyTaskLogBundle(),
+
+            // Workflow
+            new EasyTask\Bundle\WorkflowBundle\EasyTaskWorkflowBundle(),
+            new Extia\Bundle\ExtraWorkflowBundle\ExtiaExtraWorkflowBundle(),
+
+            // Display bundles
             new Extia\Bundle\TimelineBundle\ExtiaTimelineBundle(),
             new Extia\Bundle\SearchBundle\ExtiaSearchBundle(),
 
@@ -45,6 +46,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new EasyTask\Bundle\DemoBundle\EasyTaskDemoBundle();
         }
 
         return $bundles;
