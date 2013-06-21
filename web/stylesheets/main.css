@@ -1,0 +1,27 @@
+/* ---------------- */
+/* header           */
+/* ---------------- */
+
+.navbar {
+    margin:0px;
+}
+.navbar-inner {
+    border-radius: 0px;
+}
+
+/* ---------------- */
+/* menu bar         */
+/* ---------------- */
+nav#secondary {
+    width: 240px;
+}
+
+nav.main-nav > ul {
+    height: auto;
+    margin-bottom: 20px;
+    border-top: 1px solid #1D1E21;
+}
+
+.profile-menu {
+    height: 80px;
+}

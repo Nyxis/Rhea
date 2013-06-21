@@ -70,6 +70,17 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
 
+# Gravatar bundle
+ornicar_gravatar:
+    rating: g
+    size: 20
+    default: monsterid
+
+# Knp menu
+knp_menu:
+    twig:
+        template: MopaBootstrapBundle:Menu:menu.html.twig
+
 # Easy task
 easy_task_workflow:
     workflows:

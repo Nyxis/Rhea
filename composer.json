@@ -22,7 +22,8 @@
         "twitter/bootstrap": "dev-master",
         "knplabs/knp-menu-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
-        "mopa/bootstrap-bundle": "2.3.x-dev"
+        "mopa/bootstrap-bundle": "2.3.x-dev",
+        "ornicar/gravatar-bundle": "dev-master"
     },
     "repositories": [{
         "type": "package",

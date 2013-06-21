@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block top_nav %}
+<div class="container-fluid">
+    <div class="row-fluid search-button-bar-container">
+        <div class="span12">
+            <form>
+                <input type="text" placeholder="Search..." class="search">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modal %}
+<div id="new_task" class="black-box modal hide fade">
+    <div class="modal-header tab-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <span>{{ 'new_task'|trans }}</span>
+    </div>
+    {{ render(controller('EasyTaskWorkflowBundle:Workflow:form')) }}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+
+
+<a href="#new_task" class="btn box" role="button" data-toggle="modal">
+    <i class="icon-plus-sign"></i> {{ 'new_task_link' }}
+</a>
+
+
+<div class="tabbable black-box">
+    <div class="tab-header">
+        {{ 'tasks'|trans }}
+    </div>
+    <ul class="nav nav-tabs">
+        <li class=""><a data-toggle="tab" href="#past"><i class="icon-warning-sign"></i> {{ 'past_tasks'|trans }}</a></li>
+        <li class="active"><a data-toggle="tab" href="#today"><i class="icon-folder-open"></i> {{ 'today_tasks'|trans }}</a></li>
+        <li class=""><a data-toggle="tab" href="#next"><i class="icon-calendar"></i> {{ 'next_tasks'|trans }}</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="past" class="tab-pane padded">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+        <div id="today" class="tab-pane padded active"></div>
+        <div id="next" class="tab-pane padded"></div>
+    </div>
+</div>
+
+{% endblock %}

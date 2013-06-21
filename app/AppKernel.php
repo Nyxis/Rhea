@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
 
             // Lib bundles
             new Extia\Bundle\UserBundle\ExtiaUserBundle(),
