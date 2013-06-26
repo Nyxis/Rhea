@@ -6,7 +6,7 @@
 
     <!--
     <parameters>
-        <parameter key="extia_timeline.example.class">Extia\Bundle\TimelineBundle\Example</parameter>
+        <parameter key="extia_timeline.example.class">Extia\Bundle\DashboardBundle\Example</parameter>
     </parameters>
 
     <services>

@@ -1,0 +1,84 @@
+{% extends '::base.html.twig' %}
+
+{% block top_nav %}
+<div class="container-fluid">
+    <div class="row-fluid search-button-bar-container">
+        <div class="span12">
+            <form>
+                <input type="text" placeholder="Search..." class="search">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modal %}
+<div id="new_task" class="black-box modal hide fade">
+    <div class="modal-header tab-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <span>{{ 'new_task'|trans }}</span>
+    </div>
+    {{ render(controller('EasyTaskWorkflowBundle:Workflow:form')) }}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        <div style="margin-bottom: 20px;">
+            <div class="big-button-bar">
+                <a href="#new_task" class="button large" role="button" data-toggle="modal">
+                    <i class="icon-calendar"></i>
+                    <span>{{ 'new_task_link' }}</span>
+                </a>
+                <a href="#" class="button large">
+                    <i class="icon-code"></i>
+                    <span>{{ 'new_consultant_link' }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="tabbable black-box">
+            <div class="tab-header">
+                {{ 'tasks'|trans }}
+            </div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#past"><i class="icon-warning-sign"></i> {{ 'past_tasks'|trans }}</a></li>
+                <li class=""><a data-toggle="tab" href="#next"><i class="icon-calendar"></i> {{ 'next_tasks'|trans }}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="past" class="tab-pane active">
+                <ul class="">
+                    {% for i in 1..4 %}
+                    <li class="separator padded task">
+                        <div class="pull-right" style="margin-top:8px;">
+                            <img src="{{ gravatar('quentin.cerny@gmail.com', 30) }}">
+                            <span>Quentin Cerny</span>
+                        </div>
+
+                        <h4>Task {{ i }}</h4>
+
+                        <div class="task_desc">
+                            Description task1 <br>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua.
+                        </div>
+                        <div class="btn-group">
+                            <button class="button black"><i class="icon-pencil"></i> Détails</button>
+                            <button class="button black"><i class="icon-check"></i> Valider</button>
+                            <button class="button black"><i class="icon-remove"></i> Fermer</button>
+                            <button class="button black"><i class="icon-share"></i> Différer</button>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                </div>
+                <div id="next" class="tab-pane"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

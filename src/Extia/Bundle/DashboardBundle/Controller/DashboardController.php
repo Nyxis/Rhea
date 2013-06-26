@@ -1,6 +1,6 @@
 <?php
 
-namespace Extia\Bundle\TimelineBundle\Controller;
+namespace Extia\Bundle\DashboardBundle\Controller;
 
 use Extia\Bundle\UserBundle\Model\User\InternalQuery;
 
@@ -14,14 +14,14 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 /**
  * controller for timeline screens
  */
-class TimelineController extends Controller
+class DashboardController extends Controller
 {
     /**
      * prints user timeline
      * @param  Request  $request
      * @return Response
      */
-    public function userTimelineAction(Request $request)
+    public function userDashboardAction(Request $request)
     {
         if ($request->attributes->has('user_id')) {
             $user = InternalQuery::create()
@@ -50,7 +50,7 @@ class TimelineController extends Controller
             ));
         }
 
-        return $this->render('ExtiaTimelineBundle:Timeline:user_timeline.html.twig', array(
+        return $this->render('ExtiaDashboardBundle:Dashboard:user_dashboard.html.twig', array(
             'user' => $user
         ));
     }

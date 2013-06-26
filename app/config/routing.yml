@@ -15,12 +15,12 @@ EasyTaskWorkflowBundle_workflow:
 # ---------------------------------------
 # Timeline routing
 # ---------------------------------------
-ExtiaTimelineBundle:
-    resource: "@ExtiaTimelineBundle/Resources/config/routing.yml"
-    prefix:   /timeline
+ExtiaDashboardBundle:
+    resource: "@ExtiaDashboardBundle/Resources/config/routing.yml"
+    prefix:   /
 
 Rhea_homepage:
     pattern: /
     defaults:
-        _controller: ExtiaTimelineBundle:Timeline:userTimeline
+        _controller: ExtiaDashboardBundle:Dashboard:userDashboard
         _format: html

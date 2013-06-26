@@ -1,6 +1,6 @@
 <?php
 
-namespace Extia\Bundle\TimelineBundle\Tests\Controller;
+namespace Extia\Bundle\DashboardBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

@@ -69,7 +69,8 @@
         <section id="main">
             <div class="top-nav">{% block top_nav %}{% endblock %}</div>
             <div class="container-fluid">
-                {% block content %}
+            {% block content %}
+                {% block content_top %}{% endblock content_top %}
                 <div class="row-fluid">
                     <div class="span7">
                         {% block main %}{% endblock main %}
@@ -78,7 +79,7 @@
                         {% block sidebar %}{% endblock sidebar %}
                     </div>
                 </div>
-                {% endblock content %}
+            {% endblock content %}
             </div>
         </section>
 

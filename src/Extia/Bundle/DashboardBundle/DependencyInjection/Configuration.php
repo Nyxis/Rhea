@@ -1,6 +1,6 @@
 <?php
 
-namespace Extia\Bundle\TimelineBundle\DependencyInjection;
+namespace Extia\Bundle\DashboardBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

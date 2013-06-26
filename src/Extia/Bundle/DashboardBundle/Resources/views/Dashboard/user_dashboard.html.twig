@@ -1,0 +1,35 @@
+{% extends 'ExtiaDashboardBundle::dashboard_layout.html.twig' %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box">
+                <div class="tab-header">{{ 'today_tasks_header'|trans }}</div>
+                <ul class="">
+                    {% for i in 1..4 %}
+                    <li class="separator padded task">
+                        <div class="pull-right" style="margin-top:8px;">
+                            <img src="{{ gravatar('quentin.cerny@gmail.com', 30) }}">
+                            <span>Quentin Cerny</span>
+                        </div>
+
+                        <h4>Task {{ i }}</h4>
+
+                        <div class="task_desc">
+                            Description task1 <br>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua.
+                        </div>
+                        <div class="btn-group">
+                            <button class="button"><i class="icon-pencil"></i> Détails</button>
+                            <button class="button"><i class="icon-check"></i> Valider</button>
+                            <button class="button"><i class="icon-remove"></i> Fermer</button>
+                            <button class="button"><i class="icon-share"></i> Différer</button>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
