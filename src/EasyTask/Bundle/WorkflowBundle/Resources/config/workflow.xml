@@ -11,7 +11,6 @@
     </parameters>
 
     <services>
-
         <!-- Workflow Aggregator -->
         <service id="easy_task.workflows_container" class="%easy_task.workflows_container.class%" >
             <argument type="service" id="event_dispatcher" />

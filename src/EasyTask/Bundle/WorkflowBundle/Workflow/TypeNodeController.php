@@ -55,7 +55,7 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
             $oldNode = $workflow->getCurrentNode($connection);
 
             // hook method
-            $this->customNode($newNode, $oldNode, $request, $connection);
+            $this->onNodeCreation($newNode, $oldNode, $request, $connection);
 
             if (!empty($oldNode)) {
                 $newNode->setPrevId($oldNode->getId());
@@ -79,12 +79,20 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
             }
         }
 
-        $response = $this->endNotify($newNode, $request, $connection);
-        if ($response instanceof Response) { // custom response given
+        $this->endNotify($newNode, $request, $connection);
 
-            return $response;
-        }
+        return $this->renderNotify($newNode, $request);
+    }
 
+    /**
+     * renders response, by default redirects on next node
+     *
+     * @param  WorkflowNode  $node    new node
+     * @param  Request       $request
+     * @return Response|null
+     */
+    protected function renderNotify(WorkflowNode $node, Request $request)
+    {
         if (empty($this->routeNode)) {
             throw new \RuntimeException(sprintf('Without define "route" config on "%s" node, we cannot know where redirect on.
                 You have to define your own notify(), or endNotify() method into a custom controller using "class" key;
@@ -92,7 +100,7 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
         }
 
         return $this->redirect($this->get('router')->generate($this->routeNode, array(
-            'workflowId' => $workflow->getId()
+            'workflowId' => $node->getWorkflowId()
         )));
     }
 
@@ -105,7 +113,7 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
      * @param Request      $request
      * @param Pdo          $connection optionnal database connection used to create nodes
      */
-    protected function customNode(WorkflowNode $newNode, WorkflowNode $oldNode = null, Request $request, \Pdo $connection = null) { }
+    protected function onNodeCreation(WorkflowNode $newNode, WorkflowNode $oldNode = null, Request $request, \Pdo $connection = null) { }
 
     /**
      * hook method to handle post notification
@@ -119,7 +127,6 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
 
     /**
      * hook method to handle end notification
-     * if methods returns a Response, notify will return it, redirects on node route otherwise
      *
      * @param Workflow $workflow   current workflow
      * @param Request  $request
@@ -140,6 +147,7 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->filterByName($this->name)
             ->filterByWorkflowId($workflowId)
+            ->filterByCurrent(true)
             ->joinWith('Workflow')
             ->findOne($con);
 

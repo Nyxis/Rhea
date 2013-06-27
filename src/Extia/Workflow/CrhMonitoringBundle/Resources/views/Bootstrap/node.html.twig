@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box">
+                <div class="tab-header">{{ 'crh_monitoring_bootstrap_header'|trans }}</div>
+                <div class="padded">
+                    <form class="form-horizontal" {{ form_enctype(form) }} method="POST"
+                        action="{{ path('crh_monitoring_bootstrap', { 'workflowId': task.workflowNode.workflowId }) }}" >
+                        {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+                        {{ form_rest(form) }}
+                        <button type="submit" class="btn">{{ 'submit'|trans }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

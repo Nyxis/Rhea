@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyTask\Bundle\WorkflowBundle\Form;
+namespace EasyTask\Bundle\WorkflowBundle\Form\Type;
 
 use EasyTask\Bundle\WorkflowBundle\Workflow\Aggregator;
 

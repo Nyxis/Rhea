@@ -29,7 +29,7 @@ class TypeNodeController extends EasyTaskTypeNodeController
      * @param Task    $prevTask   (optionnal previous task)
      * @param Pdo     $connection optionnal database connection used to create nodes
      */
-    protected function bindOnNotify(Request $request, Task $nextTask, Task $prevTask = null, \Pdo $connection = null) { }
+    protected function onTaskCreation(Request $request, Task $nextTask, Task $prevTask = null, \Pdo $connection = null) { }
 
     /**
      * {@inherit_doc}
@@ -58,7 +58,7 @@ class TypeNodeController extends EasyTaskTypeNodeController
         $nextTask->setAssignedTo($workflowCreatedBy);
 
         // launch hook
-        $this->bindOnNotify($request, $nextTask, $prevTask, $connection);
+        $this->onTaskCreation($request, $nextTask, $prevTask, $connection);
 
         $nextTask->save($connection);
 
@@ -90,6 +90,7 @@ class TypeNodeController extends EasyTaskTypeNodeController
             ->useWorkflowNodeQuery()
                 ->filterByName($this->name)
                 ->filterByWorkflowId($workflowId)
+                ->filterByCurrent(true)
             ->endUse()
             ->joinWith('WorkflowNode')
             ->joinWith('WorkflowNode.Workflow')

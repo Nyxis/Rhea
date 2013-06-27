@@ -84,15 +84,16 @@ knp_menu:
 # Easy task
 easy_task_workflow:
     workflows:
-        demo:
+        # Crh Monitoring
+        crh_monitoring:
             nodes:
-                say_hello:
+                bootstrap:
                     bootstrap: true
-                    route:     demo_say_hello
-                    class:     EasyTask\Bundle\DemoBundle\Controller\SayHelloNodeController
-                answer_hello:
-                    route:     demo_answer_hello
-                    class:     EasyTask\Bundle\DemoBundle\Controller\AnswerHelloNodeController
-                then_fight:
-                    route:     demo_then_fight
-                    class:     EasyTask\Bundle\DemoBundle\Controller\ThenFightNodeController
+                    route:     crh_monitoring_bootstrap
+                    class:     Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController
+                appointement:
+                    route:     crh_monitoring_appointement
+                    class:     Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController
+                meeting:
+                    route:     crh_monitoring_meeting
+                    class:     Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController
