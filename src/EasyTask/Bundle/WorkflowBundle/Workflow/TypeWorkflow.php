@@ -47,6 +47,14 @@ class TypeWorkflow implements TypeWorkflowInterface
     }
 
     /**
+     * @see TypeWorkflowInterface::getNode()
+     */
+    public function getNodes()
+    {
+        return $this->nodeBag;
+    }
+
+    /**
      * @see TypeWorkflowInterface::setBootstrapNode()
      */
     public function setBootstrapNode($nodeName)

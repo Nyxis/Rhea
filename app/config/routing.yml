@@ -12,13 +12,9 @@ EasyTaskWorkflowBundle_workflow:
     resource: "@EasyTaskWorkflowBundle/Resources/config/routing/workflow.yml"
     prefix:   /workflow
 
-# ---------------------------------------
-# Workflows routing
-# ---------------------------------------
-ExtiaWorkflowCrhMonitoringBundle:
-    resource: "@ExtiaWorkflowCrhMonitoringBundle/Resources/config/routing.yml"
-    prefix:   /crh_monitoring
-
+EasyTaskWorkflowBundle_nodes:
+    resource: .
+    type: workflow_nodes
 
 # ---------------------------------------
 # Dashboard routing

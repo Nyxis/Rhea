@@ -41,7 +41,7 @@ class MeetingNodeHandler extends AbstractNodeHandler
         $task->save();
 
         // notify next node
-        $workflow = $task->getWorkflowNode()->getWorkflow();
+        $workflow = $task->getNode()->getWorkflow();
 
         return $this->workflows
             ->getNode($workflow, 'appointement')

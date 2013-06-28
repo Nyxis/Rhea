@@ -11,3 +11,6 @@
         {% endfor %}
     </ul>
 </div>
+{% for task in tasks %}
+    {% include 'ExtiaDashboardBundle:Task:task_modal.html.twig' with { 'task': task } only %}
+{% endfor %}

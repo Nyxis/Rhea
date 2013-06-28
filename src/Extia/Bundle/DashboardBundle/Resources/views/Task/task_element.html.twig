@@ -8,13 +8,13 @@
 
     <h4>
         <small>{{ task.activationDate|date('d/m/Y') }}</small><br />
-        {{ task.workflowNode.workflow.type }} - {{ task.workflowNode.name|trans }}
+        {{ task.node.workflow.type }} - {{ task.node.name|trans }}
     </h4>
 
     <div class="btn-group">
-        <button class="button"><i class="icon-comments-alt"></i> {{ 'history_link'|trans }}</button>
-        <button class="button"><i class="icon-ok"></i> {{ 'handle_link'|trans }}</button>
-        <button class="button"><i class="icon-refresh"></i> {{ 'differ_link'|trans }}</button>
-        <button class="button"><i class="icon-remove"></i> {{ 'close_link'|trans }}</button>
+        <a class="button"><i class="icon-comments-alt"></i> {{ 'history_link'|trans }}</a>
+        <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal"><i class="icon-ok"></i> {{ 'handle_link'|trans }}</a>
+        <a class="button"><i class="icon-refresh"></i> {{ 'differ_link'|trans }}</a>
+        <a class="button"><i class="icon-remove"></i> {{ 'close_link'|trans }}</a>
     </div>
 </li>

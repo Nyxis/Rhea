@@ -26,6 +26,12 @@ interface TypeWorkflowInterface
     public function getNode($nodeName);
 
     /**
+     * return all nodes
+     * @return ParameterBag
+     */
+    public function getNodes();
+
+    /**
      * called by DI, defines which node ah to be call in first place
      * @param string $nodeName
      */

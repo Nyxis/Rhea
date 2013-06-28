@@ -19,8 +19,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class TypeNodeController extends Controller implements TypeNodeControllerInterface
 {
-    protected $routeNode;
     protected $name;
+    protected $routeNode;
+    protected $actions;
 
     /**
      * @see TypeNodeControllerInterface:setRoute()
@@ -29,6 +30,13 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
     {
         $this->name = $name;
     }
+    /**
+     * @see TypeNodeControllerInterface:getName()
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * @see TypeNodeControllerInterface:setRoute()
@@ -36,6 +44,42 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
     public function setRoute($route)
     {
         $this->routeNode = $route;
+    }
+
+    /**
+     * @see TypeNodeControllerInterface:getRoute()
+     */
+    public function getRoute()
+    {
+        return $this->routeNode;
+    }
+
+    /**
+     * @see TypeNodeControllerInterface:registerActions()
+     */
+    public function registerActions(array $actions)
+    {
+        $this->actions = $actions;
+    }
+
+    /**
+     * @see TypeNodeControllerInterface:supportsAction()
+     */
+    public function supportsAction($actionName)
+    {
+        return !empty($this->actions[$actionName]);
+    }
+
+    /**
+     * @see TypeNodeControllerInterface:getAction()
+     */
+    public function getAction($actionName)
+    {
+        if (!$this->supportsAction($actionName)) {
+            throw new \InvalidArgumentException(sprintf('Given action is not supported by %s node.', $this->name))            ;
+        }
+
+        return $this->actions[$actionName];
     }
 
     /**

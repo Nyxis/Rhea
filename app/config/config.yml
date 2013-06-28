@@ -84,16 +84,37 @@ knp_menu:
 # Easy task
 easy_task_workflow:
     workflows:
+
         # Crh Monitoring
         crh_monitoring:
+            routes:
+                prefix: /crh_monitoring
             nodes:
                 bootstrap:
                     bootstrap: true
-                    route:     crh_monitoring_bootstrap
-                    class:     Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController
+                    route:
+                        pattern:      /bootstrap/{workflowId}
+                    controller:
+                        class:        Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController
+                        actions:
+                            node:     nodeAction
+                            modal:    nodeAction
+                            notify:   notificationAction
+
                 appointement:
-                    route:     crh_monitoring_appointement
-                    class:     Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController
+                    route:
+                        pattern: /appointement/{workflowId}
+
+                    controller:
+                        class:     Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController
+                        actions:
+                            node:     nodeAction
+
                 meeting:
-                    route:     crh_monitoring_meeting
-                    class:     Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController
+                    route:
+                        pattern: /meeting/{workflowId}
+
+                    controller:
+                        class:     Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController
+                        actions:
+                            node:     nodeAction

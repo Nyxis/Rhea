@@ -2,6 +2,8 @@
 
 namespace EasyTask\Bundle\WorkflowBundle\DependencyInjection\Compiler;
 
+use Symfony\Component\Routing\Route;
+
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
@@ -22,7 +24,8 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
             return;
         }
 
-        $wfContainer = $container->getDefinition('easy_task.workflows_container');
+        $wfContainer     = $container->getDefinition('easy_task.workflows_container');
+        $wfRoutingLoader = $container->getDefinition('easy_task_workflow.node_routing_loader');
 
         foreach ($wfConfigurations as $wfName => $wfConfig) {
             if (empty($wfConfig['nodes'])) {
@@ -30,16 +33,22 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
             }
 
             $wfService = null;
+
+            // provided a custom service
             if (!empty($wfConfig['id'])) {
                 $wfServiceId = $wfConfig['id'];
                 $wfService   = new Reference($wfServiceId);
-            } else {
+            }
+            // dynamic definition creation from default one
+            else {
                 $wfServiceId = 'easy_task.type_workflow.'.$wfName;
                 $wfService   = clone $container->getDefinition('easy_task.type_workflow');
 
-                $wfService->setClass(empty($wfConfig['class']) ?
-                    $container->getParameter('easy_task.type_workflow.class') :
-                    $wfConfig['class']);
+                $wfService->setClass(
+                    empty($wfConfig['class']) ?
+                        $container->getParameter('easy_task.type_workflow.class') :
+                        $wfConfig['class']
+                );
 
                 $container->setDefinition($wfServiceId, $wfService);
             }
@@ -49,45 +58,70 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
 
             // bootstrap node detection
             $nodeNames     = array_keys($wfConfig['nodes']);
-            $bootstrapNode = array_shift($nodeNames);
+            $bootstrapNode = array_shift($nodeNames); // first by default
 
             // all wf nodes
             foreach ($wfConfig['nodes'] as $nodeName => $nodeConfig) {
-                if (empty($nodeConfig['class']) && empty($nodeConfig['id'])) {
-                    throw new \InvalidArgumentException('You have to provide at least a service id or a class for node "'.$nodeName.'"');
+                if (empty($nodeConfig['controller']['class']) && empty($nodeConfig['controller']['id'])) {
+                    throw new \InvalidArgumentException('You have to provide at least a service id or a class for node controller "'.$nodeName.'"');
                 }
 
-                // class or id ?
-                $nodeService   = null;
-                if (!empty($nodeConfig['id'])) {
-                    $nodeServiceId = $nodeConfig['id'];
-                    $nodeService   = new Reference($nodeConfig['id']);
-                } else {
-                    $nodeService   = clone $container->getDefinition('easy_task.type_node');
-                    $nodeServiceId = 'easy_task.type_node.'.$nodeName;
+                $nodeController = null;
+                $nodeControllerConfig = $nodeConfig['controller'];
 
-                    if (!empty($nodeConfig['class'])) {
-                        $nodeService->setClass($nodeConfig['class']);
+                // provided a custom service
+                if (!empty($nodeControllerConfig['id'])) {
+                    $nodeControllerId = $nodeControllerConfig['id'];
+                    $nodeController   = new Reference($nodeControllerId);
+                }
+                // dynamic definition creation from default one
+                else {
+                    $nodeController   = clone $container->getDefinition('easy_task.type_node');
+                    $nodeControllerId = 'easy_task.type_node.'.$nodeName;
+
+                    if (!empty($nodeControllerConfig['class'])) {
+                        $nodeController->setClass($nodeControllerConfig['class']);
                     }
 
                     // create new service definition
-                    $container->setDefinition($nodeServiceId, $nodeService);
+                    $container->setDefinition($nodeControllerId, $nodeController);
                 }
 
-                $nodeServiceDefinition = $container->getDefinition($nodeServiceId);
-                $nodeServiceDefinition->addMethodCall('setName', array($nodeName));
+                $nodeControllerDefinition = $container->getDefinition($nodeControllerId);
 
-                if (!empty($nodeConfig['route'])) {
-                    $nodeServiceDefinition->addMethodCall('setRoute', array($nodeConfig['route']));
+                // set his name
+                $nodeControllerDefinition->addMethodCall('setName', array($nodeName));
+
+                // register actions
+                $actions = array();
+                foreach ($nodeControllerConfig['actions'] as $key => $action) {
+                    $actions[$key] = $nodeControllerId.':'.$action;
                 }
 
+                $nodeControllerDefinition->addMethodCall('registerActions', array($actions));
+
+                // routing
+                $nodeRouteConfig = array_replace_recursive(
+                    array('name' => sprintf('easy_task_%s_%s', $wfName, $nodeName)),
+                    $nodeConfig['route']
+                );
+
+                $wfRoutingLoader->addMethodCall('setNodeRouting', array(
+                    $wfName.'.'.$nodeName,
+                    $nodeRouteConfig,
+                    empty($wfConfig['routes']) ? array() : $wfConfig['routes']
+                ));
+
+                $nodeControllerDefinition->addMethodCall('setRoute', array($nodeRouteConfig['name']));
+
+                // first node detection
                 if (!empty($nodeConfig['bootstrap'])) {
                     $bootstrapNode = $nodeName;
                 }
 
                 // injects node into wf
                 $container->getDefinition($wfServiceId)
-                    ->addMethodCall('addNode', array($nodeName, $nodeService));
+                    ->addMethodCall('addNode', array($nodeName, $nodeController));
             }
 
             // injects bootstrap into wf

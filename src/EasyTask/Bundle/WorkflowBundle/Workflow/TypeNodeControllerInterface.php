@@ -17,10 +17,42 @@ interface TypeNodeControllerInterface
     public function setName($name);
 
     /**
-     * defines routes on which have to redirect on to execute state
+     * defines node routing
      * @param string $route
      */
     public function setRoute($route);
+
+    /**
+     * return node name
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * return routes on which have to redirect on to execute state
+     * @return string
+     */
+    public function getRoute();
+
+    /**
+     * defines supported actions on node controller
+     * @param array $actions
+     */
+    public function registerActions(array $actions);
+
+    /**
+     * tests if given action is supproted
+     * @param  string $actionName
+     * @return bool
+     */
+    public function supportsAction($actionName);
+
+    /**
+     * returns requested action if exists
+     * @param  string $actionName
+     * @return string
+     */
+    public function getAction($actionName);
 
     /**
      * methods which is call when the next() method has been called on a Worklow object

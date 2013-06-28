@@ -41,18 +41,19 @@ class Aggregator extends ParameterBag
     /**
      * return required node for given workflow
      *
-     * @param  Workflow                 $workflow
+     * @param  Workflow|string          $workflow
      * @param  string                   $nodeName
      * @return WorkflowNode
      * @throws RuntimeException         if given workflow type is unknown
      * @throws InvalidArgumentException if workflow does not support given node name
      */
-    public function getNode(Workflow $workflow, $nodeName)
+    public function getNode($workflow, $nodeName)
     {
-        $workflowType = $this->get($workflow->getType());
+        $wfTypeName = ($workflow instanceof Workflow) ? $workflow->getType(): $wfTypeName;
+        $workflowType = $this->get($wfTypeName);
         if (empty($workflowType)) {
             throw new \RuntimeException(sprintf('Given workflow has an unsupported type : "%s". Check your configuration.',
-                $workflow->getType()
+                $wfTypeName
             ));
         }
 

@@ -12,11 +12,11 @@ class TaskQuery extends BaseTaskQuery
      */
     public function joinWithCurrentNodes()
     {
-        return $this->useWorkflowNodeQuery()
+        return $this->useNodeQuery()
                 ->filterByCurrent(true)
                 ->filterByEnded(false)
             ->endUse()
-            ->joinWith('WorkflowNode')
-            ->joinWith('WorkflowNode.Workflow');
+            ->joinWith('Node')
+            ->joinWith('Node.Workflow');
     }
 }

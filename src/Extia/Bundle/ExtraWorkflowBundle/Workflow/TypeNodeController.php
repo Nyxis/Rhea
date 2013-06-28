@@ -41,7 +41,7 @@ class TypeNodeController extends EasyTaskTypeNodeController
         $prevTask = null;
 
         $nextTask = new Task();
-        $nextTask->setWorkflowNode($node);
+        $nextTask->setNode($node);
 
         if (!$node->isFirst()) {
             $prevTask = TaskQuery::create()
@@ -87,20 +87,20 @@ class TypeNodeController extends EasyTaskTypeNodeController
     {
         $this->currentTask = TaskQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->useWorkflowNodeQuery()
+            ->useNodeQuery()
                 ->filterByName($this->name)
                 ->filterByWorkflowId($workflowId)
                 ->filterByCurrent(true)
             ->endUse()
-            ->joinWith('WorkflowNode')
-            ->joinWith('WorkflowNode.Workflow')
+            ->joinWith('Node')
+            ->joinWith('Node.Workflow')
             ->findOne($con);
 
         if (empty($this->currentTask)) {
             throw new NotFoundHttpException(sprintf('Any %s workflow node found for given workflow id (%s given)', $this->name, $workflowId));
         }
 
-        return $this->currentTask->getWorkflowNode();
+        return $this->currentTask->getNode();
     }
 
 }

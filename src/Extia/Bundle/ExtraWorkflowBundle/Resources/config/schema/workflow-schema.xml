@@ -5,7 +5,7 @@
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
 
         <column name="workflow_node_id" type="INTEGER" required="true" description="workflow node fk" />
-        <foreign-key foreignTable="workflow_node" onDelete="cascade" onUpdate="cascade">
+        <foreign-key foreignTable="workflow_node" onDelete="cascade" onUpdate="cascade" phpName="Node" >
             <reference local="workflow_node_id" foreign="id" />
         </foreign-key>
         <behavior name="delegate">
