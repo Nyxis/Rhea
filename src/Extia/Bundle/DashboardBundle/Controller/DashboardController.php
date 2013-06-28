@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
- * controller for timeline screens
+ * controller for dashboard screens
  */
 class DashboardController extends Controller
 {

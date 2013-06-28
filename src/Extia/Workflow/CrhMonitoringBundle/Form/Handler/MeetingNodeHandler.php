@@ -28,29 +28,14 @@ class MeetingNodeHandler extends AbstractNodeHandler
         $data = $form->getData();
 
         // calculate next meeting date
-        $meetingDate   = $task->getActivationDate()->format('U');
-
-        $meetingMonth  = date('n', $meetingDate);
-        $nextAppPeriod = $data['next_meeting'];
-
-        // adds select month / year
-        $nextMeetingMonth = $meetingMonth + $nextAppPeriod;
-
-        $nextMeetingYear  = $nextMeetingMonth > 12 ? date('Y', $meetingDate) + 1 : date('Y', $meetingDate);
-        $nextMeetingMonth = $nextMeetingMonth > 12 ? $nextMeetingMonth - 12 : $nextMeetingMonth;
-
-        // recreate date
-        $nextMeetingTmstp = mktime(0, 0, 0,
-            $nextMeetingMonth,
-            date('j', $meetingDate),
-            $nextMeetingYear
+        $nextMeetingTmstp = $this->addMonths(
+            $task->getActivationDate()->format('U'), $data['next_meeting']
         );
 
-        // 7j for notification
-        $nextMeetingTmstp -= 7*24*3600;
-
         $task->setData(array(
-            'next_date' => $this->findNextWorkingDay($nextMeetingTmstp)
+            'next_date' => $this->findNextWorkingDay(
+                $this->removeDays($nextMeetingTmstp, 7)
+            )
         ));
 
         $task->save();

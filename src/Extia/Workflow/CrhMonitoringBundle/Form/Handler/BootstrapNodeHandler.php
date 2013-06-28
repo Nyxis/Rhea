@@ -32,7 +32,9 @@ class BootstrapNodeHandler extends AbstractNodeHandler
 
         $task->setData(array(
             // activate before given date for pre-notification
-            'next_date' => $this->findNextWorkingDay($data['next_date']-(7*24*3600))
+            'next_date' => $this->findNextWorkingDay(
+                $this->removeDays($data['next_date'], 7)
+            )
         ));
 
         $task->save();

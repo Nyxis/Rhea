@@ -26,10 +26,6 @@ class MeetingNodeController extends TypeNodeController
         $nextTask->setUserTargetId($prevTask->getUserTargetId());
 
         $oldData = $prevTask->getData();
-
-        var_dump($oldData);
-        var_dump($prevTask->getId());
-
         $nextTask->setActivationDate($oldData['meeting_date']);
 
         return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);

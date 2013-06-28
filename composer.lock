@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "077413ae021bccc578f55dd3d4606b13",
+    "hash": "172b6e00743094daae41fdbac81318f0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -218,12 +218,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "d658ec7a03f6475eff0dd1eb940bdedd862e4b96"
+                "reference": "c4255b9fbd63ee1fe52697839318af5937fced9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/d658ec7a03f6475eff0dd1eb940bdedd862e4b96",
-                "reference": "d658ec7a03f6475eff0dd1eb940bdedd862e4b96",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/c4255b9fbd63ee1fe52697839318af5937fced9b",
+                "reference": "c4255b9fbd63ee1fe52697839318af5937fced9b",
                 "shasum": ""
             },
             "require": {
@@ -269,7 +269,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -284,7 +284,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2013-06-10 18:20:01"
+            "time": "2013-06-21 12:11:28"
         },
         {
             "name": "doctrine/dbal",
@@ -550,12 +550,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "9787b27518bf4e4da1523ced6bfca74e98397907"
+                "reference": "0633aa54c84b69061c8c399f5afa551547527bed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/9787b27518bf4e4da1523ced6bfca74e98397907",
-                "reference": "9787b27518bf4e4da1523ced6bfca74e98397907",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/0633aa54c84b69061c8c399f5afa551547527bed",
+                "reference": "0633aa54c84b69061c8c399f5afa551547527bed",
                 "shasum": ""
             },
             "require": {
@@ -612,7 +612,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2013-05-26 07:27:03"
+            "time": "2013-06-25 17:36:05"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -670,12 +670,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jdorn/sql-formatter.git",
-                "reference": "3c7983d6d638233ea8e0e7705a3a8f3e4921ca75"
+                "reference": "d7f10fbb2f871155cdd91b077acebb378e10a95c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/3c7983d6d638233ea8e0e7705a3a8f3e4921ca75",
-                "reference": "3c7983d6d638233ea8e0e7705a3a8f3e4921ca75",
+                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/d7f10fbb2f871155cdd91b077acebb378e10a95c",
+                "reference": "d7f10fbb2f871155cdd91b077acebb378e10a95c",
                 "shasum": ""
             },
             "require": {
@@ -712,7 +712,7 @@
                 "highlight",
                 "sql"
             ],
-            "time": "2013-06-13 03:56:09"
+            "time": "2013-06-24 10:01:06"
         },
         {
             "name": "knplabs/knp-components",
@@ -781,12 +781,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpMenu.git",
-                "reference": "6e3d276aef1d621249c23e0321f9737b45dc5084"
+                "reference": "7baf621fb77867e49daca7dd72b443ea232cb5e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenu/zipball/6e3d276aef1d621249c23e0321f9737b45dc5084",
-                "reference": "6e3d276aef1d621249c23e0321f9737b45dc5084",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenu/zipball/7baf621fb77867e49daca7dd72b443ea232cb5e1",
+                "reference": "7baf621fb77867e49daca7dd72b443ea232cb5e1",
                 "shasum": ""
             },
             "require": {
@@ -823,7 +823,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "KnpLabs",
+                    "name": "Knplabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -837,7 +837,7 @@
                 "menu",
                 "tree"
             ],
-            "time": "2013-05-20 16:52:41"
+            "time": "2013-06-24 00:02:29"
         },
         {
             "name": "knplabs/knp-menu-bundle",
@@ -846,16 +846,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
-                "reference": "f090ba579745484f73e22877f0b59a6039645f65"
+                "reference": "d0e56732a963023c7d2e81652ce83648c48da49c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/f090ba579745484f73e22877f0b59a6039645f65",
-                "reference": "f090ba579745484f73e22877f0b59a6039645f65",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/d0e56732a963023c7d2e81652ce83648c48da49c",
+                "reference": "d0e56732a963023c7d2e81652ce83648c48da49c",
                 "shasum": ""
             },
             "require": {
-                "knplabs/knp-menu": "2.0.*",
+                "knplabs/knp-menu": ">=2.0-beta1,<2.1",
                 "symfony/framework-bundle": ">=2.0,<3.0"
             },
             "type": "symfony-bundle",
@@ -891,7 +891,7 @@
             "keywords": [
                 "menu"
             ],
-            "time": "2013-05-25 11:24:09"
+            "time": "2013-06-26 08:02:24"
         },
         {
             "name": "knplabs/knp-paginator-bundle",
@@ -1092,12 +1092,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "88947c29309817c7ce90e9dc96c90f729b2cbada"
+                "reference": "b3c27d90337eb0a7c709ab209b5e78e5625eba9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/88947c29309817c7ce90e9dc96c90f729b2cbada",
-                "reference": "88947c29309817c7ce90e9dc96c90f729b2cbada",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/b3c27d90337eb0a7c709ab209b5e78e5625eba9a",
+                "reference": "b3c27d90337eb0a7c709ab209b5e78e5625eba9a",
                 "shasum": ""
             },
             "require": {
@@ -1146,7 +1146,7 @@
                 "form",
                 "template"
             ],
-            "time": "2013-06-17 07:09:54"
+            "time": "2013-06-21 13:51:29"
         },
         {
             "name": "mopa/composer-bridge",
@@ -1460,12 +1460,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "v2.3.1"
+                "reference": "eead7d9d10988a07e2fb035e3fd134eb9a1aadb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/v2.3.1",
-                "reference": "v2.3.1",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/eead7d9d10988a07e2fb035e3fd134eb9a1aadb5",
+                "reference": "eead7d9d10988a07e2fb035e3fd134eb9a1aadb5",
                 "shasum": ""
             },
             "require": {
@@ -1497,7 +1497,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2013-05-30 16:15:25"
+            "time": "2013-06-24 20:16:45"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -1872,12 +1872,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "e01c6c22e8f990faaded81f9c9b1caf97ee54d52"
+                "reference": "b76a6fc72c7980d97af97aa73677311f2e145242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/e01c6c22e8f990faaded81f9c9b1caf97ee54d52",
-                "reference": "e01c6c22e8f990faaded81f9c9b1caf97ee54d52",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/b76a6fc72c7980d97af97aa73677311f2e145242",
+                "reference": "b76a6fc72c7980d97af97aa73677311f2e145242",
                 "shasum": ""
             },
             "require": {
@@ -1972,7 +1972,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-06-17 13:51:03"
+            "time": "2013-06-27 11:25:43"
         },
         {
             "name": "twig/extensions",
@@ -2027,12 +2027,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "6f753205834b511269a97fe35108bbd5c8d245f5"
+                "reference": "6f0753f0ff4047a870f57e7567446242b38b37ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6f753205834b511269a97fe35108bbd5c8d245f5",
-                "reference": "6f753205834b511269a97fe35108bbd5c8d245f5",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6f0753f0ff4047a870f57e7567446242b38b37ac",
+                "reference": "6f0753f0ff4047a870f57e7567446242b38b37ac",
                 "shasum": ""
             },
             "require": {
@@ -2051,7 +2051,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -2068,7 +2068,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-06-09 06:03:21"
+            "time": "2013-06-27 06:24:36"
         },
         {
             "name": "twitter/bootstrap",

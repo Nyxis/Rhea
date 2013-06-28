@@ -25,3 +25,13 @@ nav.main-nav > ul {
 .profile-menu {
     height: 80px;
 }
+
+/* ---------------- */
+/* tasks            */
+/* ---------------- */
+li.padded.task {
+    padding: 0px 20px 20px;
+}
+li.no-tasks {
+    padding: 5px 20px 5px 20px;
+}

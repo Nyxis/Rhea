@@ -1,0 +1,10 @@
+{% if tasks is not empty %}
+<div class="box past_tasks">
+    <div class="tab-header"><i class="icon-warning-sign"></i> {{ 'past_tasks_header'|trans }}</div>
+    <ul class="">
+        {% for task in tasks %}
+            {% include 'ExtiaDashboardBundle:Task:task_element.html.twig' with { 'task': task } only %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
