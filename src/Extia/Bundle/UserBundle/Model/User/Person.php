@@ -14,7 +14,7 @@ class Person extends BasePerson
     public function getLongName($sep = ' ')
     {
         return sprintf('%s%s%s',
-            $this->getLastname(), $sep, $this->getFirstname()
+            $this->getFirstname(), $sep, $this->getLastname()
         );
     }
 }

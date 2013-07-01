@@ -41,7 +41,7 @@ class WorkflowExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'node_link' => new \Twig_Function_Method($this, 'handleNodeLink', array('is_safe' => array('html'))),
+            'node_link'   => new \Twig_Function_Method($this, 'handleNodeLink', array('is_safe' => array('html')))
         );
     }
 
@@ -62,5 +62,4 @@ class WorkflowExtension extends \Twig_Extension
             )
         );
     }
-
 }

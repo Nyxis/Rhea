@@ -68,13 +68,24 @@ class TypeNodeController extends EasyTaskTypeNodeController
     /**
      * returns task and node for given id
      * @param  int                   $workflowId
+     * @param  Task                  $task       optionnal task, if given stored and returned
      * @param  Pdo                   $con        db connection
      * @return Task
      * @throws NotFoundHttpException If workflow not found
      */
-    public function findTask($workflowId, \Pdo $con = null)
+    public function findTask($workflowId, Task $task = null, \Pdo $con = null)
     {
-        $this->findWorkflowNode($workflowId, $con);
+        if (empty($workflowId) && empty($task)) {
+            throw new \InvalidArgumentException(sprintf('Not enough parameter given to %s() method, you have to provide at least a workflowId or an instanciate Task',
+                __METHOD__
+            ));
+        }
+
+        if ($task instanceof Task) {
+            $this->currentTask = $task;
+        } else {
+            $this->findWorkflowNode($workflowId, $con);
+        }
 
         return $this->currentTask;
     }
@@ -97,10 +108,33 @@ class TypeNodeController extends EasyTaskTypeNodeController
             ->findOne($con);
 
         if (empty($this->currentTask)) {
-            throw new NotFoundHttpException(sprintf('Any %s workflow node found for given workflow id (%s given)', $this->name, $workflowId));
+            throw new NotFoundHttpException(sprintf('Any active %s workflow node found for given workflow id (%s given)', $this->name, $workflowId));
         }
 
         return $this->currentTask->getNode();
+    }
+
+    /**
+     * redirect on given route, with a task notification using session flashbag system
+     * @param  string   $level  notification level (error, info, warning, success)
+     * @param  Task     $task   current task
+     * @param  string   $route
+     * @param  array    $params optionnal route params
+     * @return Response
+     */
+    public function redirectWithNodeNotification($level, Task $task, $route, $params = array())
+    {
+        $nodeType = $task->getNode()->getType();
+        if ($nodeType->supportsAction('notify')) {
+            $this->get('session')->getFlashbag()->add($level, array(
+                'controller' => $nodeType->getAction('notify'),
+                'params'     => array('taskId' => $task->getId())
+            ));
+        }
+
+        return $this->redirect(
+            $this->get('router')->generate($route, $params)
+        );
     }
 
 }

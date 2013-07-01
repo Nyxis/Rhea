@@ -50,6 +50,8 @@ class DashboardController extends Controller
             ));
         }
 
+        $this->get('session')->getFlashbag()->add('success', array('message' => 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestt esttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest'));
+
         return $this->render('ExtiaDashboardBundle:Dashboard:user_dashboard.html.twig', array(
             'user' => $user
         ));

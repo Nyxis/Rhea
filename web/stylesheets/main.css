@@ -27,6 +27,26 @@ nav.main-nav > ul {
 }
 
 /* ---------------- */
+/* notifications    */
+/* ---------------- */
+.notif_content > div {
+    display: inline-block;
+    margin: 10px 0px;
+}
+.notif_content p {
+    vertical-align: middle;
+}
+.notif_content > div:first-child p {
+    width: 50px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.notif_content > div:last-child {
+    width: 90%;
+}
+
+/* ---------------- */
 /* tasks            */
 /* ---------------- */
 li.padded.task {

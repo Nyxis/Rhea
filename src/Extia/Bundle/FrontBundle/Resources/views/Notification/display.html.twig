@@ -1,0 +1,38 @@
+<script type="text/html" id="template-notification">
+    <div class="notification animated fadeInLeftMiddle fast{{ '{{ item.itemClass }}' }}">
+        {{ '{{ item.text }}' }}
+        <i class="icon-remove-sign hide"></i>
+    </div>
+</script>
+<script type="text/html" id="template-notifications">
+    <div class="container">
+        <div class="row" id="notifications-wrapper">
+            <div id="notifications" class="{{ '{{ bootstrapPositionClass }}' }} notifications animated">
+                <div id="dismiss-all" class="dismiss-all button">Dismiss all</div>
+                <div id="content">
+                    <div id="notes"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        {% for type, notificationGroup in notifications %}
+            {% for notif in notificationGroup %}
+                {% if notif.controller is defined and notif.controller is not empty %}
+                    {% set notif = render(controller(notif.controller, notif.params)) %}
+                {% else %}
+                    {% set notif = notif.message|trans %}
+                {% endif %}
+
+                Notifications.push({
+                    "imagePath": 'placeholder',
+                    // "autoDismiss": 5,
+                    "text": '{% include 'ExtiaFrontBundle:Notification:' ~ type ~ '.html.twig' %}'
+                });
+            {% endfor %}
+        {% endfor %}
+    });
+</script>

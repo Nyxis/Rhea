@@ -63,7 +63,7 @@ Extia\Bundle\UserBundle\Model\User\Internal:
 
 Extia\Bundle\UserBundle\Model\User\Consultant:
     kevin:
-        email: kevin.arbouin@gmail.com
+        email: lesmyrmidons@gmail.com
         firstname: Kevin
         lastname: Arbouin
         password: <?php echo sha1('karbouin')."\n" ?>

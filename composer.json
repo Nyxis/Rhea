@@ -23,24 +23,15 @@
         "knplabs/knp-menu-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
         "mopa/bootstrap-bundle": "2.3.x-dev",
-        "ornicar/gravatar-bundle": "dev-master"
+        "ornicar/gravatar-bundle": "dev-master",
+        "glorpen/propel-bundle": "1.2.*"
     },
-    "repositories": [{
-        "type": "package",
-        "package": {
-            "version": "master",
-            "name": "twitter/bootstrap",
-            "source": {
-                "url": "https://github.com/twitter/bootstrap.git",
-                "type": "git",
-                "reference": "master"
-            },
-            "dist": {
-                "url": "https://github.com/twitter/bootstrap/zipball/master",
-                "type": "zip"
-            }
+    "repositories": {
+        "glorpen/propel-bundle": {
+            "type": "vcs",
+            "url": "https://github.com/glorpen/GlorpenPropelBundle.git"
         }
-    }],
+    },
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

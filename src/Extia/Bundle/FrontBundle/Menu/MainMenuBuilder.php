@@ -46,6 +46,9 @@ class MainMenuBuilder
         if ($options['icon-white']) {
             $child->setExtra('icon-white', $options['icon-white']);
         }
+        if (isset($options['current']) && !empty($options['current'])) {
+            $child->setCurrent(true);
+        }
 
         return $child;
     }
@@ -62,6 +65,7 @@ class MainMenuBuilder
         $this->addTbChild($menu, array(
             'label'      => 'dashboard',
             'route'      => 'Rhea_homepage',
+            'current'    => $request->attributes->has('task'),
             'icon'       => 'list-ul',
             'icon-white' => true
         ));

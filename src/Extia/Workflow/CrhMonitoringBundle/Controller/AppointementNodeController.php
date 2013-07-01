@@ -36,12 +36,40 @@ class AppointementNodeController extends TypeNodeController
      *
      * @param  Request  $request
      * @param  int      $workflowId
+     * @param  Task     $task
      * @return Response
      */
-    public function nodeAction(Request $request, $workflowId)
+    public function nodeAction(Request $request, $workflowId = null, Task $task = null)
+    {
+        return $this->executeNode($request, $workflowId, $task, 'ExtiaWorkflowCrhMonitoringBundle:Appointement:node.html.twig');
+    }
+
+    /**
+     * node action - execution of current node and renderer as a modal
+     *
+     * @param  Request  $request
+     * @param  int      $workflowId
+     * @param  Task     $task
+     * @return Response
+     */
+    public function modalAction(Request $request, $workflowId = null, Task $task = null)
+    {
+        return $this->executeNode($request, $workflowId, $task, 'ExtiaWorkflowCrhMonitoringBundle:Appointement:modal.html.twig');
+    }
+
+    /**
+     * execute current node
+     *
+     * @param  Request  $request    [description]
+     * @param  int      $workflowId [description]
+     * @param  Task     $task       [description]
+     * @param  string   $template   [description]
+     * @return Response
+     */
+    protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle:Appointement:node.html.twig')
     {
         $error = '';
-        $task  = $this->findTask($workflowId);
+        $task  = $this->findTask($workflowId, $task);
         $form  = $this->get('crh_monitoring.appointement.form');
 
         if ($request->request->has($form->getName())) {
@@ -49,14 +77,16 @@ class AppointementNodeController extends TypeNodeController
             $handler  = $this->get('crh_monitoring.appointement.handler');
             $response = $handler->handle($form, $request, $task);
 
-            if ($response instanceof Response) {
-                return $response;
+            // we dont use default redirect response : our tasks are asynchronous
+            // we redirect to dashboard with a message instead
+            if (!empty($response)) {
+                return $this->redirectWithNodeNotification('success', $task, 'Rhea_homepage');
             }
 
             $error = $handler->error;
         }
 
-        return $this->render('ExtiaWorkflowCrhMonitoringBundle:Appointement:node.html.twig', array(
+        return $this->render($template, array(
             'error' => $error,
             'task'  => $task,
             'form'  => $form->createView()

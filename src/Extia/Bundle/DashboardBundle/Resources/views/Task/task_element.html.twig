@@ -2,13 +2,14 @@
     {% if task.userTargetId %}
     <div class="pull-right" style="margin-top:8px;">
         <img src="{{ gravatar(task.userTarget.email, 30) }}">
-        <span>{{ task.userTarget.firstname }} {{ task.userTarget.lastname }}</span>
+        <span>{{ task.userTarget.longName }}</span>
     </div>
     {% endif %}
 
     <h4>
         <small>{{ task.activationDate|date('d/m/Y') }}</small><br />
-        {{ task.node.workflow.type }} - {{ task.node.name|trans }}
+        {{ task.node.workflow.title }} - {{ task.node.name|trans }}<br />
+        <small>{{ task.node.workflow.type }} {{ 'by'|trans }} {{ task.userCreatedWorkflow.longName }}</small>
     </h4>
 
     <div class="btn-group">

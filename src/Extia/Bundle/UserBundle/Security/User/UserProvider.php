@@ -33,13 +33,18 @@ class UserProvider implements UserProviderInterface
                     ->filterByEmail($username)
                 ->_endif()
 
-                // loads group
+                // loads group and credentials
                 ->joinWith('Group')
-                ->joinWith('Group.GroupI18n')
-                ->joinWith('Group.GroupCredential', \Criteria::LEFT_JOIN)
-                ->joinWith('Group.GroupCredential.Credential', \Criteria::LEFT_JOIN)
-                ->joinWith('Group.GroupCredential.Credential.CredentialI18n', \Criteria::LEFT_JOIN)
-
+                ->useGroupQuery('Group')
+                    ->joinWithI18n()
+                    ->joinWith('GroupCredential', \Criteria::LEFT_JOIN)
+                    ->useGroupCredentialQuery('GroupCredential', \Criteria::LEFT_JOIN)
+                        ->joinWith('Credential', \Criteria::LEFT_JOIN)
+                        ->useCredentialQuery('Credential', \Criteria::LEFT_JOIN)
+                            ->joinWithI18n()
+                        ->endUse()
+                    ->endUse()
+                ->endUse()
                 ->findOne();
             ;
 

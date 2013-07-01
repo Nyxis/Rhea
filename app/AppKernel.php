@@ -18,6 +18,7 @@ class AppKernel extends Kernel
 
             // Propel
             new Propel\PropelBundle\PropelBundle(),
+            new Glorpen\Propel\PropelBundle\GlorpenPropelBundle(),
 
             // Tools bundles
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),

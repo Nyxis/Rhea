@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "172b6e00743094daae41fdbac81318f0",
+    "hash": "ec20fba5bcf8f6c60c37a8fe844d7ad3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -218,12 +218,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "c4255b9fbd63ee1fe52697839318af5937fced9b"
+                "reference": "2.4.0-RC4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/c4255b9fbd63ee1fe52697839318af5937fced9b",
-                "reference": "c4255b9fbd63ee1fe52697839318af5937fced9b",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/2.4.0-RC4",
+                "reference": "2.4.0-RC4",
                 "shasum": ""
             },
             "require": {
@@ -269,9 +269,9 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -550,12 +550,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "0633aa54c84b69061c8c399f5afa551547527bed"
+                "reference": "de59307b8e8d689d7ca146feb52c62653e9b2b00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/0633aa54c84b69061c8c399f5afa551547527bed",
-                "reference": "0633aa54c84b69061c8c399f5afa551547527bed",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/de59307b8e8d689d7ca146feb52c62653e9b2b00",
+                "reference": "de59307b8e8d689d7ca146feb52c62653e9b2b00",
                 "shasum": ""
             },
             "require": {
@@ -612,7 +612,50 @@
                 "database",
                 "orm"
             ],
-            "time": "2013-06-25 17:36:05"
+            "time": "2013-06-30 08:43:27"
+        },
+        {
+            "name": "glorpen/propel-bundle",
+            "version": "v1.2.3",
+            "target-dir": "Glorpen/Propel/PropelBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/glorpen/GlorpenPropelBundle.git",
+                "reference": "v1.2.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/glorpen/GlorpenPropelBundle/zipball/v1.2.3",
+                "reference": "v1.2.3",
+                "shasum": ""
+            },
+            "require": {
+                "propel/propel-bundle": "1.*",
+                "symfony/symfony": "<3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Glorpen\\Propel\\PropelBundle": ""
+                }
+            },
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Arkadiusz Dzięgiel"
+                }
+            ],
+            "description": "Propel events and model extending for Symfony2.",
+            "support": {
+                "source": "https://github.com/glorpen/GlorpenPropelBundle/tree/v1.2.3",
+                "issues": "https://github.com/glorpen/GlorpenPropelBundle/issues"
+            },
+            "time": "2013-06-27 11:28:34"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1872,12 +1915,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "b76a6fc72c7980d97af97aa73677311f2e145242"
+                "reference": "80826aa480f4870da5eb051a7a1261cd393fa752"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/b76a6fc72c7980d97af97aa73677311f2e145242",
-                "reference": "b76a6fc72c7980d97af97aa73677311f2e145242",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/80826aa480f4870da5eb051a7a1261cd393fa752",
+                "reference": "80826aa480f4870da5eb051a7a1261cd393fa752",
                 "shasum": ""
             },
             "require": {
@@ -1972,7 +2015,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-06-27 11:25:43"
+            "time": "2013-06-30 18:39:17"
         },
         {
             "name": "twig/extensions",
@@ -2072,20 +2115,30 @@
         },
         {
             "name": "twitter/bootstrap",
-            "version": "master",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twitter/bootstrap.git",
-                "reference": "master"
+                "reference": "d991ef2ab1b4d156c7e5d33d052d66f8eaafc460"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/twitter/bootstrap/zipball/master",
-                "reference": null,
-                "shasum": null
+                "url": "https://api.github.com/repos/twitter/bootstrap/zipball/d991ef2ab1b4d156c7e5d33d052d66f8eaafc460",
+                "reference": "d991ef2ab1b4d156c7e5d33d052d66f8eaafc460",
+                "shasum": ""
             },
             "type": "library",
-            "time": "2013-05-17 17:26:09"
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
+            "homepage": "http://twitter.github.com/bootstrap/",
+            "keywords": [
+                "bootstrap",
+                "css"
+            ],
+            "time": "2013-06-20 19:11:39"
         }
     ],
     "packages-dev": [

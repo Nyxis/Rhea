@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: @GlorpenPropelBundle/Resources/config/config.yml }
 
 framework:
     #esi: ~
@@ -47,6 +48,8 @@ propel:
         propel.defaultTimeStampFormat: null
         propel.defaultTimeFormat: null
         propel.defaultDateFormat: null
+
+        propel.mysql.tableType: InnoDB
 
         propel.builder.pluralizer.class: builder.util.StandardEnglishPluralizer
 
@@ -98,7 +101,7 @@ easy_task_workflow:
                         class:        Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController
                         actions:
                             node:     nodeAction
-                            modal:    nodeAction
+                            modal:    modalAction
                             notify:   notificationAction
 
                 appointement:
@@ -109,6 +112,7 @@ easy_task_workflow:
                         class:     Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController
                         actions:
                             node:     nodeAction
+                            modal:    modalAction
 
                 meeting:
                     route:
@@ -118,3 +122,4 @@ easy_task_workflow:
                         class:     Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController
                         actions:
                             node:     nodeAction
+                            modal:    modalAction
