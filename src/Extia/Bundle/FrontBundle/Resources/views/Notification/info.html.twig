@@ -1,10 +1,9 @@
 {% spaceless %}
 <div class="notif_content">
-    <div class="text-info">
-        <p><i class="icon-info"></i></p>
-    </div>
-    <div class="">
-        <div class="inner">{{ notif }}</div>
+    <div class="picto text-info"><i class="icon-info"></i></div>
+    <div class="text">
+        <p class="notif-head text-info">{{ 'info_title'|trans }}</p>
+        <p>{{ notif }}</p>
     </div>
 </div>
 {% endspaceless %}

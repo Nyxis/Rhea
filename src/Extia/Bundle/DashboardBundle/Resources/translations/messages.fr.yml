@@ -1,0 +1,22 @@
+# buttons
+new_task_link: Nouvelle tâche
+new_consultant_link: Nouveau consultant
+
+today_tasks_header: Tâches d'aujourd'hui
+today_no_task_congrats: Félicitations !
+today_no_tasks_text: Il ne reste plus aucune tâche à traiter aujourd'hui
+
+next_tasks_header: Prochaines tâches
+
+past_tasks_header: Tâches en retard
+
+history_link: Commentaires
+handle_link: Traiter
+differ_link: Différer
+close_link: Fermer
+
+new_task: Nouvelle tâche
+Title: Titre
+Description: Description
+workflow_submit: Créer la tâche
+workflow_cancel: Annuler

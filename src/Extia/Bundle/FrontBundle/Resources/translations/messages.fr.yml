@@ -1,0 +1,15 @@
+# notifications
+success_title: Opération effectuée
+info_title: Information
+warning_title: Attention
+error_title: Erreur
+
+# menu
+dashboard: Tableau de bord
+recent_activity: Activité récente
+consultants: Consultants
+managers: Managers
+crh: CRH
+
+# profile
+logout_link: Déconnexion

@@ -5,8 +5,8 @@
             {% include 'ExtiaDashboardBundle:Task:task_element.html.twig' with { 'task': task } only %}
         {% else %}
         <li class="no-tasks">
-            <h4 class="text-success"><i class="icon-ok"></i> {{ 'today_no_task_congrats' }}</h4>
-            <p><em>{{ 'today_no_tasks_text' }}</em></p>
+            <h4 class="text-success"><i class="icon-ok"></i> {{ 'today_no_task_congrats'|trans }}</h4>
+            <p><em>{{ 'today_no_tasks_text'|trans }}</em></p>
         </li>
         {% endfor %}
     </ul>

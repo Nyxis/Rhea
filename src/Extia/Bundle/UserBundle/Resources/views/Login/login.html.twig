@@ -1,26 +1,33 @@
-<html>
-    <head>
-        <title>Rhea >> Authentification</title>
-    </head>
-    <body>
-        <div>
-            <legend>Rhea >> {{ 'login_box_title'|trans }} </legend>
+{% extends '::base.html.twig' %}
 
-            {% if error %}
-            <div class="alert alert-error">
-                <a class="close" data-dismiss="alert" href="#">×</a>{{ error.message }}
+{% block body %}
+<body class="login">
+    <div class="container">
+        <div class="login-wrapper" style="margin-top: 120px">
+            <div style="text-align: center">
+                <h1 class="logo-icon" style="font-size: 75px;">
+                    <i class="icon-group"></i> Rhea
+                </h1>
+                <br><br>
             </div>
-            {% endif %}
 
-            <form method="POST" action="{{ path('easy_task_login_check') }}" accept-charset="UTF-8">
-                <input type="text" id="_username" class="span4" name="_username" placeholder="{{ 'username_label'|trans }}">
-                <input type="password" id="_password" class="span4" name="_password" placeholder="{{ 'password_label'|trans }}">
-                <label class="checkbox">
-                    <input type="checkbox" name="remember" value="1"> {{ 'remember_me_label'|trans }}
-                </label>
-                <br>
-                <button type="submit" name="submit" class="btn btn-primary btn-block">{{ 'login_button'|trans }}</button>
-            </form>
+            <div id="login-manager">
+                <div id="login" class="login-wrapper animated">
+                    <form action="{{ path('easy_task_login_check') }}" method="POST" >
+                        {% if error %}
+                        <div class="alert alert-error">
+                            <a class="close" data-dismiss="alert" href="#">×</a>{{ error.message }}
+                        </div>
+                        {% endif %}
+                        <div class="input-group">
+                            <input type="text" id="_username" class="input-transparent" name="_username" placeholder="{{ 'username_label'|trans }}">
+                            <input type="password" id="_password" class="input-transparent" name="_password" placeholder="{{ 'password_label'|trans }}">
+                        </div>
+                        <button id="login-submit" type="submit" class="login-button">{{ 'login_button'|trans }}</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </body>
-</html>
+    </div>
+</body>
+{% endblock %}

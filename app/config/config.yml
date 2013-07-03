@@ -84,6 +84,11 @@ knp_menu:
     twig:
         template: MopaBootstrapBundle:Menu:menu.html.twig
 
+# Mopa
+mopa_bootstrap:
+    form:
+        render_optional_text: false
+
 # Easy task
 easy_task_workflow:
     workflows:

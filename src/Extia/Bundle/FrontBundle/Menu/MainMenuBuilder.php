@@ -82,7 +82,7 @@ class MainMenuBuilder
         $this->addTbChild($menu, array(
             'label'      => 'consultants',
             'uri'        => '#',
-            'icon'       => 'code',
+            'icon'       => 'bug',
             'icon-white' => true
         ));
 

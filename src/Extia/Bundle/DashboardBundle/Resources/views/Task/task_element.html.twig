@@ -8,8 +8,8 @@
 
     <h4>
         <small>{{ task.activationDate|date('d/m/Y') }}</small><br />
-        {{ task.node.workflow.title }} - {{ task.node.name|trans }}<br />
-        <small>{{ task.node.workflow.type }} {{ 'by'|trans }} {{ task.userCreatedWorkflow.longName }}</small>
+        {{ task.node.workflow.title|capitalize }} - {{ task.node.name|trans }}<br />
+        <small>{{ task.node.workflow.type|trans }} {{ 'by'|trans }} {{ task.userCreatedWorkflow.longName }}</small>
     </h4>
 
     <div class="btn-group">

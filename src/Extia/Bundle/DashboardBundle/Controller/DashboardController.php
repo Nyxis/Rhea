@@ -50,8 +50,10 @@ class DashboardController extends Controller
             ));
         }
 
-        $this->get('session')->getFlashbag()->add('success', array('message' => 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestt esttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest'));
-
+        // $this->get('session')->getFlashbag()->add('info', array('message' => 'testtesttesttesttesttest testtesttesttesttestte sttesttesttesttesttesttes ttesttesttesttesttesttesttes ttesttesttesttesttesttesttes ttesttesttesttesttestt esttes ttesttesttesttesttestt esttesttesttest testtesttesttesttes ttesttesttestt esttesttesttesttesttesttest'));
+        // $this->get('session')->getFlashbag()->add('success', array('message' => 'testtesttesttesttesttest testtesttesttesttestte sttesttesttesttesttesttes ttesttesttesttesttesttesttes ttesttesttesttesttesttesttes ttesttesttesttesttestt esttes ttesttesttesttesttestt esttesttesttest testtesttesttesttes ttesttesttestt esttesttesttesttesttesttest'));
+        // $this->get('session')->getFlashbag()->add('warning', array('message' => 'testtesttesttesttesttest testtesttesttesttestte sttesttesttesttesttesttes ttesttesttesttesttesttesttes ttesttesttesttesttesttesttes ttesttesttesttesttestt esttes ttesttesttesttesttestt esttesttesttest testtesttesttesttes ttesttesttestt esttesttesttesttesttesttest'));
+        // $this->get('session')->getFlashbag()->add('error', array('message' => 'testtesttesttesttesttest testtesttesttesttestte sttesttesttesttesttesttes ttesttesttesttesttesttesttes ttesttesttesttesttesttesttes ttesttesttesttesttestt esttes ttesttesttesttesttestt esttesttesttest testtesttesttesttes ttesttesttestt esttesttesttesttesttesttest'));
         return $this->render('ExtiaDashboardBundle:Dashboard:user_dashboard.html.twig', array(
             'user' => $user
         ));

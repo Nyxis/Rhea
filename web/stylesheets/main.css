@@ -23,27 +23,49 @@ nav.main-nav > ul {
 }
 
 .profile-menu {
-    height: 80px;
+    height: auto;
+}
+.profile-menu .tabular > div {
+    padding: 5px 10px;
+}
+.profile-menu .tabular > div, .profile-menu .tabular p.avatar{
+    display: table-cell;
+    vertical-align: middle;
+}
+.profile-menu .user_actions {
+    float: right;
+    margin-top: 9px;
 }
 
 /* ---------------- */
 /* notifications    */
 /* ---------------- */
-.notif_content > div {
-    display: inline-block;
-    margin: 10px 0px;
-}
-.notif_content p {
-    vertical-align: middle;
-}
-.notif_content > div:first-child p {
-    width: 50px;
-    font-size: 25px;
-    text-align: center;
-}
 
-.notif_content > div:last-child {
-    width: 90%;
+.notif_content {
+    width: 100%;
+}
+.notif_content > div {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 15px;
+}
+.notif_content .picto {
+    min-width: 50px;
+    max-width: 50px;
+    font-size: 30px;
+    text-align: center;
+    padding-right: 0px;
+}
+.notif_content .text {
+    text-align: left;
+    padding-right: 20px;
+}
+.notif_content p{
+    margin: 0px;
+}
+.notif_content .notif-head{
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 /* ---------------- */

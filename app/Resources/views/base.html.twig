@@ -34,24 +34,13 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
     </head>
+    {% block body %}
     <body>
         {% block modal %}{% endblock %}
         <div class="navbar navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
                     <a href="{{ path('Rhea_homepage') }}" class="brand">Rhea</a>
-                    <div class="pull-right">
-                        <ul class="nav pull-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="{{ gravatar(app.user.email) }}"> {{ app.user.longName }} <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path('easy_task_logout') }}"><i class="icon-off"></i>{{ 'logout_link'|trans }}</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -60,13 +49,19 @@
             {# user profile #}
             <ul>
                 <li class="profile-menu">
-                    <div class="row-fluid">
-                        <div class="span4">
-                            <div class="avatar"><img src="{{ gravatar(app.user.email, 48) }}"></div>
+                    <div class="tabular">
+                        <div>
+                            <p class="avatar"><img src="{{ gravatar(app.user.email, 50) }}"></p>
                         </div>
-                        <div class="span8">
+                        <div class="profile">
+                            <div class="btn-group user_actions">
+                                <button data-toggle="dropdown" class="button mini inset black dropdown-toggle"><i class="icon-cog"></i></button>
+                                <ul class="dropdown-menu black-box-dropdown">
+                                    <li><a href="{{ path('easy_task_logout') }}"><i class="icon-off"></i>{{ 'logout_link'|trans }}</a></li>
+                                </ul>
+                            </div>
                             <div class="title">{{ app.user.longName }}</div>
-                            <p style="color: #FFFFFF; width:">{{ app.user.group.label|capitalize }}</p>
+                            <p style="color: #FFFFFF;">{{ app.user.group.label|capitalize }}</p>
                         </div>
                     </div>
                 </li>
@@ -100,4 +95,5 @@
             {{ render(controller('ExtiaFrontBundle:Notification:display')) }}
         {% endblock %}
     </body>
+    {% endblock %}
 </html>
