@@ -24,9 +24,8 @@ class AppointementNodeController extends TypeNodeController
     protected function onTaskCreation(Request $request, Task $nextTask, Task $prevTask = null, \Pdo $connection = null)
     {
         $nextTask->setUserTargetId($prevTask->getUserTargetId());
-
-        $oldData = $prevTask->getData();
-        $nextTask->setActivationDate($oldData['next_date']);
+        $nextTask->setActivationDate($prevTask->data()->get('notif_date'));
+        $nextTask->data()->set('meeting_date', $prevTask->data()->get('meeting_date'));
 
         return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);
     }
@@ -74,17 +73,19 @@ class AppointementNodeController extends TypeNodeController
     /**
      * execute current node
      *
-     * @param  Request  $request    [description]
-     * @param  int      $workflowId [description]
-     * @param  Task     $task       [description]
-     * @param  string   $template   [description]
+     * @param  Request  $request
+     * @param  int      $workflowId
+     * @param  Task     $task
+     * @param  string   $template
      * @return Response
      */
     protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle:Appointement:node.html.twig')
     {
         $error = '';
         $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
-        $form  = $this->get('crh_monitoring.appointement.form');
+        $form  = $this->get('crh_monitoring.appointement.form')->setData(array(
+            'meeting_date' => $task->data()->get('meeting_date')
+        ));
 
         if ($request->request->has($form->getName())) {
 

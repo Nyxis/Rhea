@@ -32,11 +32,8 @@ class MeetingNodeHandler extends AbstractNodeHandler
             $task->getActivationDate()->format('U'), $data['next_meeting']
         );
 
-        $task->setData(array(
-            'next_date' => $this->findNextWorkingDay(
-                $this->removeDays($nextMeetingTmstp, 7)
-            )
-        ));
+        $task->data()->set('meeting_date', $this->findNextWorkingDay($nextMeetingTmstp));
+        $task->data()->set('notif_date', $this->findNextWorkingDay($this->removeDays($nextMeetingTmstp, 7)));
 
         $task->save();
 

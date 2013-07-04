@@ -27,10 +27,8 @@ class AppointementNodeHandler extends AbstractNodeHandler
         // updates task with incomming data
         $data = $form->getData();
 
-        $task->setData(array(
-            // activate before given date for pre-notification
-            'meeting_date' => $this->findNextWorkingDay($data['meeting_date'])
-        ));
+        // activate before given date for pre-notification
+        $task->data()->set('meeting_date', $this->findNextWorkingDay($data['meeting_date']));
 
         $task->save();
 

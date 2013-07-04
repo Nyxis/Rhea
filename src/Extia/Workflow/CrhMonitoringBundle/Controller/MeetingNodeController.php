@@ -24,9 +24,7 @@ class MeetingNodeController extends TypeNodeController
     protected function onTaskCreation(Request $request, Task $nextTask, Task $prevTask = null, \Pdo $connection = null)
     {
         $nextTask->setUserTargetId($prevTask->getUserTargetId());
-
-        $oldData = $prevTask->getData();
-        $nextTask->setActivationDate($oldData['meeting_date']);
+        $nextTask->setActivationDate($prevTask->data()->get('meeting_date'));
 
         return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);
     }

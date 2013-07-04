@@ -67,6 +67,7 @@ Extia\Bundle\UserBundle\Model\User\Consultant:
         firstname: Kevin
         lastname: Arbouin
         password: <?php echo sha1('karbouin')."\n" ?>
+        mobile: "0600000000"
         GroupId: consultant
         CrhId: pauline
         treeLeft: 3

@@ -30,12 +30,9 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         $task->setUserTargetId($data['user_target_id']);
         $task->setActivationDate(strtotime(date('Y-m-d')));
 
-        $task->setData(array(
-            // activate before given date for pre-notification
-            'next_date' => $this->findNextWorkingDay(
-                $this->removeDays($data['next_date'], 7)
-            )
-        ));
+        // activate before given date for pre-notification
+        $task->data()->set('meeting_date', $this->findNextWorkingDay($data['next_date']));
+        $task->data()->set('notif_date', $this->findNextWorkingDay($this->removeDays($data['next_date'], 7)));
 
         $task->save();
 

@@ -1,1 +1,1 @@
-{{ 'crh_bootstrap_notification'|trans({ '%clt%': task.userTarget.longName, '%notif_date%': task.data.next_date|date('d/m') }) }}
+{{ 'crh_bootstrap_notification'|trans({ '%clt%': task.userTarget.longName, '%notif_date%': task.data.get('notif_date')|date('d/m') }) }}

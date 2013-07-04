@@ -43,13 +43,5 @@ class WorkflowType extends AbstractType
             'expanded' => false,
             'required' => true
         ));
-
-        $builder->add('title', 'text', array(
-            'required' => true
-        ));
-
-        $builder->add('description', 'textarea', array(
-            'required' => false
-        ));
     }
 }

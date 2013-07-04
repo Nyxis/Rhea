@@ -8,7 +8,7 @@
 
     <h4>
         <small>{{ task.activationDate|date('d/m/Y') }}</small><br />
-        {{ task.node.workflow.title|capitalize }} - {{ task.node.name|trans }}<br />
+        {{ task.node.name|trans }}<br />
         <small>{{ task.node.workflow.type|trans }} {{ 'by'|trans }} {{ task.userCreatedWorkflow.longName }}</small>
     </h4>
 
