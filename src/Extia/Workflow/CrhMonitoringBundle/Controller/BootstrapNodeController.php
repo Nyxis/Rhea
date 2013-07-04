@@ -3,7 +3,6 @@
 namespace Extia\Workflow\CrhMonitoringBundle\Controller;
 
 use Extia\Bundle\ExtraWorkflowBundle\Model\Workflow\Task;
-use Extia\Bundle\ExtraWorkflowBundle\Model\Workflow\TaskQuery;
 use Extia\Bundle\ExtraWorkflowBundle\Workflow\TypeNodeController;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
@@ -52,21 +51,8 @@ class BootstrapNodeController extends TypeNodeController
      */
     public function notificationAction(Request $request, $taskId)
     {
-        $task = TaskQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Node')
-            ->joinWith('Node.Workflow')
-            ->joinWith('UserTarget')
-            ->findPk($taskId);
-
-        if (empty($task)) {
-            throw new \InvalidArgumentException(sprintf('Any task found for given id. "%s" given',
-                $taskId
-            ));
-        }
-
         return $this->render('ExtiaWorkflowCrhMonitoringBundle:Bootstrap:notification.html.twig', array(
-            'task'  => $task
+            'task' => $this->findTask($taskId)
         ));
     }
 
@@ -82,7 +68,7 @@ class BootstrapNodeController extends TypeNodeController
     protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle:Bootstrap:node.html.twig')
     {
         $error = '';
-        $task  = $this->findTask($workflowId, $task);
+        $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
         $form  = $this->get('crh_monitoring.bootstrap.form');
 
         if ($request->request->has($form->getName())) {

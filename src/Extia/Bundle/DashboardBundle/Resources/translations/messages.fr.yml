@@ -10,8 +10,9 @@ next_tasks_header: Prochaines tâches
 
 past_tasks_header: Tâches en retard
 
+by: créé par
 history_link: Commentaires
-handle_link: Traiter
+handle_link: Détails
 differ_link: Différer
 close_link: Fermer
 
@@ -20,3 +21,4 @@ Title: Titre
 Description: Description
 workflow_submit: Créer la tâche
 workflow_cancel: Annuler
+task_submit: Sauvegarder

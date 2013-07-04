@@ -23,10 +23,10 @@ class NotificationController extends Controller
 
         return $this->render('ExtiaFrontBundle:Notification:display.html.twig', array(
             'notifications' => array(
-                'error'   => $flashBags->get('error'),
-                'warning' => $flashBags->get('warning'),
-                'info'    => $flashBags->get('info'),
-                'success' => $flashBags->get('success')
+                'error'   => array('messages' => $flashBags->get('error'),   'icon' => 'bolt'),
+                'warning' => array('messages' => $flashBags->get('warning'), 'icon' => 'warning-sign'),
+                'info'    => array('messages' => $flashBags->get('info'),    'icon' => 'info'),
+                'success' => array('messages' => $flashBags->get('success'), 'icon' => 'ok')
             )
         ));
     }

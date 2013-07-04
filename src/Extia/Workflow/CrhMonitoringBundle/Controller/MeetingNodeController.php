@@ -58,6 +58,20 @@ class MeetingNodeController extends TypeNodeController
     }
 
     /**
+     * notification action - renders state of this node for notification
+     *
+     * @param  Request  $request
+     * @param  int      $workflowId
+     * @return Response
+     */
+    public function notificationAction(Request $request, $taskId)
+    {
+        return $this->render('ExtiaWorkflowCrhMonitoringBundle:Meeting:notification.html.twig', array(
+            'task' => $this->findTask($taskId)
+        ));
+    }
+
+    /**
      * execute current node
      *
      * @param  Request  $request    [description]
@@ -69,7 +83,7 @@ class MeetingNodeController extends TypeNodeController
     protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle:Meeting:node.html.twig')
     {
         $error = '';
-        $task  = $this->findTask($workflowId, $task);
+        $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
         $form  = $this->get('crh_monitoring.meeting.form');
 
         if ($request->request->has($form->getName())) {

@@ -77,3 +77,28 @@ li.padded.task {
 li.no-tasks {
     padding: 5px 20px 5px 20px;
 }
+.modal .task-data {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    padding: 20px;
+}
+.modal .task-data .head {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ---------------- */
+/* forms            */
+/* ---------------- */
+label.required:after{
+    content:" *";
+    position:relative;
+}
+#bootstrap_form_next_date_control_group .controls,
+#meeting_form_next_meeting_control_group .controls {
+    margin-top: 10px;
+}
+#appointement_form_meeting_date input {
+    margin: 3px 3px;
+}

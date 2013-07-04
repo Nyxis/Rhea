@@ -13,3 +13,6 @@ crh: CRH
 
 # profile
 logout_link: Déconnexion
+
+# modals
+modal_close: Fermer

@@ -66,6 +66,30 @@ class TypeNodeController extends EasyTaskTypeNodeController
     }
 
     /**
+     * find requested task by it's id
+     * @param  int                   $taskId
+     * @return Task
+     * @throws NotFoundHttpException if task not found
+     */
+    public function findTask($taskId)
+    {
+        $task = TaskQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->joinWith('Node')
+            ->joinWith('Node.Workflow')
+            ->joinWith('UserTarget')
+            ->findPk($taskId);
+
+        if (empty($task)) {
+            throw new \InvalidArgumentException(sprintf('Any task found for given id. "%s" given',
+                $taskId
+            ));
+        }
+
+        return $task;
+    }
+
+    /**
      * returns task and node for given id
      * @param  int                   $workflowId
      * @param  Task                  $task       optionnal task, if given stored and returned
@@ -73,7 +97,7 @@ class TypeNodeController extends EasyTaskTypeNodeController
      * @return Task
      * @throws NotFoundHttpException If workflow not found
      */
-    public function findTask($workflowId, Task $task = null, \Pdo $con = null)
+    public function findCurrentTaskByWorkflowId($workflowId, Task $task = null, \Pdo $con = null)
     {
         if (empty($workflowId) && empty($task)) {
             throw new \InvalidArgumentException(sprintf('Not enough parameter given to %s() method, you have to provide at least a workflowId or an instanciate Task',

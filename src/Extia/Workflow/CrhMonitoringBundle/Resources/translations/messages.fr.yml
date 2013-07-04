@@ -1,7 +1,21 @@
 crh_monitoring: Suivi RH
 
 bootstrap: Initialisation
+User target id: Consultant
+Next date: Date théorique du prochain point
+crh_bootstrap_notification: Le suivi RH a bien été initialisé pour le consultant %clt%. Vous serez notifié pour planifier le rendez vous le %notif_date%.
 
 appointement: Prise de rendez vous
+appointement_with_label: Prise de rendez vous avec
+mail: Email
+telephone: Téléphone
+mobile: Mobile
+Meeting date: Date du rendez-vous
+crh_appointement_notification: Point RH enregistré pour le consultant %clt%, le %meeting_date%.
 
 meeting: Point RH
+meeting_with_label: Point RH avec
+meeting_date_format: "d/m à H:i"
+Next meeting: Prochain rendez vous dans
+month: mois
+crh_meeting_notification: Le point RH a été validé pour le consultant %clt%, vous serez notifié pour planifier le rendez vous le %notif_date%.

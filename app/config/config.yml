@@ -118,6 +118,7 @@ easy_task_workflow:
                         actions:
                             node:     nodeAction
                             modal:    modalAction
+                            notify:   notificationAction
 
                 meeting:
                     route:
@@ -128,3 +129,4 @@ easy_task_workflow:
                         actions:
                             node:     nodeAction
                             modal:    modalAction
+                            notify:   notificationAction
