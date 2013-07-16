@@ -1,5 +1,17 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('a[data-toggle-target]').on('click', function(e) {
+                e.preventDefault();
+                $('#' + $(this).data('toggle-target')).slideToggle();
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block top_nav %}
 <div class="container-fluid">
     <div class="row-fluid search-button-bar-container">

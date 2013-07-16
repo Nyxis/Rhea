@@ -1,8 +1,8 @@
 <li class="separator padded task">
     {% if task.userTargetId %}
-    <div class="pull-right" style="margin-top:8px;">
-        <img src="{{ gravatar(task.userTarget.email, 30) }}">
-        <span>{{ task.userTarget.longName }}</span>
+    <div class="pull-right user-badge">
+        <div><img src="{{ gravatar(task.userTarget.email, 50) }}"></div>
+        <div><h5>{% autoescape false %}{{ task.userTarget.longName('<br/>') }}{% endautoescape %}</h5></div>
     </div>
     {% endif %}
 
@@ -13,9 +13,15 @@
     </h4>
 
     <div class="btn-group">
-        <a class="button"><i class="icon-comments-alt"></i> {{ 'history_link'|trans }}</a>
+        <a class="button" data-toggle-target="comments-{{ task.id }}" href="#">
+            <i class="icon-comments-alt"></i> {{ 'history_link'|trans }}
+            {% if task.comments|length %}({{ task.comments.count }}){% endif %}
+        </a>
         <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal"><i class="icon-ok"></i> {{ 'handle_link'|trans }}</a>
         <a class="button"><i class="icon-refresh"></i> {{ 'differ_link'|trans }}</a>
         <a class="button"><i class="icon-remove"></i> {{ 'close_link'|trans }}</a>
+    </div>
+    <div id="comments-{{ task.id }}" class="comments">
+        {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' %}
     </div>
 </li>

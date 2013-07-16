@@ -44,6 +44,7 @@ class TaskController extends Controller
                 'max' => $this->dates['tomorrow'],
             ))
             ->joinWith('UserTarget')
+            ->joinWith('Comment')
             ->joinWithCurrentNodes()
             ->find();
 
@@ -67,9 +68,9 @@ class TaskController extends Controller
                 'min' => $this->dates['tomorrow']
             ))
             ->joinWith('UserTarget')
+            ->joinWith('Comment', \Criteria::LEFT_JOIN)
             ->joinWithCurrentNodes()
             ->orderByActivationDate()
-            ->limit($limit)
             ->find();
 
         return $this->render('ExtiaDashboardBundle:Task:next_tasks.html.twig', array(
@@ -91,6 +92,7 @@ class TaskController extends Controller
                 'max' => $this->dates['today']
             ))
             ->joinWith('UserTarget')
+            ->joinWith('Comment')
             ->joinWithCurrentNodes()
             ->orderByActivationDate()
             ->find();

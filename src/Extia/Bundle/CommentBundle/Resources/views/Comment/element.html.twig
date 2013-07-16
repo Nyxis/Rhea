@@ -1,0 +1,4 @@
+<blockquote>
+    <p><em>{{ comment.person.longName }} <small>{{ comment.createdAt|date('d/m H:i') }}</small></em></p>
+    <p>{% autoescape false %}{{ comment.text }}{% endautoescape %}</p>
+</blockquote>

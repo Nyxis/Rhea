@@ -27,6 +27,8 @@ app/config/parameters.yml
 
 # Propel directories
 */propel/sql/*
+src/*/Bundle/*Bundle/Model/map/*
+src/*/Bundle/*Bundle/Model/om/*
 src/*/Bundle/*Bundle/Model/*/map/*
 src/*/Bundle/*Bundle/Model/*/om/*
 

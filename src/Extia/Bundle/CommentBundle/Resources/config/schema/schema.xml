@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="default" namespace="Extia\Bundle\CommentBundle\Model">
+
+    <table name="comment">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
+
+        <column name="text" type="LONGVARCHAR" required="true" />
+
+        <column name="task_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="task" onDelete="cascade" onUpdate="cascade">
+            <reference local="task_id" foreign="id" />
+        </foreign-key>
+
+        <column name="written_by" type="INTEGER" required="false" />
+        <foreign-key foreignTable="person" onDelete="setnull" onUpdate="cascade" skipSql="true">
+            <reference local="written_by" foreign="id" />
+        </foreign-key>
+
+        <behavior name="timestampable" />
+    </table>
+
+</database>

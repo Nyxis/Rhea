@@ -36,6 +36,7 @@ class AppKernel extends Kernel
 
             // Display bundles
             new Extia\Bundle\DashboardBundle\ExtiaDashboardBundle(),
+            new Extia\Bundle\CommentBundle\ExtiaCommentBundle(),
             new Extia\Bundle\SearchBundle\ExtiaSearchBundle(),
 
             // Workflows

@@ -17,6 +17,13 @@ EasyTaskWorkflowBundle_nodes:
     type: workflow_nodes
 
 # ---------------------------------------
+# Comments routing
+# ---------------------------------------
+ExtiaCommentBundle:
+    resource: "@ExtiaCommentBundle/Resources/config/routing.yml"
+    prefix:   /comment
+
+# ---------------------------------------
 # Dashboard routing
 # ---------------------------------------
 ExtiaDashboardBundle:
