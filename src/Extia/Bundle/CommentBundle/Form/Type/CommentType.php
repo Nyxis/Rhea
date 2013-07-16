@@ -2,6 +2,8 @@
 
 namespace Extia\Bundle\CommentBundle\Form\Type;
 
+use Extia\Bundle\CommentBundle\Form\DataTransformer\TextareaDataTransformer;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -43,9 +45,9 @@ class CommentType extends AbstractType
             'data' => $options['task_id']
         ));
 
-        $builder->add('text', 'textarea', array(
-            'required' => true
-        ));
+        $builder->add($builder
+            ->create('text', 'textarea', array('required' => true))
+            ->addModelTransformer(new TextareaDataTransformer())
+        );
     }
-
 }

@@ -11,25 +11,13 @@ Extia\Bundle\UserBundle\Model\User\GroupI18n:
         id: crh
         locale: fr
         label: Consultant Ressources Humaine
-    crhen:
-        id: crh
-        locale: en
-        label: Human Ressources Consultant
     managerfr:
         id: manager
         locale: fr
         label: Manager
-    manageren:
-        id: manager
-        locale: en
-        label: Manager
     consultantfr:
         id: consultant
         locale: fr
-        label: Consultant
-    consultanten:
-        id: consultant
-        locale: en
         label: Consultant
 
 Extia\Bundle\UserBundle\Model\User\Internal:
@@ -129,22 +117,6 @@ Extia\Bundle\UserBundle\Model\User\CredentialI18n:
         id: user_delete
         locale: fr
         label: Supression d'un utilisateur
-    authentication_en:
-        id: authentication
-        locale: en
-        label: Authentication
-    user_create_en:
-        id: user_create
-        locale: en
-        label: User creation
-    user_edit_en:
-        id: user_edit
-        locale: en
-        label: User edition
-    user_delete_en:
-        id: user_delete
-        locale: en
-        label: User deletion
 
 Extia\Bundle\UserBundle\Model\User\GroupCredential:
     gp_crh_auth:
