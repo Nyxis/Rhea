@@ -52,4 +52,13 @@ class WorkflowNode extends BaseWorkflowNode implements ContainerAwareInterface
     {
         return null === $this->getPrevId();
     }
+
+    /**
+     * tests if node is current
+     * @return boolean
+     */
+    public function isCurrent()
+    {
+        return $this->getCurrent() == true;
+    }
 }

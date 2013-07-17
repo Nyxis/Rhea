@@ -1,0 +1,7 @@
+task_details:
+    pattern: /task/details/{workflow_id}
+    defaults:
+        _controller: ExtiaDashboardBundle:Task:workflowDetails
+        _format: html
+    requirements:
+        workflow_id: \d+

@@ -115,6 +115,7 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
             if (!empty($oldNode)) {
                 $oldNode->setCurrent(false);
                 $oldNode->setNextId($newNode->getId());
+                $oldNode->setCompletedAt(time());
 
                 $nodeEvent = new NodeEvent($oldNode, $workflow, $request, $connection);
                 $this->get('event_dispatcher')->dispatch(WorkflowEvents::WF_NODE_SHUTDOWN, $nodeEvent);

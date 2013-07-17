@@ -18,6 +18,7 @@
         <column name="next_id" type="VARCHAR"  required="false" description="next state" />
         <column name="current" type="BOOLEAN" required="true" />
         <column name="ended" type="BOOLEAN" required="false" default="false" />
+        <column name="completed_at" type="TIMESTAMP" required="false" description="date on node has been completed" />
 
         <foreign-key foreignTable="workflow" skipSql="true">
             <reference local="workflow_id" foreign="id"/>

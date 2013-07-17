@@ -71,6 +71,10 @@ nav.main-nav > ul {
 /* ---------------- */
 /* tasks            */
 /* ---------------- */
+.box-body {
+    padding: 10px 20px 20px;
+}
+
 li.padded.task {
     padding: 0px 20px 20px;
 }
@@ -128,6 +132,32 @@ li.no-tasks {
 }
 .comments form {
     text-align: right;
+}
+
+.task_timeline .default {
+    font-size: 14px;
+    color: #999999;
+    font-style: italic;
+}
+
+.task_timeline .date-separator {
+    color: #F1F1F1;
+    text-shadow: 0 1px #666666;
+
+    font-size: 14px;
+    font-weight: lighter;
+    height: 32px;
+    line-height: 32px;
+    margin-bottom: 5px;
+}
+
+.task_timeline .date-separator.month-separator {
+    font-style: italic;
+}
+.task_timeline .date-separator.year-separator {
+    font-size: 18px;
+    border-bottom: 1px solid #F1F1F1;
+    box-shadow: 0 10px 10px -8px #666666;
 }
 
 /* ---------------- */

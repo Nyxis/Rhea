@@ -22,3 +22,11 @@ Description: Description
 workflow_submit: Créer la tâche
 workflow_cancel: Annuler
 task_submit: Sauvegarder
+
+workflow_detail_header: Détail tâche
+workflow_created_at: créée le
+workflow_created_by: par
+
+task_managed_by: Géré par
+task_managed_at: le
+task_managed_for: pour le consultant

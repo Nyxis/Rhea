@@ -7,7 +7,7 @@
     {% endif %}
 
     <h4>
-        <small>{{ task.activationDate|date('d/m/Y') }}</small><br />
+        <small>{{ task.activationDate|date(('date_format.ymd'|trans)) }}</small><br />
         {{ task.node.name|trans }}<br />
         <small>{{ task.node.workflow.type|trans }} {{ 'by'|trans }} {{ task.userCreatedWorkflow.longName }}</small>
     </h4>
