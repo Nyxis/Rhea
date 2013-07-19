@@ -33,6 +33,8 @@ class ConsultantController extends Controller
             ->filterByFirstname($firstname)
             ->filterByLastname($lastname)
 
+            ->joinWith('Crh')
+
             ->joinWith('Group')
             ->useGroupQuery()
                 ->joinWithI18n($locale)
@@ -70,12 +72,7 @@ class ConsultantController extends Controller
 
             ->find();
 
-        $template = 'ExtiaUserBundle:Task:Users/'.$user->getGroup()->getCode().'_tasks.html.twig';
-        if (!$this->get('templating')->exists($template)) {
-            $template = 'ExtiaUserBundle:Task:Users/user_tasks.html.twig';
-        }
-
-        return $this->render($template, array(
+        return $this->render('ExtiaUserBundle:Consultant:consultant_tasks.html.twig', array(
             'user'  => $user,
             'tasks' => $tasks
         ));

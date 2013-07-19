@@ -1,7 +1,7 @@
 UserBundle_consultant_timeline:
     pattern: /{userId}/{firstname}-{lastname}/timeline
     defaults:
-        _controller: '@ExtiaUserBundle:Consultant:timeline'
+        _controller: 'ExtiaUserBundle:Consultant:timeline'
         _format: html
     requirements:
         userId: \d+

@@ -2,8 +2,9 @@
 
 {% block breadcrumbs %}
     <ul class="breadcrumb">
-        <li><a href="{{ path('Rhea_homepage') }}"><i class="icon-list-ul"></i> {{ 'dashboard'|trans }}</a></li>
-        <li class="active"><a href="#">{{ 'user_timeline_breadcrumb'|trans }} {{ user.longname }}</a></li>
+        <li><a href="#"><i class="icon-bug"></i> {{ 'consultants'|trans }}</a></li>
+        <li><a href="#">{{ user.longname }}</a></li>
+        <li class="active"><a href="#">{{ 'user_timeline_breadcrumb'|trans }}</a></li>
     </ul>
 {% endblock %}
 
