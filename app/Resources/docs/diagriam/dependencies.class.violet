@@ -24,8 +24,8 @@ CommentBundle</string>
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>356.0</double>
-     <double>551.0</double>
+     <double>303.0</double>
+     <double>528.0</double>
     </void>
    </object>
   </void>
@@ -53,8 +53,8 @@ SearchBundle
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>570.0</double>
-     <double>546.0</double>
+     <double>485.0</double>
+     <double>597.0</double>
     </void>
    </object>
   </void>
@@ -244,35 +244,6 @@ CrhMonitoringBundle</string>
    <object id="ClassNode7" class="com.horstmann.violet.ClassNode">
     <void property="attributes">
      <void property="text">
-      <string>- authentification
-- sécurité</string>
-     </void>
-    </void>
-    <void property="methods">
-     <void property="text">
-      <string>/fr/login
-/fr/login-check
-/fr/logout</string>
-     </void>
-    </void>
-    <void property="name">
-     <void property="text">
-      <string>Extia
-SecurityBundle</string>
-     </void>
-    </void>
-   </object>
-   <object class="java.awt.geom.Point2D$Double">
-    <void method="setLocation">
-     <double>103.0</double>
-     <double>155.0</double>
-    </void>
-   </object>
-  </void>
-  <void method="addNode">
-   <object id="ClassNode8" class="com.horstmann.violet.ClassNode">
-    <void property="attributes">
-     <void property="text">
       <string>- controller d&apos;affichage
 - listener
 - modèle</string>
@@ -292,8 +263,8 @@ ActivityBundle</string>
    </object>
    <object class="java.awt.geom.Point2D$Double">
     <void method="setLocation">
-     <double>95.0</double>
-     <double>299.0</double>
+     <double>654.0</double>
+     <double>525.0</double>
     </void>
    </object>
   </void>
@@ -412,18 +383,6 @@ ActivityBundle</string>
     </void>
    </object>
    <object idref="ClassNode7"/>
-   <object idref="PackageNode0"/>
-  </void>
-  <void method="connect">
-   <object class="com.horstmann.violet.ClassRelationshipEdge">
-    <void property="endArrowHead">
-     <object class="com.horstmann.violet.ArrowHead" field="V"/>
-    </void>
-    <void property="lineStyle">
-     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
-    </void>
-   </object>
-   <object idref="ClassNode8"/>
    <object idref="PackageNode0"/>
   </void>
  </object>

@@ -3,7 +3,7 @@
 namespace EasyTask\Bundle\WorkflowBundle\Twig;
 
 use EasyTask\Bundle\WorkflowBundle\Workflow\Aggregator;
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\WorkflowNode;
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowNode;
 
 use Symfony\Component\Routing\RouterInterface;
 

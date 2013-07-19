@@ -1,4 +1,4 @@
-Extia\Bundle\UserBundle\Model\User\Group:
+Extia\Bundle\UserBundle\Model\Group:
     crh:
         code: crh
     manager:
@@ -6,7 +6,7 @@ Extia\Bundle\UserBundle\Model\User\Group:
     consultant:
         code: consultant
 
-Extia\Bundle\UserBundle\Model\User\GroupI18n:
+Extia\Bundle\UserBundle\Model\GroupI18n:
     crhfr:
         id: crh
         locale: fr
@@ -20,7 +20,7 @@ Extia\Bundle\UserBundle\Model\User\GroupI18n:
         locale: fr
         label: Consultant
 
-Extia\Bundle\UserBundle\Model\User\Job:
+Extia\Bundle\UserBundle\Model\Job:
     pdg:
         id: ~
     rh:
@@ -32,7 +32,7 @@ Extia\Bundle\UserBundle\Model\User\Job:
     dev:
         id: ~
 
-Extia\Bundle\UserBundle\Model\User\JobI18n:
+Extia\Bundle\UserBundle\Model\JobI18n:
     pdgFr:
         id: pdg
         label: Président directeur général
@@ -49,7 +49,7 @@ Extia\Bundle\UserBundle\Model\User\JobI18n:
         id: dev
         label: Développeur
 
-Extia\Bundle\UserBundle\Model\User\Internal:
+Extia\Bundle\UserBundle\Model\Internal:
     arnaud:
         email: afrey@extia.fr
         firstname: Arnaud
@@ -84,7 +84,7 @@ Extia\Bundle\UserBundle\Model\User\Internal:
         treeRight: 9
         treeLevel: 1
 
-Extia\Bundle\UserBundle\Model\User\Consultant:
+Extia\Bundle\UserBundle\Model\Consultant:
     kevin:
         email: lesmyrmidons@gmail.com
         firstname: Kevin
@@ -111,7 +111,7 @@ Extia\Bundle\UserBundle\Model\User\Consultant:
         treeRight: 6
         treeLevel: 3
 
-Extia\Bundle\UserBundle\Model\User\Mission:
+Extia\Bundle\UserBundle\Model\Mission:
     tf1:
         Label: e-Tf1
         ManagerId: caroline
@@ -119,7 +119,7 @@ Extia\Bundle\UserBundle\Model\User\Mission:
         Label: SFR
         ManagerId: caroline
 
-Extia\Bundle\UserBundle\Model\User\ConsultantMission:
+Extia\Bundle\UserBundle\Model\ConsultantMission:
     m_kevin:
         ConsultantId: kevin
         MissionId: sfr
@@ -129,7 +129,7 @@ Extia\Bundle\UserBundle\Model\User\ConsultantMission:
         MissionId: tf1
         BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
 
-Extia\Bundle\UserBundle\Model\User\Credential:
+Extia\Bundle\UserBundle\Model\Credential:
     authentication:
         code: authentication
     user_create:
@@ -139,7 +139,7 @@ Extia\Bundle\UserBundle\Model\User\Credential:
     user_delete:
         code: user_delete
 
-Extia\Bundle\UserBundle\Model\User\CredentialI18n:
+Extia\Bundle\UserBundle\Model\CredentialI18n:
     authentication_fr:
         id: authentication
         locale: fr
@@ -157,7 +157,7 @@ Extia\Bundle\UserBundle\Model\User\CredentialI18n:
         locale: fr
         label: Supression d'un utilisateur
 
-Extia\Bundle\UserBundle\Model\User\GroupCredential:
+Extia\Bundle\UserBundle\Model\GroupCredential:
     gp_crh_auth:
         GroupId: crh
         CredentialId: authentication
@@ -177,7 +177,7 @@ Extia\Bundle\UserBundle\Model\User\GroupCredential:
         GroupId: manager
         CredentialId: user_edit
 
-Extia\Bundle\UserBundle\Model\User\PersonCredential:
+Extia\Bundle\UserBundle\Model\PersonCredential:
     arnaud_cred:
         PersonId: arnaud
         CredentialId: user_create

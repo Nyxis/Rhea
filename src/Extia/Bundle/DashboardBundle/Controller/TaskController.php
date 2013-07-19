@@ -2,8 +2,8 @@
 
 namespace Extia\Bundle\DashboardBundle\Controller;
 
-use Extia\Bundle\ExtraWorkflowBundle\Model\Workflow\TaskQuery;
-use Extia\Bundle\UserBundle\Model\User\InternalQuery;
+use Extia\Bundle\TaskBundle\Model\TaskQuery;
+use Extia\Bundle\UserBundle\Model\InternalQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

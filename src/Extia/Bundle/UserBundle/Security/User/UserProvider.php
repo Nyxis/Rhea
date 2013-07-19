@@ -2,7 +2,7 @@
 
 namespace Extia\Bundle\UserBundle\Security\User;
 
-use Extia\Bundle\UserBundle\Model\User\InternalQuery;
+use Extia\Bundle\UserBundle\Model\InternalQuery;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -68,6 +68,6 @@ class UserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'Extia\Bundle\UserBundle\Model\User\Internal';
+        return $class === 'Extia\Bundle\UserBundle\Model\Internal';
     }
 }

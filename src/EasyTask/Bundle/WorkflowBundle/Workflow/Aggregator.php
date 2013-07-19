@@ -2,7 +2,7 @@
 
 namespace EasyTask\Bundle\WorkflowBundle\Workflow;
 
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
+use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvent;
 use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvents;
 

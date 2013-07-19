@@ -3,7 +3,7 @@
 namespace EasyTask\Bundle\DemoBundle\Controller;
 
 use EasyTask\Bundle\WorkflowBundle\Workflow\TypeNodeController;
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
+use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
 use Symfony\Component\HttpFoundation\Request;
 

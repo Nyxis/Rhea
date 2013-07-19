@@ -2,17 +2,17 @@
 
 namespace Extia\Workflow\CrhMonitoringBundle\Controller;
 
-use Extia\Bundle\ExtraWorkflowBundle\Model\Workflow\Task;
-use Extia\Bundle\ExtraWorkflowBundle\Workflow\TypeNodeController;
+use Extia\Bundle\TaskBundle\Model\Task;
+use Extia\Bundle\TaskBundle\Workflow\TypeNodeController;
 
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
+use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * appointement workflow node controller
- * @see Extia\Bundle\ExtraWorkflowBundle\Workflow\TypeNodeController
+ * @see Extia\Bundle\TaskBundle\Workflow\TypeNodeController
  */
 class AppointementNodeController extends TypeNodeController
 {

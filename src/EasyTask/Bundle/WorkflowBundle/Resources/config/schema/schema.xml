@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database defaultIdMethod="native" name="default" namespace="EasyTask\Bundle\WorkflowBundle\Model\Workflow">
+<database defaultIdMethod="native" name="default" namespace="EasyTask\Bundle\WorkflowBundle\Model">
 
     <table name="workflow">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />

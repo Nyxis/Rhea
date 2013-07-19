@@ -1,9 +1,9 @@
-easy_task_login:
+UserBundle_login:
     pattern: /login
     defaults: { _controller: ExtiaUserBundle:Login:login }
 
-easy_task_login_check:
+UserBundle_login_check:
     pattern: /login_check
 
-easy_task_logout:
+UserBundle_logout:
     pattern: /logout

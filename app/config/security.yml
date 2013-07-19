@@ -3,7 +3,7 @@ security:
     hide_user_not_found:  false
 
     encoders:
-        Extia\Bundle\UserBundle\Model\User\Internal:
+        Extia\Bundle\UserBundle\Model\Internal:
             algorithm:   sha1
             iterations: 1
             encode_as_base64: false
@@ -22,18 +22,18 @@ security:
             security: false
 
         login:
-            pattern:  ^/login$
+            pattern:  login$
             security: false
 
         secured_area:
             pattern:    ^/
             form_login:
                 provider:   extia
-                check_path: easy_task_login_check
-                login_path: easy_task_login
+                check_path: UserBundle_login_check
+                login_path: UserBundle_login
             logout:
-                path:   easy_task_logout
-                target: easy_task_login
+                path:   UserBundle_logout
+                target: UserBundle_login
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

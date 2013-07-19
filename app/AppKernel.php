@@ -26,23 +26,21 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
 
-            // Lib bundles
-            new Extia\Bundle\UserBundle\ExtiaUserBundle(),
-            new EasyTask\Bundle\LogBundle\EasyTaskLogBundle(),
-
             // Workflow
             new EasyTask\Bundle\WorkflowBundle\EasyTaskWorkflowBundle(),
-            new Extia\Bundle\ExtraWorkflowBundle\ExtiaExtraWorkflowBundle(),
 
-            // Display bundles
+            // Core
+            new Extia\Bundle\TaskBundle\ExtiaTaskBundle(),
+            new Extia\Bundle\UserBundle\ExtiaUserBundle(),
             new Extia\Bundle\DashboardBundle\ExtiaDashboardBundle(),
+
+            // Other features
             new Extia\Bundle\CommentBundle\ExtiaCommentBundle(),
             new Extia\Bundle\SearchBundle\ExtiaSearchBundle(),
+            new Extia\Bundle\ActivityBundle\ExtiaActivityBundle(),
 
             // Workflows
             new Extia\Workflow\CrhMonitoringBundle\ExtiaWorkflowCrhMonitoringBundle(),
-
-            new Extia\Bundle\FrontBundle\ExtiaFrontBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

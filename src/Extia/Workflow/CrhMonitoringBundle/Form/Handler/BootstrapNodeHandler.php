@@ -2,8 +2,8 @@
 
 namespace Extia\Workflow\CrhMonitoringBundle\Form\Handler;
 
-use Extia\Bundle\ExtraWorkflowBundle\Model\Workflow\Task;
-use Extia\Bundle\ExtraWorkflowBundle\Form\Handler\AbstractNodeHandler;
+use Extia\Bundle\TaskBundle\Model\Task;
+use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;

@@ -2,8 +2,8 @@
 
 namespace Extia\Bundle\UserBundle\Security\Authorization\Voter;
 
-use Extia\Bundle\UserBundle\Model\User\Internal;
-use Extia\Bundle\UserBundle\Model\User\Consultant;
+use Extia\Bundle\UserBundle\Model\Internal;
+use Extia\Bundle\UserBundle\Model\Consultant;
 
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

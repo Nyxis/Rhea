@@ -1,3 +1,0 @@
-extia_front_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ExtiaFrontBundle:Default:index }

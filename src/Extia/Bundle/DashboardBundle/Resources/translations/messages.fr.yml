@@ -1,3 +1,22 @@
+# notifications
+success_title: Opération effectuée
+info_title: Information
+warning_title: Attention
+error_title: Erreur
+
+# menu
+dashboard: Organiseur
+recent_activity: Activité récente
+consultants: Consultants
+managers: Managers
+crh: CRH
+
+# profile
+logout_link: Déconnexion
+
+# modals
+modal_close: Fermer
+
 # buttons
 edit_user_link: Modifier l'utilisateur
 new_task_link: Nouvelle tâche

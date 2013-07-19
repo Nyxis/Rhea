@@ -2,8 +2,8 @@
 
 namespace EasyTask\Bundle\WorkflowBundle\Controller;
 
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\WorkflowQuery;
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowQuery;
+use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

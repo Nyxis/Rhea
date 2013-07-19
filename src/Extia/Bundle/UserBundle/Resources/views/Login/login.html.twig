@@ -13,7 +13,7 @@
 
             <div id="login-manager">
                 <div id="login" class="login-wrapper animated">
-                    <form action="{{ path('easy_task_login_check') }}" method="POST" >
+                    <form action="{{ path('UserBundle_login_check') }}" method="POST" >
                         {% if error %}
                         <div class="alert alert-error">
                             <a class="close" data-dismiss="alert" href="#">×</a>{{ error.message }}

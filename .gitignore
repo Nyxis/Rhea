@@ -29,8 +29,6 @@ app/config/parameters.yml
 */propel/sql/*
 src/*/Bundle/*Bundle/Model/map/*
 src/*/Bundle/*Bundle/Model/om/*
-src/*/Bundle/*Bundle/Model/*/map/*
-src/*/Bundle/*Bundle/Model/*/om/*
 
 # Composer
 composer.phar

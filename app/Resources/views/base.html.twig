@@ -79,7 +79,7 @@
                             <div class="btn-group user_actions">
                                 <button data-toggle="dropdown" class="button mini inset black dropdown-toggle"><i class="icon-cog"></i></button>
                                 <ul class="dropdown-menu black-box-dropdown">
-                                    <li><a href="{{ path('easy_task_logout') }}"><i class="icon-off"></i>{{ 'logout_link'|trans }}</a></li>
+                                    <li><a href="{{ path('UserBundle_logout') }}"><i class="icon-off"></i>{{ 'logout_link'|trans }}</a></li>
                                 </ul>
                             </div>
                             <div class="title">{{ app.user.longName }}</div>
@@ -136,7 +136,7 @@
         </section>
 
         {% block notifications %}
-            {{ render(controller('ExtiaFrontBundle:Notification:display')) }}
+            {{ render(controller('ExtiaDashboardBundle:Notification:display')) }}
         {% endblock %}
 
         {% block ajaxWaiter %}

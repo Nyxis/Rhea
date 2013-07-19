@@ -2,7 +2,7 @@
 
 namespace Extia\Workflow\CrhMonitoringBundle\Form\Type;
 
-use Extia\Bundle\ExtraWorkflowBundle\Form\Type\AbstractNodeType;
+use Extia\Bundle\TaskBundle\Form\Type\AbstractNodeType;
 
 use Symfony\Component\Form\FormBuilderInterface;
 

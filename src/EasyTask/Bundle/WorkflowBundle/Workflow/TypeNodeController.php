@@ -2,9 +2,9 @@
 
 namespace EasyTask\Bundle\WorkflowBundle\Workflow;
 
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\WorkflowNode;
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\WorkflowNodeQuery;
+use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowNode;
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowNodeQuery;
 use EasyTask\Bundle\WorkflowBundle\Event\NodeEvent;
 use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvents;
 

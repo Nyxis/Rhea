@@ -4,7 +4,7 @@ namespace Extia\Bundle\CommentBundle\Controller;
 
 use Extia\Bundle\CommentBundle\Model\Comment;
 
-use Extia\Bundle\ExtraWorkflowBundle\Model\Workflow\TaskQuery;
+use Extia\Bundle\TaskBundle\Model\TaskQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

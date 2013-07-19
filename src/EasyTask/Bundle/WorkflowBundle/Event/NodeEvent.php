@@ -2,8 +2,8 @@
 
 namespace EasyTask\Bundle\WorkflowBundle\Event;
 
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\WorkflowNode;
-use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowNode;
+use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
