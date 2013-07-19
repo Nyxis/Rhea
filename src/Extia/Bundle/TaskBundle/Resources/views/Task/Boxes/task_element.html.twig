@@ -1,0 +1,32 @@
+<li class="separator padded task">
+    {% if task.userTargetId %}
+    <div class="pull-right user-badge">
+        <div><img src="{{ gravatar(task.userTarget.email, 50) }}"></div>
+        <div><h5>{% autoescape false %}{{ task.userTarget.longName('<br/>') }}{% endautoescape %}</h5></div>
+    </div>
+    {% endif %}
+
+    <h4>
+        <small>{{ task.activationDate|date(('date_format.ymd'|trans)) }}</small><br />
+        {{ task.node.name|trans }}<br />
+        <small>{{ task.node.workflow.type|trans }} {{ 'by'|trans }} {{ task.userCreatedWorkflow.longName }}</small>
+    </h4>
+
+    <div class="btn-group">
+        <a class="button" data-toggle-target="comments-{{ task.id }}" href="#">
+            <i class="icon-comments-alt"></i> {{ 'comments_link'|trans }}
+            {% if task.comments|length %}({{ task.comments.count }}){% endif %}
+        </a>
+        <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal"><i class="icon-ok"></i> {{ 'handle_link'|trans }}</a>
+        <a href="{{ path('TaskBundle_workflow_history', { 'workflow_id': task.node.workflow.id }) }}" class="button">
+            <i class="icon-list"></i> {{ 'history_link'|trans }}
+        </a>
+        {#
+        <a class="button"><i class="icon-refresh"></i> {{ 'differ_link'|trans }}</a>
+        <a class="button"><i class="icon-remove"></i> {{ 'close_link'|trans }}</a>
+        #}
+    </div>
+    <div id="comments-{{ task.id }}" class="comments">
+        {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' %}
+    </div>
+</li>

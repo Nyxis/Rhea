@@ -32,12 +32,13 @@ class AppKernel extends Kernel
             // Core
             new Extia\Bundle\TaskBundle\ExtiaTaskBundle(),
             new Extia\Bundle\UserBundle\ExtiaUserBundle(),
-            new Extia\Bundle\DashboardBundle\ExtiaDashboardBundle(),
 
             // Other features
             new Extia\Bundle\CommentBundle\ExtiaCommentBundle(),
             new Extia\Bundle\SearchBundle\ExtiaSearchBundle(),
             new Extia\Bundle\ActivityBundle\ExtiaActivityBundle(),
+            new Extia\Bundle\MenuBundle\ExtiaMenuBundle(),
+            new Extia\Bundle\NotificationBundle\ExtiaNotificationBundle(),
 
             // Workflows
             new Extia\Workflow\CrhMonitoringBundle\ExtiaWorkflowCrhMonitoringBundle(),
@@ -47,7 +48,6 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new EasyTask\Bundle\DemoBundle\EasyTaskDemoBundle();
         }
 
         return $bundles;

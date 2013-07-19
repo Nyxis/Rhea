@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.6.0_31" class="java.beans.XMLDecoder">
+ <object class="com.horstmann.violet.ClassDiagramGraph">
+  <void method="addNode">
+   <object id="ClassNode0" class="com.horstmann.violet.ClassNode">
+    <void property="attributes">
+     <void property="text">
+      <string>- CRUD commentaires
+- modèle commentaire
+- templates</string>
+     </void>
+    </void>
+    <void property="methods">
+     <void property="text">
+      <string>/fr/comment/create/task_id</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>Extia
+CommentBundle</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>303.0</double>
+     <double>528.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="ClassNode1" class="com.horstmann.violet.ClassNode">
+    <void property="attributes">
+     <void property="text">
+      <string>- behavior indexable
+- modèle index
+- controleur recherche</string>
+     </void>
+    </void>
+    <void property="methods">
+     <void property="text">
+      <string>/fr/search</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>Extia
+SearchBundle
+</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>485.0</double>
+     <double>597.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="PackageNode0" class="com.horstmann.violet.PackageNode">
+    <void method="addChild">
+     <object id="ClassNode2" class="com.horstmann.violet.ClassNode">
+      <void property="attributes">
+       <void property="text">
+        <string>- crud consultant / manager / crh....
+- modèle user
+- timelines</string>
+       </void>
+      </void>
+      <void property="methods">
+       <void property="text">
+        <string>/fr/consultant/new
+/fr/consultant/list
+/fr/consultant/x/prenom-nom/edit
+/fr/consultant/x/prenom-nom/delete
+/fr/consultant/x/prenom-nom/timeline
+
+/fr/internal/new
+/fr/internal/list
+/fr/internal/x/prenom-nom/edit
+/fr/internal/x/prenom-nom/delete
+/fr/internal/x/prenom-nom/timeline</string>
+       </void>
+      </void>
+      <void property="name">
+       <void property="text">
+        <string>Extia
+UserBundle</string>
+       </void>
+      </void>
+     </object>
+    </void>
+    <void method="addChild">
+     <object id="ClassNode3" class="com.horstmann.violet.ClassNode">
+      <void property="attributes">
+       <void property="text">
+        <string>- service récup tâches (par user, date etc...)
+- composant timeline
+- composant détail workflow</string>
+       </void>
+      </void>
+      <void property="methods">
+       <void property="text">
+        <string>/fr/task/new
+/fr/task/x/edit
+/fr/task/x/history</string>
+       </void>
+      </void>
+      <void property="name">
+       <void property="text">
+        <string>Extia
+TaskBundle</string>
+       </void>
+      </void>
+     </object>
+    </void>
+    <void method="addChild">
+     <object id="ClassNode4" class="com.horstmann.violet.ClassNode">
+      <void property="attributes">
+       <void property="text">
+        <string>- theme de base
+- éléments de front</string>
+       </void>
+      </void>
+      <void property="methods">
+       <void property="text">
+        <string>/fr/
+/fr/dahsboard/</string>
+       </void>
+      </void>
+      <void property="name">
+       <void property="text">
+        <string>Extia
+TaskBundle</string>
+       </void>
+      </void>
+     </object>
+    </void>
+    <void property="name">
+     <string>Core</string>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>300.0</double>
+     <double>70.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="PackageNode1" class="com.horstmann.violet.PackageNode">
+    <void method="addChild">
+     <object id="ClassNode5" class="com.horstmann.violet.ClassNode">
+      <void property="name">
+       <void property="text">
+        <string>EasyTask
+WorkflowBundle</string>
+       </void>
+      </void>
+     </object>
+    </void>
+    <void property="name">
+     <string>EasyTask</string>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>940.0</double>
+     <double>330.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="PackageNode2" class="com.horstmann.violet.PackageNode">
+    <void method="addChild">
+     <object id="ClassNode6" class="com.horstmann.violet.ClassNode">
+      <void property="name">
+       <void property="text">
+        <string>ExtiaWorkflow
+CrhMonitoringBundle</string>
+       </void>
+      </void>
+     </object>
+    </void>
+    <void property="name">
+     <string>Workflows</string>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>920.0</double>
+     <double>140.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ClassNode2"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>305.0</double>
+     <double>248.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ClassNode3"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>541.0</double>
+     <double>98.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ClassNode4"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>626.0</double>
+     <double>332.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ClassNode6"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>931.0</double>
+     <double>172.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object idref="ClassNode5"/>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>949.0</double>
+     <double>358.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="addNode">
+   <object id="ClassNode7" class="com.horstmann.violet.ClassNode">
+    <void property="attributes">
+     <void property="text">
+      <string>- controller d&apos;affichage
+- listener
+- modèle</string>
+     </void>
+    </void>
+    <void property="methods">
+     <void property="text">
+      <string>/fr/recent-activity</string>
+     </void>
+    </void>
+    <void property="name">
+     <void property="text">
+      <string>Extia
+ActivityBundle</string>
+     </void>
+    </void>
+   </object>
+   <object class="java.awt.geom.Point2D$Double">
+    <void method="setLocation">
+     <double>654.0</double>
+     <double>525.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+    <void property="startArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+   </object>
+   <object idref="ClassNode3"/>
+   <object idref="ClassNode4"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+    <void property="startArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+   </object>
+   <object idref="ClassNode2"/>
+   <object idref="ClassNode4"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+    <void property="startArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+   </object>
+   <object idref="ClassNode2"/>
+   <object idref="ClassNode3"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode1"/>
+   <object idref="PackageNode0"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode0"/>
+   <object idref="PackageNode0"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="PackageNode0"/>
+   <object idref="PackageNode2"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="PackageNode1"/>
+   <object idref="PackageNode2"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="PackageNode1"/>
+   <object idref="PackageNode0"/>
+  </void>
+  <void method="connect">
+   <object class="com.horstmann.violet.ClassRelationshipEdge">
+    <void property="endArrowHead">
+     <object class="com.horstmann.violet.ArrowHead" field="V"/>
+    </void>
+    <void property="lineStyle">
+     <object class="com.horstmann.violet.LineStyle" field="DOTTED"/>
+    </void>
+   </object>
+   <object idref="ClassNode7"/>
+   <object idref="PackageNode0"/>
+  </void>
+ </object>
+</java>

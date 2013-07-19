@@ -8,30 +8,66 @@ ExtiaUserBundle_login:
 # ---------------------------------------
 # Workflow management
 # ---------------------------------------
-EasyTaskWorkflowBundle_workflow:
-    resource: "@EasyTaskWorkflowBundle/Resources/config/routing/workflow.yml"
-    prefix:   /workflow
-
 EasyTaskWorkflowBundle_nodes:
     resource: .
     type: workflow_nodes
+    defaults:
+        _menu: dashboard
+
+EasyTaskWorkflowBundle_workflow:
+    resource: "@EasyTaskWorkflowBundle/Resources/config/routing/workflow.yml"
+    prefix:   /task
+    defaults:
+        _menu: dashboard
+
+ExtiaTaskBundle:
+    resource: "@ExtiaTaskBundle/Resources/config/routing.yml"
+    prefix:   /task
+    defaults:
+        _menu: dashboard
 
 # ---------------------------------------
-# Comments routing
+# Comments
 # ---------------------------------------
 ExtiaCommentBundle:
     resource: "@ExtiaCommentBundle/Resources/config/routing.yml"
     prefix:   /comment
 
 # ---------------------------------------
-# Dashboard routing
+# Search
 # ---------------------------------------
-ExtiaDashboardBundle:
-    resource: "@ExtiaDashboardBundle/Resources/config/routing.yml"
-    prefix:   /
+ExtiaSearchBundle:
+    resource: "@ExtiaSearchBundle/Resources/config/routing.yml"
+    prefix:   /search
 
+# ---------------------------------------
+# Activity
+# ---------------------------------------
+ExtiaActivityBundle:
+    resource: "@ExtiaActivityBundle/Resources/config/routing.yml"
+    prefix:   /activity
+    defaults:
+        _menu: activity
+
+# ---------------------------------------
+# Users
+# ---------------------------------------
+ExtiaUserBundle_consultants:
+    resource: "@ExtiaUserBundle/Resources/config/routing/consultant.yml"
+    prefix:   /consultant
+    defaults:
+        _menu: consultant
+
+ExtiaUserBundle_internal:
+    resource: "@ExtiaUserBundle/Resources/config/routing/internal.yml"
+    prefix:   /internal
+
+# ---------------------------------------
+# Home
+# ---------------------------------------
 Rhea_homepage:
     pattern: /
     defaults:
-        _controller: ExtiaDashboardBundle:Dashboard:userDashboard
+        _controller: ExtiaTaskBundle:Dashboard:userDashboard
         _format: html
+        _menu: dashboard

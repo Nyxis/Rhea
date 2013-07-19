@@ -1,7 +1,13 @@
+# ---------------------------------------
+# localized routes
+# ---------------------------------------
 localized_routing:
     resource: "routing.localized.yml"
     prefix:   /{_locale}/
 
+# ---------------------------------------
+# Others
+# ---------------------------------------
 home_redirection:
     pattern:  /
     defaults:

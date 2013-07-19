@@ -1,0 +1,5 @@
+ActivityBundle_recent:
+    pattern: /recent
+    defaults:
+        _controller: '@ExtiaActivityBundle:Activity:recent'
+        _format: html

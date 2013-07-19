@@ -1,0 +1,7 @@
+TaskBundle_workflow_history:
+    pattern: /{workflow_id}/history
+    defaults:
+        _controller: ExtiaTaskBundle:Task:workflowHistory
+        _format: html
+    requirements:
+        workflow_id: \d+

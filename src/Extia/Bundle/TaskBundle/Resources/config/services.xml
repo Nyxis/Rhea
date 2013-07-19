@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="extia.node.abstract_type.class">Extia\Bundle\TaskBundle\Form\Type\AbstractNodeType</parameter>
         <parameter key="extia.node.abstract_handler.class">Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler</parameter>
+        <parameter key="extia.task.finder.class">Extia\Bundle\TaskBundle\Finder\TaskFinder</parameter>
     </parameters>
 
     <services>

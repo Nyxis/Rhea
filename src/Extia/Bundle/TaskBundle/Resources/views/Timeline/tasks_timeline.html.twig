@@ -1,0 +1,82 @@
+<div class="row-fluid">
+    <div class="span10">
+        <div class="row-fluid">
+            <div class="span12 task_timeline">
+                {% for year, months in tasks %}
+                    <div id="timeline_year_{{ year }}">
+                        <div class="date-separator year-separator">{{ year }}</div>
+                    {% for month, tasks in months %}
+                        <div id="timeline_month_{{ month }}">
+                            <div class="date-separator month-separator">{{ ('months.' ~ month)|trans }}</div>
+                        {% for task in tasks %}
+                            {% if task.node.current is empty %}
+                                {% set refDate = task.node.completedAt %}
+                            {% else %}
+                                {% set refDate = task.activationDate %}
+                            {% endif %}
+                            <div class="box task_details">
+                                <div class="tab-header">
+                                    <i class="icon-tasks"></i>
+                                    {{ task.node.name|trans }} -
+                                    {{ refDate|date('date_format.md'|trans) }}
+                                </div>
+                                <div class="padded">
+                                    <p class="default">
+                                        {{ 'task_managed_by'|trans }} {{ task.userAssigned.longName }}
+
+                                        {% if task.node.current is empty %}
+                                            {{ 'task_managed_at'|trans }}
+                                            {{ task.node.completedAt('date_format.ymd'|trans) }}
+                                        {% endif %}
+
+                                        {{ 'task_managed_for'|trans }}
+                                        {{ task.userTarget.longName }}
+                                    </p>
+                                    <div class="btn-group">
+                                        <a class="button" data-toggle-target="comments-{{ task.id }}" href="#">
+                                            <i class="icon-comments-alt"></i> {{ 'comments_link'|trans }}
+                                            {% if task.comments|length %}({{ task.comments.count }}){% endif %}
+                                        </a>
+                                        {% if task.node.current is not empty %}
+                                        <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal">
+                                            <i class="icon-ok"></i> {{ 'handle_link'|trans }}
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                    <div id="comments-{{ task.id }}" class="comments">
+                                        {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% if task.node.current is not empty %}
+                                {% include 'ExtiaTaskBundle:Task:task_modal.html.twig'
+                                        with { 'task': task, '_task_redirect_url': app.request.get('_task_redirect_url') } only
+                                 %}
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <div>
+            <ul class="timeline_scrubber">
+                {% for year, months in tasks %}
+                    <li class="menu_year">
+                        <a href="#timeline_year_{{ year }}">{{ 'year'|trans|capitalize }} {{ year }}</a>
+                        <ul>
+                        {% for month, tasks in months %}
+                            <li class="menu_month">
+                                <a href="#timeline_month_{{ month }}">{{ ('months.' ~ month)|trans }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
