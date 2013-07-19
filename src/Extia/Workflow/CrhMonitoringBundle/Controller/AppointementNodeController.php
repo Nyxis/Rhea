@@ -93,7 +93,7 @@ class AppointementNodeController extends TypeNodeController
             $response = $handler->handle($form, $request, $task);
 
             // we dont use default redirect response : our tasks are asynchronous
-            // we redirect to dashboard with a message instead
+            // we redirect previous page with a message instead
             if (!empty($response)) {
                 return $this->redirectWithNodeNotification('success', $task, 'Rhea_homepage');
             }

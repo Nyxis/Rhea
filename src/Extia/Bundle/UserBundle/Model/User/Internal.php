@@ -37,14 +37,26 @@ class Internal extends BaseInternal  implements UserInterface
         $this->roles = array('ROLE_USER');
 
         // loads user group credentials
-        foreach ($this->getGroup()->getGroupCredentials() as $groupCredential) {
+        $group = GroupQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->filterById($this->getGroupId())
+            ->joinWith('GroupCredential')
+            ->find();
+
+        foreach ($group->getGroupCredentials() as $groupCredential) {
             $credential = $groupCredential->getCredential();
             $this->roles[] = sprintf('ROLE_%s', strtoupper($credential->getCode()));
         }
 
         // loads personal credentials
-        foreach ($this->getPerson()->getPersonCredentials() as $personCredential) {
-            $credential = $personCredential->getCredential();
+        $credentials = CredentialQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->usePersonCredentialQuery()
+                ->filterByPersonId($this->getId())
+            ->endUse()
+            ->find();
+
+        foreach ($credentials as $credential) {
             $this->roles[] = sprintf('ROLE_%s', strtoupper($credential->getCode()));
         }
 

@@ -50,15 +50,15 @@ class WorkflowExtension extends \Twig_Extension
      * @param  WorkflowNode $node
      * @return string
      */
-    public function handleNodeLink(WorkflowNode $node)
+    public function handleNodeLink(WorkflowNode $node, array $params = array())
     {
         $nodeType = $this->workflows->getNode(
             $node->getWorkflow(), $node->getName()
         );
 
         return $this->router->generate(
-            $nodeType->getRoute(), array(
-                'workflowId' => $node->getWorkflowId()
+            $nodeType->getRoute(), array_replace_recursive(
+                array('workflowId' => $node->getWorkflowId()), $params
             )
         );
     }

@@ -11,6 +11,7 @@ use EasyTask\Bundle\WorkflowBundle\Model\Workflow\Workflow;
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow\WorkflowNode;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -156,9 +157,34 @@ class TypeNodeController extends EasyTaskTypeNodeController
             ));
         }
 
+        $request = $this->get('request');
+
         return $this->redirect(
-            $this->get('router')->generate($route, $params)
+            $request->query->get('_redirect_url',
+                $this->get('router')->generate($route, $params)
+            )
         );
+    }
+
+    /**
+     * override rendering params to auto injects params
+     *
+     * {@inherit_doc}
+     */
+    public function render($view, array $parameters = array(), Response $response = null)
+    {
+        $extraParameters = array(
+            'nodeUrlParams' => array()
+        );
+
+        $redirectUrl = $this->get('request')->get('_task_redirect_url');
+        if (!empty($redirectUrl)) {
+            $extraParameters['nodeUrlParams'] = array(
+                '_redirect_url' => $redirectUrl
+            );
+        }
+
+        return parent::render($view, array_replace_recursive($extraParameters, $parameters), $response);
     }
 
 }

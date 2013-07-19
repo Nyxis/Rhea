@@ -12,11 +12,11 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  * Voter which grant access of a person data
  * @see Extia/Bundle/UserBundle/Resources/config/services.xml
  */
-class InternalVoter implements VoterInterface
+class UserDataVoter implements VoterInterface
 {
     public function supportsAttribute($attribute)
     {
-        return 'USER' === $attribute;
+        return 'USER_DATA' === $attribute;
     }
 
     public function supportsClass($class)
@@ -29,15 +29,20 @@ class InternalVoter implements VoterInterface
         foreach ($attributes as $attribute) {
             if ($this->supportsAttribute($attribute) && $this->supportsClass($object)) {
 
-                // everybody can access a Consultant
-                if ($object instanceof Consultant) {
+                // admin can access everything
+                if (in_array('ROLE_ADMIN', $token->getRoles())) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
 
                 $user = $token->getUser();
 
-                // i can access on me
-                if ($user->equals($object)) {
+                // consultants cannot manage anyone
+                if ($user instanceof Consultant) {
+                    return VoterInterface::ACCESS_DENIED;
+                }
+
+                // everybody can access a Consultant
+                if ($user instanceof Consultant && $object instanceof Consultant) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
 

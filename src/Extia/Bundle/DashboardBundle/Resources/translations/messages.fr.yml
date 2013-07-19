@@ -1,7 +1,9 @@
 # buttons
+edit_user_link: Modifier l'utilisateur
 new_task_link: Nouvelle tâche
 new_consultant_link: Nouveau consultant
 
+# dashboard
 today_tasks_header: Tâches d'aujourd'hui
 today_no_task_congrats: Félicitations !
 today_no_tasks_text: Il ne reste plus aucune tâche à traiter aujourd'hui
@@ -11,11 +13,13 @@ next_tasks_header: Prochaines tâches
 past_tasks_header: Tâches en retard
 
 by: créé par
-history_link: Commentaires
-handle_link: Détails
+comments_link: Commentaires
+history_link: Historique
+handle_link: Traiter
 differ_link: Différer
 close_link: Fermer
 
+# Workflow form
 new_task: Nouvelle tâche
 Title: Titre
 Description: Description
@@ -23,10 +27,19 @@ workflow_submit: Créer la tâche
 workflow_cancel: Annuler
 task_submit: Sauvegarder
 
+# Workflow detail
 workflow_detail_header: Détail tâche
 workflow_created_at: créée le
 workflow_created_by: par
 
+# User tasks
+user_timeline_breadcrumb: Timeline de
+user_details_header: Détails
+user_missions_header: Missions
+user_contact: Contact
+user_crh: CRH
+
+# Timeline
 task_managed_by: Géré par
 task_managed_at: le
 task_managed_for: pour le consultant

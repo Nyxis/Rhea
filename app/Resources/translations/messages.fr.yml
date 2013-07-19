@@ -1,4 +1,11 @@
-month:
+mail: email
+telephone: téléphone
+mobile: mobile
+
+year: année
+month: mois
+
+months:
     1: Janvier
     2: Février
     3: Mars
@@ -11,7 +18,7 @@ month:
     10: Octobre
     11: Novembre
     12: Décembre
-day:
+days:
     1: Lundi
     2: Mardi
     3: Mercredi
@@ -27,3 +34,5 @@ datetime_format:
     ymdhis: 'd/m/Y H:i:s'
     ymdhi: 'd/m/Y H:i'
     mdhi: 'd/m H:i'
+
+ajax_loading: Chargement

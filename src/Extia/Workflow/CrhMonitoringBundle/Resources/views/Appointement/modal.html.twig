@@ -11,7 +11,7 @@
         {% if clt.mobile is not empty %}<li>{{ 'mobile'|trans }} : {{ clt.mobile }}</li>{% endif %}
     </ul>
 </div>
-<form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node) }}" >
+<form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node, nodeUrlParams) }}" >
     <div class="separator">
         {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
         {{ form_rest(form) }}

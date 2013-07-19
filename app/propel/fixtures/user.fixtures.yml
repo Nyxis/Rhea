@@ -20,13 +20,44 @@ Extia\Bundle\UserBundle\Model\User\GroupI18n:
         locale: fr
         label: Consultant
 
+Extia\Bundle\UserBundle\Model\User\Job:
+    pdg:
+        id: ~
+    rh:
+        id: ~
+    ia:
+        id: ~
+    archi:
+        id: ~
+    dev:
+        id: ~
+
+Extia\Bundle\UserBundle\Model\User\JobI18n:
+    pdgFr:
+        id: pdg
+        label: Président directeur général
+    rhFr:
+        id: rh
+        label: Responsable RH
+    iaFr:
+        id: ia
+        label: Responsable IA
+    archiFr:
+        id: archi
+        label: Architecte Logiciel
+    devFr:
+        id: dev
+        label: Développeur
+
 Extia\Bundle\UserBundle\Model\User\Internal:
     arnaud:
         email: afrey@extia.fr
         firstname: Arnaud
         lastname: Frey
         password: <?php echo sha1('afrey')."\n" ?>
+        JobId: pdg
         GroupId: manager
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 1
         treeRight: 10
         treeLevel: 0
@@ -35,7 +66,9 @@ Extia\Bundle\UserBundle\Model\User\Internal:
         firstname: Pauline
         lastname: Dantin
         password: <?php echo sha1('pdantin')."\n" ?>
+        JobId: rh
         GroupId: crh
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 2
         treeRight: 7
         treeLevel: 1
@@ -44,7 +77,9 @@ Extia\Bundle\UserBundle\Model\User\Internal:
         firstname: Caroline
         lastname: Gautier
         password: <?php echo sha1('cgautier')."\n" ?>
+        JobId: ia
         GroupId: manager
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 8
         treeRight: 9
         treeLevel: 1
@@ -56,8 +91,10 @@ Extia\Bundle\UserBundle\Model\User\Consultant:
         lastname: Arbouin
         password: <?php echo sha1('karbouin')."\n" ?>
         mobile: "0600000000"
+        JobId: dev
         GroupId: consultant
         CrhId: pauline
+        ContractBeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
         treeLeft: 3
         treeRight: 4
         treeLevel: 3
@@ -66,8 +103,10 @@ Extia\Bundle\UserBundle\Model\User\Consultant:
         firstname: Quentin
         lastname: Cerny
         password: <?php echo sha1('qcerny')."\n" ?>
+        JobId: archi
         GroupId: consultant
         CrhId: pauline
+        ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
         treeLeft: 5
         treeRight: 6
         treeLevel: 3

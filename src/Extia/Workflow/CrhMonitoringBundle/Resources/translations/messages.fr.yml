@@ -17,5 +17,4 @@ meeting: Point RH
 meeting_with_label: Point RH avec
 meeting_date_format: "d/m à H:i"
 Next meeting: Prochain rendez vous dans
-month: mois
 crh_meeting_notification: Le point RH a été validé pour le consultant %clt%, vous serez notifié pour planifier le rendez vous le %notif_date%.

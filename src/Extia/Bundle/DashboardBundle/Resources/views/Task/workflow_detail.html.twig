@@ -1,5 +1,12 @@
 {% extends 'ExtiaDashboardBundle::dashboard_layout.html.twig' %}
 
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{{ path('Rhea_homepage') }}"><i class="icon-list-ul"></i> {{ 'dashboard'|trans }}</a></li>
+        <li class="active"><a href="#">{{ 'workflow_detail_header'|trans }} : {{ workflow.type|trans }}</a></li>
+    </ul>
+{% endblock %}
+
 {% block main %}
     <div class="row-fluid">
         <div class="span12">
@@ -22,7 +29,11 @@
     </div>
     <div class="row-fluid">
         <div class="span12">
-            {{ render(controller('ExtiaDashboardBundle:Timeline:tasksTimeline', { 'task_collection': tasks })) }}
+            {{  render(controller(
+                    'ExtiaDashboardBundle:Timeline:tasksTimeline',
+                    { 'task_collection': tasks, '_task_redirect_url': app.request.server.get('REQUEST_URI') }
+                ))
+            }}
         </div>
     </div>
 {% endblock main %}

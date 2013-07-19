@@ -1,0 +1,37 @@
+# ---------------------------------------
+# Authentication
+# ---------------------------------------
+ExtiaUserBundle_login:
+    resource: "@ExtiaUserBundle/Resources/config/routing/login.yml"
+    prefix:   /
+
+# ---------------------------------------
+# Workflow management
+# ---------------------------------------
+EasyTaskWorkflowBundle_workflow:
+    resource: "@EasyTaskWorkflowBundle/Resources/config/routing/workflow.yml"
+    prefix:   /workflow
+
+EasyTaskWorkflowBundle_nodes:
+    resource: .
+    type: workflow_nodes
+
+# ---------------------------------------
+# Comments routing
+# ---------------------------------------
+ExtiaCommentBundle:
+    resource: "@ExtiaCommentBundle/Resources/config/routing.yml"
+    prefix:   /comment
+
+# ---------------------------------------
+# Dashboard routing
+# ---------------------------------------
+ExtiaDashboardBundle:
+    resource: "@ExtiaDashboardBundle/Resources/config/routing.yml"
+    prefix:   /
+
+Rhea_homepage:
+    pattern: /
+    defaults:
+        _controller: ExtiaDashboardBundle:Dashboard:userDashboard
+        _format: html

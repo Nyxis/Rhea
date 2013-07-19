@@ -65,7 +65,7 @@ class MainMenuBuilder
         $this->addTbChild($menu, array(
             'label'      => 'dashboard',
             'route'      => 'Rhea_homepage',
-            'current'    => $request->attributes->has('task'),
+            'current'    => $request->attributes->has('task') || $request->get('_menu') == 'dashboard',
             'icon'       => 'list-ul',
             'icon-white' => true
         ));

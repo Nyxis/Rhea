@@ -3,12 +3,14 @@
 namespace Extia\Bundle\DashboardBundle\Controller;
 
 use Extia\Bundle\ExtraWorkflowBundle\Model\Workflow\TaskQuery;
+use Extia\Bundle\UserBundle\Model\User\InternalQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * controller for tasks components
@@ -74,6 +76,79 @@ class TaskController extends Controller
     }
 
     /**
+     * displays given user all task which target him
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function userTasksAction(Request $request, $userId, $firstname, $lastname)
+    {
+        $locale = $request->attributes->get('_locale');
+
+        $user = InternalQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->filterById($userId)
+            ->filterByFirstname($firstname)
+            ->filterByLastname($lastname)
+
+            ->joinWith('ConsultantRelatedById', \Criteria::LEFT_JOIN)
+            ->joinWith('Group')
+            ->useGroupQuery()
+                ->joinWithI18n($locale)
+            ->endUse()
+            ->joinWith('Job')
+            ->useJobQuery()
+                ->joinWithI18n($locale)
+            ->endUse()
+
+            ->findOne();
+
+        if (empty($user)) {
+            throw new NotFoundHttpException(sprintf('Requested user not found : %s %s (id %s)',
+                firstname, lastname, userId
+            ));
+        }
+
+        // can access this timeline ?
+        if (!$this->get('security.context')->isGranted('USER_DATA', $user)) {
+            throw new AccessDeniedHttpException(sprintf('You have any credentials to access %s %s timeline.',
+                firstname, lastname
+            ));
+        }
+
+        $tasks = TaskQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->distinct('Task.Id')
+
+            ->filterByUserTargetId($user->getId())
+            ->_or()
+            ->filterByAssignedTo($user->getId())
+
+            ->useNodeQuery()
+                ->orderByCurrent(\Criteria::DESC)
+                ->orderByCompletedAt(\Criteria::DESC)
+            ->endUse()
+
+            // joins
+            ->joinWith('Node')
+            ->joinWith('Node.Workflow')
+            ->joinWith('UserTarget')
+            ->joinWith('Comment', \Criteria::LEFT_JOIN)
+
+            ->find();
+
+        $template = 'ExtiaDashboardBundle:Task:Users/'.$user->getGroup()->getCode().'_tasks.html.twig';
+        if (!$this->get('templating')->exists($template)) {
+            $template = 'ExtiaDashboardBundle:Task:Users/user_tasks.html.twig';
+        }
+
+        return $this->render($template, array(
+            'user'  => $user->getConsultantRelatedById(),
+            'tasks' => $tasks
+        ));
+    }
+
+    /**
      * list today tasks for given user id
      * @param  int      $userId
      * @return Response
@@ -88,11 +163,11 @@ class TaskController extends Controller
                 'max' => $this->dates['tomorrow'],
             ))
             ->joinWith('UserTarget')
-            ->joinWith('Comment')
+            ->joinWith('Comment', \Criteria::LEFT_JOIN)
             ->joinWithCurrentNodes()
             ->find();
 
-        return $this->render('ExtiaDashboardBundle:Task:today_tasks.html.twig', array(
+        return $this->render('ExtiaDashboardBundle:Task:Boxes/today_tasks.html.twig', array(
             'tasks' => $todayTaskCollection
         ));
     }
@@ -117,7 +192,7 @@ class TaskController extends Controller
             ->orderByActivationDate()
             ->find();
 
-        return $this->render('ExtiaDashboardBundle:Task:next_tasks.html.twig', array(
+        return $this->render('ExtiaDashboardBundle:Task:Boxes/next_tasks.html.twig', array(
             'tasks' => $nextTaskCollection
         ));
     }
@@ -136,12 +211,12 @@ class TaskController extends Controller
                 'max' => $this->dates['today']
             ))
             ->joinWith('UserTarget')
-            ->joinWith('Comment')
+            ->joinWith('Comment', \Criteria::LEFT_JOIN)
             ->joinWithCurrentNodes()
             ->orderByActivationDate()
             ->find();
 
-        return $this->render('ExtiaDashboardBundle:Task:past_tasks.html.twig', array(
+        return $this->render('ExtiaDashboardBundle:Task:Boxes/past_tasks.html.twig', array(
             'tasks' => $pastTaskCollection
         ));
     }

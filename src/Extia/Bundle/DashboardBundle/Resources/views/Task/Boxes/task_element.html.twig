@@ -14,12 +14,15 @@
 
     <div class="btn-group">
         <a class="button" data-toggle-target="comments-{{ task.id }}" href="#">
-            <i class="icon-comments-alt"></i> {{ 'history_link'|trans }}
+            <i class="icon-comments-alt"></i> {{ 'comments_link'|trans }}
             {% if task.comments|length %}({{ task.comments.count }}){% endif %}
         </a>
         <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal"><i class="icon-ok"></i> {{ 'handle_link'|trans }}</a>
+        <a href="{{ path('workflow_history', { 'workflow_id': task.node.workflow.id }) }}" class="button"><i class="icon-list"></i> {{ 'history_link'|trans }}</a>
+        {#
         <a class="button"><i class="icon-refresh"></i> {{ 'differ_link'|trans }}</a>
         <a class="button"><i class="icon-remove"></i> {{ 'close_link'|trans }}</a>
+        #}
     </div>
     <div id="comments-{{ task.id }}" class="comments">
         {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' %}

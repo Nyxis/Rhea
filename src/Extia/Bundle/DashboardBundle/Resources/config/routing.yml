@@ -1,7 +1,19 @@
-task_details:
-    pattern: /task/details/{workflow_id}
+workflow_history:
+    pattern: /task/{workflow_id}/history
     defaults:
         _controller: ExtiaDashboardBundle:Task:workflowDetails
         _format: html
+        _menu: dashboard
     requirements:
         workflow_id: \d+
+
+user_target_tasks:
+    pattern: /user/{userId}-{firstname}-{lastname}/timeline
+    defaults:
+        _controller: ExtiaDashboardBundle:Task:userTasks
+        _format: html
+        _menu: dashboard
+    requirements:
+        firstname: \w+
+        lastname: \w+
+        userId: \d+

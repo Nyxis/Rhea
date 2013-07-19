@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="easy_task.user_provider.class">Extia\Bundle\UserBundle\Security\User\UserProvider</parameter>
-        <parameter key="easy_task.internal_voter.class">Extia\Bundle\UserBundle\Security\Authorization\Voter\InternalVoter</parameter>
+        <parameter key="easy_task.user_data_voter.class">Extia\Bundle\UserBundle\Security\Authorization\Voter\UserDataVoter</parameter>
     </parameters>
 
     <services>
@@ -17,7 +17,7 @@
         </service>
 
         <!-- User voter -->
-        <service id="easy_task.internal_voter" class="%easy_task.internal_voter.class%">
+        <service id="easy_task.user_data_voter" class="%easy_task.user_data_voter.class%">
             <tag name="security.voter" />
         </service>
 

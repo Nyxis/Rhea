@@ -2,7 +2,7 @@
     <button type="button" class="close" data-dismiss="modal">&times;</button>
     <span>{{ task.node.workflow.type|trans }} - {{ task.node.name|trans }}</span>
 </div>
-<form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node) }}" >
+<form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node, nodeUrlParams) }}" >
     <div class="">
         {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
         {{ form_rest(form) }}

@@ -1,4 +1,4 @@
 <blockquote>
-    <p><em>{{ comment.person.longName }} <small>{{ comment.createdAt|date('dmhi'|trans) }}</small></em></p>
+    <p><em>{{ comment.person.longName }} <small>{{ comment.createdAt|date('datetime_format.mdhi'|trans) }}</small></em></p>
     <p>{% autoescape false %}{{ comment.text }}{% endautoescape %}</p>
 </blockquote>

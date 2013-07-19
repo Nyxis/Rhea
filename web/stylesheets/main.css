@@ -1,12 +1,33 @@
 /* ---------------- */
 /* header           */
 /* ---------------- */
-
 .navbar {
     margin:0px;
 }
 .navbar-inner {
     border-radius: 0px;
+}
+
+/* ---------------- */
+/* app override     */
+/* ---------------- */
+.button i {
+    font-size: 14px;
+}
+.button.large {
+    min-width: auto;
+    width: 110px;
+}
+.button.large span {
+    white-space: normal;
+}
+.breadcrumb li.active a, .breadcrumb li.active a:hover {
+    background: -moz-linear-gradient(center top , #ECECEC, #C5C5C5) repeat scroll 0 0 / 100% auto #C5C5C5;
+    color: #35353C;
+    text-shadow: 0 1px 1px rgba(248, 248, 248, 0.5);
+}
+.row-fluid [class*="span"] {
+    min-height: auto;
 }
 
 /* ---------------- */
@@ -134,15 +155,56 @@ li.no-tasks {
     text-align: right;
 }
 
-.task_timeline .default {
-    font-size: 14px;
-    color: #999999;
-    font-style: italic;
+/* ---------------- */
+/* users            */
+/* ---------------- */
+.user-details .gravatar {
+    margin-top: 5px;
+    margin-right: 10px;
 }
+.user-details .data > div {
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 20px;
+}
+.user-details .data h5 {
+    margin: 0px; padding: 0px;
+}
+
+/* ---------------- */
+/* timeline         */
+/* ---------------- */
+.timeline_scrubber {
+    color: #F1F1F1;
+    text-shadow: 2px 2px #666666;
+    text-align: left;
+    font-size: 14px;
+    padding-top: 6px;
+}
+.timeline_scrubber a {
+    display: inline-block;
+    color: inherit;
+    border-left: solid 4px #F1F1F1;
+    padding-left: 10px;
+}
+.timeline_scrubber > li {
+    margin-bottom: 10px;
+    box-shadow: -10px 0 5px -9px #666666;
+}
+.timeline_scrubber ul {
+    font-size: 12px;
+}
+.timeline_scrubber ul li {
+    line-height: 16px;
+}
+.timeline_scrubber ul li a {
+    padding-left: 20px;
+}
+
 
 .task_timeline .date-separator {
     color: #F1F1F1;
-    text-shadow: 0 1px #666666;
+    text-shadow: 2px 2px #666666;
 
     font-size: 14px;
     font-weight: lighter;
@@ -150,7 +212,6 @@ li.no-tasks {
     line-height: 32px;
     margin-bottom: 5px;
 }
-
 .task_timeline .date-separator.month-separator {
     font-style: italic;
 }
@@ -158,6 +219,11 @@ li.no-tasks {
     font-size: 18px;
     border-bottom: 1px solid #F1F1F1;
     box-shadow: 0 10px 10px -8px #666666;
+}
+.task_timeline .default {
+    font-size: 14px;
+    color: #999999;
+    font-style: italic;
 }
 
 /* ---------------- */

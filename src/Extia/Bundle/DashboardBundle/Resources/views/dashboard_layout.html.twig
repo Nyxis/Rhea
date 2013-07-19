@@ -12,16 +12,10 @@
     </script>
 {% endblock %}
 
-{% block top_nav %}
-<div class="container-fluid">
-    <div class="row-fluid search-button-bar-container">
-        <div class="span12">
-            <form>
-                <input type="text" placeholder="Search..." class="search">
-            </form>
-        </div>
-    </div>
-</div>
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li class="active"><a href="#"><i class="icon-list-ul"></i> {{ 'dashboard'|trans }}</a></li>
+    </ul>
 {% endblock %}
 
 {% block modal %}
@@ -49,6 +43,11 @@
                 </a>
             </div>
         </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        {{ render(controller('ExtiaDashboardBundle:Task:pastTasks', { 'userId': app.user.username })) }}
     </div>
 </div>
 {% endblock %}

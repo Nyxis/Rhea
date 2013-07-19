@@ -24,7 +24,6 @@ class UserProvider implements UserProviderInterface
         try {
             $user = InternalQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                ->joinWith('Person')
 
                 // id or email instead of context (authentication or refresh)
                 ->_if(is_integer($username))
@@ -37,13 +36,6 @@ class UserProvider implements UserProviderInterface
                 ->joinWith('Group')
                 ->useGroupQuery('Group')
                     ->joinWithI18n()
-                    ->joinWith('GroupCredential', \Criteria::LEFT_JOIN)
-                    ->useGroupCredentialQuery('GroupCredential', \Criteria::LEFT_JOIN)
-                        ->joinWith('Credential', \Criteria::LEFT_JOIN)
-                        ->useCredentialQuery('Credential', \Criteria::LEFT_JOIN)
-                            ->joinWithI18n()
-                        ->endUse()
-                    ->endUse()
                 ->endUse()
                 ->findOne();
             ;
@@ -57,7 +49,6 @@ class UserProvider implements UserProviderInterface
         } catch (\Exception $e) {
             throw $e;
         }
-
     }
 
     /**
