@@ -101,28 +101,34 @@ easy_task_workflow:
                 bootstrap:
                     bootstrap: true
                     route:
-                        pattern:      /bootstrap/{workflowId}
+                        pattern: /bootstrap/{workflowId}
                     controller:
-                        class:        Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController
+                        class:   Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController
                         actions:
-                            node:     nodeAction
-                            modal:    modalAction
-                            notify:   notificationAction
+                            node:          nodeAction
+                            modal:         modalAction
+                            notify:        notificationAction
+                            user_timeline: userTimeline
+                            wf_history:    workflowHistory
                 appointement:
                     route:
-                        pattern:      /appointement/{workflowId}
+                        pattern: /appointement/{workflowId}
                     controller:
-                        class:        Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController
+                        class:   Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController
                         actions:
-                            node:     nodeAction
-                            modal:    modalAction
-                            notify:   notificationAction
+                            node:          nodeAction
+                            modal:         modalAction
+                            notify:        notificationAction
+                            user_timeline: userTimeline
+                            wf_history:    workflowHistory
                 meeting:
                     route:
-                        pattern:      /meeting/{workflowId}
+                        pattern: /meeting/{workflowId}
                     controller:
-                        class:        Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController
+                        class:   Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController
                         actions:
-                            node:     nodeAction
-                            modal:    modalAction
-                            notify:   notificationAction
+                            node:          nodeAction
+                            modal:         modalAction
+                            notify:        notificationAction
+                            user_timeline: userTimeline
+                            wf_history:    workflowHistory

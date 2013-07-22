@@ -39,7 +39,7 @@ class MeetingNodeController extends TypeNodeController
      */
     public function nodeAction(Request $request, $workflowId = null, Task $task = null)
     {
-        return $this->executeNode($request, $workflowId, $task, 'ExtiaWorkflowCrhMonitoringBundle:Meeting:node.html.twig');
+        return $this->executeNode($request, $workflowId, $task);
     }
 
     /**
@@ -59,12 +59,40 @@ class MeetingNodeController extends TypeNodeController
      * notification action - renders state of this node for notification
      *
      * @param  Request  $request
-     * @param  int      $workflowId
+     * @param  int      $taskId
      * @return Response
      */
     public function notificationAction(Request $request, $taskId)
     {
         return $this->render('ExtiaWorkflowCrhMonitoringBundle:Meeting:notification.html.twig', array(
+            'task' => $this->findTask($taskId)
+        ));
+    }
+
+    /**
+     * user timeline action - renders state of this node for user timeline
+     *
+     * @param  Request  $request
+     * @param  int      $taskId
+     * @return Response
+     */
+    public function userTimelineAction(Request $request, $taskId)
+    {
+        return $this->render('ExtiaWorkflowCrhMonitoringBundle:Meeting:user_timeline.html.twig', array(
+            'task' => $this->findTask($taskId)
+        ));
+    }
+
+    /**
+     * workflow history action - renders state of this node for workflow history
+     *
+     * @param  Request  $request
+     * @param  int      $taskId
+     * @return Response
+     */
+    public function workflowHistoryAction(Request $request, $taskId)
+    {
+        return $this->render('ExtiaWorkflowCrhMonitoringBundle:Meeting:workflow_history.html.twig', array(
             'task' => $this->findTask($taskId)
         ));
     }
@@ -78,7 +106,7 @@ class MeetingNodeController extends TypeNodeController
      * @param  string   $template   [description]
      * @return Response
      */
-    protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle:Meeting:node.html.twig')
+    protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle::node.html.twig')
     {
         $error = '';
         $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
@@ -99,9 +127,10 @@ class MeetingNodeController extends TypeNodeController
         }
 
         return $this->render($template, array(
-            'error' => $error,
-            'task'  => $task,
-            'form'  => $form->createView()
+            'error'    => $error,
+            'task'     => $task,
+            'type_dir' => 'Meeting',
+            'form'     => $form->createView()
         ));
     }
 }

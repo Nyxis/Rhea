@@ -3,7 +3,7 @@
 {% block modal %}
     {{ parent() }}
     <div id="current_task_{{ task.id }}" class="black-box modal fade hide">
-        {% include 'ExtiaWorkflowCrhMonitoringBundle:Bootstrap:modal.html.twig' %}
+        {% include 'ExtiaWorkflowCrhMonitoringBundle:' ~ type_dir ~ ':modal.html.twig' %}
     </div>
 {% endblock %}
 

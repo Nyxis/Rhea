@@ -26,7 +26,7 @@ class BootstrapNodeController extends TypeNodeController
      */
     public function nodeAction(Request $request, $workflowId = null, Task $task = null)
     {
-        return $this->executeNode($request, $workflowId, $task, 'ExtiaWorkflowCrhMonitoringBundle:Bootstrap:node.html.twig');
+        return $this->executeNode($request, $workflowId, $task);
     }
 
     /**
@@ -57,6 +57,34 @@ class BootstrapNodeController extends TypeNodeController
     }
 
     /**
+     * user timeline action - renders state of this node for user timeline
+     *
+     * @param  Request  $request
+     * @param  int      $taskId
+     * @return Response
+     */
+    public function userTimelineAction(Request $request, $taskId)
+    {
+        return $this->render('ExtiaWorkflowCrhMonitoringBundle:Bootstrap:user_timeline.html.twig', array(
+            'task' => $this->findTask($taskId)
+        ));
+    }
+
+    /**
+     * workflow history action - renders state of this node for workflow history
+     *
+     * @param  Request  $request
+     * @param  int      $taskId
+     * @return Response
+     */
+    public function workflowHistoryAction(Request $request, $taskId)
+    {
+        return $this->render('ExtiaWorkflowCrhMonitoringBundle:Bootstrap:workflow_history.html.twig', array(
+            'task' => $this->findTask($taskId)
+        ));
+    }
+
+    /**
      * execute current node
      *
      * @param  Request  $request    [description]
@@ -65,7 +93,7 @@ class BootstrapNodeController extends TypeNodeController
      * @param  string   $template   [description]
      * @return Response
      */
-    protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle:Bootstrap:node.html.twig')
+    protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle::node.html.twig')
     {
         $error = '';
         $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
@@ -86,9 +114,10 @@ class BootstrapNodeController extends TypeNodeController
         }
 
         return $this->render($template, array(
-            'error' => $error,
-            'task'  => $task,
-            'form'  => $form->createView()
+            'error'    => $error,
+            'task'     => $task,
+            'type_dir' => 'Bootstrap',
+            'form'     => $form->createView()
         ));
     }
 }
