@@ -1,8 +1,8 @@
-{% if tasks.count > 1 %}
+{% if tasks.empty == false %}
     <div class="box today_tasks">
         <div class="tab-header"><i class="icon-folder-open-alt"></i> {{ 'today_tasks_header'|trans }}</div>
         <ul class="">
-            {% for task in tasks %}
+            {% for task in tasks.data %}
                 {% include 'ExtiaTaskBundle:Task:Boxes/task_element.html.twig' with { 'task': task } only %}
             {% endfor %}
         </ul>

@@ -29,6 +29,25 @@
 .row-fluid [class*="span"] {
     min-height: auto;
 }
+.badge {
+    color: white;
+    border: 0px solid #989898;
+    box-shadow: 0 0px 0 white;
+    text-shadow: 0 0px rgba(255, 255, 255, 0.5);
+    padding: 2px 9px;
+}
+.label-important, .badge-important {
+    background-color: #B94A48;
+}
+.label-success, .badge-success {
+    background-color: #468847;
+}
+.label-warning, .badge-warning {
+    background-color: #F89406;
+}
+.label-info, .badge-info {
+    background-color: #3A87AD;
+}
 
 /* ---------------- */
 /* menu bar         */
@@ -108,10 +127,6 @@ li.no-tasks {
     line-height: 20px;
     padding: 20px;
 }
-.modal .task-data .head {
-    font-size: 18px;
-    font-weight: bold;
-}
 .user-badge {
     margin-top:5px;
     width:150px;
@@ -158,9 +173,11 @@ li.no-tasks {
 /* ---------------- */
 /* users            */
 /* ---------------- */
+.gravatar {
+    margin-right: 10px;
+}
 .user-details .gravatar {
     margin-top: 5px;
-    margin-right: 10px;
 }
 .user-details .data > div {
     vertical-align: top;
@@ -169,6 +186,13 @@ li.no-tasks {
 }
 .user-details .data h5 {
     margin: 0px; padding: 0px;
+}
+.user-details .status {
+    margin-top: 10px;
+}
+
+.clt-badge h4 a:hover {
+    color: #CCCCCC !important;
 }
 
 /* ---------------- */
@@ -229,6 +253,34 @@ li.no-tasks {
 /* ---------------- */
 /* forms            */
 /* ---------------- */
+form {
+    margin-bottom: 0px;
+}
+.task_modal .form_hook {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    padding: 0 20px 10px;
+}
+.task_modal .task-data .form_hook {
+    padding-left: 0px;
+}
+.task_modal form .field {
+    padding: 20px;
+}
+.task_modal form.form-horizontal .field {
+    padding: 0px;
+}
+.task_modal form .field label {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+}
+.task_modal form .field div > div {
+    display: inline-block;
+    float: none;
+}
+
 label.required:after{
     content:" *";
     position:relative;

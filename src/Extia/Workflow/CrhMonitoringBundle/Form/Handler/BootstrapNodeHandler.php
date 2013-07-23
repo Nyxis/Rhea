@@ -34,6 +34,9 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         $task->data()->set('meeting_date', $this->findNextWorkingDay($data['next_date']));
         $task->data()->set('notif_date', $this->findNextWorkingDay($this->removeDays($data['next_date'], 7)));
 
+        // updates workflow fields
+        $this->updateWorkflow($data, $task);
+
         $task->save();
 
         // notify next node

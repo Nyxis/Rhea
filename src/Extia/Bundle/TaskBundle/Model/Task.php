@@ -11,6 +11,24 @@ use Symfony\Component\HttpFoundation\ParameterBag;
  */
 class Task extends BaseTask
 {
+    /**
+     * proxy on save to always insert data
+     * @param  PropelPDO $pdo
+     * @return bool
+     */
+    public function save(\PropelPDO $pdo = null)
+    {
+        $this->setData(
+            $this->getData()
+        );
+
+        return parent::save($pdo);
+    }
+
+    // ---------------------------------------------------------
+    // Data management
+    // ---------------------------------------------------------
+
     protected $dataBag;
 
     /**
@@ -60,17 +78,32 @@ class Task extends BaseTask
         return parent::setData(json_encode($this->dataBag->all()));
     }
 
-    /**
-     * proxy on save to always insert data
-     * @param  PropelPDO $pdo
-     * @return bool
-     */
-    public function save(\PropelPDO $pdo = null)
-    {
-        $this->setData(
-            $this->getData()
-        );
+    // ---------------------------------------------------------
+    // States
+    // ---------------------------------------------------------
+    const STATE_PLANED  = 'planed';
+    const STATE_HANDLED = 'handled';
+    const STATE_PAST    = 'past';
 
-        return parent::save($pdo);
+    // ---------------------------------------------------------
+    // Basic tests
+    // ---------------------------------------------------------
+
+    /**
+     * @return boolean
+     */
+    public function isPlanedToday()
+    {
+        return $this->getActivationDate('d/m/Y') == date('d/m/Y');
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPlanedTomorrow()
+    {
+        $diffSeconds = strtotime($this->getActivationDate('Y-m-d')) - strtotime(date('Y-m-d'));
+
+        return $diffSeconds >= 3600*24 && $diffSeconds <= 3600*48;
     }
 }

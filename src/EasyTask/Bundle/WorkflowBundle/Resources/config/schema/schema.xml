@@ -4,6 +4,8 @@
     <table name="workflow">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
         <column name="type" type="VARCHAR" required="true" description="type of the task" />
+        <column name="name" type="VARCHAR" required="true" description="name" />
+        <column name="description" type="LONGVARCHAR" required="false" description="description" />
         <behavior name="timestampable" />
         <index>
             <index-column name="type"/>

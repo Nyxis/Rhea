@@ -1,4 +1,4 @@
-{% if tasks is not empty %}
+{% if tasks.empty == false %}
     <div class="box past_tasks">
         <div class="tab-header"><i class="icon-warning-sign"></i> {{ 'past_tasks_header'|trans }}</div>
         <ul class="">

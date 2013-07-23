@@ -1,18 +1,24 @@
-<div class="modal-header tab-header">
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
-    <span>{{ task.node.workflow.type|trans }} - {{ task.node.name|trans }}</span>
-</div>
-<form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node, nodeUrlParams) }}" >
-    <div class="">
+<div class="task_modal crh_monitoring_bootstrap">
+    <div class="modal-header tab-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <span>{{ task.node.workflow.type|trans }} - {{ task.node.name|trans }}</span>
+    </div>
+    <form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node, nodeUrlParams) }}" >
         {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
-        {{ form_rest(form) }}
-    </div>
 
-    <div class="modal-body separator"></div>
-    <div class="modal-footer">
-        <div class="inner-well">
-            <button type="submit" class="button mini rounded">{{ 'task_submit'|trans }}</button>
-            <a class="button mini rounded light-gray" data-dismiss="modal">{{ 'modal_close'|trans }}</a>
+        <p class="form_hook">{{ 'crh_bootstrap_hook'|trans }}</p>
+
+        {{ form_row(form.workflow.name) }}
+        {{ form_row(form.workflow.description) }}
+        {{ form_rest(form) }}
+
+        <div class="separator"></div>
+
+        <div class="modal-footer">
+            <div class="inner-well">
+                <button type="submit" class="button mini rounded">{{ 'task_submit'|trans }}</button>
+                <a class="button mini rounded light-gray" data-dismiss="modal">{{ 'modal_close'|trans }}</a>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

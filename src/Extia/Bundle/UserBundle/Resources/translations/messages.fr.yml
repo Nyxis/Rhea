@@ -1,3 +1,13 @@
 username_label: Email
 password_label: Mot de passe
 login_button: Connexion
+
+status_placed: en mission
+status_ic: en intercontrat
+status_resigned: a démissioné
+
+user_contract: Contrat
+user_begin_contract: arrivé le
+user_end_contract: parti le
+
+user_documents_header: Documents

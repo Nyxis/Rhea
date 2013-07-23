@@ -12,10 +12,8 @@
     {% block user_details %}{% endblock %}
     <div class="row-fluid">
         <div class="span12">
-            {{  render(controller(
-                    'ExtiaTaskBundle:Timeline:tasksTimeline',
-                    { 'task_collection': tasks, '_task_redirect_url': app.request.server.get('REQUEST_URI') }
-                ))
+            {{  render(controller('ExtiaTaskBundle:Timeline:tasksTimeline',
+                    { 'task_collection': tasks, '_task_redirect_url': app.request.server.get('REQUEST_URI') }))
             }}
         </div>
     </div>

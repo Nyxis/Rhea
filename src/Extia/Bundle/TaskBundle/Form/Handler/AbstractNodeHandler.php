@@ -89,4 +89,28 @@ abstract class AbstractNodeHandler
 
         return $nextDateTmstp;
     }
+
+    /**
+     * updates task linked workflow if workflow data given
+     * @param array $data
+     * @param Task  $task
+     * @param Pdo   $con  optionnal db connection
+     */
+    protected function updateWorkflow(array $data, Task $task, \Pdo $con = null)
+    {
+        if (empty($data['workflow'])) {
+            return;
+        }
+
+        $workflow = $task->getNode($con)->getWorkflow($con);
+
+        if (isset($data['workflow']['name'])) {
+            $workflow->setName($data['workflow']['name']);
+        }
+        if (isset($data['workflow']['description'])) {
+            $workflow->setDescription($data['workflow']['description']);
+        }
+
+        $workflow->save($con);
+    }
 }

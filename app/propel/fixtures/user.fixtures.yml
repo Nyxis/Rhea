@@ -90,7 +90,8 @@ Extia\Bundle\UserBundle\Model\Consultant:
         firstname: Kevin
         lastname: Arbouin
         password: <?php echo sha1('karbouin')."\n" ?>
-        mobile: "0600000000"
+        mobile: "+33 6 12 34 56 78"
+        telephone: "+33 1 12 34 56 78"
         JobId: dev
         GroupId: consultant
         CrhId: pauline

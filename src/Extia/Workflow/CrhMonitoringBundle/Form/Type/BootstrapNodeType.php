@@ -25,6 +25,10 @@ class BootstrapNodeType extends AbstractNodeType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('workflow', 'workflow_data', array(
+            'required'     => true
+        ));
+
         $builder->add('user_target_id', 'choice', array(
             'required' => true,
             'multiple' => false,

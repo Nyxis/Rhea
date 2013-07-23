@@ -7,25 +7,30 @@
     <parameters>
         <parameter key="extia.node.abstract_type.class">Extia\Bundle\TaskBundle\Form\Type\AbstractNodeType</parameter>
         <parameter key="extia.node.abstract_handler.class">Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler</parameter>
-        <parameter key="extia.task.finder.class">Extia\Bundle\TaskBundle\Finder\TaskFinder</parameter>
+        <parameter key="extia.workflow.data_type.class">Extia\Bundle\TaskBundle\Form\Type\WorkflowDataType</parameter>
     </parameters>
 
     <services>
 
-        <!-- Workflow Form abstract definition -->
+        <!-- Workflow Node Form abstract definition -->
         <service id="extia.node.abstract_form" class="Symfony\Component\Form\Form" abstract="true"
             factory-service="form.factory" factory-method="create" />
 
-        <!-- Workflow Type abstract definition -->
+        <!-- Workflow Node Type abstract definition -->
         <service id="extia.node.abstract_type" class="%extia.node.abstract_type.class%" abstract="true">
             <argument type="service" id="translator" />
         </service>
 
-        <!-- Workflow Handler abstract definition -->
+        <!-- Workflow Node Handler abstract definition -->
         <service id="extia.node.abstract_handler" class="%extia.node.abstract_handler.class%" abstract="true">
             <call method="setWorkflows">
                 <argument type="service" id="workflows" />
             </call>
+        </service>
+
+        <!-- Workflow data form type -->
+        <service id="extia.workflow.data_type" class="%extia.workflow.data_type.class%">
+            <tag name="form.type" alias="workflow_data" />
         </service>
 
     </services>
