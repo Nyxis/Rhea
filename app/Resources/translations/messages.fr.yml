@@ -4,6 +4,7 @@ mobile: mobile
 
 year: année
 month: mois
+day: jour
 
 months:
     1: Janvier

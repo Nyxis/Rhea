@@ -1,0 +1,15 @@
+<div class="task_user_timeline_element crh_monitoring_appointement">
+    <h4>{{ 'crh_appointement.user_timeline.hook'|trans }}</h4>
+    <div class="clearfix">
+        <div class="pull-right">
+            {% include 'ExtiaUserBundle:Badges:internal.html.twig' with { 'int': task.UserAssigned } only %}
+        </div>
+        {% if task.isCompleted == true %}
+            <p>
+                {{ 'crh_appointement.user_timeline.meeting_date'|trans }}
+                <span class="data">{{ task.data.get('meeting_date')|date('crh_appointement.user_timeline.meeting_date_format'|trans) }}</span>.
+            </p>
+        {% endif %}
+        {% include 'ExtiaTaskBundle:Task:planed_task_state.html.twig' with { 'task': task } only %}
+    </div>
+</div>

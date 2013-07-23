@@ -1,16 +1,17 @@
 /* ---------------- */
-/* header           */
-/* ---------------- */
-.navbar {
-    margin:0px;
-}
-.navbar-inner {
-    border-radius: 0px;
-}
-
-/* ---------------- */
 /* app override     */
 /* ---------------- */
+.dtable {
+    display: table;
+}
+.dtable-cell {
+    display: table-cell;
+    padding: 0 5px;
+    vertical-align: top;
+}
+.padded-bot {
+    padding-bottom: 10px !important;
+}
 .button i {
     font-size: 14px;
 }
@@ -47,6 +48,15 @@
 }
 .label-info, .badge-info {
     background-color: #3A87AD;
+}
+/* ---------------- */
+/* header           */
+/* ---------------- */
+.navbar {
+    margin:0px;
+}
+.navbar-inner {
+    border-radius: 0px;
 }
 
 /* ---------------- */
@@ -127,17 +137,6 @@ li.no-tasks {
     line-height: 20px;
     padding: 20px;
 }
-.user-badge {
-    margin-top:5px;
-    width:150px;
-}
-.user-badge > div {
-    display: table-cell;
-    vertical-align: middle;
-}
-.user-badge div+div {
-    padding-left: 5px;
-}
 .comments {
     display: none;
 }
@@ -190,8 +189,27 @@ li.no-tasks {
 .user-details .status {
     margin-top: 10px;
 }
-
-.clt-badge h4 a:hover {
+.user-badge {
+    color: black;
+    margin-top:5px;
+    max-width: 40%;
+    overflow: hidden;
+}
+.clt-header {
+    margin-top: 10px;
+}
+.clt-header .gravatar {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.clt-badge a {
+    color: inherit;
+}
+.clt-badge h4 a:hover,
+.int-badge h4 a:hover {
+    color: #005580 !important;
+}
+.black-box .clt-badge h4 a:hover {
     color: #CCCCCC !important;
 }
 
@@ -244,11 +262,33 @@ li.no-tasks {
     border-bottom: 1px solid #F1F1F1;
     box-shadow: 0 10px 10px -8px #666666;
 }
-.task_timeline .default {
+.task_timeline p {
     font-size: 14px;
-    color: #999999;
+    color: #333333;
     font-style: italic;
+    margin: 0px;
+    padding: 0px;
 }
+.task_timeline .black-box p {
+    color: #FFFFFF;
+}
+.task_user_timeline_element {
+    margin-bottom: 15px;
+}
+.task_user_timeline_element h4 {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+.task_user_timeline_element .int-badge a {
+    color: #333333;
+}
+.task_user_timeline_element .data {
+    font-weight: bolder;
+}
+.task_user_timeline_element p + p.task_completion_info {
+    margin-top: 10px;
+}
+
 
 /* ---------------- */
 /* forms            */
@@ -261,6 +301,7 @@ form {
     font-style: italic;
     font-weight: bold;
     padding: 0 20px 10px;
+    margin-bottom: 20px;
 }
 .task_modal .task-data .form_hook {
     padding-left: 0px;

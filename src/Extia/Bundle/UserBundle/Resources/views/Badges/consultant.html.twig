@@ -1,20 +1,22 @@
 <div class="clt-badge">
-    {% set timeline_path = path('UserBundle_consultant_timeline', { 'userId': clt.id, 'firstname': clt.firstname, 'lastname': clt.lastname }) %}
-    <div class="pull-left gravatar">
-        <a href="{{ timeline_path }}">
-            <img src="{{ gravatar(clt.email, gravatar_size|default(50)) }}">
-        </a>
-    </div>
     {% if with_contact|default(false) is not empty %}
         <div class="pull-right clt_contact">
             {% include 'ExtiaUserBundle:Badges:consultant_contact.html.twig' %}
         </div>
     {% endif %}
-    <h4>
-        <a href="{{ timeline_path }}">{{ clt.longname }}</a><br />
-        <small>
-            {{ clt.job.label }}
-            {% if clt.status == 'placed' %} - {{ clt.currentMission.mission.label }}{% endif %}
-        </small>
-    </h4>
+    <div class="dtable">
+        {% set timeline_path = path('UserBundle_consultant_timeline', { 'userId': clt.id, 'firstname': clt.firstname, 'lastname': clt.lastname }) %}
+        <div class="dtable-cell gravatar">
+            <a href="{{ timeline_path }}">
+                <img src="{{ gravatar(clt.email, gravatar_size|default(50)) }}">
+            </a>
+        </div>
+        <h4 class="dtable-cell">
+            <a href="{{ timeline_path }}">{{ clt.longname }}</a><br />
+            <small>
+                {{ clt.job.label }}
+                {% if clt.status == 'placed' %} - {{ clt.currentMission.mission.label }}{% endif %}
+            </small>
+        </h4>
+    </div>
 </div>

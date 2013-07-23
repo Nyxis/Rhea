@@ -1,10 +1,9 @@
 <li class="separator padded task">
-    {% if task.userTargetId %}
+{% if task.userTargetId %}
     <div class="pull-right user-badge">
-        <div><img src="{{ gravatar(task.userTarget.email, 50) }}"></div>
-        <div><h5>{% autoescape false %}{{ task.userTarget.longName('<br/>') }}{% endautoescape %}</h5></div>
+        {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'clt': task.userTarget.consultant } only %}
     </div>
-    {% endif %}
+{% endif %}
 
     <h4>
         <small>{{ task.activationDate|date(('date_format.ymd'|trans)) }}</small><br />

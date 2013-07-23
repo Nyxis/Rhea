@@ -85,9 +85,64 @@ class Task extends BaseTask
     const STATE_HANDLED = 'handled';
     const STATE_PAST    = 'past';
 
+    /**
+     * returns task status
+     * @return string
+     */
+    public function getStatus()
+    {
+        if ($this->isCompleted()) {
+            return self::STATE_HANDLED;
+        }
+
+        if ($this->isPlanedToday()) {
+            return self::STATE_PLANED;
+        }
+
+        return strtotime($this->getActivationDate('Y-m-d')) + 24 * 3600 > time() ?
+            self::STATE_PLANED : self::STATE_PAST;
+    }
+
     // ---------------------------------------------------------
-    // Basic tests
+    // Basic accessors
     // ---------------------------------------------------------
+
+    /**
+     * return limit date to complete this task
+     * @param  string          $format optional date format, if given, returns formated date isntead of Datetime
+     * @return DateTime|string
+     */
+    public function getCompletionLimitDate($format = null)
+    {
+        $date = new \DateTime();
+        $date->setTimestamp(strtotime($this->getActivationDate('Y-m-d')) + 3600 * 24);
+
+        return is_string($format) ? $date->format($format) : $date;
+    }
+
+    /**
+     * calculate and returns number of days of retard
+     * @return int
+     */
+    public function getPastDays()
+    {
+        $date = new \DateTime();
+        $date->setTimestamp($this->isCompleted() ? strtotime($this->getCompletedAt('Y-m-d')) : strtotime(date('Y-m-d')));
+
+        $diff = $date->diff(
+            \DateTime::createFromFormat('U', strtotime($this->getActivationDate('Y-m-d')))
+        );
+
+        return $diff->invert === 1 ? $diff->days : 0;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCompleted()
+    {
+        return !is_null($this->getNode()->getCompletedAt());
+    }
 
     /**
      * @return boolean

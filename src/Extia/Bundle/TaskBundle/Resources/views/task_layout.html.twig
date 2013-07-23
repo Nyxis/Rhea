@@ -1,17 +1,5 @@
 {% extends '::base.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $('a[data-toggle-target]').on('click', function(e) {
-                e.preventDefault();
-                $('#' + $(this).data('toggle-target')).slideToggle();
-            });
-        });
-    </script>
-{% endblock %}
-
 {% block breadcrumbs %}
     <ul class="breadcrumb">
         <li class="active"><a href="#"><i class="icon-list-ul"></i> {{ 'dashboard'|trans }}</a></li>

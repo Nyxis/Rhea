@@ -108,8 +108,8 @@ easy_task_workflow:
                             node:          nodeAction
                             modal:         modalAction
                             notify:        notificationAction
-                            user_timeline: userTimeline
-                            wf_history:    workflowHistory
+                            user_timeline: userTimelineAction
+                            wf_history:    workflowHistoryAction
                 appointement:
                     route:
                         pattern: /appointement/{workflowId}
@@ -119,8 +119,8 @@ easy_task_workflow:
                             node:          nodeAction
                             modal:         modalAction
                             notify:        notificationAction
-                            user_timeline: userTimeline
-                            wf_history:    workflowHistory
+                            user_timeline: userTimelineAction
+                            wf_history:    workflowHistoryAction
                 meeting:
                     route:
                         pattern: /meeting/{workflowId}
@@ -130,5 +130,5 @@ easy_task_workflow:
                             node:          nodeAction
                             modal:         modalAction
                             notify:        notificationAction
-                            user_timeline: userTimeline
-                            wf_history:    workflowHistory
+                            user_timeline: userTimelineAction
+                            wf_history:    workflowHistoryAction

@@ -40,7 +40,8 @@ class TimelineController extends Controller
         }
 
         return $this->render('ExtiaTaskBundle:Timeline:tasks_timeline.html.twig', array(
-            'tasks' => $tasksByDate
+            'tasks'            => $tasksByDate,
+            'element_template' => $request->attributes->get('element_template', 'default_timeline_element.html.twig')
         ));
     }
 }

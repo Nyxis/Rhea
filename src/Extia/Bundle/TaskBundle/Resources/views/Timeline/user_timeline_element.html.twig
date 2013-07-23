@@ -1,0 +1,51 @@
+{% if task.node.current is empty %}
+    {% set refDate = task.node.completedAt %}
+{% else %}
+    {% set refDate = task.activationDate %}
+{% endif %}
+
+<div class="box task_details">
+    <div class="tab-header">
+        <i class="icon-tasks"></i>
+        {{ refDate|date('date_format.md'|trans) }} -
+        {{ task.node.workflow.name }} -
+        {{ task.node.name|trans }}
+    </div>
+    <div class="padded">
+        <div class="pull-right status">
+            {% if task.status == 'planed' %}
+                <span class="badge badge-warning">
+                    <i class="icon-calendar"></i> {{ 'task.status.planed'|trans }}
+                </span>
+            {% elseif task.status == 'past' %}
+                <span class="badge badge-important">
+                    <i class="icon-warning-sign"></i> {{ 'task.status.past'|trans }}
+                </span>
+            {% else %}
+                <span class="badge badge-success">
+                    <i class="icon-ok"></i> {{ 'task.status.handled'|trans }}
+                </span>
+            {% endif %}
+        </div>
+
+        {{ render(controller(task.node.type.action('user_timeline'), { 'taskId' : task.id })) }}
+
+        <div class="btn-group">
+            <a class="button" data-toggle-target="comments-{{ task.id }}" href="#">
+                <i class="icon-comments-alt"></i> {{ 'comments_link'|trans }}
+                {% if task.comments|length %}({{ task.comments.count }}){% endif %}
+            </a>
+            {% if task.isCompleted != true %}
+            <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal">
+                <i class="icon-ok"></i> {{ 'handle_link'|trans }}
+            </a>
+            {% endif %}
+            <a href="{{ path('TaskBundle_workflow_history', { 'workflow_id': task.node.workflow.id }) }}" class="button">
+                <i class="icon-list"></i> {{ 'history_link'|trans }}
+            </a>
+        </div>
+        <div id="comments-{{ task.id }}" class="comments">
+            {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' %}
+        </div>
+    </div>
+</div>

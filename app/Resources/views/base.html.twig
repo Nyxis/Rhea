@@ -49,6 +49,12 @@
                             $('#ajaxWaiter, #ajaxWaiterConteneur').hide();
                         });
                     });
+
+                    //pane togglers
+                    $('a[data-toggle-target]').on('click', function(e) {
+                        e.preventDefault();
+                        $('#' + $(this).data('toggle-target')).slideToggle();
+                    });
                 });
             </script>
         {% endblock %}
