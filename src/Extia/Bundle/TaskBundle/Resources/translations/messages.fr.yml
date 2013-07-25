@@ -1,34 +1,10 @@
-# notifications
-success_title: Opération effectuée
-info_title: Information
-warning_title: Attention
-error_title: Erreur
-
-# menu
-dashboard: Organiseur
-recent_activity: Activité récente
-consultants: Consultants
-managers: Managers
-crh: CRH
-
-# profile
-logout_link: Déconnexion
-
-# modals
-modal_close: Fermer
-
 # buttons
-edit_user_link: Modifier l'utilisateur
 new_task_link: Nouvelle tâche
 new_consultant_link: Nouveau consultant
 
 # dashboard
 today_tasks_header: Tâches d'aujourd'hui
-today_no_task_congrats: Félicitations !
-today_no_tasks_text: Il ne reste plus aucune tâche à traiter aujourd'hui
-
 next_tasks_header: Prochaines tâches
-
 past_tasks_header: Tâches en retard
 
 by: créé par
@@ -46,22 +22,33 @@ workflow_submit: Créer la tâche
 workflow_cancel: Annuler
 task_submit: Sauvegarder
 
-# Workflow detail
-workflow_detail_header: Détail tâche
-workflow_created_at: créée le
-workflow_created_by: par
-
-# User tasks
-user_timeline_breadcrumb: Timeline
-user_details_header: Détails
-user_missions_header: Missions
-user_contact: Contact
-user_crh: CRH
-
 # Timeline
 task_managed_by: Géré par
 task_managed_at: le
 task_managed_for: pour le consultant
+
+# Workflow
+workflow:
+    breadcrumb:
+        timeline: Timeline
+    box_header:
+        details: Détails tâche
+    details:
+        created_at: Créée le
+        created_by: par
+        edit_button: Editer
+        close_button: Terminer
+        reopen_button: Relancer
+        save_button: Sauvegarder
+        close_form_button: Fermer le formulaire
+    status:
+        running: en cours
+        closed: fermé
+        retarded: en retard
+    documents:
+        header: Documents
+    contributors:
+        header: Participants
 
 # Task
 task:

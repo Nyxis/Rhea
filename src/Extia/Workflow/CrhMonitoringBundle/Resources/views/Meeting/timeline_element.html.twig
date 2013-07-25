@@ -1,0 +1,17 @@
+<div class="task_timeline_element crh_monitoring_meeting">
+    <h4>
+        {{ 'crh_meeting.timeline.hook'|trans }}
+        <br />{% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.userTarget } only %}
+    </h4>
+    <div class="clearfix">
+        <p class="padded-bot">
+            {{ 'crh_meeting.timeline.meeting_at'|trans }}
+            <span class="data">{{ task.activationDate(('crh_meeting.date_format'|trans ~ ' ' ~ 'crh_meeting.time_format'|trans)) }}</span>.
+        </p>
+        {% if task.isCompleted == true %}
+            <p>{{ 'crh_meeting.timeline.next_meeting'|trans }} <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.</p>
+            <p>{{ 'crh_meeting.timeline.notified_at'|trans }} <span class="data">{{ task.data.get('notif_date')|date('date_format.ymd'|trans) }}</span>.</p>
+        {% endif %}
+        {% include 'ExtiaTaskBundle:Task:planed_task_state.html.twig' with { 'task': task } only %}
+    </div>
+</div>

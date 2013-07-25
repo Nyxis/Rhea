@@ -15,6 +15,9 @@
 .button i {
     font-size: 14px;
 }
+[class^="icon-"] {
+    margin-right: 2px;
+}
 .button.large {
     min-width: auto;
     width: 110px;
@@ -30,6 +33,7 @@
 .row-fluid [class*="span"] {
     min-height: auto;
 }
+
 .badge {
     color: white;
     border: 0px solid #989898;
@@ -37,18 +41,37 @@
     text-shadow: 0 0px rgba(255, 255, 255, 0.5);
     padding: 2px 9px;
 }
-.label-important, .badge-important {
+.label, .badge {
+    background-color: #BBBBBB;
+    padding: 3px 9px;
+}
+.label.label-important, .badge.badge-important {
     background-color: #B94A48;
 }
-.label-success, .badge-success {
+.label.label-success, .badge.badge-success {
     background-color: #468847;
 }
-.label-warning, .badge-warning {
+.label.label-warning, .badge.badge-warning {
     background-color: #F89406;
 }
-.label-info, .badge-info {
+.label.label-info, .badge.badge-info {
     background-color: #3A87AD;
 }
+.box-body .status {
+    margin-top: 10px;
+}
+dl {
+    margin-bottom: 0px;
+}
+.dl-horizontal dt {
+    width: 60px;
+    text-align: left;
+}
+.dl-horizontal dd {
+    margin-left: 70px;
+}
+
+
 /* ---------------- */
 /* header           */
 /* ---------------- */
@@ -140,6 +163,9 @@ li.no-tasks {
 .comments {
     display: none;
 }
+blockquote i{
+    color: lightgrey;
+}
 .comments blockquote{
     padding:3px 10px 10px 10px ;
     margin: 1px 0px 0px 15px;
@@ -147,7 +173,7 @@ li.no-tasks {
     border-top: 1px dotted lightgrey;
 
 }
-.comments blockquote p:first-child{
+.comments blockquote p:last-child{
     color: #999999;
     line-height: 20px;
 }
@@ -186,14 +212,15 @@ li.no-tasks {
 .user-details .data h5 {
     margin: 0px; padding: 0px;
 }
-.user-details .status {
-    margin-top: 10px;
-}
 .user-badge {
     color: black;
     margin-top:5px;
     max-width: 40%;
     overflow: hidden;
+}
+.badge.badge-user {
+    background-color: #303287;
+    cursor: pointer;
 }
 .clt-header {
     margin-top: 10px;
@@ -272,23 +299,51 @@ li.no-tasks {
 .task_timeline .black-box p {
     color: #FFFFFF;
 }
-.task_user_timeline_element {
+
+
+.task_timeline .status {
+    text-align: right;
+}
+.task_timeline .status .badge {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.task_timeline .status .badge:first-child {
+    margin-top: 0px;
+}
+
+
+.task_timeline_element {
     margin-bottom: 15px;
 }
-.task_user_timeline_element h4 {
+.task_timeline_element h4  {
     margin-top: 0px;
     margin-bottom: 20px;
 }
-.task_user_timeline_element .int-badge a {
-    color: #333333;
+.task_timeline_element h4 a.user {
+    display: inline-block;
+    margin-top: 3px;
+    color: #999999;
+    font-size: 15px;
+    font-weight: normal;
 }
-.task_user_timeline_element .data {
+.task_timeline_element h4 a.user:hover {
+
+}
+.task_timeline_element .data {
     font-weight: bolder;
 }
-.task_user_timeline_element p + p.task_completion_info {
+.task_timeline_element p + p.task_completion_info {
     margin-top: 10px;
 }
 
+.workflow_details blockquote {
+    font-size: 14px;
+    border-left-color: lightgrey;
+}
+.workflow_details blockquote i{
+    color: lightgrey;
+}
 
 /* ---------------- */
 /* forms            */

@@ -2,12 +2,31 @@ username_label: Email
 password_label: Mot de passe
 login_button: Connexion
 
-status_placed: en mission
-status_ic: en intercontrat
-status_resigned: a démissioné
+user_status:
+    placed: en mission
+    ic: en intercontrat
+    resigned: a démissioné
 
-user_contract: Contrat
-user_begin_contract: arrivé le
-user_end_contract: parti le
+user_timeline:
+    breadcrumbs:
+        timeline: Timeline
+    actions:
+        edit_user: Modifier l'utilisateur
+    details:
+        header: Détails
+        contact: Contact
+        contract:
+            header: Contrat
+            begin: arrivé le
+            end: parti le
+        internals:
+            header: Référents
+            crh: Crh
+            manager: Manager
 
-user_documents_header: Documents
+    missions:
+        header: Missions
+    documents:
+        header: Documents
+    tasks:
+        header: Tâches en cours

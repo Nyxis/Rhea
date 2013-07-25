@@ -1,0 +1,4 @@
+<a class="user" href="{{ path('UserBundle_internal_timeline', { 'userId': int.id, 'firstname': int.firstname, 'lastname': int.lastname }) }}">
+    <img src="{{ gravatar(int.email, gravatar_size|default(18)) }}">
+    {{ int.longname }}
+</a>

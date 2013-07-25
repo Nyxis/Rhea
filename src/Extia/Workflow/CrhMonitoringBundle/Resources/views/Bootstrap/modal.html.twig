@@ -6,7 +6,7 @@
     <form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node, nodeUrlParams) }}" >
         {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
-        <p class="form_hook">{{ 'crh_bootstrap_hook'|trans }}</p>
+        <p class="form_hook">{{ 'crh_bootstrap.hook'|trans }}</p>
 
         {{ form_row(form.workflow.name) }}
         {{ form_row(form.workflow.description) }}

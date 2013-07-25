@@ -1,0 +1,41 @@
+{% if task.node.current is empty %}
+    {% set refDate = task.node.completedAt %}
+{% else %}
+    {% set refDate = task.activationDate %}
+{% endif %}
+
+<div class="box task_details">
+    <div class="tab-header">
+        <i class="icon-tasks"></i>
+        {{ refDate|date('date_format.md'|trans) }} -
+        {{ task.node.name|trans }}
+    </div>
+    <div class="padded">
+        <div class="clearfix">
+            <div class="pull-right status">
+                {% include 'ExtiaTaskBundle:Task:task_status.html.twig' with { 'task': task } only %} <br />
+                {% include 'ExtiaTaskBundle:Task:task_user_assigned.html.twig' with { 'task': task } only %}
+            </div>
+
+            {{  render(controller(task.node.type.action('timeline'), {
+                    'taskId': task.id,
+                    'params': { 'user_target' : true }
+                }))
+            }}
+        </div>
+        <div class="btn-group">
+            <a class="button" data-toggle-target="comments-{{ task.id }}" href="#">
+                <i class="icon-comments-alt"></i> {{ 'comments_link'|trans }}
+                {% if task.comments|length %}({{ task.comments.count }}){% endif %}
+            </a>
+            {% if task.isCompleted != true %}
+            <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal">
+                <i class="icon-ok"></i> {{ 'handle_link'|trans }}
+            </a>
+            {% endif %}
+        </div>
+        <div id="comments-{{ task.id }}" class="comments">
+            {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' %}
+        </div>
+    </div>
+</div>

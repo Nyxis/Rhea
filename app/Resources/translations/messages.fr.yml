@@ -37,3 +37,5 @@ datetime_format:
     mdhi: 'd/m H:i'
 
 ajax_loading: Chargement
+logout_link: Déconnexion
+modal_close: Fermer

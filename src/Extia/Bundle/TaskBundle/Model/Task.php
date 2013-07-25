@@ -79,7 +79,7 @@ class Task extends BaseTask
     }
 
     // ---------------------------------------------------------
-    // States
+    // Task states
     // ---------------------------------------------------------
     const STATE_PLANED  = 'planed';
     const STATE_HANDLED = 'handled';
@@ -102,6 +102,30 @@ class Task extends BaseTask
         return strtotime($this->getActivationDate('Y-m-d')) + 24 * 3600 > time() ?
             self::STATE_PLANED : self::STATE_PAST;
     }
+
+    // ---------------------------------------------------------
+    // Workflow states
+    // ---------------------------------------------------------
+    const WF_STATE_RUNNING  = 'running';
+    const WF_STATE_CLOSED   = 'closed';
+    const WF_STATE_RETARDED = 'retarded';
+
+    /**
+     * calculate and returns workflow state
+     * @notes defined here because workflow class doesn't have information
+     * about retard and so on
+     *
+     * @return string
+     */
+    public function getWorkflowStatus()
+    {
+        if ($this->getNode()->getEnded()) {
+            return self::WF_STATE_CLOSED;
+        }
+
+        return $this->getPastDays() ? self::WF_STATE_RETARDED : self::WF_STATE_RUNNING;
+    }
+
 
     // ---------------------------------------------------------
     // Basic accessors

@@ -4,6 +4,8 @@ namespace Extia\Bundle\TaskBundle\Controller;
 
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowQuery;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -63,9 +65,44 @@ class TaskController extends Controller
             ));
         }
 
+        $workflow = $tasks->getFirst()->getNode()->getWorkflow();
+        $form     = $this->get('form.factory')->create('workflow_data', $workflow);
+
         return $this->render('ExtiaTaskBundle:Task:workflow_detail.html.twig', array(
-            'workflow' => $tasks->getFirst()->getNode()->getWorkflow(),
-            'tasks'    => $tasks
+            'workflow' => $workflow,
+            'tasks'    => $tasks,
+            'form'     => $form->createView()
+        ));
+    }
+
+    /**
+     * edits given workflow with incomming posted form
+     * @param  Request  $request
+     * @param  int      $workflowId
+     * @return Response
+     */
+    public function workflowEditAction(Request $request, $workflow_id)
+    {
+        $workflow = WorkflowQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->findPk($workflow_id);
+
+        if (empty($workflow)) {
+            throw new \NotFoundHttpException(sprintf('Given workflow id is unknown : "%s" given', $workflow_id));
+        }
+
+        $form = $this->get('form.factory')->create('workflow_data', $workflow);
+        $form->bind($request);
+        if ($form->isValid()) {
+            $workflow->save();
+        } else {
+            $this->get('session')->getFlashbag()->add('error', array(
+                'message' => 'workflow.notification.edit_form_invalid'
+            ));
+        }
+
+        return $this->redirect($request->get('redirect_url',
+            $this->get('router')->generate('Rhea_homepage')
         ));
     }
 

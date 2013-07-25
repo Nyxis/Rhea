@@ -16,3 +16,13 @@
         </div>
     </div>
 {% endblock main %}
+
+
+{% block sidebar %}
+    {{ parent() }}
+    <div class="row-fluid">
+        <div class="span12">
+            {{ render(controller('ExtiaTaskBundle:Task:pastTasks', { 'userId': app.user.username })) }}
+        </div>
+    </div>
+{% endblock %}

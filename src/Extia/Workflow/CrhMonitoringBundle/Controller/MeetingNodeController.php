@@ -70,31 +70,17 @@ class MeetingNodeController extends TypeNodeController
     }
 
     /**
-     * user timeline action - renders state of this node for user timeline
+     * timeline action - renders state of this node as timeline
      *
      * @param  Request  $request
      * @param  int      $taskId
      * @return Response
      */
-    public function userTimelineAction(Request $request, $taskId)
+    public function timelineAction(Request $request, $taskId, $params = array())
     {
-        return $this->render('ExtiaWorkflowCrhMonitoringBundle:Meeting:user_timeline.html.twig', array(
-            'task' => $this->findTask($taskId)
-        ));
-    }
-
-    /**
-     * workflow history action - renders state of this node for workflow history
-     *
-     * @param  Request  $request
-     * @param  int      $taskId
-     * @return Response
-     */
-    public function workflowHistoryAction(Request $request, $taskId)
-    {
-        return $this->render('ExtiaWorkflowCrhMonitoringBundle:Meeting:workflow_history.html.twig', array(
-            'task' => $this->findTask($taskId)
-        ));
+        return $this->render('ExtiaWorkflowCrhMonitoringBundle:Meeting:timeline_element.html.twig',
+            array_replace_recursive($params, array('task' => $this->findTask($taskId)))
+        );
     }
 
     /**

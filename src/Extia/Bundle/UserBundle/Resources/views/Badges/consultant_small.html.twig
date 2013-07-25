@@ -1,0 +1,4 @@
+<a class="user" href="{{ path('UserBundle_consultant_timeline', { 'userId': clt.id, 'firstname': clt.firstname, 'lastname': clt.lastname }) }}">
+    <img src="{{ gravatar(clt.email, gravatar_size|default(18)) }}">
+    {{ clt.longname }}
+</a>

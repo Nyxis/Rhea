@@ -2,7 +2,7 @@
 <div class="notif_content">
     <div class="picto text-{{ type }}"><i class="icon-{{ icon }}"></i></div>
     <div class="text">
-        <p class="notif-head text-{{ type }}">{{ (type ~ '_title')|trans }}</p>
+        <p class="notif-head text-{{ type }}">{{ ('notifications.title.' ~ type)|trans }}</p>
         <p>{{ notif|trim }}</p>
     </div>
 </div>
