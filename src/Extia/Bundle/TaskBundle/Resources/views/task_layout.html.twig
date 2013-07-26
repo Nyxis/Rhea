@@ -7,13 +7,15 @@
 {% endblock %}
 
 {% block modal %}
-<div id="new_task" class="black-box modal hide fade">
-    <div class="modal-header tab-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <span>{{ 'new_task'|trans }}</span>
+    {% if is_granted('TASK_CREATION') %}
+    <div id="new_task" class="black-box modal hide fade">
+        <div class="modal-header tab-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <span>{{ 'new_task'|trans }}</span>
+        </div>
+        {{ render(controller('EasyTaskWorkflowBundle:Workflow:form')) }}
     </div>
-    {{ render(controller('EasyTaskWorkflowBundle:Workflow:form')) }}
-</div>
+    {% endif %}
 {% endblock %}
 
 {% block sidebar %}
@@ -21,10 +23,12 @@
     <div class="span12">
         <div style="margin-bottom: 20px;">
             <div class="big-button-bar">
+                {% if is_granted('TASK_CREATION') %}
                 <a href="#new_task" class="button large" role="button" data-toggle="modal">
                     <i class="icon-calendar"></i>
                     <span>{{ 'new_task_link'|trans }}</span>
                 </a>
+                {% endif %}
                 <a href="#" class="button large">
                     <i class="icon-bug"></i>
                     <span>{{ 'new_consultant_link'|trans }}</span>

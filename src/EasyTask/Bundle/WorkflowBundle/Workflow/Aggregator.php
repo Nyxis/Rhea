@@ -39,6 +39,18 @@ class Aggregator extends ParameterBag
     }
 
     /**
+     * return workflow choices for forms
+     * @return array('id' => 'label')
+     */
+    public function getAsChoices()
+    {
+        return array_combine(
+            $this->keys(),
+            $this->keys() // values are translated
+        );
+    }
+
+    /**
      * return required node for given workflow
      *
      * @param  Workflow|string          $workflow

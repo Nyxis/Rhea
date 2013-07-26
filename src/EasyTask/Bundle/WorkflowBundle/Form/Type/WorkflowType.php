@@ -38,7 +38,7 @@ class WorkflowType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('type', 'choice', array(
-            'choices'  => array_combine($this->aggregator->keys(), $this->aggregator->keys()),
+            'choices'  => $this->aggregator->getAsChoices(),
             'multiple' => false,
             'expanded' => false,
             'required' => true

@@ -109,7 +109,8 @@
 
     <table name="credential">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-        <column name="code" type="VARCHAR" size="20" required="true" />
+        <column name="type" type="VARCHAR" size="20" required="true" />
+        <column name="code" type="VARCHAR" required="true" />
 
         <!-- I18n -->
         <column name="label" type="VARCHAR" size="255" required="true" />

@@ -132,53 +132,81 @@ Extia\Bundle\UserBundle\Model\ConsultantMission:
 
 Extia\Bundle\UserBundle\Model\Credential:
     authentication:
+        type: general
         code: authentication
-    user_create:
-        code: user_create
-    user_edit:
-        code: user_edit
-    user_delete:
-        code: user_delete
+    user_write:
+        type: user
+        code: user_write
+    user_read:
+        type: user
+        code: user_read
+    mission_read:
+        type: mission
+        code: mission_read
+    mission_write:
+        type: mission
+        code: mission_write
+    crh_monitoring_read:
+        type: task
+        code: workflow_crh_monitoring_read
+    crh_monitoring_write:
+        type: task
+        code: workflow_crh_monitoring_write
 
 Extia\Bundle\UserBundle\Model\CredentialI18n:
     authentication_fr:
         id: authentication
         locale: fr
         label: Connexion
-    user_create_fr:
-        id: user_create
+    user_write_fr:
+        id: user_write
         locale: fr
-        label: Création d'un utilisateur
-    user_edit_fr:
-        id: user_edit
+        label: Créer / éditer un consultant
+    user_read_fr:
+        id: user_read
         locale: fr
-        label: Edition d'un utilisateur
-    user_delete_fr:
-        id: user_delete
+        label: Voir les fiches consultant
+    mission_read_fr:
+        id: mission_read
         locale: fr
-        label: Supression d'un utilisateur
+        label: Voir les fiches mission
+    mission_write_fr:
+        id: mission_write
+        locale: fr
+        label: Créer / éditer les fiches mission
+    crh_monitoring_read_fr:
+        id: crh_monitoring_read
+        locale: fr
+        label: ""
+    crh_monitoring_write_fr:
+        id: crh_monitoring_write
+        locale: fr
+        label: ""
 
 Extia\Bundle\UserBundle\Model\GroupCredential:
     gp_crh_auth:
         GroupId: crh
         CredentialId: authentication
-    gp_crh_create:
+    gp_crh_user_write:
         GroupId: crh
-        CredentialId: user_create
-    gp_crh_edit:
+        CredentialId: user_write
+    gp_crh_user_read:
         GroupId: crh
-        CredentialId: user_edit
-    gp_crh_delete:
+        CredentialId: user_read
+    gp_crh_monitoring_read:
         GroupId: crh
-        CredentialId: user_delete
+        CredentialId: crh_monitoring_read
+    gp_crh_monitoring_write:
+        GroupId: crh
+        CredentialId: crh_monitoring_write
     gp_manager_auth:
         GroupId: manager
         CredentialId: authentication
-    gp_manager_edit:
+    gp_manager_user_read:
         GroupId: manager
-        CredentialId: user_edit
+        CredentialId: user_read
 
 Extia\Bundle\UserBundle\Model\PersonCredential:
     arnaud_cred:
         PersonId: arnaud
-        CredentialId: user_create
+        CredentialId: user_write

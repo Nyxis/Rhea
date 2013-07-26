@@ -1,4 +1,7 @@
 crh_monitoring: Suivi RH
+crh_monitoring_credential:
+    read: Voir les suivis RH
+    write: Créer et réaliser des suivis RH
 
 bootstrap: Initialisation
 crh_bootstrap:
