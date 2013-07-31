@@ -34,7 +34,13 @@ class UserProvider implements UserProviderInterface
 
                 // loads group and credentials
                 ->joinWith('Group')
-                ->useGroupQuery('Group')
+
+                // ;
+
+            // var_dump($user->getJoins());
+            // die;
+
+                ->useGroupQuery()
                     ->joinWithI18n()
                 ->endUse()
                 ->findOne();

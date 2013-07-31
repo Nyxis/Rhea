@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block modal %}
-    {% if is_granted('TASK_CREATION') %}
+    {% if is_granted('TASK_CREATION', app.user) %}
     <div id="new_task" class="black-box modal hide fade">
         <div class="modal-header tab-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -23,7 +23,7 @@
     <div class="span12">
         <div style="margin-bottom: 20px;">
             <div class="big-button-bar">
-                {% if is_granted('TASK_CREATION') %}
+                {% if is_granted('TASK_CREATION', app.user) %}
                 <a href="#new_task" class="button large" role="button" data-toggle="modal">
                     <i class="icon-calendar"></i>
                     <span>{{ 'new_task_link'|trans }}</span>

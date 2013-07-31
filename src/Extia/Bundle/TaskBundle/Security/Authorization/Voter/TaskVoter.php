@@ -64,8 +64,8 @@ class TaskVoter implements VoterInterface
                 $tasksCredentials = $this->getTaskCredentials($token);
 
                 // tests if user can create a task
-                if ($attribute == 'TASK_CREATION' && empty($tasksCredentials)) {
-                    return VoterInterface::ACCESS_DENIED;
+                if ($attribute == 'TASK_CREATION' && !empty($tasksCredentials)) {
+                    return VoterInterface::ACCESS_GRANTED;
                 }
 
                 $workflowType = $object->getNode()->getWorkflow()->getType();
