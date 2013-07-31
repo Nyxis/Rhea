@@ -50,6 +50,16 @@ ExtiaActivityBundle:
         _menu: activity
 
 # ---------------------------------------
+# Group
+# ---------------------------------------
+ExtiaGroupBundle:
+    resource: "@ExtiaGroupBundle/Resources/config/routing.yml"
+    prefix:   /admin/group
+    defaults:
+        _menu: admin
+        _submenu: group
+
+# ---------------------------------------
 # Users
 # ---------------------------------------
 ExtiaUserBundle_consultants:

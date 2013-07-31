@@ -3,6 +3,10 @@
 namespace Extia\Bundle\UserBundle\Model;
 
 use Extia\Bundle\UserBundle\Model\om\BaseInternal;
+
+use Extia\Bundle\GroupBundle\Model\GroupQuery;
+use Extia\Bundle\GroupBundle\Model\CredentialQuery;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**

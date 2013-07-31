@@ -105,6 +105,9 @@ nav.main-nav > ul {
     display: table-cell;
     vertical-align: middle;
 }
+.profile-menu .profile {
+    width: 100%;
+}
 .profile-menu .user_actions {
     float: right;
     margin-top: 9px;

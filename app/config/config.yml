@@ -18,7 +18,9 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale: "%locale%"
     trusted_proxies: ~
-    session: ~
+    session:
+        name: rhea_session
+        cookie_lifetime: 1800
     fragments: ~
     http_method_override: true
 
@@ -88,6 +90,10 @@ knp_menu:
 mopa_bootstrap:
     form:
         render_optional_text: false
+
+# Group bundle
+extia_group:
+    managed_locales: %managed_locales%
 
 # Easy task
 easy_task_workflow:

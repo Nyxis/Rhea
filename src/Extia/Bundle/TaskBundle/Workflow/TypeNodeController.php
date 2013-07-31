@@ -151,16 +151,16 @@ class TypeNodeController extends EasyTaskTypeNodeController
     {
         $nodeType = $task->getNode()->getType();
         if ($nodeType->supportsAction('notify')) {
-            $this->get('session')->getFlashbag()->add($level, array(
-                'controller' => $nodeType->getAction('notify'),
-                'params'     => array('taskId' => $task->getId())
-            ));
+            $this->get('notifier')->add(
+                $level,
+                $nodeType->getAction('notify'),
+                array('taskId' => $task->getId()),
+                'controller'
+            );
         }
 
-        $request = $this->get('request');
-
         return $this->redirect(
-            $request->query->get('_redirect_url',
+            $this->get('request')->query->get('_redirect_url',
                 $this->get('router')->generate($route, $params)
             )
         );

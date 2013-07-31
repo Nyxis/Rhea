@@ -9,8 +9,8 @@
         <column name="telephone" type="VARCHAR" size="255" required="false" />
         <column name="mobile" type="VARCHAR" size="255" required="false" />
 
-        <column name="job_id" type="INTEGER" required="true" />
-        <foreign-key foreignTable="job">
+        <column name="job_id" type="INTEGER" required="false" />
+        <foreign-key foreignTable="job" onDelete="setnull" onUpdate="cascade">
             <reference local="job_id" foreign="id" />
         </foreign-key>
 
@@ -41,8 +41,8 @@
 
         <column name="password" type="VARCHAR" size="255" required="true" />
 
-        <column name="group_id" type="INTEGER" required="true" />
-        <foreign-key foreignTable="group">
+        <column name="group_id" type="INTEGER" required="false" />
+        <foreign-key foreignTable="group" onDelete="setnull" onUpdate="cascade">
             <reference local="group_id" foreign="id" />
         </foreign-key>
 
@@ -60,65 +60,25 @@
         </behavior>
 
         <!-- Crh relation -->
-        <column name="crh_id" type="INTEGER" required="true" />
-        <foreign-key foreignTable="internal" phpName="Crh">
+        <column name="crh_id" type="INTEGER" required="false" />
+        <foreign-key foreignTable="internal" phpName="Crh" onDelete="setnull" onUpdate="cascade">
             <reference local="crh_id" foreign="id" />
         </foreign-key>
     </table>
 
-    <table name="group">
-        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-        <column name="code" type="VARCHAR" size="20" required="true" />
-
-        <!-- I18n -->
-        <column name="label" type="VARCHAR" size="255" required="true" />
-
-        <behavior name="i18n">
-            <parameter name="i18n_columns" value="label" />
-            <parameter name="default_locale" value="fr" />
-        </behavior>
-    </table>
-
-    <table name="group_credential">
-        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-
-        <column name="group_id" type="INTEGER" required="true" />
-        <foreign-key foreignTable="group">
-            <reference local="group_id" foreign="id" />
-        </foreign-key>
-
-        <column name="credential_id" type="INTEGER" required="true" />
-        <foreign-key foreignTable="credential">
-            <reference local="credential_id" foreign="id" />
-        </foreign-key>
-    </table>
 
     <table name="person_credential">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 
         <column name="person_id" type="INTEGER" required="true" />
-        <foreign-key foreignTable="person">
+        <foreign-key foreignTable="person" onDelete="cascade" onUpdate="cascade">
             <reference local="person_id" foreign="id" />
         </foreign-key>
 
         <column name="credential_id" type="INTEGER" required="true" />
-        <foreign-key foreignTable="credential">
+        <foreign-key foreignTable="credential" onDelete="cascade" onUpdate="cascade">
             <reference local="credential_id" foreign="id" />
         </foreign-key>
-    </table>
-
-    <table name="credential">
-        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-        <column name="type" type="VARCHAR" size="20" required="true" />
-        <column name="code" type="VARCHAR" required="true" />
-
-        <!-- I18n -->
-        <column name="label" type="VARCHAR" size="255" required="true" />
-
-        <behavior name="i18n">
-            <parameter name="i18n_columns" value="label" />
-            <parameter name="default_locale" value="fr" />
-        </behavior>
     </table>
 
     <table name="consultant_mission">

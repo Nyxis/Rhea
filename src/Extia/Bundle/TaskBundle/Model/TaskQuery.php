@@ -34,6 +34,20 @@ class TaskQuery extends BaseTaskQuery
     }
 
     /**
+     * filter query on given workflow types
+     * @param  array     $workflowTypes
+     * @return TaskQuery
+     */
+    public function filterByWorkflowTypes(array $workflowTypes)
+    {
+        return $this->useNodeQuery()
+            ->useWorkflowQuery()
+                ->filterByType($workflowTypes)
+            ->endUse()
+        ->endUse();
+    }
+
+    /**
      * performs target user joins for tasks
      * @param  string    locale optionnal locale
      * @return TaskQuery

@@ -34,11 +34,7 @@ class ConsultantController extends Controller
             ->filterByLastname($lastname)
 
             ->joinWith('Crh')
-
             ->joinWith('Group')
-            ->useGroupQuery()
-                ->joinWithI18n($locale)
-            ->endUse()
             ->joinWith('Job')
             ->useJobQuery()
                 ->joinWithI18n($locale)
@@ -48,14 +44,14 @@ class ConsultantController extends Controller
 
         if (empty($user)) {
             throw new NotFoundHttpException(sprintf('Requested user not found : %s %s (id %s)',
-                firstname, lastname, userId
+                $firstname, $lastname, $userId
             ));
         }
 
         // can access this timeline ?
         if (!$this->get('security.context')->isGranted('USER_DATA', $user)) {
             throw new AccessDeniedHttpException(sprintf('You have any credentials to access %s %s timeline.',
-                firstname, lastname
+                $firstname, $lastname
             ));
         }
 
@@ -63,6 +59,7 @@ class ConsultantController extends Controller
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->distinct('Task.Id')
             ->joinWithAll()
+            ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
 
             ->filterByUserTargetId($user->getId())
             ->_or()

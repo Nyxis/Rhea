@@ -50,6 +50,7 @@ class TaskController extends Controller
             ->useNodeQuery()
                 ->useWorkflowQuery()
                     ->filterById($request->attributes->get('workflow_id'))
+                    ->filterByType(array_keys($this->get('workflows')->getAllowed('read')))
                 ->endUse()
                 ->orderByCurrent(\Criteria::DESC)
                 ->orderByCompletedAt(\Criteria::DESC)
@@ -85,6 +86,7 @@ class TaskController extends Controller
     {
         $workflow = WorkflowQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->filterByType(array_keys($this->get('workflows')->getAllowed('write')))
             ->findPk($workflow_id);
 
         if (empty($workflow)) {
@@ -120,6 +122,7 @@ class TaskController extends Controller
                 'min' => $this->dates['today'],
                 'max' => $this->dates['tomorrow'],
             ))
+            ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
             ->joinWith('Comment', \Criteria::LEFT_JOIN)
             ->joinWithTargettedUser()
             ->joinWithCurrentNodes()
@@ -144,6 +147,7 @@ class TaskController extends Controller
             ->filterByActivationDate(array(
                 'min' => $this->dates['tomorrow']
             ))
+            ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
             ->joinWith('Comment', \Criteria::LEFT_JOIN)
             ->joinWithTargettedUser()
             ->joinWithCurrentNodes()
@@ -168,6 +172,7 @@ class TaskController extends Controller
             ->filterByActivationDate(array(
                 'max' => $this->dates['today']
             ))
+            ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
             ->joinWith('Comment', \Criteria::LEFT_JOIN)
             ->joinWithTargettedUser()
             ->joinWithCurrentNodes()

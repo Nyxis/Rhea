@@ -36,6 +36,23 @@ datetime_format:
     ymdhi: 'd/m/Y H:i'
     mdhi: 'd/m H:i'
 
+menu:
+    dashboard: Organiseur
+    recent_activity: Activité récente
+    consultants: Consultants
+    managers: Managers
+    crh: CRH
+    admin: Administration
+    groups: Groupes
+
+admin:
+    actions:
+        edit: Editer
+        delete: Supprimer
+    buttons:
+        save: Enregistrer
+        back: Retour
+
 ajax_loading: Chargement
 logout_link: Déconnexion
 modal_close: Fermer

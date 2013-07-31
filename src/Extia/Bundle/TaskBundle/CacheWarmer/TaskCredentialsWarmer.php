@@ -2,7 +2,7 @@
 
 namespace Extia\Bundle\TaskBundle\CacheWarmer;
 
-use Extia\Bundle\UserBundle\Model\CredentialQuery;
+use Extia\Bundle\GroupBundle\Model\CredentialQuery;
 
 use EasyTask\Bundle\WorkflowBundle\Workflow\Aggregator;
 

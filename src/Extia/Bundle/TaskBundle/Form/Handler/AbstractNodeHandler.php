@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 abstract class AbstractNodeHandler
 {
+    public $error = '';
+
     /**
      * @var Aggregator
      */

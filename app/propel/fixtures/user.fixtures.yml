@@ -1,23 +1,9 @@
-Extia\Bundle\UserBundle\Model\Group:
+Extia\Bundle\GroupBundle\Model\Group:
     crh:
-        code: crh
+        label: Crh
     manager:
-        code: manager
+        label: IA - Manager
     consultant:
-        code: consultant
-
-Extia\Bundle\UserBundle\Model\GroupI18n:
-    crhfr:
-        id: crh
-        locale: fr
-        label: Consultant Ressources Humaine
-    managerfr:
-        id: manager
-        locale: fr
-        label: Manager
-    consultantfr:
-        id: consultant
-        locale: fr
         label: Consultant
 
 Extia\Bundle\UserBundle\Model\Job:
@@ -130,7 +116,10 @@ Extia\Bundle\UserBundle\Model\ConsultantMission:
         MissionId: tf1
         BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
 
-Extia\Bundle\UserBundle\Model\Credential:
+Extia\Bundle\GroupBundle\Model\Credential:
+    admin:
+        type: general
+        code: admin
     authentication:
         type: general
         code: authentication
@@ -153,7 +142,11 @@ Extia\Bundle\UserBundle\Model\Credential:
         type: task
         code: workflow_crh_monitoring_write
 
-Extia\Bundle\UserBundle\Model\CredentialI18n:
+Extia\Bundle\GroupBundle\Model\CredentialI18n:
+    admin_fr:
+        id: admin
+        locale: fr
+        label: Administration
     authentication_fr:
         id: authentication
         locale: fr
@@ -183,7 +176,7 @@ Extia\Bundle\UserBundle\Model\CredentialI18n:
         locale: fr
         label: ""
 
-Extia\Bundle\UserBundle\Model\GroupCredential:
+Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_crh_auth:
         GroupId: crh
         CredentialId: authentication
@@ -207,6 +200,9 @@ Extia\Bundle\UserBundle\Model\GroupCredential:
         CredentialId: user_read
 
 Extia\Bundle\UserBundle\Model\PersonCredential:
+    pauline_admin:
+        PersonId: pauline
+        CredentialId: admin
     arnaud_cred:
         PersonId: arnaud
         CredentialId: user_write
