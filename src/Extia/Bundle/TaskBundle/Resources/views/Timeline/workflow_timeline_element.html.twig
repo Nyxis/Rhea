@@ -10,7 +10,7 @@
         {{ refDate|date('date_format.md'|trans) }} -
         {{ task.node.name|trans }}
     </div>
-    <div class="padded">
+    <div class="box-body">
         <div class="clearfix">
             <div class="pull-right status">
                 {% include 'ExtiaTaskBundle:Task:task_status.html.twig' with { 'task': task } only %} <br />

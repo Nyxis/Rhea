@@ -287,10 +287,13 @@ blockquote i{
 .task_timeline .date-separator.month-separator {
     font-style: italic;
 }
-.task_timeline .date-separator.year-separator {
+.task_timeline .date-separator.header {
     font-size: 18px;
     border-bottom: 1px solid #F1F1F1;
     box-shadow: 0 10px 10px -8px #666666;
+}
+.task_timeline .date-separator.header + .task_details {
+    margin-top: 15px;
 }
 .task_timeline p {
     font-size: 14px;
@@ -302,8 +305,6 @@ blockquote i{
 .task_timeline .black-box p {
     color: #FFFFFF;
 }
-
-
 .task_timeline .status {
     text-align: right;
 }
@@ -314,14 +315,12 @@ blockquote i{
 .task_timeline .status .badge:first-child {
     margin-top: 0px;
 }
-
-
-.task_timeline_element {
-    margin-bottom: 15px;
+.task_timeline .task_details .btn-group{
+    margin-top: 15px;
 }
+
 .task_timeline_element h4  {
     margin-top: 0px;
-    margin-bottom: 20px;
 }
 .task_timeline_element h4 a.user {
     display: inline-block;

@@ -1,12 +1,3 @@
-# buttons
-new_task_link: Nouvelle tâche
-new_consultant_link: Nouveau consultant
-
-# dashboard
-today_tasks_header: Tâches d'aujourd'hui
-next_tasks_header: Prochaines tâches
-past_tasks_header: Tâches en retard
-
 by: créé par
 comments_link: Commentaires
 history_link: Historique
@@ -26,6 +17,25 @@ task_submit: Sauvegarder
 task_managed_by: Géré par
 task_managed_at: le
 task_managed_for: pour le consultant
+
+# dashboard
+dashboard:
+    timeline:
+        header:
+            past: En retard
+            today: Aujourd'hui
+            tomorrow: Demain
+            week: Cette semaine
+            next_week: La semaine prochaine
+            after: Plus tard
+    sidebar:
+        button:
+            new_task: Nouvelle tâche
+            new_consultant: Nouveau consultant
+    intercontract:
+        header: Mes consultants en intercontrat
+    past_team_tasks:
+        header: Tâches en retard de mon équipe
 
 # Workflow
 workflow:

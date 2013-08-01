@@ -2,7 +2,7 @@
     {% if task.isCompleted == true %}
         {% if task.pastDays > 0 %}
             <span class="label label-info">
-                <i class="icon-info"></i> - {{ 'task.handle_retard_of'|transchoice(task.pastDays, {'%retard%' : task.pastDays}) }}
+                <i class="icon-info"></i> {{ 'task.handle_retard_of'|transchoice(task.pastDays, {'%retard%' : task.pastDays}) }}
             </span>
         {% endif %}
     {% else %}
@@ -10,7 +10,7 @@
         {% if task.pastDays > 0 %}
             <br />
             <span class="label label-important">
-                <i class="icon-warning-sign"></i> - {{ 'task.retard_of'|transchoice(task.pastDays, {'%retard%' : task.pastDays}) }}
+                <i class="icon-warning-sign"></i> {{ 'task.retard_of'|transchoice(task.pastDays, {'%retard%' : task.pastDays}) }}
             </span>
         {% endif %}
     {% endif %}

@@ -4,7 +4,7 @@
         <br />{% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.userTarget } only %}
     </h4>
     <div class="clearfix">
-        <p class="padded-bot">
+        <p>
             {{ 'crh_meeting.timeline.meeting_at'|trans }}
             <span class="data">{{ task.activationDate(('crh_meeting.date_format'|trans ~ ' ' ~ 'crh_meeting.time_format'|trans)) }}</span>.
         </p>

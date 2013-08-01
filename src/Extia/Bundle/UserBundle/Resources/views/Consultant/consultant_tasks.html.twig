@@ -7,7 +7,7 @@
                 <div class="tab-header">
                     <i class="icon-reorder"></i>
                     {{ 'user_timeline.details.header'|trans }}
-                    {{ user.group.label|lower }}
+                    {% if user.group is not empty %}{{ user.group.label|lower }}{% endif %}
                 </div>
                 <div class="box-body">
                     <div class="clearfix">

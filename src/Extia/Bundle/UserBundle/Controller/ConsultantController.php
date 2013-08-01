@@ -34,7 +34,7 @@ class ConsultantController extends Controller
             ->filterByLastname($lastname)
 
             ->joinWith('Crh')
-            ->joinWith('Group')
+            ->joinWith('Group', \Criteria::LEFT_JOIN)
             ->joinWith('Job')
             ->useJobQuery()
                 ->joinWithI18n($locale)
