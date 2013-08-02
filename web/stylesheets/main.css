@@ -70,7 +70,24 @@ dl {
 .dl-horizontal dd {
     margin-left: 70px;
 }
-
+.table {
+    width: 100%;
+}
+.table td {
+    vertical-align: middle;
+}
+.table td.actions, .table th.actions {
+    text-align: right;
+}
+.table td .wrap {
+    word-wrap: break-word;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+.bolder {
+    font-weight: bold;
+}
 
 /* ---------------- */
 /* header           */
@@ -165,9 +182,13 @@ li.no-tasks {
 }
 .comments {
     display: none;
+    padding-bottom: 10px;
 }
 blockquote i{
     color: lightgrey;
+}
+blockquote .button i {
+    color: inherit;
 }
 .comments blockquote{
     padding:3px 10px 10px 10px ;
@@ -186,6 +207,7 @@ blockquote i{
 .comments .add_comment {
     text-align: right;
     padding-right: 10px;
+    margin-top: -60px;
 }
 .comments form {
     margin-bottom: 0px;
@@ -225,6 +247,9 @@ blockquote i{
     background-color: #303287;
     cursor: pointer;
 }
+.sidebar .box .badge.badge-user {
+    background-color: #BBBBBB;
+}
 .clt-header {
     margin-top: 10px;
 }
@@ -241,6 +266,19 @@ blockquote i{
 }
 .black-box .clt-badge h4 a:hover {
     color: #CCCCCC !important;
+}
+
+
+.box.consultants td .badge+.badge {
+    margin-top: 4px;
+}
+.box.consultants td.name {
+    max-width: 20%;
+    padding-left: 0px;
+    font-weight: bold;
+}
+.box.consultants .table td .wrap {
+    max-width: 90px;
 }
 
 /* ---------------- */
@@ -346,6 +384,43 @@ blockquote i{
 .workflow_details blockquote i{
     color: lightgrey;
 }
+
+.team-past-tasks .table td.name .wrap {
+    max-width: 220px;
+    min-width: 180px;
+}
+.team-past-tasks .table td.status .wrap {
+    max-width: 125px;
+}
+.team-past-tasks .table td.status span+span {
+    margin-top: 4px;
+}
+.team-past-tasks .table tr {
+    position: relative;
+}
+.team-past-tasks .table-striped tbody tr:nth-child(2n+1) td, .table-striped tbody tr:nth-child(2n+1) th {
+    background-color: inherit;
+}
+.team-past-tasks .table-striped tbody tr.odd td, .table-striped tbody tr.odd th {
+    background-color: #F9F9F9;
+}
+.team-past-tasks .comments {
+    height: auto;
+}
+.team-past-tasks .comments td {
+    padding-top: 0px;
+}
+.team-past-tasks .comments p {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+.team-past-tasks .comments .add_comment {
+    text-align: right;
+    padding-right: 0px;
+    margin-top: -45px;
+}
+
 
 /* ---------------- */
 /* forms            */

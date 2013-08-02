@@ -98,4 +98,17 @@ class Internal extends BaseInternal  implements UserInterface
             && $user->getPassword() === $this->getPassword()
             && $user->getSalt()     === $this->getSalt();
     }
+
+    /**
+     * returns team user ids
+     * @return array
+     */
+    public function getTeamIds()
+    {
+        return $this->getDescendants(
+            InternalQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->select(array('Id'))
+        );
+    }
 }

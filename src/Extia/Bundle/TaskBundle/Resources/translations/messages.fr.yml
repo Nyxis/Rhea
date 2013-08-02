@@ -32,10 +32,6 @@ dashboard:
         button:
             new_task: Nouvelle tâche
             new_consultant: Nouveau consultant
-    intercontract:
-        header: Mes consultants en intercontrat
-    past_team_tasks:
-        header: Tâches en retard de mon équipe
 
 # Workflow
 workflow:

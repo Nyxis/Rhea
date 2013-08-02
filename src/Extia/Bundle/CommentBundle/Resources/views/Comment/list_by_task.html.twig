@@ -3,7 +3,7 @@
     {% include 'ExtiaCommentBundle:Comment:element.html.twig' %}
 {% endfor %}
 </div>
-<div class="add_comment" {% if task.comments|length < 1 %}style="display:none;"{% endif %}>
+<div class="add_comment pull-right" {% if task.comments|length < 1 %}style="display:none;"{% endif %}>
     <ul class="btn-group">
         <li><a class="button" data-form-comment-open><i class="icon-comment-alt"></i> {{ 'comment.form.show'|trans }}</a></li>
     </ul>

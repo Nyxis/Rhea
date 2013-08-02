@@ -85,6 +85,7 @@
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
         <column name="consultant_id" type="INTEGER" required="true" />
         <column name="mission_id" type="INTEGER" required="true" />
+        <column name="current" type="BOOLEAN" required="true" default="false" />
         <column name="begin_date" type="TIMESTAMP" required="true" />
         <column name="end_date" type="TIMESTAMP" required="false" />
 
@@ -99,7 +100,7 @@
     <table name="mission">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
         <column name="manager_id" type="INTEGER" required="true" />
-
+        <column name="type" type="VARCHAR" size="20" required="true" />
         <column name="label" type="VARCHAR" size="255" required="true" />
 
         <foreign-key foreignTable="internal" phpName="Manager">
