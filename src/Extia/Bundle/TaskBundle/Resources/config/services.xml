@@ -8,6 +8,10 @@
         <parameter key="extia.node.abstract_type.class">Extia\Bundle\TaskBundle\Form\Type\AbstractNodeType</parameter>
         <parameter key="extia.node.abstract_handler.class">Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler</parameter>
         <parameter key="extia.workflow.data_type.class">Extia\Bundle\TaskBundle\Form\Type\WorkflowDataType</parameter>
+
+        <parameter key="easy_task.workflows_container.class">Extia\Bundle\TaskBundle\Workflow\Aggregator</parameter>
+        <parameter key="extia.task.credentials_warmer.class">Extia\Bundle\TaskBundle\CacheWarmer\TaskCredentialsWarmer</parameter>
+        <parameter key="extia.task.security_voter.class">Extia\Bundle\TaskBundle\Security\Authorization\Voter\TaskVoter</parameter>
     </parameters>
 
     <services>
@@ -31,6 +35,28 @@
         <!-- Workflow data form type -->
         <service id="extia.workflow.data_type" class="%extia.workflow.data_type.class%">
             <tag name="form.type" alias="workflow_data" />
+        </service>
+
+        <!-- Credentials warmer -->
+        <service id="extia.task.credentials_warmer" class="%extia.task.credentials_warmer.class%">
+            <tag name="kernel.cache_warmer" />
+            <argument type="service" id="workflows" />
+            <argument type="service" id="translator" />
+            <argument>%managed_locales%</argument>
+        </service>
+
+        <!-- Task Voter -->
+        <service id="extia.task.security_voter" class="%extia.task.security_voter.class%">
+            <tag name="security.voter" />
+        </service>
+
+        <!-- Aggregator -->
+        <service id="easy_task.workflows_container" class="%easy_task.workflows_container.class%" >
+            <argument type="service" id="event_dispatcher" />
+            <call method="setup">
+                <argument type="service" id="security.context" />
+                <argument type="service" id="extia.task.security_voter" />
+            </call>
         </service>
 
     </services>

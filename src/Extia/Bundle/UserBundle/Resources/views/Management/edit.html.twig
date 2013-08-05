@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block 'content' %}
+    <div>
+        <form  method="post" {{ form_enctype(form) }} action="{{ path() }}">
+            {{ form_widget(form.text) }}
+            {{ form_rest(form) }}
+            <p class="btn-group">
+                {% if edit is null %}
+                    <button id="add-submit" type="submit" class="button btn-primary">{{ 'add_button'|trans }}</button>
+                {% else %}
+                    <button id="login-submit" type="submit" class="button btn-primary">{{ 'save_button'|trans }}</button>
+                {% endif %}
+                <button id="login-submit" type="submit" class="button">{{ 'cancel_button'|trans }}</button>
+            </p>
+        </form>
+    </div>
+{% endblock %}

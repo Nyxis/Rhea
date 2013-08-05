@@ -93,12 +93,13 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
                 $nodeControllerDefinition->addMethodCall('setName', array($nodeName));
 
                 // register actions
-                $actions = array();
-                foreach ($nodeControllerConfig['actions'] as $key => $action) {
-                    $actions[$key] = $nodeControllerId.':'.$action;
+                $registeredActions = array();
+                $configActions     = empty($nodeControllerConfig['actions']) ? $wfConfig['actions'] : $nodeControllerConfig['actions'];
+                foreach ($configActions as $key => $action) {
+                    $registeredActions[$key] = $nodeControllerId.':'.$action;
                 }
 
-                $nodeControllerDefinition->addMethodCall('registerActions', array($actions));
+                $nodeControllerDefinition->addMethodCall('registerActions', array($registeredActions));
 
                 // routing
                 $nodeRouteConfig = array_replace_recursive(

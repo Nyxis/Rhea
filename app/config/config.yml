@@ -18,7 +18,9 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale: "%locale%"
     trusted_proxies: ~
-    session: ~
+    session:
+        name: rhea_session
+        cookie_lifetime: 1800
     fragments: ~
     http_method_override: true
 
@@ -89,6 +91,10 @@ mopa_bootstrap:
     form:
         render_optional_text: false
 
+# Group bundle
+extia_group:
+    managed_locales: %managed_locales%
+
 # Easy task
 easy_task_workflow:
     workflows:
@@ -97,38 +103,19 @@ easy_task_workflow:
         crh_monitoring:
             routes:
                 prefix: /crh_monitoring
+            actions:
+                node:     nodeAction
+                modal:    modalAction
+                notify:   notificationAction
+                timeline: timelineAction
             nodes:
                 bootstrap:
                     bootstrap: true
-                    route:
-                        pattern: /bootstrap/{workflowId}
-                    controller:
-                        class:   Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController
-                        actions:
-                            node:          nodeAction
-                            modal:         modalAction
-                            notify:        notificationAction
-                            user_timeline: userTimelineAction
-                            wf_history:    workflowHistoryAction
+                    route:      { pattern: "/bootstrap/{workflowId}" }
+                    controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController }
                 appointement:
-                    route:
-                        pattern: /appointement/{workflowId}
-                    controller:
-                        class:   Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController
-                        actions:
-                            node:          nodeAction
-                            modal:         modalAction
-                            notify:        notificationAction
-                            user_timeline: userTimelineAction
-                            wf_history:    workflowHistoryAction
+                    route:      { pattern: "/appointement/{workflowId}" }
+                    controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController }
                 meeting:
-                    route:
-                        pattern: /meeting/{workflowId}
-                    controller:
-                        class:   Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController
-                        actions:
-                            node:          nodeAction
-                            modal:         modalAction
-                            notify:        notificationAction
-                            user_timeline: userTimelineAction
-                            wf_history:    workflowHistoryAction
+                    route:      { pattern: "/meeting/{workflowId}" }
+                    controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController }

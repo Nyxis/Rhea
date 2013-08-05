@@ -4,15 +4,24 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="row-fluid">
-                <div class="span12">
-                    {{ render(controller('ExtiaTaskBundle:Task:todayTasks', { 'userId': app.user.username })) }}
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    {{ render(controller('ExtiaTaskBundle:Task:nextTasks', { 'userId': app.user.username })) }}
+                <div class="span12 task_timeline">
+                    {{ render(controller('ExtiaTaskBundle:Dashboard:dashboardTimeline')) }}
                 </div>
             </div>
         </div>
     </div>
 {% endblock main %}
+
+{% block sidebar %}
+    {{ parent() }}
+    <div class="row-fluid">
+        <div class="span12">
+            {% render(controller('ExtiaUserBundle:Consultant:intercontractListBox', { 'internal': app.user })) %}
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            {% render(controller('ExtiaUserBundle:Internal:teamPastTasks', { 'internal': app.user })) %}
+        </div>
+    </div>
+{% endblock %}

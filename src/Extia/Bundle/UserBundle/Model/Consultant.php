@@ -46,6 +46,8 @@ class Consultant extends BaseConsultant
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->filterByEndDate(null, \Criteria::ISNULL)
                 ->orderBybeginDate(\Criteria::DESC)
+                ->joinWith('Mission')
+                ->joinWith('Mission.Manager')
         );
 
         if (!$missions->isEmpty()) { // no more selects
@@ -53,5 +55,17 @@ class Consultant extends BaseConsultant
         }
 
         return $this->currentMission;
+    }
+
+    /**
+     * returns consultant current manager (function of mission)
+     * @param  Pdo          $con option db connection
+     * @return Manager|null
+     */
+    public function getManager(\Pdo $con = null)
+    {
+        return $this->getCurrentMission($con)
+            ->getMission()
+            ->getManager();
     }
 }

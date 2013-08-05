@@ -2,18 +2,20 @@
 
 {% block breadcrumbs %}
     <ul class="breadcrumb">
-        <li class="active"><a href="#"><i class="icon-list-ul"></i> {{ 'dashboard'|trans }}</a></li>
+        <li class="active"><a href="#"><i class="icon-list-ul"></i> {{ 'menu.dashboard'|trans }}</a></li>
     </ul>
 {% endblock %}
 
 {% block modal %}
-<div id="new_task" class="black-box modal hide fade">
-    <div class="modal-header tab-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <span>{{ 'new_task'|trans }}</span>
+    {% if is_granted('TASK_CREATION', app.user) %}
+    <div id="new_task" class="black-box modal hide fade">
+        <div class="modal-header tab-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <span>{{ 'new_task'|trans }}</span>
+        </div>
+        {{ render(controller('EasyTaskWorkflowBundle:Workflow:form')) }}
     </div>
-    {{ render(controller('EasyTaskWorkflowBundle:Workflow:form')) }}
-</div>
+    {% endif %}
 {% endblock %}
 
 {% block sidebar %}
@@ -21,21 +23,18 @@
     <div class="span12">
         <div style="margin-bottom: 20px;">
             <div class="big-button-bar">
+                {% if is_granted('TASK_CREATION', app.user) %}
                 <a href="#new_task" class="button large" role="button" data-toggle="modal">
                     <i class="icon-calendar"></i>
-                    <span>{{ 'new_task_link'|trans }}</span>
+                    <span>{{ 'dashboard.sidebar.button.new_task'|trans }}</span>
                 </a>
+                {% endif %}
                 <a href="#" class="button large">
                     <i class="icon-bug"></i>
-                    <span>{{ 'new_consultant_link'|trans }}</span>
+                    <span>{{ 'dashboard.sidebar.button.new_consultant'|trans }}</span>
                 </a>
             </div>
         </div>
-    </div>
-</div>
-<div class="row-fluid">
-    <div class="span12">
-        {{ render(controller('ExtiaTaskBundle:Task:pastTasks', { 'userId': app.user.username })) }}
     </div>
 </div>
 {% endblock %}

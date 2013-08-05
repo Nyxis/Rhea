@@ -4,6 +4,8 @@ namespace Extia\Bundle\TaskBundle\Controller;
 
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowQuery;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -15,23 +17,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class TaskController extends Controller
 {
-    /**
-     * pre calculated dates
-     * @var array
-     */
-    protected $dates;
-
-    /**
-     * __construct
-     */
-    public function __construct()
-    {
-        $this->dates = array(
-            'today'    => strtotime(date('Y-m-d')),
-            'tomorrow' => strtotime(date('Y-m-d')) + 24*3600,
-        );
-    }
-
     /**
      * action for workflow details, displays a timeline for
      * given workflow id
@@ -48,6 +33,7 @@ class TaskController extends Controller
             ->useNodeQuery()
                 ->useWorkflowQuery()
                     ->filterById($request->attributes->get('workflow_id'))
+                    ->filterByType(array_keys($this->get('workflows')->getAllowed('read')))
                 ->endUse()
                 ->orderByCurrent(\Criteria::DESC)
                 ->orderByCompletedAt(\Criteria::DESC)
@@ -63,82 +49,45 @@ class TaskController extends Controller
             ));
         }
 
+        $workflow = $tasks->getFirst()->getNode()->getWorkflow();
+        $form     = $this->get('form.factory')->create('workflow_data', $workflow);
+
         return $this->render('ExtiaTaskBundle:Task:workflow_detail.html.twig', array(
-            'workflow' => $tasks->getFirst()->getNode()->getWorkflow(),
-            'tasks'    => $tasks
+            'workflow' => $workflow,
+            'tasks'    => $tasks,
+            'form'     => $form->createView()
         ));
     }
 
     /**
-     * list today tasks for given user id
-     * @param  int      $userId
+     * edits given workflow with incomming posted form
+     * @param  Request  $request
+     * @param  int      $workflowId
      * @return Response
      */
-    public function todayTasksAction($userId)
+    public function workflowEditAction(Request $request, $workflow_id)
     {
-        $todayTaskCollection = TaskQuery::create()
+        $workflow = WorkflowQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByAssignedTo($userId)
-            ->filterByActivationDate(array(
-                'min' => $this->dates['today'],
-                'max' => $this->dates['tomorrow'],
-            ))
-            ->joinWith('Comment', \Criteria::LEFT_JOIN)
-            ->joinWithTargettedUser()
-            ->joinWithCurrentNodes()
-            ->find();
+            ->filterByType(array_keys($this->get('workflows')->getAllowed('write')))
+            ->findPk($workflow_id);
 
-        return $this->render('ExtiaTaskBundle:Task:Boxes/today_tasks.html.twig', array(
-            'tasks' => $todayTaskCollection
-        ));
-    }
+        if (empty($workflow)) {
+            throw new \NotFoundHttpException(sprintf('Given workflow id is unknown : "%s" given', $workflow_id));
+        }
 
-    /**
-     * list next tasks for given user id
-     * @param  int      $userId
-     * @param  int      $limit
-     * @return Response
-     */
-    public function nextTasksAction($userId, $limit = 10)
-    {
-        $nextTaskCollection = TaskQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByAssignedTo($userId)
-            ->filterByActivationDate(array(
-                'min' => $this->dates['tomorrow']
-            ))
-            ->joinWith('Comment', \Criteria::LEFT_JOIN)
-            ->joinWithTargettedUser()
-            ->joinWithCurrentNodes()
-            ->orderByActivationDate()
-            ->find();
+        $form = $this->get('form.factory')->create('workflow_data', $workflow);
+        $form->bind($request);
+        if ($form->isValid()) {
+            $workflow->save();
+        } else {
+            $this->get('session')->getFlashbag()->add('error', array(
+                'message' => 'workflow.notification.edit_form_invalid'
+            ));
+        }
 
-        return $this->render('ExtiaTaskBundle:Task:Boxes/next_tasks.html.twig', array(
-            'tasks' => $nextTaskCollection
-        ));
-    }
-
-    /**
-     * list past tasks actions for given user if
-     * @param  int      $userId
-     * @return Response
-     */
-    public function pastTasksAction($userId)
-    {
-        $pastTaskCollection = TaskQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByAssignedTo($userId)
-            ->filterByActivationDate(array(
-                'max' => $this->dates['today']
-            ))
-            ->joinWith('Comment', \Criteria::LEFT_JOIN)
-            ->joinWithTargettedUser()
-            ->joinWithCurrentNodes()
-            ->orderByActivationDate()
-            ->find();
-
-        return $this->render('ExtiaTaskBundle:Task:Boxes/past_tasks.html.twig', array(
-            'tasks' => $pastTaskCollection
+        return $this->redirect($request->get('redirect_url',
+            $this->get('router')->generate('Rhea_homepage')
         ));
     }
 }

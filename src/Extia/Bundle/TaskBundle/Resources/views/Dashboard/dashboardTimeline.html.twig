@@ -1,0 +1,13 @@
+{% for temporal, tasks in temporalized_tasks %}
+    <div id="timeline_{{ temporal }}">
+        <div class="date-separator header">{{ ('dashboard.timeline.header.' ~ temporal)|trans }}</div>
+        {% for task in tasks %}
+            {% include 'ExtiaTaskBundle:Timeline:user_timeline_element.html.twig' with { 'task': task, 'user_target': true  } only %}
+            {% if task.node.current is not empty %}
+                {% include 'ExtiaTaskBundle:Task:task_modal.html.twig'
+                    with { 'task': task, '_task_redirect_url': path('Rhea_homepage') } only
+                %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endfor %}

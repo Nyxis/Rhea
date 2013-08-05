@@ -36,4 +36,34 @@ datetime_format:
     ymdhi: 'd/m/Y H:i'
     mdhi: 'd/m H:i'
 
+menu:
+    dashboard: Organiseur
+    recent_activity: Activité récente
+    consultants: Consultants
+    managers: Managers
+    crh: CRH
+    admin: Administration
+    groups: Groupes
+
+admin:
+    actions:
+        edit: Editer
+        delete: Supprimer
+    buttons:
+        save: Enregistrer
+        back: Retour
+
 ajax_loading: Chargement
+logout_link: Déconnexion
+modal_close: Fermer
+
+http_errors:
+    500:
+        title: Erreur 500
+        message: Une erreur technique est survenue dans le traitement de votre requête. Veuillez nous excuser, et re-essayer plus tard.
+    404:
+        title: Erreur 404
+        message: La page demandée n'existe pas, avez vous entré la bonne adresse ?
+    403:
+        title: Erreur 403
+        message: Vous n'êtes pa autorisé à accéder à cette page. Vérifiez avec l'administrateur si votre niveau d'accès est suffisant.

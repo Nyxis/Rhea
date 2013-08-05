@@ -5,3 +5,12 @@ TaskBundle_workflow_history:
         _format: html
     requirements:
         workflow_id: \d+
+
+WorkflowBundle_edit_workflow:
+    pattern: /{workflow_id}/edit
+    defaults:
+        _controller: ExtiaTaskBundle:Task:workflowEdit
+        _format: html
+    requirements:
+        workflow_id: \d+
+        _method: post

@@ -1,0 +1,63 @@
+{% extends 'ExtiaGroupBundle::group_layout.html.twig' %}
+
+{% block current_breadcrumb %}
+    <li class="active"><a href="#">{{ 'group.admin.breadcrumbs.list'|trans }}</a></li>
+{% endblock %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box">
+                <div class="tab-header">
+                    <i class="icon-th-list"></i>
+                    {{ 'group.admin.list.header'|trans }}
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <th colspan="2">{{ 'group.admin.list.th_group'|trans }}</th>
+                        <th>{{ 'group.admin.list.th_actions'|trans }}</th>
+                    </thead>
+                    <tbody>
+                    {% for group in groups %}
+                        <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                            <td>{{ group.label }}</td>
+                            <td>
+                                <span class="label">
+                                    {{ group.groupCredentials.count }}
+                                    {{ 'group.admin.list.credential'|transchoice(group.groupCredentials.count) }}
+                                </span>
+                            </td>
+                            <td class="actions">
+                                <div class="btn-group">
+                                    <a class="button" href="{{ path('GroupBundle_edit', { 'groupId': group.id }) }}">
+                                        <i class="icon-pencil"></i>
+                                    </a>
+                                    <a class="button" href="{{ path('GroupBundle_delete', { 'groupId': group.id }) }}">
+                                        <i class="icon-remove"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <td colspan="3">&nbsp;</td>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="big-button-bar">
+            <a href="{{ path('GroupBundle_new') }}" class="button large">
+                <i class="icon-plus"></i>
+                <span>{{ 'group.admin.sidebar.button_new_group'|trans }}</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

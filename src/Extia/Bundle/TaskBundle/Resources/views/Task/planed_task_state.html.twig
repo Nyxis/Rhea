@@ -8,6 +8,7 @@
     {% else %}
         {{ 'task.handle_limit'|trans }} <span class="data">{{ task.completionLimitDate(('date_format.ymd'|trans)) }}</span>.
         {% if task.pastDays > 0 %}
+            <br />
             <span class="label label-important">
                 <i class="icon-warning-sign"></i> {{ 'task.retard_of'|transchoice(task.pastDays, {'%retard%' : task.pastDays}) }}
             </span>
