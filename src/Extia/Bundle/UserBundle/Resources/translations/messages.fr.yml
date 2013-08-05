@@ -1,6 +1,9 @@
 username_label: Email
 password_label: Mot de passe
 login_button: Connexion
+cancel_button: Annuler
+save_button: Enregistrer
+add_button: Ajouter
 
 user_status:
     placed: en mission
