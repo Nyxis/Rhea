@@ -7,9 +7,9 @@
             {{ form_rest(form) }}
             <p class="btn-group">
                 {% if edit is null %}
-                    <button id="add-submit" type="submit" class="button">{{ 'add_button'|trans }}</button>
+                    <button id="add-submit" type="submit" class="button btn-primary">{{ 'add_button'|trans }}</button>
                 {% else %}
-                    <button id="login-submit" type="submit" class="button">{{ 'save_button'|trans }}</button>
+                    <button id="login-submit" type="submit" class="button btn-primary">{{ 'save_button'|trans }}</button>
                 {% endif %}
                 <button id="login-submit" type="submit" class="button">{{ 'cancel_button'|trans }}</button>
             </p>
