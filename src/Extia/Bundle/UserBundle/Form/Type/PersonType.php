@@ -13,12 +13,12 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class PersonType extends AbstractType
 {
-//    private $class;
-//
-//    public function __construct($class)
-//    {
-//        $this->class = $class;
-//    }
+    private $class;
+
+    public function __construct($class)
+    {
+        $this->class = $class;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -33,8 +33,7 @@ class PersonType extends AbstractType
             ->add('email', 'email')
             ->add('phone', 'number')
             ->add('mobile', 'number')
-            ->add('password', 'password')
-            ->add('password_confirm', 'password');
+            ->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'Passwords do not match'));
     }
 
     /**
@@ -42,12 +41,12 @@ class PersonType extends AbstractType
      *
      * @return array
      */
-//    public function getDefaultOptions(array $options)
-//    {
-//        return array(
-//            'data_class' => $this->class,
-//        );
-//    }
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'data_class' => $this->class,
+        );
+    }
 
     /**
      * Returns the name of this type.

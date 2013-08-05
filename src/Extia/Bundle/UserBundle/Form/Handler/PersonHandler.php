@@ -1,7 +1,9 @@
 <?php
 namespace Extia\Bundle\UserBundle\Form\Handler;
 use Extia\Bundle\UserBundle\Model\Consultant;
+use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 use Extia\Bundle\UserBundle\Model\Person;
+use Extia\Bundle\UserBundle\Model\PersonQuery;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -58,6 +60,8 @@ class PersonHandler
      *
      * @param array $person
      * @param       $group
+     *
+     * @throws \Exception
      */
     protected function onSuccess($person, $group)
     {
@@ -67,12 +71,17 @@ class PersonHandler
             case 1:
             case 2:
                 if (!empty($person['id'])) {
-
+                    $user = PersonQuery::create()->findOneById($person['id']);
+                } else {
+                    $user = new Person();
                 }
-                $user = new Person();
                 break;
             case 3:
-                $user = new Consultant();
+                if (!empty($person['id'])) {
+                    $user = ConsultantQuery::create()->findOneById($person['id']);
+                } else {
+                    $user = new Consultant();
+                }
                 break;
             default:
                 throw new \Exception('Invalid group');
