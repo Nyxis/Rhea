@@ -19,15 +19,8 @@ class NotificationController extends Controller
      */
     public function displayAction(Request $request)
     {
-        $flashBags = $this->get('session')->getFlashbag();
-
         return $this->render('ExtiaNotificationBundle:Notification:display.html.twig', array(
-            'notifications' => array(
-                'error'   => array('messages' => $flashBags->get('error'),   'icon' => 'bolt'),
-                'warning' => array('messages' => $flashBags->get('warning'), 'icon' => 'warning-sign'),
-                'info'    => array('messages' => $flashBags->get('info'),    'icon' => 'info'),
-                'success' => array('messages' => $flashBags->get('success'), 'icon' => 'ok')
-            )
+            'notifier' => $this->get('notifier')
         ));
     }
 }

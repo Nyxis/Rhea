@@ -1,0 +1,20 @@
+_management:
+    resource: "routing/management.yml"
+    prefix: /user
+
+_consultant:
+    resource: "routing/consultant.yml"
+    prefix:   /consultant
+    defaults:
+        _menu: consultant
+
+_internal:
+    resource: "routing/internal.yml"
+    prefix:   /internal
+
+# ---------------------------------------
+# Authentication
+# ---------------------------------------
+_authentication:
+    resource: "routing/login.yml"
+    prefix: /

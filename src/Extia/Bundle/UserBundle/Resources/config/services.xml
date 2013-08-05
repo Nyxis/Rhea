@@ -1,27 +1,36 @@
 <?xml version="1.0" ?>
-
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
         <parameter key="easy_task.user_provider.class">Extia\Bundle\UserBundle\Security\User\UserProvider</parameter>
         <parameter key="easy_task.user_data_voter.class">Extia\Bundle\UserBundle\Security\Authorization\Voter\UserDataVoter</parameter>
+        <parameter key="extia_user.person_form_type.class">Extia\Bundle\UserBundle\Form\Type\PersonType</parameter>
+        <parameter key="extia_user.person_form_handler.class">Extia\Bundle\UserBundle\Form\Handler\PersonHandler</parameter>
+        <parameter key="extia_user.person_form.class">Extia\Bundle\UserBundle\Form\Model\Person</parameter>
     </parameters>
 
     <services>
 
         <!-- User Provider -->
-        <service id="easy_task.user_provider" class="%easy_task.user_provider.class%">
-
-        </service>
-
+        <service id="easy_task.user_provider" class="%easy_task.user_provider.class%"/>
         <!-- User voter -->
         <service id="easy_task.user_data_voter" class="%easy_task.user_data_voter.class%">
-            <tag name="security.voter" />
+            <tag name="security.voter"/>
         </service>
 
-
+        <!-- Person Form -->
+        <service id="extia_user.person_form" class="Symfony\Component\Form\Form">
+            <argument type="service" id="extia_user.person_form_type"/>
+        </service>
+        <service id="extia_user.person_form_type" class="%extia_user.person_form_type.class%">
+                <argument>%extia_user.person_form.class%</argument>
+        </service>
+        <service id="extia_user.person_form_handler" class="%extia_user.person_form_handler.class%" scope="request">
+            <argument type="service" id="extia_user.person_form"/>
+            <argument type="service" id="request"/>
+        </service>
     </services>
 
 </container>

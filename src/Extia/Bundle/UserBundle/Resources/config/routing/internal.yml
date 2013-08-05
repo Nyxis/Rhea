@@ -1,0 +1,10 @@
+UserBundle_internal_timeline:
+    pattern: /{userId}/{firstname}-{lastname}/timeline
+    defaults:
+        _controller: 'ExtiaUserBundle:Internal:timeline'
+        _format: html
+    requirements:
+        userId: \d+
+        firstname: \w+
+        lastname: \w+
+        _format: html

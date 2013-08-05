@@ -1,0 +1,9 @@
+{% extends '::error_layout.html.twig' %}
+
+{% block title %}Rhea - {{ 'http_errors.500.title'|trans }}{% endblock %}
+{% block content %}
+    <h2>{{ 'http_errors.500.title'|trans }}</h2>
+    <div class="desc">
+        {{ 'http_errors.500.message'|trans }}<br>
+    </div>
+{% endblock %}

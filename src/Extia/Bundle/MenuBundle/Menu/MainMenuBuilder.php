@@ -63,7 +63,7 @@ class MainMenuBuilder
 
         // dashboard
         $this->addTbChild($menu, array(
-            'label'      => 'dashboard',
+            'label'      => 'menu.dashboard',
             'route'      => 'Rhea_homepage',
             'current'    => $request->get('_menu') == 'dashboard',
             'icon'       => 'list-ul',
@@ -72,7 +72,7 @@ class MainMenuBuilder
 
         // recent activity
         $this->addTbChild($menu, array(
-            'label'      => 'recent_activity',
+            'label'      => 'menu.recent_activity',
             'uri'        => 'ActivityBundle_recent',
             'current'    => $request->get('_menu') == 'activity',
             'icon'       => 'rss',
@@ -81,7 +81,7 @@ class MainMenuBuilder
 
         // consultants
         $this->addTbChild($menu, array(
-            'label'      => 'consultants',
+            'label'      => 'menu.consultants',
             'uri'        => '#',
             'current'    => $request->get('_menu') == 'consultant',
             'icon'       => 'bug',
@@ -90,7 +90,7 @@ class MainMenuBuilder
 
         // managers
         $this->addTbChild($menu, array(
-            'label'      => 'managers',
+            'label'      => 'menu.managers',
             'uri'        => '#',
             'icon'       => 'eur',
             'icon-white' => true
@@ -98,9 +98,18 @@ class MainMenuBuilder
 
         // crh
         $this->addTbChild($menu, array(
-            'label'      => 'crh',
+            'label'      => 'menu.crh',
             'uri'        => '#',
             'icon'       => 'group',
+            'icon-white' => true
+        ));
+
+        // admin
+        $this->addTbChild($menu, array(
+            'label'      => 'menu.admin',
+            'route'      => 'GroupBundle_list',
+            'current'    => $request->get('_menu') == 'admin',
+            'icon'       => 'cogs',
             'icon-white' => true
         ));
 

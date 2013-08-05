@@ -3,6 +3,10 @@
 namespace Extia\Bundle\UserBundle\Model;
 
 use Extia\Bundle\UserBundle\Model\om\BaseInternal;
+
+use Extia\Bundle\GroupBundle\Model\GroupQuery;
+use Extia\Bundle\GroupBundle\Model\CredentialQuery;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -93,5 +97,18 @@ class Internal extends BaseInternal  implements UserInterface
             && $user->getUsername() === $this->getUsername()
             && $user->getPassword() === $this->getPassword()
             && $user->getSalt()     === $this->getSalt();
+    }
+
+    /**
+     * returns team user ids
+     * @return array
+     */
+    public function getTeamIds()
+    {
+        return $this->getDescendants(
+            InternalQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->select(array('Id'))
+        );
     }
 }

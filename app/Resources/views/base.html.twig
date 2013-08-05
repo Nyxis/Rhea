@@ -63,7 +63,7 @@
         <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
     </head>
     {% block body %}
-    <body>
+    <body class="{% block body_class %}{% endblock %}">
         {% block modal %}{% endblock %}
         <div class="navbar navbar-inverse">
             <div class="navbar-inner">
@@ -89,7 +89,7 @@
                                 </ul>
                             </div>
                             <div class="title">{{ app.user.longName }}</div>
-                            <p style="color: #FFFFFF;">{{ app.user.group.label|capitalize }}</p>
+                            <p style="color: #FFFFFF;">{{ app.user.job.label|capitalize }}</p>
                         </div>
                     </div>
                 </li>
@@ -128,17 +128,19 @@
                     <div class="span7">
                         {% block main %}{% endblock main %}
                     </div>
-                    <div class="span5">
+                    <div class="span5 sidebar">
                         {% block sidebar %}{% endblock sidebar %}
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                        {% block footer %}<div class="footer">2013 &copy; Extia</div>{% endblock %}
                     </div>
                 </div>
             {% endblock content %}
             </div>
+            {% block footer %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="footer">2013 &copy; Extia</div>
+                </div>
+            </div>
+            {% endblock %}
         </section>
 
         {% block notifications %}

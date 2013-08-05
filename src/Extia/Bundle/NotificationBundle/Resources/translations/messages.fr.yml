@@ -1,0 +1,6 @@
+notifications:
+    title:
+        success: Opération effectuée
+        info: Information
+        warning: Attention
+        error: Erreur

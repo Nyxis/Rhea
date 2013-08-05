@@ -1,0 +1,8 @@
+{% extends 'ExtiaGroupBundle:Admin:form.html.twig' %}
+
+{% block current_breadcrumb %}
+    <li><a href="#">{{ group.label }}</a></li>
+    <li class="active"><a href="#">{{ 'group.admin.breadcrumbs.edit'|trans }}</a></li>
+{% endblock %}
+
+{% block form_header %}{{ 'group.admin.edit.header'|trans({ '%group_label%': group.label }) }}{% endblock %}

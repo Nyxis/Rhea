@@ -32,11 +32,13 @@ class UserProvider implements UserProviderInterface
                     ->filterByEmail($username)
                 ->_endif()
 
-                // loads group and credentials
                 ->joinWith('Group')
-                ->useGroupQuery('Group')
+
+                ->joinWith('Job')
+                ->useJobQuery()
                     ->joinWithI18n()
                 ->endUse()
+
                 ->findOne();
             ;
 

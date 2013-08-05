@@ -20,9 +20,14 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('extia_notification');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('notification_template')
+                    ->defaultValue('ExtiaNotificationBundle:Notification:message_template.html.twig')
+                ->end()
+            ->end();
+
         return $treeBuilder;
     }
 }

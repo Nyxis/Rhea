@@ -15,6 +15,9 @@
 .button i {
     font-size: 14px;
 }
+[class^="icon-"] {
+    margin-right: 2px;
+}
 .button.large {
     min-width: auto;
     width: 110px;
@@ -30,6 +33,7 @@
 .row-fluid [class*="span"] {
     min-height: auto;
 }
+
 .badge {
     color: white;
     border: 0px solid #989898;
@@ -37,18 +41,54 @@
     text-shadow: 0 0px rgba(255, 255, 255, 0.5);
     padding: 2px 9px;
 }
-.label-important, .badge-important {
+.label, .badge {
+    background-color: #BBBBBB;
+    padding: 3px 9px;
+}
+.label.label-important, .badge.badge-important {
     background-color: #B94A48;
 }
-.label-success, .badge-success {
+.label.label-success, .badge.badge-success {
     background-color: #468847;
 }
-.label-warning, .badge-warning {
+.label.label-warning, .badge.badge-warning {
     background-color: #F89406;
 }
-.label-info, .badge-info {
+.label.label-info, .badge.badge-info {
     background-color: #3A87AD;
 }
+.box-body .status {
+    margin-top: 10px;
+}
+dl {
+    margin-bottom: 0px;
+}
+.dl-horizontal dt {
+    width: 60px;
+    text-align: left;
+}
+.dl-horizontal dd {
+    margin-left: 70px;
+}
+.table {
+    width: 100%;
+}
+.table td {
+    vertical-align: middle;
+}
+.table td.actions, .table th.actions {
+    text-align: right;
+}
+.table td .wrap {
+    word-wrap: break-word;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+.bolder {
+    font-weight: bold;
+}
+
 /* ---------------- */
 /* header           */
 /* ---------------- */
@@ -81,6 +121,9 @@ nav.main-nav > ul {
 .profile-menu .tabular > div, .profile-menu .tabular p.avatar{
     display: table-cell;
     vertical-align: middle;
+}
+.profile-menu .profile {
+    width: 100%;
 }
 .profile-menu .user_actions {
     float: right;
@@ -139,6 +182,13 @@ li.no-tasks {
 }
 .comments {
     display: none;
+    padding-bottom: 10px;
+}
+blockquote i{
+    color: lightgrey;
+}
+blockquote .button i {
+    color: inherit;
 }
 .comments blockquote{
     padding:3px 10px 10px 10px ;
@@ -147,7 +197,7 @@ li.no-tasks {
     border-top: 1px dotted lightgrey;
 
 }
-.comments blockquote p:first-child{
+.comments blockquote p:last-child{
     color: #999999;
     line-height: 20px;
 }
@@ -157,6 +207,7 @@ li.no-tasks {
 .comments .add_comment {
     text-align: right;
     padding-right: 10px;
+    margin-top: -60px;
 }
 .comments form {
     margin-bottom: 0px;
@@ -186,14 +237,18 @@ li.no-tasks {
 .user-details .data h5 {
     margin: 0px; padding: 0px;
 }
-.user-details .status {
-    margin-top: 10px;
-}
 .user-badge {
     color: black;
     margin-top:5px;
     max-width: 40%;
     overflow: hidden;
+}
+.badge.badge-user {
+    background-color: #303287;
+    cursor: pointer;
+}
+.sidebar .box .badge.badge-user {
+    background-color: #BBBBBB;
 }
 .clt-header {
     margin-top: 10px;
@@ -211,6 +266,19 @@ li.no-tasks {
 }
 .black-box .clt-badge h4 a:hover {
     color: #CCCCCC !important;
+}
+
+
+.box.consultants td .badge+.badge {
+    margin-top: 4px;
+}
+.box.consultants td.name {
+    max-width: 20%;
+    padding-left: 0px;
+    font-weight: bold;
+}
+.box.consultants .table td .wrap {
+    max-width: 90px;
 }
 
 /* ---------------- */
@@ -257,10 +325,13 @@ li.no-tasks {
 .task_timeline .date-separator.month-separator {
     font-style: italic;
 }
-.task_timeline .date-separator.year-separator {
+.task_timeline .date-separator.header {
     font-size: 18px;
     border-bottom: 1px solid #F1F1F1;
     box-shadow: 0 10px 10px -8px #666666;
+}
+.task_timeline .date-separator.header + .task_details {
+    margin-top: 15px;
 }
 .task_timeline p {
     font-size: 14px;
@@ -272,21 +343,82 @@ li.no-tasks {
 .task_timeline .black-box p {
     color: #FFFFFF;
 }
-.task_user_timeline_element {
-    margin-bottom: 15px;
+.task_timeline .status {
+    text-align: right;
 }
-.task_user_timeline_element h4 {
+.task_timeline .status .badge {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.task_timeline .status .badge:first-child {
     margin-top: 0px;
-    margin-bottom: 20px;
 }
-.task_user_timeline_element .int-badge a {
-    color: #333333;
+.task_timeline .task_details .btn-group{
+    margin-top: 15px;
 }
-.task_user_timeline_element .data {
+
+.task_timeline_element h4  {
+    margin-top: 0px;
+}
+.task_timeline_element h4 a.user {
+    display: inline-block;
+    margin-top: 3px;
+    color: #999999;
+    font-size: 15px;
+    font-weight: normal;
+}
+.task_timeline_element h4 a.user:hover {
+
+}
+.task_timeline_element .data {
     font-weight: bolder;
 }
-.task_user_timeline_element p + p.task_completion_info {
+.task_timeline_element p + p.task_completion_info {
     margin-top: 10px;
+}
+
+.workflow_details blockquote {
+    font-size: 14px;
+    border-left-color: lightgrey;
+}
+.workflow_details blockquote i{
+    color: lightgrey;
+}
+
+.team-past-tasks .table td.name .wrap {
+    max-width: 220px;
+    min-width: 180px;
+}
+.team-past-tasks .table td.status .wrap {
+    max-width: 125px;
+}
+.team-past-tasks .table td.status span+span {
+    margin-top: 4px;
+}
+.team-past-tasks .table tr {
+    position: relative;
+}
+.team-past-tasks .table-striped tbody tr:nth-child(2n+1) td, .table-striped tbody tr:nth-child(2n+1) th {
+    background-color: inherit;
+}
+.team-past-tasks .table-striped tbody tr.odd td, .table-striped tbody tr.odd th {
+    background-color: #F9F9F9;
+}
+.team-past-tasks .comments {
+    height: auto;
+}
+.team-past-tasks .comments td {
+    padding-top: 0px;
+}
+.team-past-tasks .comments p {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+.team-past-tasks .comments .add_comment {
+    text-align: right;
+    padding-right: 0px;
+    margin-top: -45px;
 }
 
 

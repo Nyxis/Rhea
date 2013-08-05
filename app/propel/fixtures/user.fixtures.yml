@@ -1,23 +1,9 @@
-Extia\Bundle\UserBundle\Model\Group:
+Extia\Bundle\GroupBundle\Model\Group:
     crh:
-        code: crh
+        label: Crh
     manager:
-        code: manager
+        label: IA - Manager
     consultant:
-        code: consultant
-
-Extia\Bundle\UserBundle\Model\GroupI18n:
-    crhfr:
-        id: crh
-        locale: fr
-        label: Consultant Ressources Humaine
-    managerfr:
-        id: manager
-        locale: fr
-        label: Manager
-    consultantfr:
-        id: consultant
-        locale: fr
         label: Consultant
 
 Extia\Bundle\UserBundle\Model\Job:
@@ -30,6 +16,8 @@ Extia\Bundle\UserBundle\Model\Job:
     archi:
         id: ~
     dev:
+        id: ~
+    dev_front:
         id: ~
 
 Extia\Bundle\UserBundle\Model\JobI18n:
@@ -48,6 +36,9 @@ Extia\Bundle\UserBundle\Model\JobI18n:
     devFr:
         id: dev
         label: Développeur
+    devFrontFr:
+        id: dev_front
+        label: Développeur Front
 
 Extia\Bundle\UserBundle\Model\Internal:
     arnaud:
@@ -59,7 +50,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         GroupId: manager
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 1
-        treeRight: 10
+        treeRight:
         treeLevel: 0
     pauline:
         email: pdantin@extia.fr
@@ -70,8 +61,19 @@ Extia\Bundle\UserBundle\Model\Internal:
         GroupId: crh
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 2
-        treeRight: 7
+        treeRight: 10
         treeLevel: 1
+    marine:
+        email: mgiuliani@extia.fr
+        firstname: Marine
+        lastname: Guiliani
+        password: <?php echo sha1('mgiuliani')."\n" ?>
+        JobId: rh
+        GroupId: crh
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
+        treeLeft: 3
+        treeRight: 6
+        treeLevel: 2
     caroline:
         email: cgautier@extia.fr
         firstname: Caroline
@@ -80,8 +82,8 @@ Extia\Bundle\UserBundle\Model\Internal:
         JobId: ia
         GroupId: manager
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
-        treeLeft: 8
-        treeRight: 9
+        treeLeft: 11
+        treeRight: 12
         treeLevel: 1
 
 Extia\Bundle\UserBundle\Model\Consultant:
@@ -96,9 +98,9 @@ Extia\Bundle\UserBundle\Model\Consultant:
         GroupId: consultant
         CrhId: pauline
         ContractBeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
-        treeLeft: 3
-        treeRight: 4
-        treeLevel: 3
+        treeLeft: 7
+        treeRight: 8
+        treeLevel: 2
     quentin:
         email: quentin.cerny@gmail.com
         firstname: Quentin
@@ -106,18 +108,36 @@ Extia\Bundle\UserBundle\Model\Consultant:
         password: <?php echo sha1('qcerny')."\n" ?>
         JobId: archi
         GroupId: consultant
+        CrhId: marine
+        ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
+        treeLeft: 4
+        treeRight: 5
+        treeLevel: 3
+    cesar:
+        email: yimiprod@gmail.com
+        firstname: César
+        lastname: Vidril
+        password: <?php echo sha1('cvidril')."\n" ?>
+        JobId: dev_front
+        GroupId: consultant
         CrhId: pauline
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
-        treeLeft: 5
-        treeRight: 6
-        treeLevel: 3
+        treeLeft: 8
+        treeRight: 9
+        treeLevel: 2
 
 Extia\Bundle\UserBundle\Model\Mission:
     tf1:
         Label: e-Tf1
+        Type: client
         ManagerId: caroline
     sfr:
         Label: SFR
+        Type: client
+        ManagerId: caroline
+    intercontrat:
+        Label: Intercontrat
+        Type: ic
         ManagerId: caroline
 
 Extia\Bundle\UserBundle\Model\ConsultantMission:
@@ -125,60 +145,105 @@ Extia\Bundle\UserBundle\Model\ConsultantMission:
         ConsultantId: kevin
         MissionId: sfr
         BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+        Current: true
     m_quentin:
         ConsultantId: quentin
         MissionId: tf1
         BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+        Current: true
+    m_cesar:
+        ConsultantId: cesar
+        MissionId: intercontrat
+        BeginDate: <?php echo strtotime('2013-06-01')."\n" ?>
+        Current: true
 
-Extia\Bundle\UserBundle\Model\Credential:
+Extia\Bundle\GroupBundle\Model\Credential:
+    admin:
+        type: general
+        code: admin
     authentication:
+        type: general
         code: authentication
-    user_create:
-        code: user_create
-    user_edit:
-        code: user_edit
-    user_delete:
-        code: user_delete
+    user_write:
+        type: user
+        code: user_write
+    user_read:
+        type: user
+        code: user_read
+    mission_read:
+        type: mission
+        code: mission_read
+    mission_write:
+        type: mission
+        code: mission_write
+    crh_monitoring_read:
+        type: task
+        code: workflow_crh_monitoring_read
+    crh_monitoring_write:
+        type: task
+        code: workflow_crh_monitoring_write
 
-Extia\Bundle\UserBundle\Model\CredentialI18n:
+Extia\Bundle\GroupBundle\Model\CredentialI18n:
+    admin_fr:
+        id: admin
+        locale: fr
+        label: Administration
     authentication_fr:
         id: authentication
         locale: fr
         label: Connexion
-    user_create_fr:
-        id: user_create
+    user_write_fr:
+        id: user_write
         locale: fr
-        label: Création d'un utilisateur
-    user_edit_fr:
-        id: user_edit
+        label: Créer / éditer un consultant
+    user_read_fr:
+        id: user_read
         locale: fr
-        label: Edition d'un utilisateur
-    user_delete_fr:
-        id: user_delete
+        label: Voir les fiches consultant
+    mission_read_fr:
+        id: mission_read
         locale: fr
-        label: Supression d'un utilisateur
+        label: Voir les fiches mission
+    mission_write_fr:
+        id: mission_write
+        locale: fr
+        label: Créer / éditer les fiches mission
+    crh_monitoring_read_fr:
+        id: crh_monitoring_read
+        locale: fr
+        label: ""
+    crh_monitoring_write_fr:
+        id: crh_monitoring_write
+        locale: fr
+        label: ""
 
-Extia\Bundle\UserBundle\Model\GroupCredential:
+Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_crh_auth:
         GroupId: crh
         CredentialId: authentication
-    gp_crh_create:
+    gp_crh_user_write:
         GroupId: crh
-        CredentialId: user_create
-    gp_crh_edit:
+        CredentialId: user_write
+    gp_crh_user_read:
         GroupId: crh
-        CredentialId: user_edit
-    gp_crh_delete:
+        CredentialId: user_read
+    gp_crh_monitoring_read:
         GroupId: crh
-        CredentialId: user_delete
+        CredentialId: crh_monitoring_read
+    gp_crh_monitoring_write:
+        GroupId: crh
+        CredentialId: crh_monitoring_write
     gp_manager_auth:
         GroupId: manager
         CredentialId: authentication
-    gp_manager_edit:
+    gp_manager_user_read:
         GroupId: manager
-        CredentialId: user_edit
+        CredentialId: user_read
 
 Extia\Bundle\UserBundle\Model\PersonCredential:
+    pauline_admin:
+        PersonId: pauline
+        CredentialId: admin
     arnaud_cred:
         PersonId: arnaud
-        CredentialId: user_create
+        CredentialId: user_write

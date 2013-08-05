@@ -4,7 +4,7 @@
             <div class="span12 task_timeline">
                 {% for year, months in tasks %}
                     <div id="timeline_year_{{ year }}">
-                        <div class="date-separator year-separator">{{ year }}</div>
+                        <div class="date-separator header">{{ year }}</div>
                     {% for month, tasks in months %}
                         <div id="timeline_month_{{ month }}">
                             <div class="date-separator month-separator">{{ ('months.' ~ month)|trans }}</div>
