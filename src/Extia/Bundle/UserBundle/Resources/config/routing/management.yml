@@ -1,0 +1,11 @@
+extia_user_management_add:
+    pattern: /add
+    default: { _controller: ExtiaUserBundle:Management:add }
+
+extia_user_management_edit:
+    pattern: /edit
+    default: { _controller: ExtiaUserBundle:Management:edit }
+
+extia_user_management_delete:
+    pattern: /delete
+    default: { _controller: ExtiaUserBundle:Management:delete }

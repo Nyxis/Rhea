@@ -1,9 +1,9 @@
 # ---------------------------------------
 # Authentication
 # ---------------------------------------
-ExtiaUserBundle_login:
-    resource: "@ExtiaUserBundle/Resources/config/routing/login.yml"
-    prefix:   /
+#ExtiaUserBundle_login:
+#    resource: "@ExtiaUserBundle/Resources/config/routing/login.yml"
+#    prefix:   /
 
 # ---------------------------------------
 # Workflow management
@@ -62,15 +62,8 @@ ExtiaGroupBundle:
 # ---------------------------------------
 # Users
 # ---------------------------------------
-ExtiaUserBundle_consultants:
-    resource: "@ExtiaUserBundle/Resources/config/routing/consultant.yml"
-    prefix:   /consultant
-    defaults:
-        _menu: consultant
-
-ExtiaUserBundle_internal:
-    resource: "@ExtiaUserBundle/Resources/config/routing/internal.yml"
-    prefix:   /internal
+ExtiaUserBundle:
+    resource: "@ExtiaUserBundle/Resources/config/routing.yml"
 
 # ---------------------------------------
 # Home
