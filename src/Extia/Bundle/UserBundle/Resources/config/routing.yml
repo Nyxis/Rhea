@@ -4,9 +4,10 @@ _management:
 
 _consultant:
     resource: "routing/consultant.yml"
-    prefix:   /consultant
+    prefix: /team/consultant
     defaults:
-        _menu: consultant
+        _menu: users
+        _submenu: consultant
 
 _internal:
     resource: "routing/internal.yml"

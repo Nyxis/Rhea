@@ -10,9 +10,10 @@ user_status:
     ic: en intercontrat
     resigned: a démissioné
 
-user_timeline:
+consultant:
     breadcrumbs:
         timeline: Timeline
+        list: Liste
     actions:
         edit_user: Modifier l'utilisateur
     details:
@@ -26,6 +27,17 @@ user_timeline:
             header: Référents
             crh: Crh
             manager: Manager
+    admin:
+        list:
+            header: Mes consultants
+            th_user: Consultant
+            th_email: Email
+            th_contacts: Téléphone(s)
+            th_actions: Actions
+
+        sidebar:
+            button_new_consultant: Nouveau consultant
+
     missions:
         header: Missions
     documents:

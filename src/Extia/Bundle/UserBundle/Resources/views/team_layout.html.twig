@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block sub_nav %}
+    <nav class="sub-nav">
+        {{ knp_menu_render('user_menu') }}
+    </nav>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="#"><i class="icon-group"></i> {{ 'menu.users'|trans }}</a></li>
+        {% block inactive_breadcrumb %}{% endblock %}
+        {% block current_breadcrumb %}{% endblock %}
+    </ul>
+{% endblock %}

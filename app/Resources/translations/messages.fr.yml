@@ -44,6 +44,8 @@ menu:
     crh: CRH
     admin: Administration
     groups: Groupes
+    users: Équipe
+    internals: Internes
 
 admin:
     actions:

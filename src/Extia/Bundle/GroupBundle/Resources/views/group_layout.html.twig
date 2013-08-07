@@ -2,10 +2,16 @@
 
 {% block body_class %}group-admin{% endblock %}
 
+{% block sub_nav %}
+    <nav class="sub-nav">
+        {{ knp_menu_render('admin_menu') }}
+    </nav>
+{% endblock %}
+
 {% block breadcrumbs %}
     <ul class="breadcrumb">
         <li><a href="#"><i class="icon-cogs"></i> {{ 'menu.admin'|trans }}</a></li>
-        <li><a href="{{ path('GroupBundle_list') }}"><i class="icon-group"></i> {{ 'menu.groups'|trans }}</a></li>
+        <li><a href="{{ path('GroupBundle_list') }}"><i class="icon-check"></i> {{ 'menu.groups'|trans }}</a></li>
         {% block current_breadcrumb %}{% endblock %}
     </ul>
 {% endblock %}

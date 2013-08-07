@@ -1,10 +1,46 @@
+UserBundle_consultant_list:
+    pattern: /
+    defaults:
+        _controller: 'ExtiaUserBundle:Consultant:list'
+        _format: html
+    requirements:
+        _format: html
+
+UserBundle_consultant_new:
+    pattern: /new
+    defaults:
+        _controller: 'ExtiaUserBundle:Consultant:new'
+        _format: html
+    requirements:
+        _format: html
+
 UserBundle_consultant_timeline:
-    pattern: /{userId}/{firstname}-{lastname}/timeline
+    pattern: /{id}/{firstname}-{lastname}/timeline
     defaults:
         _controller: 'ExtiaUserBundle:Consultant:timeline'
         _format: html
     requirements:
-        userId: \d+
+        id: \d+
         firstname: \w+
         lastname: \w+
+        _format: html
+
+UserBundle_consultant_edit:
+    pattern: /{id}/{firstname}-{lastname}/edit
+    defaults:
+        _controller: 'ExtiaUserBundle:Consultant:edit'
+        _format: html
+    requirements:
+        id: \d+
+        firstname: \w+
+        lastname: \w+
+        _format: html
+
+UserBundle_consultant_delete:
+    pattern: /{id}/delete
+    defaults:
+        _controller: 'ExtiaUserBundle:Consultant:delete'
+        _format: html
+    requirements:
+        id: \d+
         _format: html

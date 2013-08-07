@@ -65,6 +65,8 @@
     {% block body %}
     <body class="{% block body_class %}{% endblock %}">
         {% block modal %}{% endblock %}
+
+        {# Top bar #}
         <div class="navbar navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
@@ -72,36 +74,38 @@
                 </div>
             </div>
         </div>
-        {% block main_nav %}
-        <nav id="secondary" class="main-nav">
-            {# user profile #}
-            <ul>
-                <li class="profile-menu">
-                    <div class="tabular">
-                        <div>
-                            <p class="avatar"><img src="{{ gravatar(app.user.email, 50) }}"></p>
-                        </div>
-                        <div class="profile">
-                            <div class="btn-group user_actions">
-                                <button data-toggle="dropdown" class="button mini inset black dropdown-toggle"><i class="icon-cog"></i></button>
-                                <ul class="dropdown-menu black-box-dropdown">
-                                    <li><a href="{{ path('UserBundle_logout') }}"><i class="icon-off"></i>{{ 'logout_link'|trans }}</a></li>
-                                </ul>
-                            </div>
-                            <div class="title">{{ app.user.longName }}</div>
-                            <p style="color: #FFFFFF;">{{ app.user.job.label|capitalize }}</p>
-                        </div>
+
+        {# Left menu bar #}
+        <div class="menu-bar pull-left">
+            {% block profile_nav %}
+            <div class="nav-profile dtable">
+                <div class="dtable-cell">
+                    <p class="avatar"><img src="{{ gravatar(app.user.email, 50) }}"></p>
+                </div>
+                <div class="dtable-cell">
+                    <div class="user-actions btn-group pull-right">
+                        <button data-toggle="dropdown" class="button mini inset black dropdown-toggle"><i class="icon-cog"></i></button>
+                        <ul class="dropdown-menu black-box-dropdown">
+                            <li><a href="{{ path('UserBundle_logout') }}"><i class="icon-off"></i>{{ 'logout_link'|trans }}</a></li>
+                        </ul>
                     </div>
-                </li>
-            </ul>
+                    <p class="title">{{ app.user.longName }}</p>
+                    <p class="job">{{ app.user.job.label|capitalize }}</p>
+                </div>
+            </div>
+            {% endblock %}
 
-            {# menu #}
-            {{ knp_menu_render('main_menu') }}
+            <div class="navs">
+                {% block main_nav %}
+                <nav class="main-nav">
+                    {{ knp_menu_render('main_menu') }}
+                </nav>
+                {% endblock %}
+                {% block sub_nav %}{% endblock %}
+            </div>
+        </div>
 
-
-        </nav>
-        {% endblock %}
-
+        {# Main content #}
         <section id="main">
             <div class="top-nav">
             {% block top_nav %}

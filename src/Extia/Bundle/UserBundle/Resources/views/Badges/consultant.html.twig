@@ -5,7 +5,7 @@
         </div>
     {% endif %}
     <div class="dtable">
-        {% set timeline_path = path('UserBundle_consultant_timeline', { 'userId': clt.id, 'firstname': clt.firstname|url_encode, 'lastname': clt.lastname|url_encode }) %}
+        {% set timeline_path = path('UserBundle_consultant_timeline', { 'id': clt.id, 'firstname': clt.firstname|url_encode, 'lastname': clt.lastname|url_encode }) %}
         <div class="dtable-cell gravatar">
             <a href="{{ timeline_path }}">
                 <img src="{{ gravatar(clt.email, gravatar_size|default(50)) }}">

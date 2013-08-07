@@ -79,14 +79,63 @@ class MainMenuBuilder
             'icon-white' => true
         ));
 
+        // users
+        $this->addTbChild($menu, array(
+            'label'      => 'menu.users',
+            'route'      => 'UserBundle_consultant_list',
+            'current'    => $request->get('_menu') == 'users',
+            'icon'       => 'group',
+            'icon-white' => true
+        ));
+
+        // admin
+        $this->addTbChild($menu, array(
+            'label'      => 'menu.admin',
+            'route'      => 'GroupBundle_list',
+            'current'    => $request->get('_menu') == 'admin',
+            'icon'       => 'cogs',
+            'icon-white' => true
+        ));
+
+        return $menu;
+    }
+
+    /**
+     * create user menu
+     * @param Request $request
+     */
+    public function createUserMenu(Request $request)
+    {
+        $menu = $this->factory->createItem('root');
+
+        // internals
+        $this->addTbChild($menu, array(
+            'label'      => 'menu.internals',
+            'uri'        => '#',
+            'current'    => $request->get('_submenu') == 'internals',
+            'icon'       => 'usd',
+            'icon-white' => true
+        ));
+
         // consultants
         $this->addTbChild($menu, array(
             'label'      => 'menu.consultants',
-            'uri'        => '#',
-            'current'    => $request->get('_menu') == 'consultant',
+            'route'      => 'UserBundle_consultant_list',
+            'current'    => $request->get('_submenu') == 'consultant',
             'icon'       => 'bug',
             'icon-white' => true
         ));
+
+        return $menu;
+    }
+
+    /**
+     * create admin menu
+     * @param Request $request
+     */
+    public function createAdminMenu(Request $request)
+    {
+        $menu = $this->factory->createItem('root');
 
         // managers
         $this->addTbChild($menu, array(
@@ -104,15 +153,16 @@ class MainMenuBuilder
             'icon-white' => true
         ));
 
-        // admin
+        // groups
         $this->addTbChild($menu, array(
-            'label'      => 'menu.admin',
+            'label'      => 'menu.groups',
             'route'      => 'GroupBundle_list',
-            'current'    => $request->get('_menu') == 'admin',
-            'icon'       => 'cogs',
+            'current'    => $request->get('_submenu') == 'group',
+            'icon'       => 'check',
             'icon-white' => true
         ));
 
         return $menu;
     }
+
 }

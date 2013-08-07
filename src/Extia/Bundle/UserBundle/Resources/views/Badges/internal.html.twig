@@ -6,7 +6,7 @@
     {% endif %}
     <div class="dtable">
         {% if is_granted('USER_DATA', int) %}
-            {% set timeline_path = path('UserBundle_consultant_timeline', { 'userId': int.id, 'firstname': int.firstname|url_encode, 'lastname': int.lastname|url_encode }) %}
+            {% set timeline_path = path('UserBundle_consultant_timeline', { 'id': int.id, 'firstname': int.firstname|url_encode, 'lastname': int.lastname|url_encode }) %}
         {% else %}
             {% set timeline_path = '#' %}
         {% endif %}

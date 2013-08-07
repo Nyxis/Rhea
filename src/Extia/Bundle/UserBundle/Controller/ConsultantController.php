@@ -24,13 +24,13 @@ class ConsultantController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function timelineAction(Request $request, $userId)
+    public function timelineAction(Request $request, $id)
     {
         $locale = $request->attributes->get('_locale');
 
         $user = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterById($userId)
+            ->filterById($id)
 
             ->joinWith('Crh')
             ->joinWith('Group', \Criteria::LEFT_JOIN)
@@ -42,7 +42,7 @@ class ConsultantController extends Controller
             ->findOne();
 
         if (empty($user)) {
-            throw new NotFoundHttpException(sprintf('Requested user not found : %s %s (id %s)', $userId
+            throw new NotFoundHttpException(sprintf('Requested user not found : %s %s (id %s)', $id
             ));
         }
 
@@ -67,9 +67,36 @@ class ConsultantController extends Controller
 
             ->find();
 
-        return $this->render('ExtiaUserBundle:Consultant:consultant_tasks.html.twig', array(
+        return $this->render('ExtiaUserBundle:Consultant:timeline.html.twig', array(
             'user'  => $user,
             'tasks' => $tasks
+        ));
+    }
+
+    /**
+     * lists all user consultants
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function listAction(Request $request)
+    {
+        $internal = $this->getUser();
+
+        $consultantCollection = ConsultantQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->joinWith('Job')
+            ->useJobQuery()
+                ->joinWithI18n()
+            ->endUse()
+
+            ->filterByInternalReferer($internal)
+
+            ->find();
+
+        return $this->render('ExtiaUserBundle:Consultant:list.html.twig', array(
+            'user'        => $internal,
+            'consultants' => $consultantCollection
         ));
     }
 
@@ -96,13 +123,7 @@ class ConsultantController extends Controller
                 ->endUse()
             ->endUse()
 
-            ->filterByCrh($internal)
-            ->_or()
-            ->useConsultantMissionQuery()
-                ->useMissionQuery()
-                    ->filterByManager($internal)
-                ->endUse()
-            ->endUse()
+            ->filterByInternalReferer($internal)
 
             ->find();
 

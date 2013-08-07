@@ -102,33 +102,134 @@ dl {
 /* ---------------- */
 /* menu bar         */
 /* ---------------- */
-nav#secondary {
-    width: 240px;
+.menu-bar {
+    width: 250px;
+    height: 100%;
+}
+.menu-bar .navs {
+    width: 100%;
+    display: table;
+    height: 100%;
+}
+.menu-bar .navs nav > ul {
+    height: 100%;
+    border-bottom: 1px solid #4A4A54;
+}
+.menu-bar .navs nav > ul > li {
+    border-bottom: 1px solid #1D1E21;
+    border-top: 1px solid #4A4A54;
+}
+.menu-bar .navs nav > ul > li > a {
+    color: #fff;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+    display: block;
+    padding: 7px 0;
+    text-align: center;
+    text-decoration: none;
+
+}
+.menu-bar .navs nav > ul > li > a:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+.menu-bar .navs nav > ul > li > a i {
+    color: #eee;
+}
+.menu-bar .navs nav:last-child {
+    border-right: 1px solid black;
+}
+.menu-bar .navs nav > ul > li.active > a {
+    background: #c5c5c5;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VjZWNlYyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2M1YzVjNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ececec), color-stop(100%, #c5c5c5));
+    background-image: -webkit-linear-gradient(top, #ececec, #c5c5c5);
+    background-image: -moz-linear-gradient(top, #ececec, #c5c5c5);
+    background-image: -o-linear-gradient(top, #ececec, #c5c5c5);
+    background-image: linear-gradient(top, #ececec, #c5c5c5);
+    color: #35353C;
+    text-shadow: 0px 1px 1px rgba(248, 248, 248, 0.5);
+}
+.menu-bar .navs nav > ul > li.active > a i {
+    color: #35353C;
 }
 
-nav.main-nav > ul {
-    height: auto;
-    margin-bottom: 20px;
-    border-top: 1px solid #1D1E21;
-}
-
-.profile-menu {
-    height: auto;
-}
-.profile-menu .tabular > div {
-    padding: 5px 10px;
-}
-.profile-menu .tabular > div, .profile-menu .tabular p.avatar{
+.menu-bar nav.main-nav {
     display: table-cell;
+    vertical-align: top;
+    background: url('../images/linen-gray.png');
+    height: 100%;
+}
+.menu-bar nav.main-nav > ul > li > a {
+    font-size: 12px;
+    line-height: 28px;
+    padding-left: 15px;
+    text-align: left;
+}
+.menu-bar nav.main-nav > ul > li > a i {
+    font-size: 28px;
     vertical-align: middle;
 }
-.profile-menu .profile {
+
+
+.menu-bar nav.sub-nav {
+    display: table-cell;
+    background: url("../images/linen-gray.png") repeat scroll 0 0 transparent;
+    height: 100%;
+    width: 80px;
+    -webkit-box-shadow: -2px 0px 15px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: -2px 0px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: -2px 0px 15px rgba(0, 0, 0, 0.4);
+    border-left: 1px solid black;
+}
+.menu-bar nav.sub-nav > ul > li > a {
+    font-size: 11px;
+    line-height: 25px;
+    opacity: .9
+}
+.menu-bar nav.sub-nav > ul > li > a i {
+    display: block;
+    font-size: 25px;
+    padding-top: 14px;
     width: 100%;
+    height: 35px;
+    line-height: 20px;
 }
-.profile-menu .user_actions {
-    float: right;
-    margin-top: 9px;
+.menu-bar nav.sub-nav > ul > li.active > a {
+    font-weight: bold;
 }
+
+
+.menu-bar .nav-profile {
+    background: url("../images/linen-gray.png") repeat scroll 0 0 transparent;
+    border: 1px solid #1D1E21;
+    width: 100%;
+    color: white;
+}
+.menu-bar .nav-profile .dtable-cell {
+    vertical-align: middle;
+}
+.menu-bar .nav-profile > div:first-child {
+    width: 50px;
+}
+.menu-bar .nav-profile > div {
+    padding: 10px;
+}
+.menu-bar .nav-profile p {
+    margin: 0px;
+    padding: 0px;
+}
+.menu-bar .nav-profile p.title {
+    font-weight: bolder;
+    font-size: larger;
+}
+.menu-bar .nav-profile .user-actions {
+    margin: 0px;
+}
+.menu-bar .nav-profile .user-actions i {
+    margin-right: 0px;
+}
+
+
 
 /* ---------------- */
 /* notifications    */
@@ -280,6 +381,16 @@ blockquote .button i {
 .box.consultants .table td .wrap {
     max-width: 90px;
 }
+
+
+.user-admin .table td.image {
+    width: 65px;
+}
+.user-admin .table td.name {
+    padding-left: 0px;
+}
+
+
 
 /* ---------------- */
 /* timeline         */
