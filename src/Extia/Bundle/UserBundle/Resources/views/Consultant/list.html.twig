@@ -26,7 +26,7 @@
                         <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
                             <td class="image"><img src="{{ gravatar(consultant.email, 50) }}"></td>
                             <td class="name">
-                                <a href="{{ path('UserBundle_consultant_timeline', { 'id': consultant.id, 'firstname': consultant.firstname, 'lastname': consultant.lastname }) }}">{{ consultant.longname }}</a>
+                                <a href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">{{ consultant.longname }}</a>
                             </td>
                             <td>{{ consultant.email }}</td>
                             <td>
@@ -35,11 +35,11 @@
                             </td>
                             <td class="actions">
                                 <div class="btn-group">
-                                    <a class="button" href="{{ path('UserBundle_consultant_timeline', { 'id': consultant.id, 'firstname': consultant.firstname, 'lastname': consultant.lastname }) }}">
+                                    <a class="button" href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">
                                         <i class="icon-search"></i>
                                     </a>
                                     {% if is_granted('ROLE_USER_WRITE', user) %}
-                                        <a class="button" href="{{ path('UserBundle_consultant_edit', { 'id': consultant.id, 'firstname': consultant.firstname, 'lastname': consultant.lastname }) }}">
+                                        <a class="button" href="{{ path('UserBundle_consultant_edit', consultant.routing) }}">
                                             <i class="icon-pencil"></i>
                                         </a>
                                         <a class="button" href="{{ path('UserBundle_consultant_delete', { 'id': consultant.id }) }}">

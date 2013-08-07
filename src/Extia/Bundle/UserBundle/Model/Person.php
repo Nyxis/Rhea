@@ -17,4 +17,27 @@ class Person extends BasePerson
             $this->getFirstname(), $sep, $this->getLastname()
         );
     }
+
+    /**
+     * strips given string special chars
+     * @param  string $string
+     * @return string
+     */
+    protected function stripString($string)
+    {
+        return strtolower(iconv('utf-8', 'us-ascii//TRANSLIT', $string));
+    }
+
+    /**
+     * returns array containing route params for routing generation
+     * @return array
+     */
+    public function getRouting()
+    {
+        return array(
+            'id'        => $this->getId(),
+            'firstname' => $this->stripString($this->getFirstname()),
+            'lastname'  => $this->stripString($this->getLastname())
+        );
+    }
 }

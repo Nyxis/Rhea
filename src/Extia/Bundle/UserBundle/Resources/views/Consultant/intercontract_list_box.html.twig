@@ -24,7 +24,7 @@
                 <td class="actions">
                     <div class="btn-group">
                         <a class="button" title="{{ 'consultants.intercontract.box.user_timeline_link'|trans }}"
-                            href="{{ path('UserBundle_consultant_timeline', { 'id': clt.id, 'firstname': clt.firstname|url_encode, 'lastname': clt.lastname|url_encode }) }}">
+                            href="{{ path('UserBundle_consultant_timeline', clt.routing) }}">
                             <i class="icon-tasks"></i>
                         </a>
                         <a class="button" title="{{ 'consultants.intercontract.box.user_edit_link'|trans }}" href="#">
