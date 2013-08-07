@@ -6,31 +6,40 @@
     <parameters>
         <parameter key="easy_task.user_provider.class">Extia\Bundle\UserBundle\Security\User\UserProvider</parameter>
         <parameter key="easy_task.user_data_voter.class">Extia\Bundle\UserBundle\Security\Authorization\Voter\UserDataVoter</parameter>
-        <parameter key="extia_user.person_form_type.class">Extia\Bundle\UserBundle\Form\Type\PersonType</parameter>
-        <parameter key="extia_user.person_form_handler.class">Extia\Bundle\UserBundle\Form\Handler\PersonHandler</parameter>
-        <parameter key="extia_user.person_form.class">Extia\Bundle\UserBundle\Form\Model\Person</parameter>
+
+        <parameter key="extia_user.form.person_type.class">Extia\Bundle\UserBundle\Form\Type\PersonType</parameter>
+        <parameter key="extia_user.form.person_handler.class">Extia\Bundle\UserBundle\Form\Handler\PersonHandler</parameter>
+        <parameter key="extia_user.form.consultant_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantType</parameter>
+        <parameter key="extia_user.form.consultant_handler.class">Extia\Bundle\UserBundle\Form\Handler\ConsultantHandler</parameter>
     </parameters>
 
     <services>
-
         <!-- User Provider -->
         <service id="easy_task.user_provider" class="%easy_task.user_provider.class%"/>
+
         <!-- User voter -->
         <service id="easy_task.user_data_voter" class="%easy_task.user_data_voter.class%">
             <tag name="security.voter"/>
         </service>
 
         <!-- Person Form -->
-        <service id="extia_user.person_form" class="Symfony\Component\Form\Form">
-            <argument type="service" id="extia_user.person_form_type"/>
+        <service id="extia_user.form.person_type" class="%extia_user.form.person_type.class%">
+            <tag name="form.type" alias="person" />
         </service>
-        <service id="extia_user.person_form_type" class="%extia_user.person_form_type.class%">
-                <argument>%extia_user.person_form.class%</argument>
+        <service id="extia_user.form.person_handler" class="%extia_user.form.person_handler.class%" scope="request">
+
         </service>
-        <service id="extia_user.person_form_handler" class="%extia_user.person_form_handler.class%" scope="request">
-            <argument type="service" id="extia_user.person_form"/>
-            <argument type="service" id="request"/>
+
+        <!-- Consultant form -->
+        <service id="extia_user.form.consultant_type" class="%extia_user.form.consultant_type.class%">
+            <tag name="form.type" alias="consultant" />
         </service>
+        <service id="extia_user.form.consultant_handler" class="%extia_user.form.consultant_handler.class%">
+
+        </service>
+
+        <!-- Internal form -->
+
     </services>
 
 </container>

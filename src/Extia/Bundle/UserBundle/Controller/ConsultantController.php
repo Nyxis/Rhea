@@ -5,6 +5,7 @@ namespace Extia\Bundle\UserBundle\Controller;
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 
 use Extia\Bundle\UserBundle\Model\Internal;
+use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -97,6 +98,81 @@ class ConsultantController extends Controller
         return $this->render('ExtiaUserBundle:Consultant:list.html.twig', array(
             'user'        => $internal,
             'consultants' => $consultantCollection
+        ));
+    }
+
+    /**
+     * renders a new consultant form
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function newAction(Request $request)
+    {
+        $consultant = new Consultant();
+
+        return $this->renderForm($request, $consultant, 'ExtiaUserBundle:Consultant:new.html.twig');
+    }
+
+    /**
+     * renders an edit form for given user id
+     *
+     * @param  Request  $request
+     * @param  int      $id
+     * @return Response
+     */
+    public function editAction(Request $request, $id)
+    {
+        $consultant = ConsultantQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->joinWith('Job')
+            ->useJobQuery()
+                ->joinWithI18n()
+            ->endUse()
+            ->findPk($id);
+
+        if (empty($consultant)) {
+            throw new NotFoundHttpException(sprintf('Any consultant found for given id, "%s" given.', $id));
+        }
+
+        return $this->renderForm($request, $consultant, 'ExtiaUserBundle:Consultant:edit.html.twig');
+    }
+
+    /**
+     * executes form on given consultant and renders it on given template
+     *
+     * @param  Request    $request
+     * @param  Consultant $consultant
+     * @param  string     $template
+     * @return Response
+     */
+    public function renderForm(Request $request, Consultant $consultant, $template)
+    {
+        $form  = $this->get('form.factory')->create('consultant', $consultant, array());
+        $isNew = $consultant->isNew();
+
+        if ($request->request->has($form->getName())) {
+            if ($this->get('extia_group.form.group_handler')->handle($form, $request)) {
+
+                // success message
+                $this->get('notifier')->add(
+                    'success', 'consultant.admin.notification.save_success',
+                    array('%consultant_name%' => $consultant->getLongName())
+                );
+
+                // redirect on edit if was new
+                if ($isNew) {
+                    return $this->redirect($this->get('router')->generate(
+                        'UserBundle_consultant_edit', array('id' => $consultant->getId())
+                    ));
+                }
+            }
+        }
+
+        return $this->render($template, array(
+            'consultant' => $consultant,
+            'form'       => $form->createView(),
+            'locales'    => $this->container->getParameter('extia_group.managed_locales')
         ));
     }
 

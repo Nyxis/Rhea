@@ -1,0 +1,8 @@
+{% extends 'ExtiaUserBundle:Consultant:form.html.twig' %}
+
+{% block current_breadcrumb %}
+    <li><a href="#">{{ consultant.longName }}</a></li>
+    <li class="active"><a href="#">{{ 'consultant.admin.breadcrumbs.edit'|trans }}</a></li>
+{% endblock %}
+
+{% block form_header %}{{ 'consultant.admin.edit.header'|trans({ '%consultant_name%': consultant.longName }) }}{% endblock %}

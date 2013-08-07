@@ -6,12 +6,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Created by rhea.
- * @author lesmyrmidons <lesmyrmidons@gmail.com>
- * Date: 30/07/13
- * Time: 12:51
+ *
  */
-class PersonType extends AbstractType
+class ConsultantType extends AbstractType
 {
     /**
      * Returns the name of this type.
@@ -20,7 +17,7 @@ class PersonType extends AbstractType
      */
     public function getName()
     {
-        return 'person';
+        return 'consultant';
     }
 
     /**
@@ -29,7 +26,7 @@ class PersonType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         return $resolver->setDefaults(array(
-            'inherit_data' => true
+            'data_class' => 'Extia\Bundle\UserBundle\Model\Consultant'
         ));
     }
 
@@ -39,13 +36,10 @@ class PersonType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            // ->add('group', 'model', array ('class' => 'Extia\Bundle\USerBundle\Model\Group'))
-            ->add('firstname', 'text')
-            ->add('lastname', 'text')
-            ->add('email', 'email')
-            ->add('telephone', 'text')
-            ->add('mobile', 'text');
+        $builder->add('person', 'person', array('label' => false));
+
+        $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'Passwords do not match'));
     }
+
 
 }

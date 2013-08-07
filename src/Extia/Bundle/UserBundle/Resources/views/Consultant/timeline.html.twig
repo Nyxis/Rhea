@@ -1,7 +1,10 @@
-{% extends 'ExtiaUserBundle::consultant_layout.html.twig' %}
+{% extends 'ExtiaUserBundle::team_layout.html.twig' %}
 
-{% block current_breadcrumb %}
+{% block inactive_breadcrumb %}
+    <li><a href="{{ path('UserBundle_consultant_list') }}"><i class="icon-bug"></i> {{ 'menu.consultants'|trans }}</a></li>
     <li><a href="#">{{ user.longname }}</a></li>
+{% endblock %}
+{% block current_breadcrumb %}
     <li class="active"><a href="#">{{ 'consultant.breadcrumbs.timeline'|trans }}</a></li>
 {% endblock %}
 
@@ -87,7 +90,7 @@
     <div class="span12">
         <div style="margin-bottom: 20px;">
             <div class="big-button-bar">
-                <a href="#" class="button large">
+                <a href="{{ path('UserBundle_consultant_edit', user.routing) }}" class="button large">
                     <i class="icon-edit"></i>
                     <span>{{ 'consultant.actions.edit_user'|trans }}</span>
                 </a>
