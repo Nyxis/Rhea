@@ -14,12 +14,19 @@ class ConsultantQuery extends BaseConsultantQuery
      */
     public function filterByInternalReferer(Internal $internal)
     {
-        return $this->filterByCrh($internal)
-            ->_or()
-            ->useConsultantMissionQuery()
-                ->useMissionQuery()
-                    ->filterByManager($internal)
-                ->endUse()
-            ->endUse();
+        return $this
+            ->setModelAlias('c')
+            ->innerJoin('c.ConsultantMission cm')
+            ->innerJoin('cm.Mission m')
+
+            ->condition('crh', 'c.CrhId = ?', $internal->getId())
+
+            ->condition('current_mission', 'cm.Current = ?', true)
+            ->condition('manager', 'm.ManagerId = ?', $internal->getId())
+            ->combine(array('current_mission', 'manager'), 'and', 'current_manager')
+
+            ->where(array('crh', 'current_manager'), 'or')
+        ;
     }
+
 }

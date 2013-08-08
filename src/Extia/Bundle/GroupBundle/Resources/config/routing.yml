@@ -11,17 +11,17 @@ GroupBundle_new:
         _format: html
 
 GroupBundle_edit:
-    pattern: "/{groupId}/edit"
+    pattern: "/{Id}/edit"
     defaults:
         _controller: 'ExtiaGroupBundle:Admin:edit'
         _format: html
     requirements:
-        groupId: \d+
+        Id: \d+
 
 GroupBundle_delete:
-    pattern: "/{groupId}/delete"
+    pattern: "/{Id}/delete"
     defaults:
         _controller: 'ExtiaGroupBundle:Admin:delete'
         _format: html
     requirements:
-        groupId: \d+
+        Id: \d+

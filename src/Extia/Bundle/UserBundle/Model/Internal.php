@@ -109,6 +109,22 @@ class Internal extends BaseInternal  implements UserInterface
             InternalQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->select(array('Id'))
+                ->filterByDescendantClass(null, \Criteria::ISNULL)
         );
+    }
+
+    /**
+     * returns internal consultants (related if crh, throught mission if manager)
+     * @return array
+     */
+    public function getConsultantsIds()
+    {
+        $consultantsId = ConsultantQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->select(array('Id'))
+            ->filterByInternalReferer($this)
+            ->find();
+
+        return $consultantsId;
     }
 }

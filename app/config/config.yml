@@ -84,7 +84,7 @@ ornicar_gravatar:
 # Knp menu
 knp_menu:
     twig:
-        template: MopaBootstrapBundle:Menu:menu.html.twig
+        template: ExtiaMenuBundle:Menu:theme.html.twig
 
 # Mopa
 mopa_bootstrap:

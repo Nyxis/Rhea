@@ -23,13 +23,17 @@
                 </td>
                 <td class="actions">
                     <div class="btn-group">
+                        {% if is_granted('ROLE_CONSULTANT_READ', app.user) %}
                         <a class="button" title="{{ 'consultants.intercontract.box.user_timeline_link'|trans }}"
                             href="{{ path('UserBundle_consultant_timeline', clt.routing) }}">
                             <i class="icon-tasks"></i>
                         </a>
+                        {% endif %}
+                        {% if is_granted('ROLE_CONSULTANT_WRITE', app.user) %}
                         <a class="button" title="{{ 'consultants.intercontract.box.user_edit_link'|trans }}" href="#">
                             <i class="icon-pencil"></i>
                         </a>
+                        {% endif %}
                     </div>
                 </td>
             </tr>

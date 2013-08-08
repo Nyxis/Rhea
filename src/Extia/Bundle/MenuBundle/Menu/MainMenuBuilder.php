@@ -7,6 +7,7 @@ use Knp\Menu\MenuItem;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Main menu builder
@@ -16,15 +17,17 @@ class MainMenuBuilder
 {
     protected $factory;
     protected $translator;
+    protected $securityContext;
 
     /**
      * construct
      * @param FactoryInterface $factory
      */
-    public function __construct(FactoryInterface $factory, TranslatorInterface $translator)
+    public function __construct(FactoryInterface $factory, TranslatorInterface $translator, SecurityContextInterface $securityContext)
     {
-        $this->factory    = $factory;
-        $this->translator = $translator;
+        $this->factory         = $factory;
+        $this->translator      = $translator;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -48,6 +51,9 @@ class MainMenuBuilder
         }
         if (isset($options['current']) && !empty($options['current'])) {
             $child->setCurrent(true);
+        }
+        if (isset($options['class']) && !empty($options['class'])) {
+            $child->setAttribute('class', $options['class']);
         }
 
         return $child;
@@ -79,23 +85,8 @@ class MainMenuBuilder
             'icon-white' => true
         ));
 
-        // users
-        $this->addTbChild($menu, array(
-            'label'      => 'menu.users',
-            'route'      => 'UserBundle_consultant_list',
-            'current'    => $request->get('_menu') == 'users',
-            'icon'       => 'group',
-            'icon-white' => true
-        ));
-
-        // admin
-        $this->addTbChild($menu, array(
-            'label'      => 'menu.admin',
-            'route'      => 'GroupBundle_list',
-            'current'    => $request->get('_menu') == 'admin',
-            'icon'       => 'cogs',
-            'icon-white' => true
-        ));
+        $this->createUserMenu($request, $menu);
+        $this->createAdminMenu($request, $menu);
 
         return $menu;
     }
@@ -104,41 +95,67 @@ class MainMenuBuilder
      * create user menu
      * @param Request $request
      */
-    public function createUserMenu(Request $request)
+    public function createUserMenu(Request $request, MenuItem $menu)
     {
-        $menu = $this->factory->createItem('root');
+        $user       = $this->securityContext->getToken()->getUser();
+        $teamIds    = $user->getTeamIds();
+        $cltIds     = $user->getConsultantsIds();
+
+        $accessTeam = !$teamIds->isEmpty() && $this->securityContext->isGranted('ROLE_INTERNAL_READ', $user);
+        $accessClts = (!$cltIds->isEmpty() && $this->securityContext->isGranted('ROLE_CONSULTANT_READ', $user)) // have clt and can read
+                        || $this->securityContext->isGranted('ROLE_CONSULTANT_WRITE', $user);      // can create clt
+
+        // have no team, or cannot read user, no menu
+        if (!$accessTeam && !$accessClts) {
+            return;
+        }
 
         // internals
-        $this->addTbChild($menu, array(
-            'label'      => 'menu.internals',
-            'uri'        => '#',
-            'current'    => $request->get('_submenu') == 'internals',
-            'icon'       => 'usd',
-            'icon-white' => true
-        ));
+        if ($accessTeam) {
+            $this->addTbChild($menu, array(
+                'label'      => 'menu.team',
+                'uri'        => '#',
+                'current'    => $request->get('_menu') == 'team',
+                'icon'       => 'group',
+                'icon-white' => true
+            ));
+        }
 
         // consultants
-        $this->addTbChild($menu, array(
-            'label'      => 'menu.consultants',
-            'route'      => 'UserBundle_consultant_list',
-            'current'    => $request->get('_submenu') == 'consultant',
-            'icon'       => 'bug',
-            'icon-white' => true
-        ));
-
-        return $menu;
+        if ($accessClts) {
+            $this->addTbChild($menu, array(
+                'label'      => 'menu.consultants',
+                'route'      => 'UserBundle_consultant_list',
+                'current'    => $request->get('_menu') == 'consultant',
+                'icon'       => 'bug',
+                'icon-white' => true
+            ));
+        }
     }
 
     /**
      * create admin menu
      * @param Request $request
      */
-    public function createAdminMenu(Request $request)
+    public function createAdminMenu(Request $request, MenuItem $menu)
     {
-        $menu = $this->factory->createItem('root');
+        if (!$this->securityContext->isGranted('ROLE_ADMIN', $this->securityContext->getToken()->getUser())) {
+            return;
+        }
+
+        // admin
+        $adminActive = $request->get('_menu') == 'admin';
+        $adminMenu   = $this->addTbChild($menu, array(
+            'label'      => 'menu.admin',
+            'uri'        => '#',
+            'current'    => $adminActive,
+            'icon'       => 'cogs',
+            'icon-white' => true
+        ));
+        $adminMenu->setAttribute('class', sprintf('parent%s', $adminActive ? ' open' : ''));
 
         // managers
-        $this->addTbChild($menu, array(
+        $this->addTbChild($adminMenu, array(
             'label'      => 'menu.managers',
             'uri'        => '#',
             'icon'       => 'eur',
@@ -146,7 +163,7 @@ class MainMenuBuilder
         ));
 
         // crh
-        $this->addTbChild($menu, array(
+        $this->addTbChild($adminMenu, array(
             'label'      => 'menu.crh',
             'uri'        => '#',
             'icon'       => 'group',
@@ -154,7 +171,7 @@ class MainMenuBuilder
         ));
 
         // groups
-        $this->addTbChild($menu, array(
+        $this->addTbChild($adminMenu, array(
             'label'      => 'menu.groups',
             'route'      => 'GroupBundle_list',
             'current'    => $request->get('_submenu') == 'group',
@@ -162,7 +179,6 @@ class MainMenuBuilder
             'icon-white' => true
         ));
 
-        return $menu;
     }
 
 }

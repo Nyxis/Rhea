@@ -4,6 +4,7 @@ namespace Extia\Bundle\GroupBundle\Form\DataTransformer;
 
 use Extia\Bundle\GroupBundle\Model\CredentialQuery;
 use Extia\Bundle\GroupBundle\Model\GroupCredential;
+use Extia\Bundle\GroupBundle\Model\GroupCredentialQuery;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -76,7 +77,7 @@ class GroupCredentialsDataTransformer implements DataTransformerInterface
             }
         } else {  // updates mapping
             foreach ($selectedCredentialsIds as $credentialId) {
-                $groupCrendential = GroupCredential::create()
+                $groupCrendential = GroupCredentialQuery::create()
                     ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                     ->filterByGroupId($this->groupId)
                     ->filterByCredentialId($credentialId)

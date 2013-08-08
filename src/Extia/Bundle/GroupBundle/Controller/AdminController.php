@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * controller for group admin
@@ -62,28 +61,8 @@ class AdminController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function editAction(Request $request, $groupId)
+    public function editAction(Request $request, Group $group)
     {
-        $locale = $request->attributes->get('_locale');
-
-        $group = GroupQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterById($groupId)
-            ->distinct('Group.id')
-            ->joinWith('GroupCredential')
-            ->joinWith('GroupCredential.Credential')
-            ->useGroupCredentialQuery()
-                ->useCredentialQuery()
-                    ->joinWithI18n($locale)
-                ->endUse()
-            ->endUse()
-            ->find()
-            ->getFirst();
-
-        if (empty($group)) {
-            throw new NotFoundHttpException(sprintf('Any group found for given id, "%s" given.', $groupId));
-        }
-
         return $this->renderForm(
             $request, $group, 'ExtiaGroupBundle:Admin:edit.html.twig'
         );
@@ -115,7 +94,7 @@ class AdminController extends Controller
                 // redirect on edit if was new
                 if ($isNew) {
                     return $this->redirect($this->get('router')->generate(
-                        'GroupBundle_edit', array('groupId' => $group->getId())
+                        'GroupBundle_edit', array('Id' => $group->getId())
                     ));
                 }
             }
@@ -133,16 +112,8 @@ class AdminController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function deleteAction(Request $request, $groupId)
+    public function deleteAction(Request $request, Group $group)
     {
-        $group = GroupQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->findPk($groupId);
-
-        if (empty($group)) {
-            throw new NotFoundHttpException(sprintf('Any group found for given id, "%s" given.', $groupId));
-        }
-
         try {
             $group->delete();
             $this->get('notifier')->add('success', 'group.admin.notification.delete_success', array('%group_label%' => $group->getLabel()));

@@ -42,7 +42,7 @@ class UserDataVoter implements VoterInterface
                 }
 
                 // everybody can access a Consultant
-                if ($user instanceof Consultant && $object instanceof Consultant) {
+                if ($user instanceof Internal && $object instanceof Consultant) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
 

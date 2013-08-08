@@ -44,7 +44,7 @@ menu:
     crh: CRH
     admin: Administration
     groups: Groupes
-    users: Équipe
+    team: Mon équipe
     internals: Internes
 
 admin:

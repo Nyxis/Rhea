@@ -164,12 +164,18 @@ Extia\Bundle\GroupBundle\Model\Credential:
     authentication:
         type: general
         code: authentication
-    user_write:
+    consultant_write:
         type: user
-        code: user_write
-    user_read:
+        code: consultant_write
+    consultant_read:
         type: user
-        code: user_read
+        code: consultant_read
+    internal_write:
+        type: user
+        code: internal_write
+    internal_read:
+        type: user
+        code: internal_read
     mission_read:
         type: mission
         code: mission_read
@@ -192,14 +198,22 @@ Extia\Bundle\GroupBundle\Model\CredentialI18n:
         id: authentication
         locale: fr
         label: Connexion
-    user_write_fr:
-        id: user_write
+    consultant_write_fr:
+        id: consultant_write
         locale: fr
         label: Créer / éditer un consultant
-    user_read_fr:
-        id: user_read
+    consultant_read_fr:
+        id: consultant_read
         locale: fr
         label: Voir les fiches consultant
+    internal_write_fr:
+        id: internal_write
+        locale: fr
+        label: Créer / éditer un interne
+    internal_read_fr:
+        id: internal_read
+        locale: fr
+        label: Voir les fiches internes
     mission_read_fr:
         id: mission_read
         locale: fr
@@ -223,10 +237,16 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
         CredentialId: authentication
     gp_crh_user_write:
         GroupId: crh
-        CredentialId: user_write
+        CredentialId: consultant_write
     gp_crh_user_read:
         GroupId: crh
-        CredentialId: user_read
+        CredentialId: consultant_read
+    gp_crh_user_write:
+        GroupId: crh
+        CredentialId: internal_write
+    gp_crh_user_read:
+        GroupId: crh
+        CredentialId: internal_read
     gp_crh_monitoring_read:
         GroupId: crh
         CredentialId: crh_monitoring_read
@@ -238,7 +258,7 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
         CredentialId: authentication
     gp_manager_user_read:
         GroupId: manager
-        CredentialId: user_read
+        CredentialId: consultant_read
 
 Extia\Bundle\UserBundle\Model\PersonCredential:
     pauline_admin:
@@ -246,4 +266,4 @@ Extia\Bundle\UserBundle\Model\PersonCredential:
         CredentialId: admin
     arnaud_cred:
         PersonId: arnaud
-        CredentialId: user_write
+        CredentialId: internal_write

@@ -29,10 +29,12 @@
                     <span>{{ 'dashboard.sidebar.button.new_task'|trans }}</span>
                 </a>
                 {% endif %}
+                {% if is_granted('ROLE_CONSULTANT_WRITE', app.user) %}
                 <a href="{{ path('UserBundle_consultant_new') }}" class="button large">
                     <i class="icon-bug"></i>
                     <span>{{ 'dashboard.sidebar.button.new_consultant'|trans }}</span>
                 </a>
+                {% endif %}
             </div>
         </div>
     </div>

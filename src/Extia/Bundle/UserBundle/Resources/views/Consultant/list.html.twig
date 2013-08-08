@@ -26,7 +26,8 @@
                         <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
                             <td class="image"><img src="{{ gravatar(consultant.email, 50) }}"></td>
                             <td class="name">
-                                <a href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">{{ consultant.longname }}</a>
+                                <a href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">{{ consultant.longname }}</a><br/>
+                                {{ consultant.job.label }}
                             </td>
                             <td>{{ consultant.email }}</td>
                             <td>
@@ -36,9 +37,9 @@
                             <td class="actions">
                                 <div class="btn-group">
                                     <a class="button" href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">
-                                        <i class="icon-search"></i>
+                                        <i class="icon-tasks"></i>
                                     </a>
-                                    {% if is_granted('ROLE_USER_WRITE', user) %}
+                                    {% if is_granted('ROLE_CONSULTANT_WRITE', user) %}
                                         <a class="button" href="{{ path('UserBundle_consultant_edit', consultant.routing) }}">
                                             <i class="icon-pencil"></i>
                                         </a>
@@ -52,7 +53,7 @@
                     {% endfor %}
                     </tbody>
                     <tfoot>
-                        <td colspan="4">&nbsp;</td>
+                        <td colspan="5">&nbsp;</td>
                     </tfoot>
                 </table>
             </div>
@@ -64,7 +65,7 @@
 <div class="row-fluid">
     <div class="span12">
         <div class="big-button-bar">
-        {% if is_granted('ROLE_USER_WRITE', user) %}
+        {% if is_granted('ROLE_CONSULTANT_WRITE', user) %}
             <a href="{{ path('UserBundle_consultant_new') }}" class="button large">
                 <i class="icon-plus"></i>
                 <span>{{ 'consultant.admin.sidebar.button_new_consultant'|trans }}</span>

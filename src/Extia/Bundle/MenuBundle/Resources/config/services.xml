@@ -16,6 +16,7 @@
         <service id="exti_menu.menu_builder" class="%exti_menu.menu_builder.class%">
             <argument type="service" id="knp_menu.factory" />
             <argument type="service" id="translator" />
+            <argument type="service" id="security.context" />
         </service>
 
         <!-- Main menu -->
@@ -25,23 +26,6 @@
             <tag name="knp_menu.menu" alias="main_menu" />
             <argument type="service" id="request" />
         </service>
-
-        <!-- User menu -->
-        <service id="exti_menu.user_menu" class="Knp\Menu\MenuItem" scope="request"
-            factory-service="exti_menu.menu_builder" factory-method="createUserMenu"
-        >
-            <tag name="knp_menu.menu" alias="user_menu" />
-            <argument type="service" id="request" />
-        </service>
-
-        <!-- Admin menu -->
-        <service id="exti_menu.admin_menu" class="Knp\Menu\MenuItem" scope="request"
-            factory-service="exti_menu.menu_builder" factory-method="createAdminMenu"
-        >
-            <tag name="knp_menu.menu" alias="admin_menu" />
-            <argument type="service" id="request" />
-        </service>
-
 
     </services>
 </container>
