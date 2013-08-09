@@ -4,6 +4,8 @@ namespace Extia\Bundle\TaskBundle\Controller;
 
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 
+use Extia\Bundle\DocumentBundle\Model\DocumentQuery;
+
 use EasyTask\Bundle\WorkflowBundle\Model\WorkflowQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -88,6 +90,31 @@ class TaskController extends Controller
 
         return $this->redirect($request->get('redirect_url',
             $this->get('router')->generate('Rhea_homepage')
+        ));
+    }
+
+    /**
+     * displays given workflow documents
+     * @param  Request  $request
+     * @param  int      $workflowId
+     * @return Response
+     */
+    public function workflowDocumentsAction(Request $request, $workflowId)
+    {
+        $documentsCollection = DocumentQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->orderByCreatedAt(\Criteria::DESC)
+            ->usePersonTaskDocumentQuery()
+                ->useTaskQuery()
+                    ->useNodeQuery()
+                        ->filterByWorkflowId($workflowId)
+                    ->endUse()
+                ->endUse()
+            ->endUse()
+            ->find();
+
+        return $this->render('ExtiaTaskBundle:Task:workflow_documents.html.twig', array(
+            'documents' => $documentsCollection
         ));
     }
 }

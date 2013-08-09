@@ -22,6 +22,13 @@
         <div class="separator">
             {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
+            <div class="control-group field" id="{{ form.crh_meeting_doc.vars.id }}_control_group">
+                <label class="control-label required" for="{{ form.crh_meeting_doc.vars.id }}">{{ 'crh_meeting.form.doc_label'|trans }}</label>
+                <div class="controls" id="{{ form.crh_meeting_doc.vars.id }}">
+                    {{ form_widget(form.crh_meeting_doc) }}
+                </div>
+            </div>
+
             <div class="control-group field" id="{{ form.next_meeting.vars.id }}_control_group">
                 <label class="control-label required" for="{{ form.next_meeting.vars.id }}">{{ 'crh_meeting.next_meeting'|trans }}</label>
                 <div class="controls" id="{{ form.next_meeting.vars.id }}">

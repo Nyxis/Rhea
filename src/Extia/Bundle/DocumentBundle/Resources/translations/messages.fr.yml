@@ -1,0 +1,6 @@
+document:
+    form:
+        button_label: Sélectionnez un fichier
+    link:
+        download: Télécharger
+        upload: Mettre à jour

@@ -2,10 +2,14 @@
 
 namespace Extia\Bundle\TaskBundle\Form\Type;
 
+use Extia\Bundle\TaskBundle\Form\DataTransformer\TaskDocumentDataTransformer;
+
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Base class for node form types
@@ -13,15 +17,50 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 abstract class AbstractNodeType extends AbstractType
 {
+    private $documentRootDirectory;
     protected $translator;
+    protected $securityContext;
 
     /**
      * contructor
-     * @param TranslatorInterface $translator [description]
+     * @param TranslatorInterface $translator
+     * @param string              $documentRootDirectory
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, SecurityContextInterface $securityContext, $documentRootDirectory)
     {
-        $this->translator = $translator;
+        $this->translator            = $translator;
+        $this->securityContext       = $securityContext;
+        $this->documentRootDirectory = $documentRootDirectory;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        return $resolver->setDefaults(array(
+            'document_name_model' => null,
+            'document_directory'  => null
+        ));
+    }
+
+    /**
+     * returns document transformer
+     * @param  array                       $options form type options
+     * @return TaskDocumentDataTransformer
+     */
+    protected function createDocumentTransformer(array $options)
+    {
+        if (empty($options['document_name_model']) || empty($options['document_directory'])) {
+            throw new \InvalidArgumentException(sprintf('Given options are not enougth, document transformer need at least you provide a value for "document_name_model" and "document_directory" options, "%s" and "%s" given.',
+                $options['document_name_model'], $options['document_directory']
+            ));
+        }
+
+        return new TaskDocumentDataTransformer(
+            $options['document_name_model'],
+            sprintf('%s/%s', $this->documentRootDirectory, $options['document_directory'])
+        );
     }
 
     /**

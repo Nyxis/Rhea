@@ -96,7 +96,10 @@ class MeetingNodeController extends TypeNodeController
     {
         $error = '';
         $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
-        $form  = $this->get('crh_monitoring.meeting.form');
+        $form  = $this->get('form.factory')->create('meeting_form', array(), array(
+            'document_name_model' => $this->get('translator')->trans('crh_meeting.document.name', array(), 'messages', $this->container->getParameter('locale')),
+            'document_directory'  => $task->getUserTarget()->getStrippedName()
+        ));
 
         if ($request->request->has($form->getName())) {
 

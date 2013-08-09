@@ -35,5 +35,13 @@ class MeetingNodeType extends AbstractNodeType
                 '1'  => '1 '.$this->translator->trans('month')
             )
         ));
+
+        $builder->add(
+            $builder->create('crh_meeting_doc', 'document', array(
+                    'button_label' => 'crh_meeting.form.doc_label_button',
+                    'required'     => true
+                ))
+                ->addModelTransformer($this->createDocumentTransformer($options))
+        );
     }
 }

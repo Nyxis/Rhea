@@ -35,6 +35,11 @@ crh_meeting:
     date_format: \l\e d/m
     time_format: à H:i
     notification: Le point RH a été validé pour le consultant %clt%, vous serez notifié pour planifier le rendez vous le %notif_date%.
+    document:
+        name: point_rh
+    form:
+        doc_label: Compte rendu du point RH
+        doc_label_button: Télécharger le compte-rendu
     timeline:
         hook: Point RH
         meeting_at: Rendez-vous

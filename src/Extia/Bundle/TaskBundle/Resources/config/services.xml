@@ -23,6 +23,8 @@
         <!-- Workflow Node Type abstract definition -->
         <service id="extia.node.abstract_type" class="%extia.node.abstract_type.class%" abstract="true">
             <argument type="service" id="translator" />
+            <argument type="service" id="security.context" />
+            <argument>%extia_task.documents.directory%</argument>
         </service>
 
         <!-- Workflow Node Handler abstract definition -->

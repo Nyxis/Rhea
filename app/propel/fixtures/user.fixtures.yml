@@ -235,16 +235,16 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_crh_auth:
         GroupId: crh
         CredentialId: authentication
-    gp_crh_user_write:
+    gp_crh_consultant_write:
         GroupId: crh
         CredentialId: consultant_write
-    gp_crh_user_read:
+    gp_crh_consultant_read:
         GroupId: crh
         CredentialId: consultant_read
-    gp_crh_user_write:
+    gp_crh_internal_write:
         GroupId: crh
         CredentialId: internal_write
-    gp_crh_user_read:
+    gp_crh_internal_read:
         GroupId: crh
         CredentialId: internal_read
     gp_crh_monitoring_read:

@@ -35,6 +35,8 @@ class MeetingNodeHandler extends AbstractNodeHandler
         $task->data()->set('meeting_date', $this->findNextWorkingDay($nextMeetingTmstp));
         $task->data()->set('notif_date', $this->findNextWorkingDay($this->removeDays($nextMeetingTmstp, 7)));
 
+        $task->addDocument($data['crh_meeting_doc']);
+
         $task->save();
 
         // notify next node

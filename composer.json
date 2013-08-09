@@ -24,12 +24,37 @@
         "knplabs/knp-paginator-bundle": "dev-master",
         "mopa/bootstrap-bundle": "2.3.x-dev",
         "ornicar/gravatar-bundle": "dev-master",
-        "glorpen/propel-bundle": "1.2.*"
+        "glorpen/propel-bundle": "1.2.*",
+        "leafo/lessphp": "dev-master",
+        "jquery/jquery": "1.10.*",
+        "jquery/file-input": "*"
     },
     "repositories": {
         "glorpen/propel-bundle": {
             "type": "vcs",
             "url": "https://github.com/glorpen/GlorpenPropelBundle.git"
+        },
+        "jquery/jquery": {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "1.10.2",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-1.10.2.js",
+                    "type": "file"
+                }
+            }
+        },
+        "jquery/file-input": {
+            "type": "package",
+            "package": {
+                "name": "jquery/file-input",
+                "version": "dev-master",
+                "dist": {
+                    "url": "http://gregpike.net/demos/bootstrap-file-input/bootstrap.file-input.js",
+                    "type": "file"
+                }
+            }
         }
     },
     "scripts": {
@@ -38,15 +63,13 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ],
         "post-update-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
     },
     "config": {

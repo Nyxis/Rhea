@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="extia_document.form.document_type.class">Extia\Bundle\DocumentBundle\Form\Type\DocumentType</parameter>
+    </parameters>
+
+    <services>
+        <!-- Document type -->
+        <service id="extia_document.form.document_type" class="%extia_document.form.document_type.class%">
+            <tag name="form.type" alias="document" />
+        </service>
+    </services>
+
+</container>

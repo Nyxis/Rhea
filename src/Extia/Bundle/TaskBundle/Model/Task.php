@@ -4,6 +4,9 @@ namespace Extia\Bundle\TaskBundle\Model;
 
 use Extia\Bundle\TaskBundle\Model\om\BaseTask;
 
+use Extia\Bundle\UserBundle\Model\PersonTaskDocument;
+use Extia\Bundle\DocumentBundle\Model\Document;
+
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
@@ -124,6 +127,25 @@ class Task extends BaseTask
         }
 
         return $this->getPastDays() ? self::WF_STATE_RETARDED : self::WF_STATE_RUNNING;
+    }
+
+    // ---------------------------------------------------------
+    // Documents
+    // ---------------------------------------------------------
+
+    /**
+     * adds a document to task
+     * @param  Document $document
+     * @return Task
+     */
+    public function addDocument(Document $document)
+    {
+        $personTaskDocument = new PersonTaskDocument();
+        $personTaskDocument->setPersonId($this->getUserTargetId());
+        $personTaskDocument->setDocument($document);
+        $personTaskDocument->setTask($this);
+
+        return $this;
     }
 
 

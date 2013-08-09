@@ -1,0 +1,17 @@
+<ul class="document-list">
+{% for document in documents %}
+    <li class="document">
+        <div class="dtable">
+            <div class="dtable-cell doc-icon50 {{ document.type }}"></div>
+            <div class="dtable-cell">
+                <p>{{ document.createdAt('date_format.ymd'|trans) }}</p>
+                <p class="title">{{ document.simpleName }}</p>
+            </div>
+            <div class="dtable-cell buttons">
+                <a class="" href="#" title="{{ 'document.link.download'|trans }}"><i class="icon-download"></i></a>
+                <a class="" href="#" title="{{ 'document.link.upload'|trans }}"><i class="icon-upload"></i></a>
+            </div>
+        </div>
+    </li>
+{% endfor %}
+</ul>

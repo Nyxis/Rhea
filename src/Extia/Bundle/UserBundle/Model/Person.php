@@ -19,6 +19,17 @@ class Person extends BasePerson
     }
 
     /**
+     * returns person stripped name
+     * @return string
+     */
+    public function getStrippedName()
+    {
+        return $this->stripString(
+            $this->getLongName('_')
+        );
+    }
+
+    /**
      * strips given string special chars
      * @param  string $string
      * @return string

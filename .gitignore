@@ -32,3 +32,6 @@ src/*/Bundle/*Bundle/Model/om/*
 
 # Composer
 composer.phar
+
+# Uploads
+data/*

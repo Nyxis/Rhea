@@ -1,0 +1,57 @@
+/* ---------------- */
+/* icons            */
+/* ---------------- */
+.doc-icon50 {
+    width: 60px;
+    height: 60px;
+}
+.doc-icon50.doc {
+    background: url('/bundles/extiadocument/images/50/doc.png') no-repeat center white;
+}
+.doc-icon50.pdf {
+    background: url('/bundles/extiadocument/images/50/pdf.png') no-repeat center white;
+}
+.doc-icon50.pwp {
+    background: url('/bundles/extiadocument/images/50/pwp.png') no-repeat center white;
+}
+.doc-icon50.xls {
+    background: url('/bundles/extiadocument/images/50/xls.png') no-repeat center white;
+}
+
+/* ---------------- */
+/* display          */
+/* ---------------- */
+.document-list li.document {
+    display: inline-block;
+    background-color: #F9F9F9;
+    border: 1px solid #DDDDDD;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    color: #666666;
+}
+.document-list li.document .dtable-cell:first-child {
+    padding-left: 5px;
+}
+.document-list li.document .dtable-cell {
+    padding: 0px;
+    vertical-align: middle;
+}
+.document-list .document .buttons {
+    height: 100%;
+    width: 25px;
+    border-left: 1px solid #DDDDDD;
+}
+.document-list .document .buttons a {
+    display: block;
+    font-size: 18px;
+    margin-top: 5px;
+}
+.document-list .document p {
+    margin: 0px;
+}
+.document-list .document .title {
+    width: 100px;
+    word-wrap: break-word;
+    font-weight: bold;
+    font-size: 14px;
+}

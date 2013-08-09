@@ -371,6 +371,12 @@ blockquote .button i {
 
 
 /* ---------------- */
+/* documents        */
+/* ---------------- */
+
+
+
+/* ---------------- */
 /* forms            */
 /* ---------------- */
 form {
@@ -392,11 +398,6 @@ form {
 .task_modal form.form-horizontal .field {
     padding: 0px;
 }
-.task_modal form .field label {
-    font-size: 14px;
-    font-style: italic;
-    font-weight: bold;
-}
 .task_modal form .field div > div {
     display: inline-block;
     float: none;
@@ -406,10 +407,23 @@ label.required:after{
     content:" *";
     position:relative;
 }
-#bootstrap_form_next_date_control_group .controls,
-#meeting_form_next_meeting_control_group .controls {
-    margin-top: 10px;
+.task_modal .form-horizontal .control-label {
+    padding-left: 20px;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    width: 170px;
 }
+.task_modal .form-horizontal .controls {
+    margin-top: 10px;
+    margin-left: 190px;
+}
+.task_modal .form-horizontal .controls .btn {
+    color: #333333;
+    font-weight: normal;
+    text-shadow: none;
+}
+
 #appointement_form_meeting_date input {
     margin: 3px 3px;
 }
