@@ -6,12 +6,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Created by rhea.
- * @author lesmyrmidons <lesmyrmidons@gmail.com>
- * Date: 30/07/13
- * Time: 12:51
+ *
  */
-class PersonType extends AbstractType
+class ManagerType extends AbstractType
 {
     /**
      * Returns the name of this type.
@@ -20,7 +17,7 @@ class PersonType extends AbstractType
      */
     public function getName()
     {
-        return 'person';
+        return 'manager';
     }
 
     /**
@@ -29,7 +26,7 @@ class PersonType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         return $resolver->setDefaults(array(
-            'inherit_data' => true
+            'data_class' => 'Extia\Bundle\UserBundle\Model\Internal'
         ));
     }
 
@@ -39,13 +36,10 @@ class PersonType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            // ->add('group', 'model', array ('class' => 'Extia\Bundle\USerBundle\Model\Group'))
-            ->add('firstname', 'text', array('label' => 'Firstname'))
-            ->add('lastname', 'text', array('label' => 'Lastname'))
-            ->add('email', 'email', array('label' => 'E-mail'))
-            ->add('telephone', 'text', array('label' => 'Phone'))
-            ->add('mobile', 'text', array('label' => 'Mobile Phone'));
+        $builder->add('person', 'person', array('label' => false));
+
+        $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'Passwords do not match'));
     }
+
 
 }

@@ -2,8 +2,8 @@
 
 {% block nav_tabs_profile %}
     <li class="active"><a data-toggle="tab" href="#civility"><i class="icon-globe"></i> {{ 'consultant.admin.edit.civility'|trans }}</a></li>
+    <li class=""><a data-toggle="tab" href="#mission"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.mission'|trans }}</a></li>
     <li class=""><a data-toggle="tab" href="#file"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.file'|trans }}</a></li>
-    <li class=""><a data-toggle="tab" href="#tab2"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.question'|trans }}</a></li>
 {% endblock %}
 
 {% block main_content %}
@@ -59,8 +59,15 @@
             </form>
         </div>
     </div>
+    <div id="mission" class="tab-pane">
+        <div class="padded">
+            Ici toutes les missions du consultant
+        </div>
+    </div>
     <div id="file" class="tab-pane">
-        &nbsp;
+        <div class="padded">
+            Ici tous les documents sur le suivi du consultant
+        </div>
     </div>
 {% endblock %}
 
