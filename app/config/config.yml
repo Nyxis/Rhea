@@ -131,7 +131,6 @@ extia_task:
 # Easy task
 easy_task_workflow:
     workflows:
-
         # Crh Monitoring
         crh_monitoring:
             routes:
@@ -152,3 +151,13 @@ easy_task_workflow:
                 meeting:
                     route:      { pattern: "/meeting/{workflowId}" }
                     controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController }
+
+knp_paginator:
+    page_range: 5
+    default_options:
+        page_name: page
+        sort_field_name: sort
+        sort_direction_name: direction
+        distinct: true
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig
