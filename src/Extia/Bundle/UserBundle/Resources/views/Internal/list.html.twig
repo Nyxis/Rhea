@@ -1,0 +1,87 @@
+{% extends 'ExtiaUserBundle::admin_consultant_layout.html.twig' %}
+
+{% block body_class %}user-admin{% endblock %}
+
+{% block current_breadcrumb %}
+    <li class="active"><a href="#">{{ 'internal.breadcrumbs.list'|trans }}</a></li>
+{% endblock %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box">
+                <div class="tab-header">
+                    <i class="icon-th-list"></i>
+                    {{ 'internal.admin.list.header'|trans }}
+                </div>
+                <div class="navigation">
+                    {{ knp_pagination_render(internals) }}
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <th colspan="2">{{ 'internal.admin.list.th_user'|trans }}</th>
+                        <th>{{ 'internal.admin.list.th_email'|trans }}</th>
+                        <th>{{ 'internal.admin.list.th_contacts'|trans }}</th>
+                        <th>{{ 'internal.admin.list.th_actions'|trans }}</th>
+                    </thead>
+                    <tbody>
+                    {% for internal in internals %}
+                        <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                            <td class="image">
+                                <img src="{{ gravatar(internal.email, 50) }}"/>
+                            </td>
+                            <td class="name">
+                                <a href="{{ path('UserBundle_consultant_timeline', internal.routing) }}">{{ internal.longname }}</a><br/>
+                                {{ internal.job.label }}
+                            </td>
+                            <td>{{ internal.email }}</td>
+                            <td>
+                                {% if internal.telephone %}<i class="icon-phone"></i> {{ internal.telephone }}{% endif %}
+                                {% if internal.mobile %}<br /><i class="icon-mobile-phone"></i> {{ internal.mobile }}{% endif %}
+                            </td>
+                            <td class="actions">
+                                <div class="btn-group">
+                                    {#<a class="button" href="{{ path('extia_user_internal_timeline', internal.routing) }}">#}
+                                        {#<i class="icon-tasks"></i>#}
+                                    {#</a>#}
+                                    {% if is_granted('ROLE_INTERNAL_WRITE', user) %}
+                                        {% block internal_action %}
+                                            <a class="button" href="{{ path('extia_user_manager_edit', internal.routing) }}">
+                                                <i class="icon-pencil"></i>
+                                            </a>
+                                            {#<a class="button" href="{{ path('extia_user_internal_delete', { 'id': internal.id }) }}">#}
+                                                {#<i class="icon-remove"></i>#}
+                                            {#</a>#}
+                                        {% endblock %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <td colspan="5">&nbsp;</td>
+                    </tfoot>
+                </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(internals) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="big-button-bar">
+        {% if is_granted('ROLE_CONSULTANT_WRITE', user) %}
+            <a href="{{ path('UserBundle_consultant_new') }}" class="button large">
+                <i class="icon-plus"></i>
+                <span>{{ 'consultant.admin.sidebar.button_new_consultant'|trans }}</span>
+            </a>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
