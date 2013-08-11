@@ -22,7 +22,12 @@ class ConsultantController extends Controller
 {
     /**
      * displays given user all task which target him as timeline
-     * @param  Request  $request
+     *
+     * @param  Request $request
+     * @param          $id
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      * @return Response
      */
     public function timelineAction(Request $request, $id)
@@ -117,8 +122,10 @@ class ConsultantController extends Controller
     /**
      * renders an edit form for given user id
      *
-     * @param  Request  $request
-     * @param  int      $id
+     * @param  Request $request
+     * @param  int     $id
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
     public function editAction(Request $request, $id)
@@ -179,8 +186,9 @@ class ConsultantController extends Controller
     /**
      * render all intercontract consultants for given user
      *
-     * @param  Request  $request
-     * @param  Internal $userId
+     * @param  Request                                $request
+     * @param \Extia\Bundle\UserBundle\Model\Internal $internal
+     *
      * @return Response
      */
     public function intercontractListBoxAction(Request $request, Internal $internal)

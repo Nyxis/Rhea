@@ -30,7 +30,9 @@ class Consultant extends BaseConsultant
 
     /**
      * selects and returns current mission
-     * @param  Pdo     $con option db connection
+     *
+     * @param \Pdo $con option db connection
+     *
      * @return Mission
      */
     public function getCurrentMission(\Pdo $con = null)
