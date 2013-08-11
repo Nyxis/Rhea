@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Main menu builder
+ *
  * @see Extia/Bundle/MenuBundle/Resources/config/services.xml
  */
 class MainMenuBuilder
@@ -21,6 +22,7 @@ class MainMenuBuilder
 
     /**
      * construct
+     *
      * @param FactoryInterface $factory
      */
     public function __construct(FactoryInterface $factory, TranslatorInterface $translator, SecurityContextInterface $securityContext)
@@ -32,15 +34,17 @@ class MainMenuBuilder
 
     /**
      * creates a new menu item, including twitter bootstrap options
+     *
      * @param  MenuItem $menuItem
      * @param  array    $options
+     *
      * @return MenuItem created child
      */
     protected function addTbChild(MenuItem $menuItem, $options)
     {
         $child = $menuItem->addChild(
             $this->translator->trans($options['label']),
-            array_intersect_key($options, array_flip(array('uri', 'route')))
+            array_intersect_key($options, array_flip(array ('uri', 'route')))
         );
 
         if ($options['icon']) {
@@ -61,6 +65,7 @@ class MainMenuBuilder
 
     /**
      * create main menu
+     *
      * @param Request $request
      */
     public function createMainMenu(Request $request)
@@ -68,7 +73,7 @@ class MainMenuBuilder
         $menu = $this->factory->createItem('root');
 
         // dashboard
-        $this->addTbChild($menu, array(
+        $this->addTbChild($menu, array (
             'label'      => 'menu.dashboard',
             'route'      => 'Rhea_homepage',
             'current'    => $request->get('_menu') == 'dashboard',
@@ -77,7 +82,7 @@ class MainMenuBuilder
         ));
 
         // recent activity
-        $this->addTbChild($menu, array(
+        $this->addTbChild($menu, array (
             'label'      => 'menu.recent_activity',
             'uri'        => 'ActivityBundle_recent',
             'current'    => $request->get('_menu') == 'activity',
@@ -93,17 +98,19 @@ class MainMenuBuilder
 
     /**
      * create user menu
-     * @param Request $request
+     *
+     * @param Request            $request
+     * @param \Knp\Menu\MenuItem $menu
      */
     public function createUserMenu(Request $request, MenuItem $menu)
     {
-        $user       = $this->securityContext->getToken()->getUser();
-        $teamIds    = $user->getTeamIds();
-        $cltIds     = $user->getConsultantsIds();
+        $user    = $this->securityContext->getToken()->getUser();
+        $teamIds = $user->getTeamIds();
+        $cltIds  = $user->getConsultantsIds();
 
         $accessTeam = !$teamIds->isEmpty() && $this->securityContext->isGranted('ROLE_INTERNAL_READ', $user);
         $accessClts = (!$cltIds->isEmpty() && $this->securityContext->isGranted('ROLE_CONSULTANT_READ', $user)) // have clt and can read
-                        || $this->securityContext->isGranted('ROLE_CONSULTANT_WRITE', $user);      // can create clt
+            || $this->securityContext->isGranted('ROLE_CONSULTANT_WRITE', $user); // can create clt
 
         // have no team, or cannot read user, no menu
         if (!$accessTeam && !$accessClts) {
@@ -112,9 +119,9 @@ class MainMenuBuilder
 
         // internals
         if ($accessTeam) {
-            $this->addTbChild($menu, array(
+            $this->addTbChild($menu, array (
                 'label'      => 'menu.team',
-                'uri'        => '#',
+                'route'      => 'extia_user_internal_list_team',
                 'current'    => $request->get('_menu') == 'team',
                 'icon'       => 'group',
                 'icon-white' => true
@@ -123,7 +130,7 @@ class MainMenuBuilder
 
         // consultants
         if ($accessClts) {
-            $this->addTbChild($menu, array(
+            $this->addTbChild($menu, array (
                 'label'      => 'menu.consultants',
                 'route'      => 'UserBundle_consultant_list',
                 'current'    => $request->get('_menu') == 'consultant',
@@ -135,7 +142,9 @@ class MainMenuBuilder
 
     /**
      * create admin menu
-     * @param Request $request
+     *
+     * @param Request            $request
+     * @param \Knp\Menu\MenuItem $menu
      */
     public function createAdminMenu(Request $request, MenuItem $menu)
     {
@@ -145,7 +154,7 @@ class MainMenuBuilder
 
         // admin
         $adminActive = $request->get('_menu') == 'admin';
-        $adminMenu   = $this->addTbChild($menu, array(
+        $adminMenu   = $this->addTbChild($menu, array (
             'label'      => 'menu.admin',
             'uri'        => '#',
             'current'    => $adminActive,
@@ -155,23 +164,23 @@ class MainMenuBuilder
         $adminMenu->setAttribute('class', sprintf('parent%s', $adminActive ? ' open' : ''));
 
         // managers
-        $this->addTbChild($adminMenu, array(
+        $this->addTbChild($adminMenu, array (
             'label'      => 'menu.managers',
-            'uri'        => '#',
+            'route'      => 'extia_user_manager_list',
             'icon'       => 'eur',
             'icon-white' => true
         ));
 
         // crh
-        $this->addTbChild($adminMenu, array(
+        $this->addTbChild($adminMenu, array (
             'label'      => 'menu.crh',
-            'uri'        => '#',
+            'route'      => 'extia_user_crh_list',
             'icon'       => 'group',
             'icon-white' => true
         ));
 
         // groups
-        $this->addTbChild($adminMenu, array(
+        $this->addTbChild($adminMenu, array (
             'label'      => 'menu.groups',
             'route'      => 'GroupBundle_list',
             'current'    => $request->get('_submenu') == 'group',
