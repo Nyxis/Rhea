@@ -2,6 +2,8 @@
 namespace Extia\Bundle\UserBundle\Controller;
 
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
+use Extia\Bundle\UserBundle\Model\Internal;
+use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -12,155 +14,150 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * Date: 30/07/13
  * Time: 12:44
  */
-class ManagementController extends Controller
+class CrhController extends Controller
 {
+
     /**
-     * @param Request $request
+     * lists all user consultants
      *
-     * @return array
-     * @Template("ExtiaUserBundle:Management:edit")
+     * @param  Request $request
+     *
+     * @return Response
      */
-    public function createAction(Request $request)
+    public function listAction(Request $request, $page)
     {
-        $form = $this->get('extia_user.person_form');
+        $internal = $this->getUser();
 
-        $formHandler = $this->get('extia_user.person_form_handler');
+        $internalCollection = InternalQuery::create()
+                              ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                              ->joinWith('Job')
+                              ->useJobQuery()
+                              ->joinWithI18n()
+                              ->endUse()
+                              ->joinWith('Group')
+                              ->useGroupQuery()
+                              ->filterById(1)
+                              ->endUse();
 
-        $process = $formHandler->process();
+        $paginator          = $this->get('knp_paginator');
 
-        if ($process) {
-            $this->get('session')->setFlash('notice', 'La création du nouvel utilisateur est valide.');
-            $this->redirect($this->generateUrl('Rhea_homepage'));
-        }
+        $pagination = $paginator->paginate($internalCollection, $page, 20);
 
-        return array (
+        return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
+            'user'      => $internal,
+            'internals' => $pagination
+        ));
+    }
+
+    /**
+     * lists all user consultants
+     *
+     * @param  Request $request
+     *
+     * @return Response
+     */
+    public function teamListAction(Request $request, $page)
+    {
+        $internal = $this->getUser();
+//        var_dump($internal);
+//        exit;
+        $internalCollection = InternalQuery::create()
+                              ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                              ->childrenOf($internal->getId());
+        $paginator          = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate($internalCollection, $page, 30);
+
+        return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
+            'user'      => $internal,
+            'internals' => $pagination
+        ));
+    }
+
+    /**
+     * renders a new consultant form
+     *
+     * @param  Request $request
+     *
+     * @return Response
+     */
+    public function newAction(Request $request)
+    {
+        $internal = new Internal();
+
+        $form = $this->renderForm($request, $internal);
+
+        return $this->render('ExtiaUserBundle:Internal:new.html.twig', array (
+            'internal' => $internal,
             'form'     => $form->createView(),
-            'edit'     => null,
-            'hasError' => $request->getMethod() == 'POST' && !$form->isValid()
-        );
+            'locales'  => $this->container->getParameter('extia_group.managed_locales')
+        ));
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param                                           $id
-     * @Template()
-     */
-    public function deleteCrhAction(Request $request, $id)
-    {
-        $user = PersonQuery::create()
-            ->find();
-
-        if ($user) {
-            try {
-                $user->delete();
-                $this->get('session')->setFlash('notice', 'La création du nouvel utilisateur est valide.');
-                $this->redirect($this->generateUrl('extia_user_management_delete_crh'));
-            } catch (\Exception $e) {
-                $this->get('session')->setFlash('error', 'Impossible de supprimer le compte utilisateur.');
-
-            }
-        }
-        $this->get('session')->setFlash('error', 'Aucun compte utilisateur à supprimer.');
-        $this->redirect($this->generateUrl('extia_user_management_list_crh'));
-    }
-
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param                                           $id
-     * @Template()
-     */
-    public function deleteManagerAction(Request $request, $id)
-    {
-        $user = PersonQuery::create()
-            ->findById($id);
-
-        if ($user) {
-            try {
-                $user->delete();
-                $this->get('session')->setFlash('notice', 'La création du nouvel utilisateur est valide.');
-                $this->redirect($this->generateUrl('extia_user_management_delete_manager'));
-            } catch (\Exception $e) {
-                $this->get('session')->setFlash('error', 'Impossible de supprimer le compte utilisateur.');
-
-            }
-        }
-        $this->get('session')->setFlash('error', 'Aucun compte utilisateur à supprimer.');
-        $this->redirect($this->generateUrl('extia_user_management_list_manager'));
-    }
-
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param                                           $id
+     * renders an edit form for given user id
      *
-     * @Template()
-     */
-    public function deleteConsultantAction(Request $request, $id)
-    {
-        $user = ConsultantQuery::create()
-            ->findById($id);
-
-        if ($user) {
-            try {
-                $user->delete();
-                $this->get('session')->setFlash('notice', 'La création du nouvel utilisateur est valide.');
-                $this->redirect($this->generateUrl('extia_user_management_delete_consultant'));
-            } catch (\Exception $e) {
-                $this->get('session')->setFlash('error', 'Impossible de supprimer le compte utilisateur.');
-            }
-        }
-        $this->get('session')->setFlash('error', 'Aucun compte utilisateur à supprimer.');
-        $this->redirect($this->generateUrl('extia_user_management_list_consultant'));
-    }
-
-    /**
-     * @param Request $request
+     * @param  Request $request
+     * @param  int     $id
      *
-     * @return array
-     * @Template("ExtiaUserBundle:Management:edit")
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return Response
      */
-    public function editAction(Request $request)
+    public function editAction(Request $request, $id)
     {
-        $form = $this->get('extia_user.person_form');
+        $internal = InternalQuery::create()
+                    ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                    ->joinWith('Job')
+                    ->useJobQuery()
+                    ->joinWithI18n()
+                    ->endUse()
+                    ->findPk($id);
 
-
-
-        $formHandler = $this->get('extia_user.person_form_handler');
-
-        $process = $formHandler->process();
-
-        if ($process) {
-            $this->get('session')->setFlash('notice', 'La création du nouvel utilisateur est valide.');
-            $this->redirect($this->generateUrl('Rhea_homepage'));
+        if (empty($internal)) {
+            throw new NotFoundHttpException(sprintf('Any consultant found for given id, "%s" given.', $id));
         }
 
-        return array (
+        $form = $this->renderForm($request, $internal);
+
+        return $this->render('ExtiaUserBundle:Crh:edit.html.twig', array (
+            'internal' => $internal,
             'form'     => $form->createView(),
-            'edit'     => true,
-            'hasError' => $request->getMethod() == 'POST' && !$form->isValid()
-        );
+            'locales'  => $this->container->getParameter('extia_group.managed_locales')
+        ));
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @Tamplate()
+     * executes form on given consultant and renders it on given template
+     *
+     * @param  Request    $request
+     * @param  Consultant $consultant
+     * @param  string     $template
+     *
+     * @return Response
      */
-    public function listConsultantAction(Request $request) {
+    public function renderForm(Request $request, Internal $internal)
+    {
+        $form  = $this->get('form.factory')->create('crh', $internal, array ());
+        $isNew = $internal->isNew();
 
-    }
+        if ($request->request->has($form->getName())) {
+            if ($this->get('extia_group.form.group_handler')->handle($form, $request)) {
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @Tamplate("ExtiaUSerBundle:Management:list.html.twig")
-     */
-    public function listManagerAction(Request $request) {
+                // success message
+                $this->get('notifier')->add(
+                    'success', 'manager.admin.notification.save_success',
+                    array ('%manager_name%' => $internal->getLongName())
+                );
 
-    }
+                // redirect on edit if was new
+                if ($isNew) {
+                    return $this->redirect($this->get('router')->generate(
+                                               'extia_user_crh_edit', array ('id' => $internal->getId())
+                                           ));
+                }
+            }
+        }
 
-    /**
-     * @param Request $request
-     * @Tamplate("ExtiaUSerBundle:Management:list.html.twig")
-     */
-    public function listCrhAction(Request $request) {
-
+        return $form;
     }
 }

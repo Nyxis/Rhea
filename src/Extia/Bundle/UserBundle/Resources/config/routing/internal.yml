@@ -8,3 +8,45 @@ UserBundle_internal_timeline:
         firstname: \w+
         lastname: \w+
         _format: html
+
+extia_user_internal_list_team:
+    pattern: /team/{page}
+    defaults: { _controller: 'ExtiaUserBundle:Internal:teamList', page: 1 }
+    requirements:
+        page: \d+
+
+extia_user_manager_list:
+    pattern: /manager/{page}
+    defaults: { _controller: 'ExtiaUserBundle:Internal:list', page: 1 }
+    requirements:
+        page: \d+
+
+extia_user_manager_new:
+    pattern: /manager/new
+    defaults: { _controller: 'ExtiaUserBundle:Internal:new' }
+
+extia_user_manager_edit:
+    pattern: /manager/edit/{id}/{firstname}-{lastname}
+    defaults: { _controller: 'ExtiaUserBundle:Internal:edit' }
+    requirements:
+        id: \d+
+        firstname: \w+
+        lastname: \w+
+
+extia_user_crh_list:
+    pattern: /crh/{page}
+    defaults: { _controller: 'ExtiaUserBundle:Crh:list', page: 1 }
+    requirements:
+        page: \d+
+
+extia_user_crh_new:
+    pattern: /crh/new
+    defaults: { _controller: 'ExtiaUserBundle:Crh:new' }
+
+extia_user_crh_edit:
+    pattern: /crh/edit/{id}/{firstname}-{lastname}
+    defaults: { _controller: 'ExtiaUserBundle:Crh:edit' }
+    requirements:
+        id: \d+
+        firstname: \w+
+        lastname: \w+
