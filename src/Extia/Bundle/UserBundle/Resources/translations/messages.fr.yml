@@ -28,6 +28,8 @@ consultant:
             crh: Crh
             manager: Manager
     admin:
+        breadcrumbs:
+            edit: Edition
         list:
             header: Mes consultants
             th_user: Consultant
@@ -37,6 +39,15 @@ consultant:
 
         sidebar:
             button_new_consultant: Nouveau consultant
+
+        edit:
+            header: Edition du consultant %consultant_name%
+            mission: Liste des missions
+            civility: Civilité
+            file: Documents
+            img:
+                avatar:
+                    title:
 
     missions:
         header: Missions
@@ -63,3 +74,22 @@ task:
         retard_of: "{1} un jour|]1,Inf] %retard% jours"
         details_link: Détails de la tâche
         comment_link: Commentaires
+
+# Internals
+internal:
+    breadcrumbs:
+#        timeline: Timeline
+        list: Liste
+    admin:
+        breadcrumbs:
+            edit: Edition
+        list:
+            header: Liste des Consultant(e)s Resources Humaines
+            th_user: Consultant(e)
+            th_email: Email
+            th_contacts: Téléphone(s)
+            th_actions: Actions
+# forms
+consultant_person_firstname: Prénom
+consultant_person_lastname: Nom
+consultant_person_email: Courriel
