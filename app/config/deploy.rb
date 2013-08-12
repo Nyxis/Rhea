@@ -34,6 +34,9 @@ set :composer_options,            "--prefer-dist --verbose -o"
 #set :update_vendors,              true
 #set :vendors_mode,                "install"
 
+# Use AsseticBundle
+set :dump_assetic_assets,         true
+
 # Assets install
 set :assets_install,              true
 set :assets_symlinks,             true
