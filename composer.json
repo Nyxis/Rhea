@@ -19,7 +19,7 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "propel/propel-bundle": "1.2.x",
-        "twitter/bootstrap": "dev-master",
+        "twbs/bootstrap": "2.3.2",
         "knplabs/knp-menu-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
         "mopa/bootstrap-bundle": "2.3.x-dev",
