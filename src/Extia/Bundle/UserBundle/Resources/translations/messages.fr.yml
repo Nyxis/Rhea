@@ -30,6 +30,7 @@ consultant:
     admin:
         breadcrumbs:
             edit: Edition
+            new: Nouveau
         list:
             header: Mes consultants
             th_user: Consultant
