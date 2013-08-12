@@ -69,8 +69,15 @@ ExtiaGroupBundle:
 # ---------------------------------------
 # Users
 # ---------------------------------------
-ExtiaUserBundle:
+_extia_user:
     resource: "@ExtiaUserBundle/Resources/config/routing.yml"
+
+# ---------------------------------------
+# Mission
+# ---------------------------------------
+_extia_mission:
+    resource: "@ExtiaMissionBundle/Resources/config/routing.yml"
+    prefix:   /
 
 # ---------------------------------------
 # Home

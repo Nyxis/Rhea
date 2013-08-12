@@ -1,0 +1,3 @@
+extia_mission_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ExtiaMissionBundle:Default:index }
