@@ -47,33 +47,37 @@ class InternalController extends Controller
     /**
      * lists all user consultants
      *
-     * @param  Request $request
-     * @param          $page
+     * @param Request $request
+     * @param         $page
      *
      * @return Response
      */
-    public function teamListAction(Request $request, $page)
+    public function teamListAction(Request $request, $page = 1)
     {
         $internal = $this->getUser();
+
         $internalCollection = InternalQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->descendantsOf($internal->getId())->find();
+            ->usePersonTypeQuery()
+                ->filterByCode(array('crh', 'ia', 'dir'))
+            ->endUse()
+            ->descendantsOf($internal)
+        ;
 
-//        $paginator = $this->get('knp_paginator');
-//
-//        $pagination = $paginator->paginate($internalCollection, $page, 30);
+        $pagination = $this->get('knp_paginator')
+            ->paginate($internalCollection, $page, 30);
 
         return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
             'user'      => $internal,
-            'internals' => $internalCollection
+            'internals' => $pagination
         ));
     }
 
     /**
      * lists all user consultants
      *
-     * @param  Request $request
-     * @param          $page
+     * @param Request $request
+     * @param         $page
      *
      * @return Response
      */
@@ -85,11 +89,11 @@ class InternalController extends Controller
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->joinWith('Job')
             ->useJobQuery()
-            ->joinWithI18n()
+                ->joinWithI18n()
             ->endUse()
             ->joinWith('Group')
             ->useGroupQuery()
-            ->filterById(2)
+                ->filterById(2)
             ->endUse();
 
         $paginator = $this->get('knp_paginator');
@@ -137,7 +141,7 @@ class InternalController extends Controller
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->joinWith('Job')
             ->useJobQuery()
-            ->joinWithI18n()
+                ->joinWithI18n()
             ->endUse()
             ->findPk($id);
 
