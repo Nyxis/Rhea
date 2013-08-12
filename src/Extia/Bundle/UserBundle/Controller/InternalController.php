@@ -47,7 +47,33 @@ class InternalController extends Controller
     /**
      * lists all user consultants
      *
-     * @param Request $request
+     * @param  Request $request
+     * @param          $page
+     *
+     * @return Response
+     */
+    public function teamListAction(Request $request, $page)
+    {
+        $internal = $this->getUser();
+        $internalCollection = InternalQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->descendantsOf($internal->getId())->find();
+
+//        $paginator = $this->get('knp_paginator');
+//
+//        $pagination = $paginator->paginate($internalCollection, $page, 30);
+
+        return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
+            'user'      => $internal,
+            'internals' => $internalCollection
+        ));
+    }
+
+    /**
+     * lists all user consultants
+     *
+     * @param  Request $request
+     * @param          $page
      *
      * @return Response
      */
@@ -56,42 +82,19 @@ class InternalController extends Controller
         $internal = $this->getUser();
 
         $internalCollection = InternalQuery::create()
-                              ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                              ->joinWith('Job')
-                              ->useJobQuery()
-                              ->joinWithI18n()
-                              ->endUse()
-                              ->joinWith('Group')
-                              ->useGroupQuery()
-                              ->filterById(2)
-                              ->endUse();
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->joinWith('Job')
+            ->useJobQuery()
+            ->joinWithI18n()
+            ->endUse()
+            ->joinWith('Group')
+            ->useGroupQuery()
+            ->filterById(2)
+            ->endUse();
 
         $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate($internalCollection, $page, 20);
-
-        return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
-            'user'      => $internal,
-            'internals' => $pagination
-        ));
-    }
-
-    /**
-     * lists all user consultants
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function teamListAction(Request $request, $page)
-    {
-        $internal           = $this->getUser();
-        $internalCollection = InternalQuery::create()
-                              ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                              ->descendantsOf($internal->getId());
-        $paginator          = $this->get('knp_paginator');
-
-        $pagination = $paginator->paginate($internalCollection, $page, 30);
 
         return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
             'user'      => $internal,
@@ -131,12 +134,12 @@ class InternalController extends Controller
     public function editAction(Request $request, $id)
     {
         $internal = InternalQuery::create()
-                    ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                    ->joinWith('Job')
-                    ->useJobQuery()
-                    ->joinWithI18n()
-                    ->endUse()
-                    ->findPk($id);
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->joinWith('Job')
+            ->useJobQuery()
+            ->joinWithI18n()
+            ->endUse()
+            ->findPk($id);
 
         if (empty($internal)) {
             throw new NotFoundHttpException(sprintf('Any consultant found for given id, "%s" given.', $id));
@@ -162,7 +165,7 @@ class InternalController extends Controller
      */
     public function renderForm(Request $request, Internal $internal)
     {
-        $form  = $this->get('form.factory')->create('manager', $internal, array ());
+        $form = $this->get('form.factory')->create('manager', $internal, array ());
         $isNew = $internal->isNew();
 
         if ($request->request->has($form->getName())) {
@@ -178,8 +181,8 @@ class InternalController extends Controller
                 // redirect on edit if was new
                 if ($isNew) {
                     return $this->redirect($this->get('router')->generate(
-                                               'extia_user_manager_edit', array ('id' => $internal->getId())
-                                           ));
+                        'extia_user_manager_edit', array ('id' => $internal->getId())
+                    ));
                 }
             }
         }
