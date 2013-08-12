@@ -20,24 +20,24 @@ class InternalController extends Controller
     /**
      * list past tasks for given user team
      *
-     * @param  Request  $request
-     * @param  Internal $internal
+     * @param Request  $request
+     * @param Internal $internal
      *
      * @return Response
      */
     public function teamPastTasksAction(Request $request, Internal $internal)
     {
         $taskCollection = TaskQuery::create()
-                          ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                          ->joinWith('Comment', \Criteria::LEFT_JOIN)
-                          ->joinWithTargettedUser()
-                          ->joinWithCurrentNodes()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->joinWith('Comment', \Criteria::LEFT_JOIN)
+            ->joinWithTargettedUser()
+            ->joinWithCurrentNodes()
 
-                          ->filterByAssignedTo($internal->getTeamIds())
-                          ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
+            ->filterByAssignedTo($internal->getTeamIds())
+            ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
 
-                          ->orderByActivationDate()
-                          ->find();
+            ->orderByActivationDate()
+            ->find();
 
         return $this->render('ExtiaUserBundle:Internal:team_past_tasks_box.html.twig', array (
             'tasks' => $taskCollection
@@ -47,7 +47,7 @@ class InternalController extends Controller
     /**
      * lists all user consultants
      *
-     * @param  Request $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -79,7 +79,7 @@ class InternalController extends Controller
     /**
      * lists all user consultants
      *
-     * @param  Request $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -102,7 +102,7 @@ class InternalController extends Controller
     /**
      * renders a new consultant form
      *
-     * @param  Request $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -122,8 +122,8 @@ class InternalController extends Controller
     /**
      * renders an edit form for given user id
      *
-     * @param  Request $request
-     * @param  int     $id
+     * @param Request $request
+     * @param int     $id
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
@@ -154,9 +154,9 @@ class InternalController extends Controller
     /**
      * executes form on given consultant and renders it on given template
      *
-     * @param  Request    $request
-     * @param  Consultant $consultant
-     * @param  string     $template
+     * @param Request    $request
+     * @param Consultant $consultant
+     * @param string     $template
      *
      * @return Response
      */

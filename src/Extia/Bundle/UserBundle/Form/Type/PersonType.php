@@ -40,7 +40,6 @@ class PersonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('group', 'model', array ('class' => 'Extia\Bundle\USerBundle\Model\Group'))
             ->add('firstname', 'text', array('label' => 'Firstname'))
             ->add('lastname', 'text', array('label' => 'Lastname'))
             ->add('email', 'email', array('label' => 'E-mail'))

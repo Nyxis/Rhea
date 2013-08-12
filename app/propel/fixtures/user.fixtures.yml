@@ -1,9 +1,35 @@
-Extia\Bundle\GroupBundle\Model\Group:
+Extia\Bundle\UserBundle\Model\PersonType:
+    pdg:
+        code: pdg
+    dir:
+        code: dir
     crh:
-        label: Crh
-    manager:
-        label: IA - Manager
-    consultant:
+        code: crh
+    ia:
+        code: ia
+    clt:
+        code: clt
+
+Extia\Bundle\UserBundle\Model\PersonTypeI18n:
+    pdg_fr:
+        locale: fr
+        id: pdg
+        label: Président directeur général
+    dir_fr:
+        locale: fr
+        id: dir
+        label: Directeur d'agence
+    crh_fr:
+        locale: fr
+        id: crh
+        label: Consultant en Ressources Humaines
+    ia_fr:
+        locale: fr
+        id: ia
+        label: Ingénieur d'affaires
+    clt_fr:
+        locale: fr
+        id: clt
         label: Consultant
 
 Extia\Bundle\UserBundle\Model\Job:
@@ -39,123 +65,6 @@ Extia\Bundle\UserBundle\Model\JobI18n:
     devFrontFr:
         id: dev_front
         label: Développeur Front
-
-Extia\Bundle\UserBundle\Model\Internal:
-    arnaud:
-        email: afrey@extia.fr
-        firstname: Arnaud
-        lastname: Frey
-        password: <?php echo sha1('afrey')."\n" ?>
-        JobId: pdg
-        GroupId: manager
-        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
-        treeLeft: 1
-        treeRight:
-        treeLevel: 0
-    pauline:
-        email: pdantin@extia.fr
-        firstname: Pauline
-        lastname: Dantin
-        password: <?php echo sha1('pdantin')."\n" ?>
-        JobId: rh
-        GroupId: crh
-        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
-        treeLeft: 2
-        treeRight: 10
-        treeLevel: 1
-    marine:
-        email: mgiuliani@extia.fr
-        firstname: Marine
-        lastname: Guiliani
-        password: <?php echo sha1('mgiuliani')."\n" ?>
-        JobId: rh
-        GroupId: crh
-        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
-        treeLeft: 3
-        treeRight: 6
-        treeLevel: 2
-    caroline:
-        email: cgautier@extia.fr
-        firstname: Caroline
-        lastname: Gautier
-        password: <?php echo sha1('cgautier')."\n" ?>
-        JobId: ia
-        GroupId: manager
-        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
-        treeLeft: 11
-        treeRight: 12
-        treeLevel: 1
-
-Extia\Bundle\UserBundle\Model\Consultant:
-    kevin:
-        email: lesmyrmidons@gmail.com
-        firstname: Kevin
-        lastname: Arbouin
-        password: <?php echo sha1('karbouin')."\n" ?>
-        mobile: "+33 6 12 34 56 78"
-        telephone: "+33 1 12 34 56 78"
-        JobId: dev
-        GroupId: consultant
-        CrhId: pauline
-        ContractBeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
-        treeLeft: 7
-        treeRight: 8
-        treeLevel: 2
-    quentin:
-        email: quentin.cerny@gmail.com
-        firstname: Quentin
-        lastname: Cerny
-        password: <?php echo sha1('qcerny')."\n" ?>
-        JobId: archi
-        GroupId: consultant
-        CrhId: marine
-        ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
-        treeLeft: 4
-        treeRight: 5
-        treeLevel: 3
-    cesar:
-        email: yimiprod@gmail.com
-        firstname: César
-        lastname: Vidril
-        password: <?php echo sha1('cvidril')."\n" ?>
-        JobId: dev_front
-        GroupId: consultant
-        CrhId: pauline
-        ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
-        treeLeft: 8
-        treeRight: 9
-        treeLevel: 2
-
-Extia\Bundle\UserBundle\Model\Mission:
-    tf1:
-        Label: e-Tf1
-        Type: client
-        ManagerId: caroline
-    sfr:
-        Label: SFR
-        Type: client
-        ManagerId: caroline
-    intercontrat:
-        Label: Intercontrat
-        Type: ic
-        ManagerId: caroline
-
-Extia\Bundle\UserBundle\Model\ConsultantMission:
-    m_kevin:
-        ConsultantId: kevin
-        MissionId: sfr
-        BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
-        Current: true
-    m_quentin:
-        ConsultantId: quentin
-        MissionId: tf1
-        BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
-        Current: true
-    m_cesar:
-        ConsultantId: cesar
-        MissionId: intercontrat
-        BeginDate: <?php echo strtotime('2013-06-01')."\n" ?>
-        Current: true
 
 Extia\Bundle\GroupBundle\Model\Credential:
     admin:
@@ -231,6 +140,14 @@ Extia\Bundle\GroupBundle\Model\CredentialI18n:
         locale: fr
         label: ""
 
+Extia\Bundle\GroupBundle\Model\Group:
+    crh:
+        label: Crh
+    manager:
+        label: IA - Manager
+    consultant:
+        label: Consultant
+
 Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_crh_auth:
         GroupId: crh
@@ -259,6 +176,130 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_manager_user_read:
         GroupId: manager
         CredentialId: consultant_read
+
+Extia\Bundle\UserBundle\Model\Internal:
+    arnaud:
+        email: afrey@extia.fr
+        firstname: Arnaud
+        lastname: Frey
+        password: <?php echo sha1('afrey')."\n" ?>
+        PersonTypeId: pdg
+        JobId: pdg
+        GroupId: manager
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
+        treeLeft: 1
+        treeRight:
+        treeLevel: 0
+    pauline:
+        email: pdantin@extia.fr
+        firstname: Pauline
+        lastname: Dantin
+        password: <?php echo sha1('pdantin')."\n" ?>
+        PersonTypeId: crh
+        JobId: rh
+        GroupId: crh
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
+        treeLeft: 2
+        treeRight: 10
+        treeLevel: 1
+    marine:
+        email: mgiuliani@extia.fr
+        firstname: Marine
+        lastname: Guiliani
+        password: <?php echo sha1('mgiuliani')."\n" ?>
+        PersonTypeId: crh
+        JobId: rh
+        GroupId: crh
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
+        treeLeft: 3
+        treeRight: 6
+        treeLevel: 2
+    caroline:
+        email: cgautier@extia.fr
+        firstname: Caroline
+        lastname: Gautier
+        password: <?php echo sha1('cgautier')."\n" ?>
+        PersonTypeId: ia
+        JobId: ia
+        GroupId: manager
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
+        treeLeft: 11
+        treeRight: 12
+        treeLevel: 1
+
+Extia\Bundle\UserBundle\Model\Consultant:
+    kevin:
+        email: lesmyrmidons@gmail.com
+        firstname: Kevin
+        lastname: Arbouin
+        password: <?php echo sha1('karbouin')."\n" ?>
+        mobile: "+33 6 12 34 56 78"
+        telephone: "+33 1 12 34 56 78"
+        PersonTypeId: clt
+        JobId: dev
+        GroupId: consultant
+        CrhId: pauline
+        ContractBeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+        treeLeft: 7
+        treeRight: 8
+        treeLevel: 2
+    quentin:
+        email: quentin.cerny@gmail.com
+        firstname: Quentin
+        lastname: Cerny
+        password: <?php echo sha1('qcerny')."\n" ?>
+        PersonTypeId: clt
+        JobId: archi
+        GroupId: consultant
+        CrhId: marine
+        ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
+        treeLeft: 4
+        treeRight: 5
+        treeLevel: 3
+    cesar:
+        email: yimiprod@gmail.com
+        firstname: César
+        lastname: Vidril
+        password: <?php echo sha1('cvidril')."\n" ?>
+        PersonTypeId: clt
+        JobId: dev_front
+        GroupId: consultant
+        CrhId: pauline
+        ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
+        treeLeft: 8
+        treeRight: 9
+        treeLevel: 2
+
+Extia\Bundle\UserBundle\Model\Mission:
+    tf1:
+        Label: e-Tf1
+        Type: client
+        ManagerId: caroline
+    sfr:
+        Label: SFR
+        Type: client
+        ManagerId: caroline
+    intercontrat:
+        Label: Intercontrat
+        Type: ic
+        ManagerId: caroline
+
+Extia\Bundle\UserBundle\Model\ConsultantMission:
+    m_kevin:
+        ConsultantId: kevin
+        MissionId: sfr
+        BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+        Current: true
+    m_quentin:
+        ConsultantId: quentin
+        MissionId: tf1
+        BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+        Current: true
+    m_cesar:
+        ConsultantId: cesar
+        MissionId: intercontrat
+        BeginDate: <?php echo strtotime('2013-06-01')."\n" ?>
+        Current: true
 
 Extia\Bundle\UserBundle\Model\PersonCredential:
     pauline_admin:
