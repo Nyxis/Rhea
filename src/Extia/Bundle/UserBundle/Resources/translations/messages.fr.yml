@@ -89,6 +89,10 @@ internal:
             th_email: Email
             th_contacts: Téléphone(s)
             th_actions: Actions
+        edit:
+            header: Edition de l'interne %internal_name%
+            civility: Civilité
+            file: Documents
 # forms
 consultant_person_firstname: Prénom
 consultant_person_lastname: Nom

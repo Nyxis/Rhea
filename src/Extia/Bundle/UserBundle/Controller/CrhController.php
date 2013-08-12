@@ -43,32 +43,7 @@ class CrhController extends Controller
 
         $pagination = $paginator->paginate($internalCollection, $page, 20);
 
-        return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
-            'user'      => $internal,
-            'internals' => $pagination
-        ));
-    }
-
-    /**
-     * lists all user consultants
-     *
-     * @param  Request $request
-     *
-     * @return Response
-     */
-    public function teamListAction(Request $request, $page)
-    {
-        $internal = $this->getUser();
-//        var_dump($internal);
-//        exit;
-        $internalCollection = InternalQuery::create()
-                              ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                              ->childrenOf($internal->getId());
-        $paginator          = $this->get('knp_paginator');
-
-        $pagination = $paginator->paginate($internalCollection, $page, 30);
-
-        return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
+        return $this->render('ExtiaUserBundle:Crh:list.html.twig', array (
             'user'      => $internal,
             'internals' => $pagination
         ));
@@ -87,7 +62,7 @@ class CrhController extends Controller
 
         $form = $this->renderForm($request, $internal);
 
-        return $this->render('ExtiaUserBundle:Internal:new.html.twig', array (
+        return $this->render('ExtiaUserBundle:Crh:new.html.twig', array (
             'internal' => $internal,
             'form'     => $form->createView(),
             'locales'  => $this->container->getParameter('extia_group.managed_locales')
@@ -100,7 +75,7 @@ class CrhController extends Controller
      * @param  Request $request
      * @param  int     $id
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      * @return Response
      */
     public function editAction(Request $request, $id)
@@ -129,9 +104,8 @@ class CrhController extends Controller
     /**
      * executes form on given consultant and renders it on given template
      *
-     * @param  Request    $request
-     * @param  Consultant $consultant
-     * @param  string     $template
+     * @param  Request                                $request
+     * @param \Extia\Bundle\UserBundle\Model\Internal $internal
      *
      * @return Response
      */
