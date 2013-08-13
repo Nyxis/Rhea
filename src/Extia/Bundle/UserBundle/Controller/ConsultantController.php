@@ -48,7 +48,7 @@ class ConsultantController extends Controller
             ->findOne();
 
         if (empty($user)) {
-            throw new NotFoundHttpException(sprintf('Requested user not found : %s %s (id %s)', $id
+            throw new NotFoundHttpException(sprintf('Requested user not found : id %s', $id
             ));
         }
 

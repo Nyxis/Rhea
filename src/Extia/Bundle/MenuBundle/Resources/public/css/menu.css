@@ -1,14 +1,19 @@
 .menu-bar {
-    width: 230px;
+    width: 240px;
     height: 100%;
 }
-
+li [class^="icon-"], li [class*=" icon-"] {
+    display: inline-block;
+    text-align: center;
+    width: 1.25em;
+}
 /* ------------------- main ------------------------ */
 
 .menu-bar nav {
     vertical-align: top;
-    background: url('/images/linen-gray.png');
+    background: url('../images/linen-gray.png');
     height: 100%;
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.4);
 }
 .menu-bar nav ul {
     /*border-bottom: 1px solid #4A4A54;*/
@@ -117,7 +122,7 @@
 
 /* ------------------- profile ------------------------ */
 .menu-bar .nav-profile {
-    background: url("/images/linen-gray.png") repeat scroll 0 0 transparent;
+    background: url("../images/linen-gray.png") repeat scroll 0 0 transparent;
     border: 1px solid #1D1E21;
     border-width: 0 1px 1px 0;
     width: 100%;

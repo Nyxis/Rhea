@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c1e72b0d74546f6522761e510e1ec7e4",
+    "hash": "110e026cd11361c31f305608289467c0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -615,6 +615,84 @@
             "time": "2013-08-10 16:05:40"
         },
         {
+            "name": "extia/backend-tb-theme",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/extia/BackendBootstrapTheme.git",
+                "reference": "d0f918b32a7630dd42f8cfb009bc9143900b5308"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/extia/BackendBootstrapTheme/zipball/d0f918b32a7630dd42f8cfb009bc9143900b5308",
+                "reference": "d0f918b32a7630dd42f8cfb009bc9143900b5308",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Extia backend twitter bootstrap theme",
+            "support": {
+                "source": "https://github.com/extia/BackendBootstrapTheme/tree/master",
+                "issues": "https://github.com/extia/BackendBootstrapTheme/issues"
+            },
+            "time": "2013-08-13 17:38:06"
+        },
+        {
+            "name": "fortawesome/font-awesome",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "906345058f738c2b931f89754a319ed108e17bd8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/906345058f738c2b931f89754a319ed108e17bd8",
+                "reference": "906345058f738c2b931f89754a319ed108e17bd8",
+                "shasum": ""
+            },
+            "require-dev": {
+                "jekyll": "1.0.2",
+                "lessc": "1.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Gandy",
+                    "email": "dave@fontawesome.io",
+                    "homepage": "http://twitter.com/byscuits",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The iconic font designed for Bootstrap",
+            "homepage": "http://fontawesome.io/",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon"
+            ],
+            "time": "2013-06-26 15:41:16"
+        },
+        {
             "name": "glorpen/propel-bundle",
             "version": "v1.2.3",
             "target-dir": "Glorpen/Propel/PropelBundle",
@@ -1130,6 +1208,87 @@
             "description": "lessphp is a compiler for LESS written in PHP.",
             "homepage": "http://leafo.net/lessphp/",
             "time": "2013-08-09 17:09:19"
+        },
+        {
+            "name": "leafo/scssphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafo/scssphp.git",
+                "reference": "95bec3c08ce470fa58cddcb03c15c42d313bb844"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafo/scssphp/zipball/95bec3c08ce470fa58cddcb03c15c42d313bb844",
+                "reference": "95bec3c08ce470fa58cddcb03c15c42d313bb844",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "php": ">=5.3.0",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "bin": [
+                "pscss"
+            ],
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "scss.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "scssphp is a compiler for SCSS written in PHP.",
+            "homepage": "http://leafo.net/scssphp/",
+            "time": "2013-08-08 21:04:35"
+        },
+        {
+            "name": "leafo/scssphp-compass",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafo/scssphp-compass.git",
+                "reference": "f1631ddb17731326863954d99b39694f0bbed6ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafo/scssphp-compass/zipball/f1631ddb17731326863954d99b39694f0bbed6ec",
+                "reference": "f1631ddb17731326863954d99b39694f0bbed6ec",
+                "shasum": ""
+            },
+            "require": {
+                "leafo/scssphp": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "compass.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "Compass for scssphp",
+            "homepage": "http://leafo.net/scssphp/",
+            "time": "2012-08-02 02:04:32"
         },
         {
             "name": "monolog/monolog",
@@ -1661,12 +1820,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "a8c497fb2d59d347fb6c22173827ae70d91d37fa"
+                "reference": "8daadf79d5f305fbcf4261c052968415f4e69a00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/a8c497fb2d59d347fb6c22173827ae70d91d37fa",
-                "reference": "a8c497fb2d59d347fb6c22173827ae70d91d37fa",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/8daadf79d5f305fbcf4261c052968415f4e69a00",
+                "reference": "8daadf79d5f305fbcf4261c052968415f4e69a00",
                 "shasum": ""
             },
             "require": {
@@ -1700,7 +1859,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2013-08-10 06:57:32"
+            "time": "2013-08-13 20:01:59"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1980,12 +2139,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "615bd0ba7d4ec48b5b73fb06db3a6cced5a2f2f6"
+                "reference": "11018011dd12f2772b07013e9cd60a184884d639"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/615bd0ba7d4ec48b5b73fb06db3a6cced5a2f2f6",
-                "reference": "615bd0ba7d4ec48b5b73fb06db3a6cced5a2f2f6",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/11018011dd12f2772b07013e9cd60a184884d639",
+                "reference": "11018011dd12f2772b07013e9cd60a184884d639",
                 "shasum": ""
             },
             "require": {
@@ -2080,7 +2239,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-08-11 17:29:22"
+            "time": "2013-08-13 20:18:00"
         },
         {
             "name": "twbs/bootstrap",
@@ -2214,11 +2373,12 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "leafo/lessphp": 20,
+        "leafo/scssphp-compass": 20,
         "knplabs/knp-menu-bundle": 20,
         "knplabs/knp-paginator-bundle": 20,
         "mopa/bootstrap-bundle": 20,
-        "ornicar/gravatar-bundle": 20,
-        "leafo/lessphp": 20
+        "ornicar/gravatar-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"
