@@ -1,0 +1,510 @@
+/* ---------------- */
+/* image fixing     */
+/* ---------------- */
+body {
+    background: url("images/linen-lighter.png") repeat scroll 0 0 transparent;
+}
+
+
+/* ---------------- */
+/* app override     */
+/* ---------------- */
+.dtable {
+    display: table;
+}
+.dtable-cell {
+    display: table-cell;
+    padding: 0 5px;
+    vertical-align: top;
+}
+.padded-bot {
+    padding-bottom: 10px !important;
+}
+.button i {
+    font-size: 14px;
+}
+[class^="icon-"] {
+    margin-right: 2px;
+}
+.button.large {
+    min-width: auto;
+    width: 110px;
+}
+.button.large span {
+    white-space: normal;
+}
+.breadcrumb li.active a, .breadcrumb li.active a:hover {
+    background: -moz-linear-gradient(center top , #ECECEC, #C5C5C5) repeat scroll 0 0 / 100% auto #C5C5C5;
+    color: #35353C;
+    text-shadow: 0 1px 1px rgba(248, 248, 248, 0.5);
+}
+.row-fluid [class*="span"] {
+    min-height: auto;
+}
+
+.badge {
+    color: white;
+    border: 0px solid #989898;
+    box-shadow: 0 0px 0 white;
+    text-shadow: 0 0px rgba(255, 255, 255, 0.5);
+    padding: 2px 9px;
+}
+.label, .badge {
+    background-color: #BBBBBB;
+    padding: 3px 9px;
+}
+.label.label-important, .badge.badge-important {
+    background-color: #B94A48;
+}
+.label.label-success, .badge.badge-success {
+    background-color: #468847;
+}
+.label.label-warning, .badge.badge-warning {
+    background-color: #F89406;
+}
+.label.label-info, .badge.badge-info {
+    background-color: #3A87AD;
+}
+.box-body .status {
+    margin-top: 10px;
+}
+dl {
+    margin-bottom: 0px;
+}
+.dl-horizontal dt {
+    width: 60px;
+    text-align: left;
+}
+.dl-horizontal dd {
+    margin-left: 70px;
+}
+.table {
+    width: 100%;
+}
+.table td {
+    vertical-align: middle;
+}
+.table td.actions, .table th.actions {
+    text-align: right;
+}
+.table td .wrap {
+    word-wrap: break-word;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+}
+.bolder {
+    font-weight: bold;
+}
+a [class^="icon-"], a [class*=" icon-"] {
+    display: inline-block;
+    text-decoration: inherit;
+}
+
+/* ---------------- */
+/* header           */
+/* ---------------- */
+.navbar {
+    margin:0px;
+}
+.navbar-inner {
+    border-radius: 0px;
+}
+
+/* ---------------- */
+/* tasks            */
+/* ---------------- */
+.box-body {
+    padding: 10px 20px 20px;
+}
+
+li.padded.task {
+    padding: 0px 20px 20px;
+}
+li.no-tasks {
+    padding: 5px 20px 5px 20px;
+}
+.modal .task-data {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    padding: 20px;
+}
+.comments {
+    display: none;
+    padding-bottom: 10px;
+}
+blockquote i{
+    color: lightgrey;
+}
+blockquote .button i {
+    color: inherit;
+}
+.comments blockquote{
+    padding:3px 10px 10px 10px ;
+    margin: 1px 0px 0px 15px;
+    border-left: 5px solid lightgrey;
+    border-top: 1px dotted lightgrey;
+
+}
+.comments blockquote p:last-child{
+    color: #999999;
+    line-height: 20px;
+}
+.comments blockquote small {
+    display: inline-block;
+}
+.comments .add_comment {
+    text-align: right;
+    padding-right: 10px;
+    margin-top: -60px;
+}
+.comments form {
+    margin-bottom: 0px;
+}
+.comments form textarea {
+    width: 100%;
+    height: 100px;
+}
+.comments form {
+    text-align: right;
+}
+
+/* ---------------- */
+/* users            */
+/* ---------------- */
+.gravatar {
+    margin-right: 10px;
+}
+.user-details .gravatar {
+    margin-top: 5px;
+}
+.user-details .data > div {
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 20px;
+}
+.user-details .data h5 {
+    margin: 0px; padding: 0px;
+}
+.user-badge {
+    color: black;
+    margin-top:5px;
+    max-width: 40%;
+    overflow: hidden;
+}
+.badge.badge-user {
+    background-color: #303287;
+    cursor: pointer;
+}
+.sidebar .box .badge.badge-user {
+    background-color: #BBBBBB;
+}
+.clt-header {
+    margin-top: 10px;
+}
+.clt-header .gravatar {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.clt-badge a {
+    color: inherit;
+}
+.clt-badge h4 a:hover,
+.int-badge h4 a:hover {
+    color: #005580 !important;
+}
+.black-box .clt-badge h4 a:hover {
+    color: #CCCCCC !important;
+}
+
+
+.box.consultants td .badge+.badge {
+    margin-top: 4px;
+}
+.box.consultants td.name {
+    max-width: 20%;
+    padding-left: 0px;
+    font-weight: bold;
+}
+.box.consultants .table td .wrap {
+    max-width: 90px;
+}
+
+
+.user-admin .table td.image {
+    width: 65px;
+}
+.user-admin .table td.name {
+    padding-left: 0px;
+}
+
+
+
+/* ---------------- */
+/* timeline         */
+/* ---------------- */
+.timeline_scrubber {
+    color: #F1F1F1;
+    text-shadow: 2px 2px #666666;
+    text-align: left;
+    font-size: 14px;
+    padding-top: 6px;
+}
+.timeline_scrubber a {
+    display: inline-block;
+    color: inherit;
+    border-left: solid 4px #F1F1F1;
+    padding-left: 10px;
+}
+.timeline_scrubber > li {
+    margin-bottom: 10px;
+    box-shadow: -10px 0 5px -9px #666666;
+}
+.timeline_scrubber ul {
+    font-size: 12px;
+}
+.timeline_scrubber ul li {
+    line-height: 16px;
+}
+.timeline_scrubber ul li a {
+    padding-left: 20px;
+}
+
+
+.task_timeline .date-separator {
+    color: #F1F1F1;
+    text-shadow: 2px 2px #666666;
+
+    font-size: 14px;
+    font-weight: lighter;
+    height: 32px;
+    line-height: 32px;
+    margin-bottom: 5px;
+}
+.task_timeline .date-separator.month-separator {
+    font-style: italic;
+}
+.task_timeline .date-separator.header {
+    font-size: 18px;
+    border-bottom: 1px solid #F1F1F1;
+    box-shadow: 0 10px 10px -8px #666666;
+}
+.task_timeline .date-separator.header + .task_details {
+    margin-top: 15px;
+}
+.task_timeline p {
+    font-size: 14px;
+    color: #333333;
+    font-style: italic;
+    margin: 0px;
+    padding: 0px;
+}
+.task_timeline .black-box p {
+    color: #FFFFFF;
+}
+.task_timeline .status {
+    text-align: right;
+}
+.task_timeline .status .badge {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.task_timeline .status .badge:first-child {
+    margin-top: 0px;
+}
+.task_timeline .task_details .btn-group{
+    margin-top: 15px;
+}
+
+.task_timeline_element h4  {
+    margin-top: 0px;
+}
+.task_timeline_element h4 a.user {
+    display: inline-block;
+    margin-top: 3px;
+    color: #999999;
+    font-size: 15px;
+    font-weight: normal;
+}
+.task_timeline_element h4 a.user:hover {
+
+}
+.task_timeline_element .data {
+    font-weight: bolder;
+}
+.task_timeline_element p + p.task_completion_info {
+    margin-top: 10px;
+}
+
+.workflow_details blockquote {
+    font-size: 14px;
+    border-left-color: lightgrey;
+}
+.workflow_details blockquote i{
+    color: lightgrey;
+}
+
+.team-past-tasks .table td.name .wrap {
+    max-width: 220px;
+    min-width: 180px;
+}
+.team-past-tasks .table td.status .wrap {
+    max-width: 125px;
+}
+.team-past-tasks .table td.status span+span {
+    margin-top: 4px;
+}
+.team-past-tasks .table tr {
+    position: relative;
+}
+.team-past-tasks .table-striped tbody tr:nth-child(2n+1) td, .table-striped tbody tr:nth-child(2n+1) th {
+    background-color: inherit;
+}
+.team-past-tasks .table-striped tbody tr.odd td, .table-striped tbody tr.odd th {
+    background-color: #F9F9F9;
+}
+.team-past-tasks .comments {
+    height: auto;
+}
+.team-past-tasks .comments td {
+    padding-top: 0px;
+}
+.team-past-tasks .comments p {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+.team-past-tasks .comments .add_comment {
+    text-align: right;
+    padding-right: 0px;
+    margin-top: -45px;
+}
+
+
+/* ---------------- */
+/* documents        */
+/* ---------------- */
+
+
+
+/* ---------------- */
+/* forms            */
+/* ---------------- */
+form {
+    margin-bottom: 0px;
+}
+.task_modal .form_hook {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    padding: 0 20px 10px;
+    margin-bottom: 20px;
+}
+.task_modal .task-data .form_hook {
+    padding-left: 0px;
+}
+.task_modal form .field {
+    padding: 20px;
+}
+.task_modal form.form-horizontal .field {
+    padding: 0px;
+}
+.task_modal form .field div > div {
+    display: inline-block;
+    float: none;
+}
+
+label.required:after{
+    content:" *";
+    position:relative;
+}
+.task_modal .form-horizontal .control-label {
+    padding-left: 20px;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    width: 170px;
+}
+.task_modal .form-horizontal .controls {
+    margin-top: 10px;
+    margin-left: 190px;
+}
+.task_modal .form-horizontal .controls .btn {
+    color: #333333;
+    font-weight: normal;
+    text-shadow: none;
+}
+
+#appointement_form_meeting_date input {
+    margin: 3px 3px;
+}
+
+
+/* ---------------- */
+/* ajax             */
+/* ---------------- */
+div#ajaxWaiter {
+    position: absolute; top: 0; left: 0; width:100%;
+    background-color: black; opacity: 0.7; z-index:100000;
+}
+
+div#ajaxWaiterConteneur {
+    position: absolute; top: 0; left: 0; z-index:100001;
+    width:150px; height:80px; padding-top: 10px;
+    background: repeat-x scroll 50% 50% #333333;
+    border: 1px solid #333333; border-radius:6px;
+    font-style:italic; font-size: 1.2em; font-weight: bold;
+    color: white; text-align: center;
+}
+
+div#ajaxWaiterConteneur img {
+    margin-bottom:5px;
+}
+
+
+
+
+/* ---------------- */
+/* search-bar       */
+/* ---------------- */
+
+.search-button-bar-container {
+  position: relative;
+}
+input.search {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  height: 25px;
+  border: none;
+  background: #46464d;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzY2NjY3MCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzQ2NDY0ZCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #666670), color-stop(100%, #46464d));
+  background-image: -webkit-linear-gradient(top, #666670, #46464d);
+  background-image: -moz-linear-gradient(top, #666670, #46464d);
+  background-image: -o-linear-gradient(top, #666670, #46464d);
+  background-image: linear-gradient(top, #666670, #46464d);
+  font-size: 12px;
+  line-height: 25px;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.7) inset;
+  -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.7) inset;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.7) inset;
+  color: #fff;
+  -webkit-transition: width, 0.3s;
+  -moz-transition: width, 0.3s;
+  -o-transition: width, 0.3s;
+  transition: width, 0.3s;
+}
+input.search:focus {
+    background: #eeeeee;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2VlZWVlZSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #eeeeee));
+    background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
+    background-image: linear-gradient(top, #ffffff, #eeeeee);
+    color: #404040;
+}

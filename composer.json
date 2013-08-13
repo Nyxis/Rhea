@@ -19,20 +19,32 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "propel/propel-bundle": "1.2.x",
-        "twbs/bootstrap": "2.3.2",
+        "glorpen/propel-bundle": "1.2.*",
+
+        "leafo/lessphp": "dev-master",
+        "leafo/scssphp-compass": "dev-master",
+
         "knplabs/knp-menu-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
+
+        "twbs/bootstrap": "2.3.2",
+        "fortawesome/font-awesome": "*",
         "mopa/bootstrap-bundle": "2.3.x-dev",
-        "ornicar/gravatar-bundle": "dev-master",
-        "glorpen/propel-bundle": "1.2.*",
-        "leafo/lessphp": "dev-master",
+        "extia/backend-tb-theme": "*",
+
         "jquery/jquery": "1.10.*",
-        "jquery/file-input": "*"
+        "jquery/file-input": "*",
+
+        "ornicar/gravatar-bundle": "dev-master"
     },
     "repositories": {
         "glorpen/propel-bundle": {
             "type": "vcs",
             "url": "https://github.com/glorpen/GlorpenPropelBundle.git"
+        },
+        "extia/backend-tb-theme" : {
+            "type": "vcs",
+            "url": "https://github.com/extia/BackendBootstrapTheme.git"
         },
         "jquery/jquery": {
             "type": "package",

@@ -7,41 +7,44 @@
 
         <title>{% block title %}Rhea{% endblock %}</title>
         {% block stylesheets %}
-            <link href="{{ asset('stylesheets/application.css') }}" media="screen" rel="stylesheet" type="text/css" />
-            <link href="{{ asset('stylesheets/font-awesome.css') }}" media="screen" rel="stylesheet" type="text/css" />
+            {% stylesheets
+                'css/compiled.css'
+                '%kernel.root_dir%/Resources/public/css/main.css'
+                'bundles/extiamenu/css/*'
+                'bundles/extiadocument/css/*'
+                'bundles/extianotification/css/*'
+                filter='cssrewrite'  %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
 
-            <link href="{{ asset('stylesheets/main.css') }}" media="screen" rel="stylesheet" type="text/css" />
-
-            <link href="{{ asset('bundles/extiamenu/css/menu.css') }}" media="screen" rel="stylesheet" type="text/css" />
-            <link href="{{ asset('bundles/extiadocument/css/documents.css') }}" media="screen" rel="stylesheet" type="text/css" />
-            <link href="{{ asset('bundles/extianotification/css/notifications.css') }}" media="screen" rel="stylesheet" type="text/css" />
-
+            {#
             <!--[if lt IE 9]>
             <link href="{{ asset('stylesheets/iefix.css') }}" media="screen" rel="stylesheet" type="text/css" />
             <![endif]-->
-
-            <link href="{{ asset('stylesheets/prettify.css') }}" media="screen" rel="stylesheet" type="text/css" />
+            #}
         {% endblock %}
 
         {% block javascripts %}
+            {% javascripts
+                'js/compiled.js'
+                '@ExtiaCommentBundle/Resources/public/js/comments.js'
+                '@ExtiaMenuBundle/Resources/public/js/menu.js'
+                '@ExtiaDocumentBundle/Resources/public/js/form.js'
+                %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
+            {#
             <!--[if lt IE 9]>
             <script src="{{ asset('javascripts/html5shiv.js') }}" type="text/javascript"></script>
             <script src="{{ asset('javascripts/excanvas.js') }}" type="text/javascript"></script>
             <script src="{{ asset('javascripts/iefix.js') }}" type="text/javascript"></script>
             <![endif]-->
-            <script src="{{ asset('js/compiled.js') }}" type="text/javascript"></script>
-
-            <script src="{{ asset('javascripts/application.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('javascripts/prettify.js') }}" type="text/javascript"></script>
-            <script type="text/javascript">
-                prettyPrint()
-            </script>
-
-            <script src="{{ asset('bundles/extiacomment/js/comments.js') }}"type="text/javascript"></script>
-            <script src="{{ asset('bundles/extiamenu/js/menu.js') }}"type="text/javascript"></script>
-            <script src="{{ asset('bundles/extiadocument/js/form.js') }}"type="text/javascript"></script>
+            #}
 
             <script type="text/javascript">
+                prettyPrint();
+
                 jQuery(document).ready(function($) {
                     // loader ajax
                     $('#ajaxWaiter').css('height', $(document).height());
