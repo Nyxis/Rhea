@@ -9,29 +9,17 @@ Utilise un moteur de workflow, EasyTask, pour modéliser et utiliser les différ
 # Install
 
 ```
+git clone git@github.com:extia/Rhea.git
+cd Rhea/
 wget http://getcomposer.org/composer.phar
 php composer.phar install --dev
-```
 
-Fill *app/config/parameters.yml* with your env configuration (will not be committed).
-```
-parameters:
-    database_driver:   mysql
-    database_host:     localhost
-    database_port:     ~
-    database_name:     what_you_want
-    database_user:     root
-    database_password: ~
-
-    locale:            fr
-```
-
-Create database and build it
-```
+# database and fixtures build
 php app/console propel:database:create --connection=default
 php app/console propel:build --insert-sql
 php app/console propel:fixtures:load
+php app/console cache:warmup
+
+# assets compilation
+php app/console assetic:dump --force
 ```
-
-
-# Moteur de Workflow
