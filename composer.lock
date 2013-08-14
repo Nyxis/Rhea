@@ -1359,12 +1359,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phiamo/MopaBootstrapBundle.git",
-                "reference": "c3d25775c800abb01fd9025a1d49ab6438170243"
+                "reference": "b5f9f8f86b21d8ae09e0c4babafe4500b0b99798"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/c3d25775c800abb01fd9025a1d49ab6438170243",
-                "reference": "c3d25775c800abb01fd9025a1d49ab6438170243",
+                "url": "https://api.github.com/repos/phiamo/MopaBootstrapBundle/zipball/b5f9f8f86b21d8ae09e0c4babafe4500b0b99798",
+                "reference": "b5f9f8f86b21d8ae09e0c4babafe4500b0b99798",
                 "shasum": ""
             },
             "require": {
@@ -1413,7 +1413,7 @@
                 "form",
                 "template"
             ],
-            "time": "2013-08-02 22:04:48"
+            "time": "2013-08-14 13:44:30"
         },
         {
             "name": "mopa/composer-bridge",
@@ -1975,20 +1975,21 @@
         },
         {
             "name": "symfony/icu",
-            "version": "1.0.x-dev",
+            "version": "1.2.x-dev",
             "target-dir": "Symfony/Component/Icu",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Icu.git",
-                "reference": "0b790dfb98904df2bcd44b2e14a69b1ccd679ef7"
+                "reference": "45c8d35427304b1e14a13a03426055f501ba5f61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Icu/zipball/0b790dfb98904df2bcd44b2e14a69b1ccd679ef7",
-                "reference": "0b790dfb98904df2bcd44b2e14a69b1ccd679ef7",
+                "url": "https://api.github.com/repos/symfony/Icu/zipball/45c8d35427304b1e14a13a03426055f501ba5f61",
+                "reference": "45c8d35427304b1e14a13a03426055f501ba5f61",
                 "shasum": ""
             },
             "require": {
+                "lib-icu": ">=4.4",
                 "php": ">=5.3.3",
                 "symfony/intl": "~2.3"
             },
@@ -2018,7 +2019,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-08-06 12:58:06"
+            "time": "2013-08-06 12:55:36"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2139,12 +2140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "11018011dd12f2772b07013e9cd60a184884d639"
+                "reference": "4af7276f89b6f1cf1ae28708c96c3405dc10cd7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/11018011dd12f2772b07013e9cd60a184884d639",
-                "reference": "11018011dd12f2772b07013e9cd60a184884d639",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/4af7276f89b6f1cf1ae28708c96c3405dc10cd7a",
+                "reference": "4af7276f89b6f1cf1ae28708c96c3405dc10cd7a",
                 "shasum": ""
             },
             "require": {
@@ -2239,7 +2240,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-08-13 20:18:00"
+            "time": "2013-08-14 12:58:19"
         },
         {
             "name": "twbs/bootstrap",
