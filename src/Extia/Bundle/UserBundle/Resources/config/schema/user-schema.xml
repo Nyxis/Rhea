@@ -22,7 +22,12 @@
         <unique>
             <unique-column name="email" />
         </unique>
+        <behavior name="sluggable" >
+            <parameter name="slug_column" value="url" />
+            <parameter name="slug_pattern" value="{firstname}-{lastname}" />
+        </behavior>
         <behavior name="timestampable" />
+
     </table>
 
     <table name="person_type">

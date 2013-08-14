@@ -23,20 +23,21 @@ class ConsultantController extends Controller
     /**
      * displays given user all task which target him as timeline
      *
-     * @param  Request $request
-     * @param          $id
+     * @param Request $request
+     * @param         $id
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      * @return Response
      */
-    public function timelineAction(Request $request, $id)
+    public function timelineAction(Request $request, $Id, $Url)
     {
         $locale = $request->attributes->get('_locale');
 
         $user = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterById($id)
+            ->filterById($Id)
+            ->filterByUrl($Url)
 
             ->joinWith('Crh')
             ->joinWith('Group', \Criteria::LEFT_JOIN)
@@ -48,7 +49,8 @@ class ConsultantController extends Controller
             ->findOne();
 
         if (empty($user)) {
-            throw new NotFoundHttpException(sprintf('Requested user not found : id %s', $id
+            throw new NotFoundHttpException(sprintf('Requested user not found : %s - id %s',
+                $Url, $Id
             ));
         }
 
@@ -122,13 +124,13 @@ class ConsultantController extends Controller
     /**
      * renders an edit form for given user id
      *
-     * @param  Request $request
-     * @param  int     $id
+     * @param Request $request
+     * @param int     $id
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $Id, $Url)
     {
         $consultant = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -136,10 +138,11 @@ class ConsultantController extends Controller
             ->useJobQuery()
                 ->joinWithI18n()
             ->endUse()
-            ->findPk($id);
+            ->filterByUrl($Url)
+            ->findPk($Id);
 
         if (empty($consultant)) {
-            throw new NotFoundHttpException(sprintf('Any consultant found for given id, "%s" given.', $id));
+            throw new NotFoundHttpException(sprintf('Any consultant found for given id/url, "%s/%s" given.', $Id, $Url));
         }
 
         return $this->renderForm($request, $consultant, 'ExtiaUserBundle:Consultant:edit.html.twig');
@@ -170,7 +173,8 @@ class ConsultantController extends Controller
                 // redirect on edit if was new
                 if ($isNew) {
                     return $this->redirect($this->get('router')->generate(
-                        'UserBundle_consultant_edit', array('id' => $consultant->getId())
+                        'UserBundle_consultant_edit',
+                        $consultant->getRouting()
                     ));
                 }
             }
@@ -186,7 +190,7 @@ class ConsultantController extends Controller
     /**
      * render all intercontract consultants for given user
      *
-     * @param  Request                                $request
+     * @param Request                                 $request
      * @param \Extia\Bundle\UserBundle\Model\Internal $internal
      *
      * @return Response

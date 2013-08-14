@@ -15,7 +15,7 @@ UserBundle_consultant_new:
         _format: html
 
 UserBundle_consultant_timeline:
-    pattern: /{id}/{firstname}-{lastname}/timeline
+    pattern: /{Id}/{Url}/timeline
     defaults:
         _controller: 'ExtiaUserBundle:Consultant:timeline'
         _format: html
@@ -26,7 +26,7 @@ UserBundle_consultant_timeline:
         _format: html
 
 UserBundle_consultant_edit:
-    pattern: /{id}/{firstname}-{lastname}/edit
+    pattern: /{Id}/{Url}/edit
     defaults:
         _controller: 'ExtiaUserBundle:Consultant:edit'
         _format: html
@@ -37,7 +37,7 @@ UserBundle_consultant_edit:
         _format: html
 
 UserBundle_consultant_delete:
-    pattern: /{id}/delete
+    pattern: /{Id}/delete
     defaults:
         _controller: 'ExtiaUserBundle:Consultant:delete'
         _format: html
