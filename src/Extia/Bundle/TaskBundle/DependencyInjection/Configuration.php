@@ -20,19 +20,6 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('extia_task');
 
-        $rootNode
-            ->addDefaultsIfNotSet()
-            ->children()
-                ->arrayNode('documents')
-                ->isRequired()
-                ->children()
-                    ->scalarNode('directory')
-                        ->isRequired()->cannotBeEmpty()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-
         return $treeBuilder;
     }
 }

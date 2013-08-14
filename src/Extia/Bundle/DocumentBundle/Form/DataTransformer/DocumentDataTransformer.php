@@ -1,7 +1,8 @@
 <?php
 
-namespace Extia\Bundle\TaskBundle\Form\DataTransformer;
+namespace Extia\Bundle\DocumentBundle\Form\DataTransformer;
 
+use Extia\Bundle\DocumentBundle\Factory\DocumentFactoryInterface;
 use Extia\Bundle\DocumentBundle\Model\DocumentQuery;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -10,8 +11,9 @@ use Symfony\Component\Form\DataTransformerInterface;
 /**
  * DataTransformer for files into documents
  */
-class TaskDocumentDataTransformer implements DataTransformerInterface
+class DocumentDataTransformer implements DataTransformerInterface
 {
+    protected $documentFactory;
     protected $documentDir;
     protected $documentName;
 
@@ -20,10 +22,11 @@ class TaskDocumentDataTransformer implements DataTransformerInterface
      * @param string $documentName
      * @param string $documentDir
      */
-    public function __construct($documentName, $documentDir)
+    public function __construct(DocumentFactoryInterface $documentFactory, $documentName, $documentDir)
     {
-        $this->documentName = $documentName;
-        $this->documentDir  = $documentDir;
+        $this->documentFactory = $documentFactory;
+        $this->documentName    = $documentName;
+        $this->documentDir     = $documentDir;
     }
 
     /**
@@ -45,12 +48,12 @@ class TaskDocumentDataTransformer implements DataTransformerInterface
             throw new \InvalidArgumentException('Given parameter is not an uploaded file, this transformer cannot work with anything else.');
         }
 
+        if (!$this->documentFactory->supports($file)) {
+            throw new \InvalidArgumentException('Given file is not supported.');
+        }
+
         $extension = $file->guessExtension();
-        $fileName  = sprintf('%s_%s.%s',
-            date('Y_m_d'),
-            $this->documentName,
-            $extension
-        );
+        $fileName  = $this->documentFactory->makeName($file, $this->documentName);
 
         $physicalDoc = $file->move($this->documentDir, $fileName);
 
