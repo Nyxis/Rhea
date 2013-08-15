@@ -25,9 +25,9 @@ class ConsultantType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return $resolver->setDefaults(array(
-            'data_class' => 'Extia\Bundle\UserBundle\Model\Consultant'
-        ));
+        return $resolver->setDefaults(array (
+                                          'data_class' => 'Extia\Bundle\UserBundle\Model\Consultant'
+                                      ));
     }
 
     /**
@@ -36,9 +36,10 @@ class ConsultantType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('person', 'person', array('label' => false));
+        $builder->add('person', 'person', array ('label' => false))
+                ->add('manager', 'text', array ('label' => 'Manager'))
+                ->add('rh', 'text', array ('label' => 'R.H.'));
 
-        $builder->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'Passwords do not match'));
     }
 
 
