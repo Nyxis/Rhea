@@ -296,29 +296,58 @@ Extia\Bundle\UserBundle\Model\Consultant:
         treeRight: 9
         treeLevel: 2
 
-Extia\Bundle\UserBundle\Model\Mission:
+Extia\Bundle\MissionBundle\Model\Company:
     tf1:
-        Label: e-Tf1
-        Type: client
-        ManagerId: caroline
+        title: e-Tf1
+        description: Secteur d'activité média
+        address:
+        zipCode:
+        city: Paris
     sfr:
-        Label: SFR
+        title: SFR Business Team
+        description: SFR pour les professionnels : cloud, mobile, internet
+        address:
+        zipCode:
+        city: Meudon
+    killix:
+        title: Killix by Extia
+        description: Pôle forfait d'Extia
+        address:
+        zipCode:
+        city: Sèvres
+    extia:
+        title: Extia
+        description: SSII
+        address:
+        zipCode:
+        city: Sèvres
+
+Extia\Bundle\MissionBundle\Model\Mission:
+    tf1_quentin:
+        Label: Développeur Web
         Type: client
         ManagerId: caroline
+        ClientId: tf1
+    sfr_kevin:
+        Label: Développeur Web
+        Type: client
+        ManagerId: caroline
+        ClientId: sfr
     intercontrat:
         Label: Intercontrat
         Type: ic
         ManagerId: caroline
+        ClientId: extia
 
 Extia\Bundle\UserBundle\Model\ConsultantMission:
     m_kevin:
         ConsultantId: kevin
-        MissionId: sfr
+        MissionId: sfr_kevin
         BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
         Current: true
     m_quentin:
         ConsultantId: quentin
-        MissionId: tf1
+        MissionId: tf1_quentin
         BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
         Current: true
     m_cesar:
