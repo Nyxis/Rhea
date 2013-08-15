@@ -69,3 +69,8 @@ http_errors:
     403:
         title: Erreur 403
         message: Vous n'êtes pa autorisé à accéder à cette page. Vérifiez avec l'administrateur si votre niveau d'accès est suffisant.
+
+form:
+    submit: Sauvegarder
+    cancel: Annuler
+    close: Fermer

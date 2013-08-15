@@ -1,0 +1,6 @@
+company:
+    title: Raison social
+    description: Description
+    address: Adresse
+    zipCode: Code Postal
+    city: Ville
