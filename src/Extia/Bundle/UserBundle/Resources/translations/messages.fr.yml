@@ -49,6 +49,8 @@ consultant:
             img:
                 avatar:
                     title:
+        new:
+            header: Nouveau consultant
 
     missions:
         header: Missions
