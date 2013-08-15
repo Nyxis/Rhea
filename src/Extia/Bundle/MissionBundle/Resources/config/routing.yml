@@ -1,3 +1,9 @@
-extia_mission_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ExtiaMissionBundle:Default:index }
+_mission_company:
+    resource: "routing/company.yml"
+    prefix: /company
+
+_mission_mission:
+    resource: "routing/mission.yml"
+    prefix: /mission
+
+

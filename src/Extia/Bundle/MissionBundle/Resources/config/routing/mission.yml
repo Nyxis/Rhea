@@ -1,0 +1,15 @@
+extia_mission_mission_list:
+    pattern: /list/{page}
+    defaults: { _controller: ExtiaMissionBundle:Mission:list }
+
+extia_mission_mission_new:
+    pattern: /new
+    defaults: { _controller: ExtiaMissionBundle:Mission:new }
+
+extia_mission_mission_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: ExtiaMissionBundle:Mission:edit }
+
+extia_mission_mission_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: ExtiaMissionBundle:Mission:delete }

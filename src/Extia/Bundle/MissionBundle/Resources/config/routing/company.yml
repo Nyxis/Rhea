@@ -1,0 +1,15 @@
+extia_mission_company_list:
+    pattern: /list/{page}
+    defaults: { _controller: ExtiaMissionBundle:Company:list }
+
+extia_mission_company_new:
+    pattern: /new
+    defaults: { _controller: ExtiaMissionBundle:Company:new }
+
+extia_mission_company_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: ExtiaMissionBundle:Company:edit }
+
+extia_mission_company_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: ExtiaMissionBundle:Company:delete }
