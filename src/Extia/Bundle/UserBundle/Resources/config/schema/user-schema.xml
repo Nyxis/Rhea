@@ -107,34 +107,6 @@
         </foreign-key>
     </table>
 
-    <table name="consultant_mission">
-        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-        <column name="consultant_id" type="INTEGER" required="true" />
-        <column name="mission_id" type="INTEGER" required="true" />
-        <column name="current" type="BOOLEAN" required="true" default="false" />
-        <column name="begin_date" type="TIMESTAMP" required="true" />
-        <column name="end_date" type="TIMESTAMP" required="false" />
-
-        <foreign-key foreignTable="consultant">
-            <reference local="consultant_id" foreign="id" />
-        </foreign-key>
-        <foreign-key foreignTable="mission">
-            <reference local="mission_id" foreign="id" />
-        </foreign-key>
-    </table>
-
-    <table name="mission">
-        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-        <column name="manager_id" type="INTEGER" required="true" />
-        <column name="type" type="VARCHAR" size="20" required="true" />
-        <column name="label" type="VARCHAR" size="255" required="true" />
-
-        <foreign-key foreignTable="internal" phpName="Manager">
-            <reference local="manager_id" foreign="id" />
-        </foreign-key>
-        <behavior name="timestampable" />
-    </table>
-
     <!-- Documents Internal & Tasks n:n:n table -->
     <table name="person_task_document" isCrossRef="true">
         <column name="person_id" type="INTEGER" required="true" primaryKey="true" />

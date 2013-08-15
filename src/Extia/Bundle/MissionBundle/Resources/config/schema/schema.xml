@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="default" namespace="Extia\Bundle\MissionBundle\Model">
+
+    <table name="consultant_mission">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="consultant_id" type="INTEGER" required="true" />
+        <column name="mission_id" type="INTEGER" required="true" />
+        <column name="current" type="BOOLEAN" required="true" default="false" />
+        <column name="begin_date" type="TIMESTAMP" required="true" />
+        <column name="end_date" type="TIMESTAMP" required="false" />
+
+        <foreign-key foreignTable="consultant">
+            <reference local="consultant_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="mission">
+            <reference local="mission_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+    <table name="mission">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="manager_id" type="INTEGER" required="true" />
+        <column name="client_id" type="INTEGER" required="true" />
+        <column name="type" type="VARCHAR" size="20" required="true" />
+        <column name="label" type="VARCHAR" size="255" required="true" />
+
+        <foreign-key foreignTable="internal" phpName="Manager">
+            <reference local="manager_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="company" phpName="Client">
+            <reference local="client_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="company">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="title" type="VARCHAR" size="80" required="true" />
+        <column name="description" type="VARCHAR" size="255" required="false" />
+        <column name="address" type="VARCHAR" size="255" required="false" />
+        <column name="zip_code" type="INTEGER" size="5" required="false" />
+        <column name="city" type="VARCHAR" size="255" required="false" />
+        <behavior name="timestampable" />
+    </table>
+</database>
