@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
         var parentLi = $(this).parents('li.parent');
         parentLi.toggleClass('open');
     });
-    $('.main-nav li.active > a').off('click').on('click', function(e) {
+    $('.main-nav li.parent.active > a').off('click').on('click', function(e) {
         e.preventDefault();
     });
 });

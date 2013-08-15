@@ -23,6 +23,7 @@ dashboard:
     timeline:
         header:
             past: En retard
+            waiting: En attente
             today: Aujourd'hui
             tomorrow: Demain
             week: Cette semaine
