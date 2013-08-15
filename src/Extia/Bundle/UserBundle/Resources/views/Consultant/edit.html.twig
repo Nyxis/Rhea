@@ -10,6 +10,7 @@
     <div id="civility" class="tab-pane active">
         <div class="padded">
             <form id="group-form" class="fill-up" method="POST">
+                {{ form_errors(form) }}
                 <div class="row-fluid">
                     <div class="span2">
                         {% if gravatar(form.person.email.vars.value, 165) is not null %}
@@ -21,17 +22,17 @@
                     </div>
                     <div class="span10">
                         <p>
-                            {{ form_label(form.person.firstname) }}
+                            {{ form_label(form.person.firstname, form.person.firstname.vars.id|replace({'_':'.'})) }}
                             {{ form_errors(form.person.firstname) }}
                             {{ form_widget(form.person.firstname) }}
                         </p>
                         <p>
-                            {{ form_label(form.person.lastname) }}
+                            {{ form_label(form.person.lastname, form.person.lastname.vars.id|replace({'_':'.'})) }}
                             {{ form_errors(form.person.lastname) }}
                             {{ form_widget(form.person.lastname) }}
                         </p>
                         <p>
-                            {{ form_label(form.person.email) }}
+                            {{ form_label(form.person.email, form.person.email.vars.id|replace({'_':'.'})) }}
                             {{ form_errors(form.person.email) }}
                             {{ form_widget(form.person.email) }}
                         </p>
@@ -40,20 +41,25 @@
                 <div class="row-fluid profile-label">
                     <div class="span12">
                         <p>
-                            {{ form_label(form.person.telephone) }}
+                            {{ form_label(form.person.telephone, form.person.telephone.vars.id|replace({'_':'.'})) }}
                             {{ form_errors(form.person.telephone) }}
                             {{ form_widget(form.person.telephone) }}
                         </p>
                         <p>
-                            {{ form_label(form.person.mobile) }}
+                            {{ form_label(form.person.mobile, form.person.mobile.vars.id|replace({'_':'.'})) }}
                             {{ form_errors(form.person.mobile) }}
                             {{ form_widget(form.person.mobile) }}
                         </p>
-                        <div>
-                            {{ form_label(form.password) }}
-                            {{ form_errors(form.password) }}
-                            {{ form_widget(form.password) }}
-                        </div>
+                        {#<p>#}
+                            {#{{ form_label(form.manager) }}#}
+                            {#{{ form_errors(form.manager) }}#}
+                            {#{{ form_widget(form.manager) }}#}
+                        {#</p>#}
+                        {#<p>#}
+                            {#{{ form_label(form.rh) }}#}
+                            {#{{ form_errors(form.rh) }}#}
+                            {#{{ form_widget(form.rh) }}#}
+                        {#</p>#}
                     </div>
                 </div>
             </form>
