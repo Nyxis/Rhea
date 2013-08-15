@@ -1,6 +1,9 @@
 extia_mission_mission_list:
-    pattern: /list/{page}
-    defaults: { _controller: ExtiaMissionBundle:Mission:list }
+    pattern: /list/{consultant}/{page}
+    defaults: { _controller: ExtiaMissionBundle:Mission:list, page: 1 }
+    requirements:
+        consultant: \w+
+        page: \d+
 
 extia_mission_mission_new:
     pattern: /new
@@ -9,7 +12,11 @@ extia_mission_mission_new:
 extia_mission_mission_edit:
     pattern: /edit/{id}
     defaults: { _controller: ExtiaMissionBundle:Mission:edit }
+    requirements:
+        id: \w+
 
 extia_mission_mission_delete:
     pattern: /delete/{id}
     defaults: { _controller: ExtiaMissionBundle:Mission:delete }
+    requirements:
+        id: \w+

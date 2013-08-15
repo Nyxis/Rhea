@@ -38,7 +38,7 @@ class CompanyController extends Controller
     {
         $company = CompanyQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->findPk($Id);
+            ->findPk($id);
 
         if (empty($company)) {
             throw new NotFoundHttpException(sprintf('Any consultant found for given id, "%s" given.', $Id));
