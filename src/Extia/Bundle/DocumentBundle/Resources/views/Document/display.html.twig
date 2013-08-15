@@ -17,8 +17,6 @@
             <form id="document-upload-{{ document.id }}" class="document-upload" method="POST"
                 action="{{ path('DocumentBundle_upload', { 'Id': document.id }) }}" {{ form_enctype(form) }}>
                 {{ form_rest(form) }}
-                <div class="notif413"></div>
-                <div class="notif415"></div>
             </form>
         </div>
     </div>

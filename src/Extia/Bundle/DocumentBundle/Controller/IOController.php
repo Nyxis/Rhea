@@ -51,65 +51,30 @@ class IOController extends Controller
     public function uploadAction(Request $request, Document $document)
     {
         $form = $this->get('extia_document.form.upload');
-
         if (!$request->request->has($form->getName())) {
             throw new NotFoundHttpException(sprintf('Any proper file has been given, abording.'));
         }
 
         $form->bind($request);
         if (!$form->isValid()) {
-            $errorNotice = $this->get('notifier')->add('warning', 'document.upload.notification.invalid_form')->get('warning');
-            $errorNotice = array_pop($errorNotice);
-
             return JsonResponse::create(array(
-                'error'   => true,
-                'message' => $errorNotice
+                'error' => 'invalid_form'
             ));
         }
 
-        try {
-            $data = $form->getData();
-            $file = $data['file'];
+        $data = $form->getData();
+        $file = $data['file'];
 
-            $path   = $document->getPath();
-            $newExt = $file->guessExtension();
-            $oldExt = $document->getType();
-
-            if ($newExt != $oldExt) {
-                $filename = str_replace('.'.$oldExt, '.'.$newExt, $document->getName());
-                $document->setName($filename);
-
-                $document->setType($newExt);
-
-                $path = dirname($path).'/'.$filename;
-                $document->setPath($path);
-            }
-
-            $file->move(dirname($path), basename($path));
-
-            $document->save();
-
-        } catch (\Exception $e) {
-            $errorNotice = $this->get('notifier')->add('error',
-                    $this->container->getParameter('kernel.debug') ?
-                        $e->getMessage() :
-                        'document.upload.notification.error'
-                )->get('error');
-
-            return JsonResponse::create(array(
-                'error'   => true,
-                'message' => array_pop($errorNotice)
-            ));
+        if (!$this->get('document.factory')->supports($file)) {
+            return JsonResponse::create(array('error' => 415), 415);
         }
 
-        $successNotif = $this->get('notifier')->add('success', 'document.upload.notification.success')->get('success');
-        $successNotif = array_pop($successNotif);
+        $document->replaceFile($file)->save();
 
         return JsonResponse::create(array(
             'success'  => true,
             'ext'      => $document->getType(),
-            'filename' => $document->getSimpleName(),
-            'message'  => $successNotif
+            'filename' => $document->getSimpleName()
         ));
     }
 }

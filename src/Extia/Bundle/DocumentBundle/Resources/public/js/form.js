@@ -35,14 +35,34 @@ jQuery(document).ready(function($) {
             $(this).ajaxSubmit({
                 dataType: 'json',
                 error: function(data, code) {
-                    // window.location.reload();
+                    var notif = $('#document-upload-notifications > .error-' + data.status);
+                    if (notif.length) {
+                        Notifications.push({
+                            "imagePath": 'placeholder',
+                            "autoDismiss": 10,
+                            "text": notif.html()
+                        });
+                        return;
+                    }
+
+                    window.location.reload();
                 },
                 success: function(data) {
-                    Notifications.push({
-                        "imagePath": 'placeholder',
-                        "autoDismiss": 5,
-                        "text": data.message
-                    });
+
+                    if (data.success) {
+                        var notif = $('#document-upload-notifications > .success');
+                    }
+                    if (data.error) {
+                        var notif = $('#document-upload-notifications > .error-'+data.error);
+                    }
+
+                    if (notif.length) {
+                        Notifications.push({
+                            "imagePath": 'placeholder',
+                            "autoDismiss": 10,
+                            "text": notif.html()
+                        });
+                    }
 
                     if (data.ext) {
                         $form.parents('.dtable').find('.doc-icon50').attr('class', 'dtable-cell doc-icon50 ' + data.ext);

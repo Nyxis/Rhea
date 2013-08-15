@@ -4,4 +4,5 @@
         {% render(controller('ExtiaDocumentBundle:Document:display', { 'document': document, 'options': options|default({}) })) %}
     </li>
 {% endfor %}
+{% include 'ExtiaDocumentBundle:Document:upload_notifications.html.twig' %}
 </ul>
