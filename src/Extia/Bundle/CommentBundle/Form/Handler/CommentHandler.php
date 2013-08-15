@@ -31,6 +31,8 @@ class CommentHandler
      * handle given comment form
      * @param Form    $form
      * @param Request $request
+     *
+     * @deprecated
      */
     public function handle(Form $form, Request $request)
     {
