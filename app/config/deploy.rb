@@ -30,9 +30,13 @@ set :model_manager,               "propel"
 set :app_config_file,             "parameters.yml"
 
 set :use_composer,                true
-set :composer_options,            "--prefer-dist --verbose -o"
+set :composer_options,            "--no-dev --prefer-dist --verbose -o"
 #set :update_vendors,              true
 #set :vendors_mode,                "install"
+
+# Options cache
+set :cache_warmup,                true
+set :console_options,             "--env=prod"
 
 # Use AsseticBundle
 set :dump_assetic_assets,         true
