@@ -24,7 +24,7 @@
         <service id="extia.node.abstract_type" class="%extia.node.abstract_type.class%" abstract="true">
             <argument type="service" id="translator" />
             <argument type="service" id="security.context" />
-            <argument>%extia_task.documents.directory%</argument>
+            <argument type="service" id="document.factory" />
         </service>
 
         <!-- Workflow Node Handler abstract definition -->

@@ -49,9 +49,14 @@ class Notifier implements NotifierInterface
     }
 
     /**
-     * @see NotifierInterface::add()
+     * make a notification with given params
+     * @param  string $type
+     * @param  string $message
+     * @param  array  $params
+     * @param  string $rendering
+     * @return array
      */
-    public function add($type, $message, $params = array(), $rendering = 'flat')
+    protected function makeNotification($type, $message, $params, $rendering)
     {
         if (!in_array($type, $this->notifType)) {
             throw new \InvalidArgumentException(sprintf(
@@ -66,21 +71,42 @@ class Notifier implements NotifierInterface
             ));
         }
 
-        $this->session->getFlashbag()->add($type, array(
+        return array(
             'message'   => $message,
             'rendering' => $rendering,
             'params'    => $params
+        );
+    }
+
+    /**
+     * @see NotifierInterface::add()
+     */
+    public function add($type, $message, $params = array(), $rendering = 'flat')
+    {
+        $this->session->getFlashbag()->add($type, $this->makeNotification(
+            $type, $message, $params, $rendering
         ));
 
         return $this;
     }
 
     /**
+     * @see NotifierInterface::render()
+     */
+    public function render($type, $message, $params = array(), $rendering = 'flat')
+    {
+        return $this->build($type, $this->makeNotification(
+            $type, $message, $params, $rendering
+        ));
+    }
+
+    /**
      * resolve given notification and return it as string
+     * @param  string $type
      * @param  array  $notification
      * @return string
      */
-    protected function renderNotification($notification)
+    protected function build($type, array $notification)
     {
         if (empty($notification['message']) || empty($notification['rendering'])) {
             throw new \InvalidArgumentException('Given notification cannot be use, you have to provide "message" and "rendering" keys');
@@ -91,15 +117,21 @@ class Notifier implements NotifierInterface
         $params    = empty($notification['params']) ? array() : $notification['params'];
 
         if ($rendering == 'controller') {
-            return $this->fragmentHandler->render(new ControllerReference(
+            $message = $this->fragmentHandler->render(new ControllerReference(
                 $message, $params
             ));
         }
-        if ($rendering == 'template') {
-            return $this->templateEngine->render($message, $params);
+        elseif ($rendering == 'template') {
+            $message = $this->templateEngine->render($message, $params);
+        }
+        else {
+            $message = $this->translator->trans($message, $params);
         }
 
-        return $this->translator->trans($message, $params);
+        return $this->templateEngine->render($this->flatTemplate, array(
+            'notif' => $message,
+            'type'  => $type
+        ));
     }
 
     /**
@@ -117,10 +149,7 @@ class Notifier implements NotifierInterface
         $resolvedNotifications = array();
         $notificationForType = $this->session->getFlashbag()->get($type);
         foreach ($notificationForType as $notif) {
-            $resolvedNotifications[] = $this->templateEngine->render($this->flatTemplate, array(
-                'notif' => $this->renderNotification($notif),
-                'type'  => $type
-            ));
+            $resolvedNotifications[] = $this->build($type, $notif);
         }
 
         return $resolvedNotifications;

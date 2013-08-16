@@ -50,6 +50,13 @@ ExtiaActivityBundle:
         _menu: activity
 
 # ---------------------------------------
+# Document
+# ---------------------------------------
+ExtiaDocumentBundle:
+    resource: "@ExtiaDocumentBundle/Resources/config/routing.yml"
+    prefix:   /document
+
+# ---------------------------------------
 # Group
 # ---------------------------------------
 ExtiaGroupBundle:
