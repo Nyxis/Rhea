@@ -40,59 +40,6 @@ abstract class AbstractNodeHandler
     abstract public function handle(Form $form, Request $request, Task $task);
 
     /**
-     * find next working day
-     * @param  timestamp $timestamp
-     * @return timestamp
-     */
-    protected function findNextWorkingDay($timestamp)
-    {
-        $workingDays = range(1,5);
-        $offDays     = range(6,7);
-
-        while (in_array(date('N', $timestamp), $offDays)) {
-            $timestamp += 3600*24;
-        }
-
-        return $timestamp;
-    }
-
-    /**
-     * remove days to given date
-     * @param  timestamp $date
-     * @param  int       $nbDays
-     * @return timestamp
-     */
-    protected function removeDays($date, $nbDays)
-    {
-        return $date - ($nbDays*24*3600);
-    }
-
-    /**
-     * adds $nbMonths to given date
-     * @param  timestamp $date
-     * @param  int       $nbMonths
-     * @return timestamp
-     */
-    protected function addMonths($date, $nbMonths)
-    {
-        $dateMonth  = date('n', $date);
-
-        // adds select month / year
-        $nextDateMonth = $dateMonth + $nbMonths;
-
-        $nextDateYear  = $nextDateMonth > 12 ? date('Y', $date) + floor($nextDateMonth/12) : date('Y', $date);
-        $nextDateMonth = $nextDateMonth > 12 ? $nextDateMonth % 12 : $nextDateMonth;
-
-        // recreate date
-        $nextDateTmstp = mktime(
-            0, 0, 0, // on midnight
-            $nextDateMonth, date('j', $date), $nextDateYear
-        );
-
-        return $nextDateTmstp;
-    }
-
-    /**
      * updates task linked workflow if workflow data given
      * @param array $data
      * @param Task  $task

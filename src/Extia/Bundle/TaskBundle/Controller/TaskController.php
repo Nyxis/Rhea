@@ -79,7 +79,7 @@ class TaskController extends Controller
         }
 
         $form = $this->get('form.factory')->create('workflow_data', $workflow);
-        $form->bind($request);
+        $form->submit($request);
         if ($form->isValid()) {
             $workflow->save();
         } else {

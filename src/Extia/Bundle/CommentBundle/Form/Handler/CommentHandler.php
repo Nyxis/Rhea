@@ -38,7 +38,7 @@ class CommentHandler
             throw new AccessDeniedException('User has to be authenticated to create a comment.');
         }
 
-        $form->bind($request);
+        $form->submit($request);
         if (!$form->isValid()) {
             return false;
         }

@@ -10,18 +10,14 @@
         {{ refDate|date('date_format.md'|trans) }} -
         {{ task.node.name|trans }}
     </div>
-    <div class="padded">
-        <p class="default">
-            {{ 'task_managed_by'|trans }} {{ task.userAssigned.longName }}
-
-            {% if task.node.current is empty %}
-                {{ 'task_managed_at'|trans }}
-                {{ task.node.completedAt('date_format.ymd'|trans) }}
-            {% endif %}
-
-            {{ 'task_managed_for'|trans }}
-            {{ task.userTarget.longName }}
-        </p>
+    <div class="box-body">
+        <div class="clearfix">
+            <div class="pull-right status">
+                {% include 'ExtiaTaskBundle:Task:task_status.html.twig' with { 'task': task } only %} <br />
+                {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': task.userAssigned } only %}
+            </div>
+            {% include 'ExtiaTaskBundle:Task:planed_task_state.html.twig' with { 'task': task } only %}
+        </div>
         <div class="btn-group">
             <a class="button" data-toggle-target="comments-{{ task.id }}" href="#">
                 <i class="icon-comments-alt"></i> {{ 'comments_link'|trans }}
