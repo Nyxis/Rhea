@@ -56,6 +56,9 @@ workflow:
         header: Documents
     contributors:
         header: Participants
+    form:
+        name: Nom de la tâche
+        description: Description de la tâche
 
 # Task
 task:

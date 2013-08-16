@@ -221,6 +221,21 @@ easy_task_workflow:
                     route:      { pattern: "/meeting/{workflowId}" }
                     controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController }
 
+        # Annual repport
+        annual_review:
+            routes:
+                prefix: /annual_review
+            actions:
+                node:     nodeAction
+                modal:    modalAction
+                notify:   notificationAction
+                timeline: timelineAction
+            nodes:
+                initiation:
+                    bootstrap: true
+                    route:      { pattern: "/initiation/{workflowId}" }
+                    controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\InitiationNodeController }
+
 knp_paginator:
     page_range: 5
     default_options:

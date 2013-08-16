@@ -17,26 +17,14 @@ class AppointementNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function handle(Form $form, Request $request, Task $task)
+    public function resolve(array $data, Task $task, Request $request)
     {
-        $form->submit($request);
-        if (!$form->isValid()) {
-            return false;
-        }
-
-        // updates task with incomming data
-        $data = $form->getData();
-
         // activate before given date for pre-notification
         $task->data()->set('meeting_date', $task->findNextWorkingDay($data['meeting_date']));
 
         $task->save();
 
         // notify next node
-        $workflow = $task->getNode()->getWorkflow();
-
-        return $this->workflows
-            ->getNode($workflow, 'meeting')
-            ->notify($workflow, $request);
+        return $this->notifyNext('meeting', $task, $request);
     }
 }

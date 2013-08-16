@@ -1,0 +1,13 @@
+<div class="task_timeline_element annual_review_initiation">
+    <h4>
+        {{ 'annual_review_initiation.timeline.hook'|trans }}
+        {% if task.userTarget is not empty and user_target|default(false) == true %}
+            <br />{% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.userTarget } only %}
+        {% endif %}
+    </h4>
+    <div class="clearfix">
+    {% if extra_data is defined and extra_data is not empty %}
+        <p>....</p>
+    {% endif %}
+    </div>
+</div>

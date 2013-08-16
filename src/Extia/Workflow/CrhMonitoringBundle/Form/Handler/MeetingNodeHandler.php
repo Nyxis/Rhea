@@ -17,16 +17,8 @@ class MeetingNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function handle(Form $form, Request $request, Task $task)
+    public function resolve(array $data, Task $task, Request $request)
     {
-        $form->submit($request);
-        if (!$form->isValid()) {
-            return false;
-        }
-
-        // updates task with incomming data
-        $data = $form->getData();
-
         $nextMeetingTmstp = $task->calculateDate($task->getActivationDate(), '+'.$data['next_meeting'].' months', 'U');
 
         $task->data()->set('meeting_date', $task->findNextWorkingDay($nextMeetingTmstp));
@@ -39,10 +31,6 @@ class MeetingNodeHandler extends AbstractNodeHandler
         $task->save();
 
         // notify next node
-        $workflow = $task->getNode()->getWorkflow();
-
-        return $this->workflows
-            ->getNode($workflow, 'appointement')
-            ->notify($workflow, $request);
+        return $this->notifyNext('appointement', $task, $request);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Extia\Workflow\CrhMonitoringBundle\Form\Handler;
+namespace Extia\Workflow\AnnualReviewBundle\Form\Handler;
 
 use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
@@ -9,10 +9,10 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * form handler for bootstrap node
- * @see Extia/Workflow/CrhMonitoringBundle/Resources/workflows/bootstrap.xml
+ * form handler for initiation node
+ * @see Extia/Workflow/AnnualReviewBundle/Resources/workflows/initiation.xml
  */
-class BootstrapNodeHandler extends AbstractNodeHandler
+class InitiationNodeHandler extends AbstractNodeHandler
 {
     /**
      * {@inherit_doc}
@@ -27,7 +27,7 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         // activate before given date for pre-notification
         $task->data()->set('meeting_date', $task->findNextWorkingDay($data['next_date']));
         $task->data()->set('notif_date', $task->findNextWorkingDay(
-            (int) $task->calculateDate($data['next_date'], '-7 days', 'U')
+            (int) $task->calculateDate($data['next_date'], '-21 days', 'U')
         ));
 
         // updates workflow fields
@@ -35,7 +35,8 @@ class BootstrapNodeHandler extends AbstractNodeHandler
 
         $task->save();
 
-        // notify next node
+        return true;
+
         return $this->notifyNext('appointement', $task, $request);
     }
 }
