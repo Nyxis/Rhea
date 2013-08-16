@@ -34,14 +34,17 @@ class CompanyController extends Controller
         ));
     }
 
-    public function editAction(Request $request, $id)
+    /**
+     * @param Request $request
+     * @param Company $company
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws NotFoundHttpException
+     */
+    public function editAction(Request $request, Company $company)
     {
-        $company = CompanyQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->findPk($id);
-
         if (empty($company)) {
-            throw new NotFoundHttpException(sprintf('Any consultant found for given id, "%s" given.', $Id));
+            throw new NotFoundHttpException(sprintf('Any company found for given id, "%s" given.', $Id));
         }
 
         $form = $this->renderForm($request, $company);
