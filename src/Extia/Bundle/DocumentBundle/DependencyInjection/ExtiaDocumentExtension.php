@@ -22,6 +22,9 @@ class ExtiaDocumentExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('extia_document.allowed_extensions', $config['allowed_extensions']);
+        $container->setParameter('extia_document.upload_directory', realpath($config['upload_directory']));
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
     }
