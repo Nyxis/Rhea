@@ -8,6 +8,8 @@ use Extia\Bundle\UserBundle\Model\Internal;
 use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 
+use Extia\Bundle\DocumentBundle\Model\DocumentQuery;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +34,11 @@ class ConsultantController extends Controller
      */
     public function timelineAction(Request $request, $Id, $Url)
     {
+        // can access this timeline ?
+        if (!$this->get('security.context')->isGranted('ROLE_CONSULTANT_READ', $this->getUser())) {
+            throw new AccessDeniedHttpException(sprintf('You have any credentials to access consultants timeline.'));
+        }
+
         $locale = $request->attributes->get('_locale');
 
         $user = ConsultantQuery::create()
@@ -71,7 +78,10 @@ class ConsultantController extends Controller
             ->_or()
             ->filterByAssignedTo($user->getId())
 
-            ->orderByNodeCompletion()
+            ->orderByActivationDate(\Criteria::DESC)
+            ->useNodeQuery()
+                ->orderByCurrent(\Criteria::DESC)
+            ->endUse()
 
             ->find();
 
@@ -80,6 +90,74 @@ class ConsultantController extends Controller
             'tasks' => $tasks
         ));
     }
+
+    // --------------------------------------------------------
+    // Components
+    // --------------------------------------------------------
+
+    /**
+     * render all intercontract consultants for given user
+     *
+     * @param Request                                 $request
+     * @param \Extia\Bundle\UserBundle\Model\Internal $internal
+     *
+     * @return Response
+     */
+    public function intercontractListBoxAction(Request $request, Internal $internal)
+    {
+        $consultantCollection = ConsultantQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->joinWith('Job')
+            ->useJobQuery()
+                ->joinWithI18n()
+            ->endUse()
+
+            ->useConsultantMissionQuery()
+                ->filterByCurrent(true)
+                ->useMissionQuery()
+                    ->filterByType('ic')
+                ->endUse()
+            ->endUse()
+
+            ->filterByInternalReferer($internal)
+
+            ->find();
+
+        return $this->render('ExtiaUserBundle:Consultant:intercontract_list_box.html.twig', array(
+            'internal'    => $internal,
+            'consultants' => $consultantCollection
+        ));
+    }
+
+    /**
+     * displays all document for given consultant
+     * @param  Request    $request
+     * @param  Consultant $consultant
+     * @return Response
+     */
+    public function documentsAction(Request $request, Consultant $consultant)
+    {
+        $documentsCollection = DocumentQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->orderByCreatedAt(\Criteria::DESC)
+            ->usePersonTaskDocumentQuery()
+                ->filterByPersonId($consultant->getId())
+                ->useTaskQuery(null, \Criteria::LEFT_JOIN)
+                    ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
+                ->endUse()
+            ->endUse()
+            ->find();
+
+        return $this->render('ExtiaUserBundle:Consultant:documents.html.twig', array(
+            'consultant' => $consultant,
+            'documents'  => $documentsCollection
+        ));
+    }
+
+
+    // --------------------------------------------------------
+    // Admin
+    // --------------------------------------------------------
 
     /**
      * lists all user consultants
@@ -184,40 +262,6 @@ class ConsultantController extends Controller
             'consultant' => $consultant,
             'form'       => $form->createView(),
             'locales'    => $this->container->getParameter('extia_group.managed_locales')
-        ));
-    }
-
-    /**
-     * render all intercontract consultants for given user
-     *
-     * @param Request                                 $request
-     * @param \Extia\Bundle\UserBundle\Model\Internal $internal
-     *
-     * @return Response
-     */
-    public function intercontractListBoxAction(Request $request, Internal $internal)
-    {
-        $consultantCollection = ConsultantQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Job')
-            ->useJobQuery()
-                ->joinWithI18n()
-            ->endUse()
-
-            ->useConsultantMissionQuery()
-                ->filterByCurrent(true)
-                ->useMissionQuery()
-                    ->filterByType('ic')
-                ->endUse()
-            ->endUse()
-
-            ->filterByInternalReferer($internal)
-
-            ->find();
-
-        return $this->render('ExtiaUserBundle:Consultant:intercontract_list_box.html.twig', array(
-            'internal'    => $internal,
-            'consultants' => $consultantCollection
         ));
     }
 }

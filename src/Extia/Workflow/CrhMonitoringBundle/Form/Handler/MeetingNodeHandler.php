@@ -19,7 +19,7 @@ class MeetingNodeHandler extends AbstractNodeHandler
      */
     public function handle(Form $form, Request $request, Task $task)
     {
-        $form->bind($request);
+        $form->submit($request);
         if (!$form->isValid()) {
             return false;
         }
@@ -27,13 +27,12 @@ class MeetingNodeHandler extends AbstractNodeHandler
         // updates task with incomming data
         $data = $form->getData();
 
-        // calculate next meeting date
-        $nextMeetingTmstp = $this->addMonths(
-            $task->getActivationDate()->format('U'), $data['next_meeting']
-        );
+        $nextMeetingTmstp = $task->calculateDate($task->getActivationDate(), '+'.$data['next_meeting'].' months', 'U');
 
-        $task->data()->set('meeting_date', $this->findNextWorkingDay($nextMeetingTmstp));
-        $task->data()->set('notif_date', $this->findNextWorkingDay($this->removeDays($nextMeetingTmstp, 7)));
+        $task->data()->set('meeting_date', $task->findNextWorkingDay($nextMeetingTmstp));
+        $task->data()->set('notif_date', $task->findNextWorkingDay(
+            (int) $task->calculateDate($nextMeetingTmstp, '-7 days', 'U'))
+        );
 
         $task->addDocument($data['crh_meeting_doc']);
 

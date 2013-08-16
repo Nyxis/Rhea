@@ -102,8 +102,7 @@ class Task extends BaseTask
             return self::STATE_PLANED;
         }
 
-        return strtotime($this->getActivationDate('Y-m-d')) + 24 * 3600 > time() ?
-            self::STATE_PLANED : self::STATE_PAST;
+        return strtotime($this->getCompletionDate('Y-m-d')) < time() ? self::STATE_PAST : self::STATE_PLANED;
     }
 
     // ---------------------------------------------------------
@@ -154,29 +153,26 @@ class Task extends BaseTask
     // ---------------------------------------------------------
 
     /**
-     * return limit date to complete this task
-     * @param  string          $format optional date format, if given, returns formated date isntead of Datetime
-     * @return DateTime|string
-     */
-    public function getCompletionLimitDate($format = null)
-    {
-        $date = new \DateTime();
-        $date->setTimestamp(strtotime($this->getActivationDate('Y-m-d')) + 3600 * 24);
-
-        return is_string($format) ? $date->format($format) : $date;
-    }
-
-    /**
      * calculate and returns number of days of retard
      * @return int
      */
     public function getPastDays()
     {
+        if ($this->getStatus() == self::STATE_PLANED) {
+            return 0; // no retard if no activated
+        }
+
+        $completionDate = strtotime($this->getCompletionDate('Y-m-d'));
+        if (empty($completionDate)) {
+            return 0; // no completion date, no retard
+        }
+
         $date = new \DateTime();
         $date->setTimestamp($this->isCompleted() ? strtotime($this->getCompletedAt('Y-m-d')) : strtotime(date('Y-m-d')));
 
         $diff = $date->diff(
-            \DateTime::createFromFormat('U', strtotime($this->getActivationDate('Y-m-d')))
+            // retard relative to day before deadline
+            \DateTime::createFromFormat('U', $completionDate - 3600*24)
         );
 
         return $diff->invert === 1 ? $diff->days : 0;
@@ -206,5 +202,91 @@ class Task extends BaseTask
         $diffSeconds = strtotime($this->getActivationDate('Y-m-d')) - strtotime(date('Y-m-d'));
 
         return $diffSeconds >= 3600*24 && $diffSeconds <= 3600*48;
+    }
+
+
+    // ---------------------------------------------------------
+    // Temporal tools
+    // ---------------------------------------------------------
+
+    /**
+     * alias to setCompletionDate to use with period from activation date
+     *
+     * @param string $period
+     */
+    public function defineCompletionDate($period)
+    {
+        $activationDate = strtotime($this->getActivationDate('Y-m-d'));
+        if (empty($activationDate)) {
+            return $this;
+        }
+
+        $this->setCompletionDate(
+            $this->findNextWorkingDay(
+                $this->calculateDate($activationDate, $period, 'U')
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * calculate a date with period
+     * @param  DateTime|string $date
+     * @param  string          $period period
+     * @param  string          $format optionnal output format for datetime object
+     * @return DateTime
+     */
+    public function calculateDate($date, $period, $output = null)
+    {
+        if (is_numeric($date)) {
+            $date = \DateTime::createFromFormat('U', $date);
+        }
+
+        $newDate = $date->add(\DateInterval::createFromDateString($period));
+
+        return $output ? $newDate->format($output) : $newDate;
+    }
+
+    /**
+     * find next working day
+     * @param  timestamp $timestamp
+     * @return timestamp
+     */
+    public function findNextWorkingDay($timestamp)
+    {
+        $workingDays = range(1,5);
+        $offDays     = range(6,7);
+
+        while (in_array(date('N', $timestamp), $offDays)) {
+            $timestamp += 3600*24;
+        }
+
+        return $timestamp;
+    }
+
+    /**
+     * adds $nbMonths to given date
+     * @param  timestamp $date
+     * @param  int       $nbMonths
+     * @return timestamp
+     */
+    public function addMonths($date, $nbMonths)
+    {
+        $dateMonth  = date('n', $date);
+
+        // adds select month / year
+        $nextDateMonth = $dateMonth + $nbMonths;
+
+        $nextDateYear  = $nextDateMonth > 12 ? date('Y', $date) + floor($nextDateMonth/12) : date('Y', $date);
+        $nextDateMonth = $nextDateMonth > 12 ? $nextDateMonth % 12 : $nextDateMonth;
+
+        // recreate date
+        $nextDateTmstp = mktime(
+            0, 0, 0, // on midnight
+            $nextDateMonth, date('j', $date), $nextDateYear
+        );
+
+        return $nextDateTmstp;
     }
 }

@@ -6,7 +6,9 @@
         {% endif %}
     </h4>
     <div class="clearfix">
+    {% if extra_data is defined and extra_data is not empty %}
         <p>{{ 'crh_bootstrap.timeline.next_meeting'|trans }} <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.</p>
         <p>{{ 'crh_bootstrap.timeline.notified_at'|trans }} <span class="data">{{ task.data.get('notif_date')|date('date_format.ymd'|trans) }}</span>.</p>
+    {% endif %}
     </div>
 </div>

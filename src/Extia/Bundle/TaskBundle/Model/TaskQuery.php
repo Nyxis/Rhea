@@ -21,19 +21,6 @@ class TaskQuery extends BaseTaskQuery
     }
 
     /**
-     * order the request on node completion state
-     * @param  string    $dir optional sort direction
-     * @return TaskQuery
-     */
-    public function orderByNodeCompletion($dir = \Criteria::DESC)
-    {
-        return $this->useNodeQuery()
-                ->orderByCurrent($dir)
-                ->orderByCompletedAt($dir)
-            ->endUse();
-    }
-
-    /**
      * filter query on given workflow types
      * @param  array     $workflowTypes
      * @return TaskQuery
@@ -54,9 +41,9 @@ class TaskQuery extends BaseTaskQuery
      */
     public function joinWithTargettedUser($locale = null)
     {
-        return $this->joinWith('UserTarget')
+        return $this->joinWith('UserTarget', \Criteria::LEFT_JOIN)
             ->joinWith('UserTarget.Job')
-            ->useUserTargetQuery()
+            ->useUserTargetQuery(null, \Criteria::LEFT_JOIN)
                 ->useJobQuery()
                     ->_if(empty($locale))->joinWithI18n()
                     ->_else()->joinWithI18n($locale)
