@@ -55,7 +55,7 @@ class IOController extends Controller
             throw new NotFoundHttpException(sprintf('Any proper file has been given, abording.'));
         }
 
-        $form->bind($request);
+        $form->submit($request);
         if (!$form->isValid()) {
             return JsonResponse::create(array(
                 'error' => 'invalid_form'

@@ -158,11 +158,21 @@ class Task extends BaseTask
      */
     public function getPastDays()
     {
+        if ($this->getStatus() == self::STATE_PLANED) {
+            return 0; // no retard if no activated
+        }
+
+        $completionDate = strtotime($this->getCompletionDate('Y-m-d'));
+        if (empty($completionDate)) {
+            return 0; // no completion date, no retard
+        }
+
         $date = new \DateTime();
         $date->setTimestamp($this->isCompleted() ? strtotime($this->getCompletedAt('Y-m-d')) : strtotime(date('Y-m-d')));
 
         $diff = $date->diff(
-            \DateTime::createFromFormat('U', strtotime($this->getCompletionDate('Y-m-d')))
+            // retard relative to day before deadline
+            \DateTime::createFromFormat('U', $completionDate - 3600*24)
         );
 
         return $diff->invert === 1 ? $diff->days : 0;
@@ -206,7 +216,7 @@ class Task extends BaseTask
      */
     public function defineCompletionDate($period)
     {
-        $activationDate = $this->getActivationDate();
+        $activationDate = strtotime($this->getActivationDate('Y-m-d'));
         if (empty($activationDate)) {
             return $this;
         }

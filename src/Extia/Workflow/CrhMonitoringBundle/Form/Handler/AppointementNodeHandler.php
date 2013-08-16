@@ -19,7 +19,7 @@ class AppointementNodeHandler extends AbstractNodeHandler
      */
     public function handle(Form $form, Request $request, Task $task)
     {
-        $form->bind($request);
+        $form->submit($request);
         if (!$form->isValid()) {
             return false;
         }

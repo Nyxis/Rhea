@@ -63,6 +63,6 @@ task:
         planed: à traiter
         handled: traitée
         past: en retard
-    handle_limit: Tâche à traiter avant le
+    handle_limit: À traiter avant le
     retard_of: "{1} en retard d'un jour|]1,Inf] en retard de %retard% jours"
     handle_retard_of: "{1} traité un jour en retard|]1,Inf] traité %retard% jours en retard"

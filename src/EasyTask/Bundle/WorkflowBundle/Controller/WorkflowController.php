@@ -37,7 +37,7 @@ class WorkflowController extends Controller
         $form = $this->container->get('form.factory')->create('workflow_form', $wf, array());
 
         if ($request->request->has($form->getName())) {
-            $form->bind($request);
+            $form->submit($request);
             if ($form->isValid()) {
                 $response = $this->container->get('workflows')->handle($form, $request);
 

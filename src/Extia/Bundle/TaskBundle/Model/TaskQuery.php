@@ -21,19 +21,6 @@ class TaskQuery extends BaseTaskQuery
     }
 
     /**
-     * order the request on node completion state
-     * @param  string    $dir optional sort direction
-     * @return TaskQuery
-     */
-    public function orderByNodeCompletion($dir = \Criteria::DESC)
-    {
-        return $this->useNodeQuery()
-                ->orderByCurrent($dir)
-                ->orderByCompletedAt($dir)
-            ->endUse();
-    }
-
-    /**
      * filter query on given workflow types
      * @param  array     $workflowTypes
      * @return TaskQuery

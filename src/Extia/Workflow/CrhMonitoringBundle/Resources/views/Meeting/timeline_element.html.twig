@@ -4,6 +4,7 @@
         <br />{% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.userTarget } only %}
     </h4>
     <div class="clearfix">
+    {% if extra_data is defined and extra_data is not empty %}
         <p>
             {{ 'crh_meeting.timeline.meeting_at'|trans }}
             <span class="data">{{ task.activationDate(('crh_meeting.date_format'|trans ~ ' ' ~ 'crh_meeting.time_format'|trans)) }}</span>.
@@ -12,6 +13,6 @@
             <p>{{ 'crh_meeting.timeline.next_meeting'|trans }} <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.</p>
             <p>{{ 'crh_meeting.timeline.notified_at'|trans }} <span class="data">{{ task.data.get('notif_date')|date('date_format.ymd'|trans) }}</span>.</p>
         {% endif %}
-        {% include 'ExtiaTaskBundle:Task:planed_task_state.html.twig' with { 'task': task } only %}
+    {% endif %}
     </div>
 </div>

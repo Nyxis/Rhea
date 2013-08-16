@@ -65,9 +65,6 @@ body {
 .label.label-info, .badge.badge-info {
     background-color: #3A87AD;
 }
-.box-body .status {
-    margin-top: 10px;
-}
 dl {
     margin-bottom: 0px;
 }
@@ -89,7 +86,6 @@ dl {
 }
 .table td .wrap {
     word-wrap: break-word;
-    display: inline-block;
     overflow: hidden;
     position: relative;
 }
@@ -115,7 +111,7 @@ a [class^="icon-"], a [class*=" icon-"] {
 /* tasks            */
 /* ---------------- */
 .box-body {
-    padding: 10px 20px 20px;
+    padding: 10px 10px 15px 15px;
 }
 
 li.padded.task {
@@ -297,11 +293,14 @@ blockquote .button i {
     font-size: 14px;
     color: #333333;
     font-style: italic;
-    margin: 0px;
+    margin: 0 0 10px;
     padding: 0px;
 }
 .task_timeline .black-box p {
     color: #FFFFFF;
+}
+.task_timeline .box .tab-header .pull-right {
+    margin-right: 10px;
 }
 .task_timeline .status {
     text-align: right;
@@ -314,7 +313,7 @@ blockquote .button i {
     margin-top: 0px;
 }
 .task_timeline .task_details .btn-group{
-    margin-top: 15px;
+    margin: 0 0 0 -1px;
 }
 
 .task_timeline_element h4  {

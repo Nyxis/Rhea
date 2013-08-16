@@ -88,20 +88,20 @@ class DashboardController extends Controller
         }
 
         $activationTmsp = intval($activationDate->format('U'));
-        $completionTmsp = intval($task->getCompletionDate()->format('U'));
+        $completionTmsp = intval($task->getCompletionDate('U'));
         $today          = strtotime(date('Y-m-d'));
 
-        if ($completionTmsp < $today) {
+        if ($completionTmsp <= $today) {
             return 'past';
-        }
-
-        if ($activationTmsp < $today && $today < $completionTmsp) {
-            return 'waiting';
         }
 
         $tomorrow = $today + 3600*24;
         if ($activationTmsp >= $today && $activationTmsp < $tomorrow) {
             return 'today';
+        }
+
+        if ($activationTmsp < $today && $today < $completionTmsp) {
+            return 'waiting';
         }
 
         $nextInWeek = $tomorrow + 3600*24;
