@@ -17,7 +17,7 @@ class InitiationNodeType extends AbstractNodeType
      */
     public function getName()
     {
-        return 'initiation_form';
+        return 'annual_review_initiation_form';
     }
 
     /**

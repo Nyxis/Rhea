@@ -3,6 +3,7 @@
 namespace Extia\Bundle\TaskBundle\Form\Type;
 
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
+use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Extia\Bundle\DocumentBundle\Factory\DocumentFactoryInterface;
 
 use Symfony\Component\Form\AbstractType;
@@ -73,6 +74,24 @@ abstract class AbstractNodeType extends AbstractType
     {
         $consultants = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->orderByLastname()
+            ->orderByFirstname()
+            ->find();
+
+        return $consultants->toKeyValue('Id', 'LongName');
+    }
+
+    /**
+     * construct a choice list for all managers
+     * @return array
+     */
+    protected function getManagersChoices()
+    {
+        $consultants = InternalQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->usePersonTypeQuery()
+                ->filterByCode('ia')
+            ->endUse()
             ->orderByLastname()
             ->orderByFirstname()
             ->find();

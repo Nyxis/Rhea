@@ -24,5 +24,6 @@ class ExtiaWorkflowAnnualReviewExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/workflows'));
         $loader->load('initiation.xml');
+        $loader->load('preparing.xml');
     }
 }

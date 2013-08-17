@@ -3,6 +3,9 @@ annual_review_credential:
     read: Voir les bilans annuels
     write: Créer et réaliser des bilans annuels
 
+annual_review_document:
+    name: bilan_annuel
+
 initiation: Initialisation
 annual_review_initiation:
     notification: Le bilan annuel a bien été initialisé pour le consultant %clt%. Vous serez notifié pour préparer le bilan le %notif_date%.
@@ -11,4 +14,16 @@ annual_review_initiation:
         user_target_id: Consultant
         next_date: Date théorique du prochain bilan annuel
     timeline:
-        hook: Initialisation du bilan annuel
+        hook: Initialisation bilan annuel
+
+preparing: Préparation
+annual_review_preparing:
+    notification: "Le bilan annuel a bien été planifié avec %mgr% pour le consultant %clt%, le %notif_date%."
+    form:
+        hook: Veuillez faire remplir le document de bilan annuel, puis téléchargez le à réception pour planifier la réunion avec le manager.
+        document: Bilan annuel consultant
+        doc_label_button: Télécharger le bilan annuel
+        manager_id: Manager
+        meeting_date: Date du bilan annuel
+    timeline:
+        hook: Préparation bilan annuel

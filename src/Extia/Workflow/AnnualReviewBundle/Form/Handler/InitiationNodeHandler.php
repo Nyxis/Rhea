@@ -27,7 +27,7 @@ class InitiationNodeHandler extends AbstractNodeHandler
         // activate before given date for pre-notification
         $task->data()->set('meeting_date', $task->findNextWorkingDay($data['next_date']));
         $task->data()->set('notif_date', $task->findNextWorkingDay(
-            (int) $task->calculateDate($data['next_date'], '-21 days', 'U')
+            (int) $task->calculateDate($data['next_date'], '-1 month', 'U')
         ));
 
         // updates workflow fields
@@ -35,8 +35,6 @@ class InitiationNodeHandler extends AbstractNodeHandler
 
         $task->save();
 
-        return true;
-
-        return $this->notifyNext('appointement', $task, $request);
+        return $this->notifyNext('preparing', $task, $request);
     }
 }

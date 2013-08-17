@@ -235,6 +235,9 @@ easy_task_workflow:
                     bootstrap: true
                     route:      { pattern: "/initiation/{workflowId}" }
                     controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\InitiationNodeController }
+                preparing:
+                    route:      { pattern: "/preparing/{workflowId}" }
+                    controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\PreparingNodeController }
 
 knp_paginator:
     page_range: 5

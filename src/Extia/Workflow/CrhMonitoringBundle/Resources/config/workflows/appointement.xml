@@ -17,7 +17,7 @@
 
         <!-- Form Type -->
         <service id="crh_monitoring.appointement.type" class="%crh_monitoring.appointement.type.class%" parent="extia.node.abstract_type">
-            <tag name="form.type" alias="appointement_form" />
+
         </service>
 
         <!-- Form Handler -->
