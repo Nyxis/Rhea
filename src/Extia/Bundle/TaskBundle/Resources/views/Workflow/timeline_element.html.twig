@@ -1,0 +1,22 @@
+<div class="task_timeline_element {{ task.node.workflow.type }}_{{ task.node.name }}">
+    <div class="dtable">
+        <div class="dtable-cell task_image">
+            <img src="{{ asset('images/workflows/' ~ task.node.workflow.type ~ '.jpg') }}">
+        </div>
+        <div class="dtable-cell">
+            <h4>
+                {% block task_title %}{% endblock %}<br />
+                {% if task.userTarget is not empty and user_target|default(false) == true %}
+                    {% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.userTarget } only %}
+                {% else %}
+                    <p>&nbsp;</p>
+                {% endif %}
+            </h4>
+        </div>
+    </div>
+    <div class="clearfix">
+    {% if task.isCompleted == true and extra_data is defined and extra_data is not empty %}
+        {% block task_data %}{% endblock %}
+    {% endif %}
+    </div>
+</div>

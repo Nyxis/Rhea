@@ -1,17 +1,5 @@
-{% extends 'ExtiaTaskBundle:Dashboard:user_dashboard.html.twig' %}
+{% extends 'ExtiaTaskBundle:Workflow:node.html.twig' %}
 
-{% block modal %}
-    {{ parent() }}
-    <div id="current_task_{{ task.id }}" class="black-box modal fade hide">
-        {% include 'ExtiaWorkflowCrhMonitoringBundle:' ~ type_dir ~ ':modal.html.twig' %}
-    </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $('#current_task_{{ task.id }}').modal();
-        });
-    </script>
+{% block modal_template %}
+    {% include 'ExtiaWorkflowCrhMonitoringBundle:' ~ type_dir ~ ':modal.html.twig' %}
 {% endblock %}

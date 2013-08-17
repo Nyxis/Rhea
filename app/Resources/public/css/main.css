@@ -203,6 +203,9 @@ blockquote .button i {
     margin-left: 0px;
     padding-left: 0px;
 }
+.clt-badge {
+    margin-top: 20px;
+}
 .clt-badge a {
     color: inherit;
 }
@@ -312,10 +315,17 @@ blockquote .button i {
 .task_timeline .status .badge:first-child {
     margin-top: 0px;
 }
-.task_timeline .task_details .btn-group{
-    margin: 0 0 0 -1px;
+.task_timeline_element .dtable-cell {
+    vertical-align: middle;
+    padding-bottom: 5px;
 }
-
+.task_timeline_element .task_image {
+    padding-left: 0px;
+}
+.task_timeline_element .task_image img{
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
 .task_timeline_element h4  {
     margin-top: 0px;
 }
@@ -395,10 +405,10 @@ form {
 }
 .task_modal .form_hook {
     font-size: 14px;
-    font-style: italic;
     font-weight: bold;
-    padding: 0 20px 10px;
-    margin-bottom: 20px;
+    font-style: normal;
+    padding: 0 20px;
+    margin-bottom: 0px;
 }
 .task_modal .task-data .form_hook {
     padding-left: 0px;

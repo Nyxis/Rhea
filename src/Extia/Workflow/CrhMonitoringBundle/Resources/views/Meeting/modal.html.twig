@@ -1,48 +1,37 @@
-<div class="task_modal crh_monitoring_meeting">
-    <div class="modal-header tab-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <span>{{ task.node.workflow.type|trans }} - {{ task.node.name|trans }}</span>
-    </div>
-    <div class="modal-body separator task-data">
-        {% set clt = task.userTarget %}
-        <p class="form_hook">
-            {{ 'crh_meeting.hook'|trans }} {{ clt.longName }},
-            {% if task.isPlanedToday %}
-                {{ 'crh_meeting.today'|trans }}
-            {% elseif task.isPlanedTomorrow %}
-                {{ 'crh_meeting.tomorrow'|trans }}
-            {% else %}
-                {{ task.activationDate(('crh_meeting.date_format'|trans)) }}
-            {% endif %}
-            {{ task.activationDate(('crh_meeting.time_format'|trans)) }}
-        </p>
-        {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'with_contact': true, 'clt': clt.consultant } only %}
-    </div>
-    <form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node, nodeUrlParams) }}" >
-        <div class="separator">
-            {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+{% extends 'ExtiaTaskBundle:Workflow:modal.html.twig' %}
 
-            <div class="control-group field" id="{{ form.crh_meeting_doc.vars.id }}_control_group">
-                <label class="control-label required" for="{{ form.crh_meeting_doc.vars.id }}">{{ 'crh_meeting.form.doc_label'|trans }}</label>
-                <div class="controls" id="{{ form.crh_meeting_doc.vars.id }}">
-                    {{ form_widget(form.crh_meeting_doc) }}
-                </div>
-            </div>
+{% block modal_body %}
+    {% set clt = task.userTarget %}
+    <p class="form_hook">
+        {{ 'crh_meeting.hook'|trans }} {{ clt.longName }},
+        {% if task.isPlanedToday %}
+            {{ 'crh_meeting.today'|trans }}
+        {% elseif task.isPlanedTomorrow %}
+            {{ 'crh_meeting.tomorrow'|trans }}
+        {% else %}
+            {{ task.activationDate(('crh_meeting.date_format'|trans)) }}
+        {% endif %}
+        {{ task.activationDate(('crh_meeting.time_format'|trans)) }}
+    </p>
+    {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'with_contact': true, 'clt': clt.consultant } only %}
+{% endblock %}
 
-            <div class="control-group field" id="{{ form.next_meeting.vars.id }}_control_group">
-                <label class="control-label required" for="{{ form.next_meeting.vars.id }}">{{ 'crh_meeting.next_meeting'|trans }}</label>
-                <div class="controls" id="{{ form.next_meeting.vars.id }}">
-                    {{ form_widget(form.next_meeting) }}
-                </div>
-            </div>
-
-            {{ form_rest(form) }}
-        </div>
-        <div class="modal-footer">
-            <div class="inner-well">
-                <button type="submit" class="button mini rounded">{{ 'task_submit'|trans }}</button>
-                <a class="button mini rounded light-gray" data-dismiss="modal">{{ 'modal_close'|trans }}</a>
+{% block modal_form %}
+    <div class="separator">
+        <div class="control-group field" id="{{ form.crh_meeting_doc.vars.id }}_control_group">
+            <label class="control-label required" for="{{ form.crh_meeting_doc.vars.id }}">{{ 'crh_meeting.form.doc_label'|trans }}</label>
+            <div class="controls" id="{{ form.crh_meeting_doc.vars.id }}">
+                {{ form_widget(form.crh_meeting_doc) }}
             </div>
         </div>
-    </form>
-</div>
+
+        <div class="control-group field" id="{{ form.next_meeting.vars.id }}_control_group">
+            <label class="control-label required" for="{{ form.next_meeting.vars.id }}">{{ 'crh_meeting.next_meeting'|trans }}</label>
+            <div class="controls" id="{{ form.next_meeting.vars.id }}">
+                {{ form_widget(form.next_meeting) }}
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+    </div>
+{% endblock %}
