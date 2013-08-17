@@ -59,6 +59,8 @@ workflow:
     form:
         name: Nom de la tâche
         description: Description de la tâche
+    notification:
+        default: La tâche a bien été traitée.
 
 # Task
 task:
