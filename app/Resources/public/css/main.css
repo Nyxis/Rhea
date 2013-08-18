@@ -199,9 +199,18 @@ blockquote .button i {
 .clt-header {
     margin-top: 10px;
 }
+.box-body .clt-header {
+    margin-top: 0px;
+}
 .clt-header .gravatar {
     margin-left: 0px;
     padding-left: 0px;
+}
+.clt-badge {
+    margin-top: 20px;
+}
+.box-body .clt-badge {
+    margin-top: 0px;
 }
 .clt-badge a {
     color: inherit;
@@ -225,6 +234,7 @@ blockquote .button i {
 }
 .box.consultants .table td .wrap {
     max-width: 90px;
+    line-height: normal;
 }
 
 
@@ -284,7 +294,7 @@ blockquote .button i {
 .task_timeline .date-separator.header {
     font-size: 18px;
     border-bottom: 1px solid #F1F1F1;
-    box-shadow: 0 10px 10px -8px #666666;
+    box-shadow: 0px 6px 4px -4px rgba(0, 0, 0, 0.4);
 }
 .task_timeline .date-separator.header + .task_details {
     margin-top: 15px;
@@ -312,10 +322,17 @@ blockquote .button i {
 .task_timeline .status .badge:first-child {
     margin-top: 0px;
 }
-.task_timeline .task_details .btn-group{
-    margin: 0 0 0 -1px;
+.task_timeline_element .dtable-cell {
+    vertical-align: middle;
+    padding-bottom: 5px;
 }
-
+.task_timeline_element .task_image {
+    padding-left: 0px;
+}
+.task_timeline_element .task_image img{
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
 .task_timeline_element h4  {
     margin-top: 0px;
 }
@@ -395,10 +412,10 @@ form {
 }
 .task_modal .form_hook {
     font-size: 14px;
-    font-style: italic;
     font-weight: bold;
-    padding: 0 20px 10px;
-    margin-bottom: 20px;
+    font-style: normal;
+    padding: 0 20px;
+    margin-bottom: 0px;
 }
 .task_modal .task-data .form_hook {
     padding-left: 0px;

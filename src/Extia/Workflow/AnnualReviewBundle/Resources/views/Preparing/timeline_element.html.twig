@@ -1,0 +1,18 @@
+{% extends 'ExtiaTaskBundle:Workflow:timeline_element.html.twig' %}
+
+{% block task_title %}{{ 'annual_review_preparing.timeline.hook'|trans }}{% endblock %}
+
+{% block task_data %}
+    <p>
+        {{ 'annual_review_preparing.timeline.clt_document'|trans }}
+        <span class="data">
+            <a href="{{ path('DocumentBundle_download', { 'Id': task.documents.first.id }) }}">
+                {{ task.documents.first.name }}.
+            </a>
+        </span>
+    </p>
+    <p>
+        {{ 'annual_review_preparing.timeline.meeting_date'|trans }}
+        <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.
+    </p>
+{% endblock %}

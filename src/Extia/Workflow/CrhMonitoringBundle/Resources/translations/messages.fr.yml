@@ -8,11 +8,10 @@ crh_bootstrap:
     hook: Veuillez remplir les informations nécessaires à l'initialisation du suivi :
     notification: Le suivi RH a bien été initialisé pour le consultant %clt%. Vous serez notifié pour planifier le rendez vous le %notif_date%.
     timeline:
-        hook: Initialisation du suivi
+        hook: Initialisation suivi consultant
         next_meeting: Point prévu aux alentours du
         notified_at: Prise de date le
 
-Name: Nom
 User target id: Consultant
 Next date: Date théorique du prochain point
 

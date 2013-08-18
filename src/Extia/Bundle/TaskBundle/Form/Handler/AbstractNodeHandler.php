@@ -31,13 +31,49 @@ abstract class AbstractNodeHandler
     }
 
     /**
-     * handling method
+     * form handling method
      * @param  Form     $form
      * @param  Request  $request
      * @param  Task     $task
      * @return Response | null
      */
-    abstract public function handle(Form $form, Request $request, Task $task);
+    public function handle(Form $form, Request $request, Task $task)
+    {
+        $form->submit($request);
+        if (!$form->isValid()) {
+            return false;
+        }
+
+        // updates task with incomming data
+        return $this->resolve(
+            $form->getData(), $task, $request
+        );
+    }
+
+    /**
+     * notify task given node name as next node
+     * @param  string  $nodeName
+     * @param  Task    $task
+     * @param  Request $request
+     * @return Response|null
+     */
+    public function notifyNext($nodeName, Task $task, Request $request)
+    {
+        $workflow = $task->getNode()->getWorkflow();
+
+        return $this->workflows
+            ->getNode($workflow, $nodeName)
+            ->notify($workflow, $request);
+    }
+
+    /**
+     * node handling method
+     * @param  array    $data
+     * @param  Request  $request
+     * @param  Task     $task
+     * @return Response | null
+     */
+    abstract public function resolve(array $data, Task $task, Request $request);
 
     /**
      * updates task linked workflow if workflow data given

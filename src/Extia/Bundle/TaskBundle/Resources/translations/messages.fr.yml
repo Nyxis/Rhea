@@ -28,7 +28,7 @@ dashboard:
             tomorrow: Demain
             week: Cette semaine
             next_week: La semaine prochaine
-            after: Plus tard
+            next_month: Le mois prochain
     sidebar:
         button:
             new_task: Nouvelle tâche
@@ -56,6 +56,11 @@ workflow:
         header: Documents
     contributors:
         header: Participants
+    form:
+        name: Nom de la tâche
+        description: Description de la tâche
+    notification:
+        default: La tâche a bien été traitée.
 
 # Task
 task:
