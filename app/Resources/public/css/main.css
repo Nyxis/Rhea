@@ -234,6 +234,7 @@ blockquote .button i {
 }
 .box.consultants .table td .wrap {
     max-width: 90px;
+    line-height: normal;
 }
 
 

@@ -12,6 +12,7 @@ annual_review_initiation:
         next_date: Date théorique du prochain bilan annuel
     timeline:
         hook: Initialisation bilan annuel
+        next_meeting: Prochain bilan prévu le
 
 preparing: Préparation
 annual_review_preparing:
@@ -24,6 +25,8 @@ annual_review_preparing:
         meeting_date: Date du bilan annuel
     timeline:
         hook: Préparation bilan annuel
+        clt_document: Document soumis par le consultant :
+        meeting_date: Bilan annuel fixé pour le
     document:
         name: ba_consultant
 
@@ -36,5 +39,6 @@ annual_review_annual_meeting:
         doc_label_button: Télécharger le bilan annuel final
     timeline:
         hook: Bilan annuel
+        final_document: Document final :
     document:
         name: ba_final
