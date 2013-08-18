@@ -238,6 +238,9 @@ easy_task_workflow:
                 preparing:
                     route:      { pattern: "/preparing/{workflowId}" }
                     controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\PreparingNodeController }
+                annual_meeting:
+                    route:      { pattern: "/annual_meeting/{workflowId}" }
+                    controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\AnnualMeetingNodeController }
 
 knp_paginator:
     page_range: 5

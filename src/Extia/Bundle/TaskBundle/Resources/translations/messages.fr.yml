@@ -28,7 +28,7 @@ dashboard:
             tomorrow: Demain
             week: Cette semaine
             next_week: La semaine prochaine
-            after: Plus tard
+            next_month: Le mois prochain
     sidebar:
         button:
             new_task: Nouvelle tâche

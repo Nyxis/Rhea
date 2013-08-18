@@ -199,12 +199,18 @@ blockquote .button i {
 .clt-header {
     margin-top: 10px;
 }
+.box-body .clt-header {
+    margin-top: 0px;
+}
 .clt-header .gravatar {
     margin-left: 0px;
     padding-left: 0px;
 }
 .clt-badge {
     margin-top: 20px;
+}
+.box-body .clt-badge {
+    margin-top: 0px;
 }
 .clt-badge a {
     color: inherit;
@@ -287,7 +293,7 @@ blockquote .button i {
 .task_timeline .date-separator.header {
     font-size: 18px;
     border-bottom: 1px solid #F1F1F1;
-    box-shadow: 0 10px 10px -8px #666666;
+    box-shadow: 0px 6px 4px -4px rgba(0, 0, 0, 0.4);
 }
 .task_timeline .date-separator.header + .task_details {
     margin-top: 15px;

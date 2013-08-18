@@ -24,11 +24,7 @@ class InitiationNodeHandler extends AbstractNodeHandler
         $task->setActivationDate(strtotime(date('Y-m-d')));
         $task->defineCompletionDate('+1 day');
 
-        // activate before given date for pre-notification
         $task->data()->set('meeting_date', $task->findNextWorkingDay($data['next_date']));
-        $task->data()->set('notif_date', $task->findNextWorkingDay(
-            (int) $task->calculateDate($data['next_date'], '-1 month', 'U')
-        ));
 
         // updates workflow fields
         $this->updateWorkflow($data, $task);

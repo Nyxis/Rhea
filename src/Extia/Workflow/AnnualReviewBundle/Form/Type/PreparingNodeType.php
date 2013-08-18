@@ -7,8 +7,8 @@ use Extia\Bundle\TaskBundle\Form\Type\AbstractNodeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * form type for initiation node
- * @see Extia/Workflow/AnnualReviewBundle/Resources/workflows/initiation.xml
+ * form type for preparing node
+ * @see Extia/Workflow/AnnualReviewBundle/Resources/workflows/preparing.xml
  */
 class PreparingNodeType extends AbstractNodeType
 {

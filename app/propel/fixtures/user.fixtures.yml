@@ -184,6 +184,18 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_crh_monitoring_write:
         GroupId: crh
         CredentialId: crh_monitoring_write
+    gp_annual_review_read:
+        GroupId: crh
+        CredentialId: annual_review_read
+    gp_annual_review_write:
+        GroupId: crh
+        CredentialId: annual_review_write
+    gp_manager_annual_review_read:
+        GroupId: manager
+        CredentialId: annual_review_read
+    gp_manager_annual_review_write:
+        GroupId: manager
+        CredentialId: annual_review_write
     gp_manager_auth:
         GroupId: manager
         CredentialId: authentication

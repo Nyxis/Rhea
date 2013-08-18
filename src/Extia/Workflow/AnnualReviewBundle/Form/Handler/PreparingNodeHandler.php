@@ -24,14 +24,8 @@ class PreparingNodeHandler extends AbstractNodeHandler
         $task->data()->set('manager_id', $data['manager_id']);
         $task->data()->set('meeting_date', $task->findNextWorkingDay($data['meeting_date']));
 
-        // // onTaskCreation
-        // $task->data()->set('crh_id', $task->getUserAssignedId());
-        // $task->setUserAssigned($data['manager_id']);
-
         $task->save();
 
-        return true;
-
-        return $this->notifyNext('preparing', $task, $request);
+        return $this->notifyNext('annual_meeting', $task, $request);
     }
 }

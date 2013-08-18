@@ -108,7 +108,7 @@ class MainMenuBuilder
         $teamIds = $user->getTeamIds();
         $cltIds  = $user->getConsultantsIds();
 
-        $accessTeam = !$teamIds->isEmpty() && $this->securityContext->isGranted('ROLE_INTERNAL_READ', $user);
+        $accessTeam = !empty($teamIds) && $this->securityContext->isGranted('ROLE_INTERNAL_READ', $user);
         $accessClts = (!$cltIds->isEmpty() && $this->securityContext->isGranted('ROLE_CONSULTANT_READ', $user)) // have clt and can read
             || $this->securityContext->isGranted('ROLE_CONSULTANT_WRITE', $user); // can create clt
 

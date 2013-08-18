@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * preparing workflow node controller
+ * annual meeting workflow node controller
  * @see Extia\Bundle\TaskBundle\Workflow\TypeNodeController
  */
-class PreparingNodeController extends TypeNodeController
+class AnnualMeetingNodeController extends TypeNodeController
 {
     /**
      * {@inherit_doc}
@@ -23,9 +23,9 @@ class PreparingNodeController extends TypeNodeController
     {
         return array(
             'node'             => 'ExtiaWorkflowAnnualReviewBundle::node.html.twig',
-            'modal'            => 'ExtiaWorkflowAnnualReviewBundle:Preparing:modal.html.twig',
-            'notification'     => 'ExtiaWorkflowAnnualReviewBundle:Preparing:notification.html.twig',
-            'timeline_element' => 'ExtiaWorkflowAnnualReviewBundle:Preparing:timeline_element.html.twig'
+            'modal'            => 'ExtiaWorkflowAnnualReviewBundle:AnnualMeeting:modal.html.twig',
+            'notification'     => 'ExtiaWorkflowAnnualReviewBundle:AnnualMeeting:notification.html.twig',
+            'timeline_element' => 'ExtiaWorkflowAnnualReviewBundle:AnnualMeeting:timeline_element.html.twig'
         );
     }
 
@@ -38,18 +38,11 @@ class PreparingNodeController extends TypeNodeController
     {
         $nextTask->setUserTargetId($prevTask->getUserTargetId());
 
-        // re assign to crh if we can
-        if ($prevTask->data()->has('crh_id')) {
-            $nextTask->setAssignedTo($prevTask->data()->get('crh_id'));
-        }
+        $nextTask->data()->set('crh_id', $prevTask->getAssignedTo());
+        $nextTask->setAssignedTo($prevTask->data()->get('manager_id'));
 
-        $meetingDate = $prevTask->data()->get('meeting_date');
-        $nextTask->data()->set('meeting_date', $meetingDate);
-
-        $nextTask->setActivationDate($nextTask->findNextWorkingDay(
-            (int) $nextTask->calculateDate($meetingDate, '-1 month', 'U')
-        ));
-        $nextTask->defineCompletionDate('+21 day');
+        $nextTask->setActivationDate($prevTask->data()->get('meeting_date'));
+        $nextTask->defineCompletionDate('+2 days');
 
         return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);
     }
@@ -62,23 +55,18 @@ class PreparingNodeController extends TypeNodeController
         $error = '';
         $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
 
-        $data = array(   // default values
-            'manager_id'   => $task->getUserTarget()->getConsultant()->getManager()->getId(),
-            'meeting_date' => $task->data()->get('meeting_date')
-        );
-
         $options = array(  // form options
             'document_directory'  => $task->getUserTarget()->getUrl(),
             'document_name_model' => $this->get('translator')->trans(
-                'annual_review_preparing.document.name', array(), 'messages', $this->container->getParameter('locale')
+                'annual_review_annual_meeting.document.name', array(), 'messages', $this->container->getParameter('locale')
             )
         );
 
-        $form = $this->get('form.factory')->create('annual_review_preparing_form', $data, $options);
+        $form = $this->get('form.factory')->create('annual_review_annual_meeting_form', array(), $options);
 
         if ($request->request->has($form->getName())) {
 
-            $handler  = $this->get('annual_review.preparing.handler');
+            $handler  = $this->get('annual_review.annual_meeting.handler');
             $response = $handler->handle($form, $request, $task);
 
             // we dont use default redirect response : our tasks are asynchronous
@@ -93,7 +81,7 @@ class PreparingNodeController extends TypeNodeController
         return $this->render($template, array(
             'error'    => $error,
             'task'     => $task,
-            'type_dir' => 'Preparing',
+            'type_dir' => 'AnnualMeeting',
             'form'     => $form->createView()
         ));
     }
