@@ -6,9 +6,18 @@
 
 <div class="box task_details">
     <div class="tab-header">
-        <i class="icon-tasks"></i>
-        {{ refDate|date('date_format.md'|trans) }} -
-        {{ task.node.name|trans }}
+        <div class="pull-left">
+            <i class="icon-tasks"></i>
+            {{ refDate|date('date_format.md'|trans) }} -
+            {{ task.node.name|trans }}
+        </div>
+        <div class="pull-right">
+        {% if task.isCompleted is empty %}
+            <i class="icon-calendar"></i>
+            {{ 'task.handle_limit'|trans }}
+            {{ task.completionDate('date_format.md'|trans) }}
+        {% endif %}
+        </div>
     </div>
     <div class="box-body">
         <div class="clearfix">
@@ -19,9 +28,13 @@
 
             {{  render(controller(task.node.type.action('timeline'), {
                     'taskId': task.id,
-                    'params': { 'user_target' : true }
+                    'params': {
+                        'user_target' : true,
+                        'extra_data': true
+                    }
                 }))
             }}
+            {% include 'ExtiaTaskBundle:Task:planed_task_state.html.twig' with { 'task': task } only %}
         </div>
         <div class="btn-group">
             <a class="button" data-toggle-target="comments-{{ task.id }}" href="#">

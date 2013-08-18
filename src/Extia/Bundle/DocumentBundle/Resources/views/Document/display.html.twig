@@ -1,0 +1,23 @@
+<div class="dtable">
+    <div class="dtable-cell doc-icon50 {{ document.type }}"></div>
+    <div class="dtable-cell">
+        <p>{{ document.createdAt('date_format.ymd'|trans) }}</p>
+        <p class="title">{{ document.simpleName }}</p>
+    </div>
+    <div class="dtable-cell">
+        <div class="buttons btn-group">
+            <a class="button" data-document-download="true"
+                href="{{ path('DocumentBundle_download', { 'Id': document.id }) }}" title="{{ 'document.link.download'|trans }}">
+                <i class="icon-download"></i>
+            </a>
+            <a class="button" href="#" data-document-upload="true"
+                title="{{ 'document.link.upload'|trans }}">
+                <i class="icon-upload"></i>
+            </a>
+            <form id="document-upload-{{ document.id }}" class="document-upload" method="POST"
+                action="{{ path('DocumentBundle_upload', { 'Id': document.id }) }}" {{ form_enctype(form) }}>
+                {{ form_rest(form) }}
+            </form>
+        </div>
+    </div>
+</div>

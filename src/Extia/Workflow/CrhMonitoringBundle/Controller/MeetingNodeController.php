@@ -24,7 +24,9 @@ class MeetingNodeController extends TypeNodeController
     protected function onTaskCreation(Request $request, Task $nextTask, Task $prevTask = null, \Pdo $connection = null)
     {
         $nextTask->setUserTargetId($prevTask->getUserTargetId());
+
         $nextTask->setActivationDate($prevTask->data()->get('meeting_date'));
+        $nextTask->defineCompletionDate('+2 day');
 
         return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);
     }
@@ -97,8 +99,10 @@ class MeetingNodeController extends TypeNodeController
         $error = '';
         $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
         $form  = $this->get('form.factory')->create('meeting_form', array(), array(
-            'document_name_model' => $this->get('translator')->trans('crh_meeting.document.name', array(), 'messages', $this->container->getParameter('locale')),
-            'document_directory'  => $task->getUserTarget()->getUrl()
+            'document_directory'  => $task->getUserTarget()->getUrl(),
+            'document_name_model' => $this->get('translator')->trans(
+                'crh_meeting.document.name', array(), 'messages', $this->container->getParameter('locale')
+            )
         ));
 
         if ($request->request->has($form->getName())) {

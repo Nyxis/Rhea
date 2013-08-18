@@ -1,0 +1,15 @@
+DocumentBundle_download:
+    pattern: /{Id}/download
+    defaults:
+        _controller: "ExtiaDocumentBundle:IO:download"
+    requirements:
+        Id: \d+
+
+DocumentBundle_upload:
+    pattern: /{Id}/upload
+    defaults:
+        _controller: "ExtiaDocumentBundle:IO:upload"
+    requirements:
+        _method: POST
+        _format: json
+        Id: \d+

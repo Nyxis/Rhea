@@ -2,9 +2,8 @@
 
 namespace Extia\Bundle\TaskBundle\Form\Type;
 
-use Extia\Bundle\TaskBundle\Form\DataTransformer\TaskDocumentDataTransformer;
-
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
+use Extia\Bundle\DocumentBundle\Factory\DocumentFactoryInterface;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -17,7 +16,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 abstract class AbstractNodeType extends AbstractType
 {
-    private $documentRootDirectory;
+    protected $documentFactory;
     protected $translator;
     protected $securityContext;
 
@@ -26,11 +25,11 @@ abstract class AbstractNodeType extends AbstractType
      * @param TranslatorInterface $translator
      * @param string              $documentRootDirectory
      */
-    public function __construct(TranslatorInterface $translator, SecurityContextInterface $securityContext, $documentRootDirectory)
+    public function __construct(TranslatorInterface $translator, SecurityContextInterface $securityContext, DocumentFactoryInterface $documentFactory)
     {
-        $this->translator            = $translator;
-        $this->securityContext       = $securityContext;
-        $this->documentRootDirectory = $documentRootDirectory;
+        $this->translator      = $translator;
+        $this->securityContext = $securityContext;
+        $this->documentFactory = $documentFactory;
     }
 
     /**
@@ -57,9 +56,12 @@ abstract class AbstractNodeType extends AbstractType
             ));
         }
 
-        return new TaskDocumentDataTransformer(
+        return $this->documentFactory->createDataTransformer(
             $options['document_name_model'],
-            sprintf('%s/%s', $this->documentRootDirectory, $options['document_directory'])
+            sprintf('%s/%s',
+                $this->documentFactory->getDirectory(),
+                $options['document_directory']
+            )
         );
     }
 

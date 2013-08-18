@@ -2,6 +2,7 @@
 
 namespace Extia\Bundle\TaskBundle\Controller;
 
+use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -62,12 +63,7 @@ class DashboardController extends Controller
         $temporalizedTasks = array();
 
         foreach ($paged as $task) {
-            $activationDate = $task->getActivationDate();
-            if (empty($activationDate)) {
-                continue; // not initialized tasks have any dates
-            }
-
-            $key = $this->getTemporalKey($activationDate);
+            $key = $this->getTemporalKey($task);
             if (empty($temporalizedTasks[$key])) {
                 $temporalizedTasks[$key] = array();
             }
@@ -81,25 +77,35 @@ class DashboardController extends Controller
 
     /**
      * calculates and returns temporal key for given date
-     * @param  \DateTime $date
+     * @param  Task   $task
      * @return string
      */
-    protected function getTemporalKey(\DateTime $date)
+    protected function getTemporalKey(Task $task)
     {
-        $timestamp = intval($date->format('U'));
-        $today     = strtotime(date('Y-m-d'));
+        $activationDate = $task->getActivationDate();
+        if (empty($activationDate)) {
+            return 'waiting';
+        }
 
-        if ($timestamp < $today) {
+        $activationTmsp = intval($activationDate->format('U'));
+        $completionTmsp = intval($task->getCompletionDate('U'));
+        $today          = strtotime(date('Y-m-d'));
+
+        if ($completionTmsp <= $today) {
             return 'past';
         }
 
         $tomorrow = $today + 3600*24;
-        if ($timestamp >= $today && $timestamp < $tomorrow) {
+        if ($activationTmsp >= $today && $activationTmsp < $tomorrow) {
             return 'today';
         }
 
+        if ($activationTmsp < $today && $today < $completionTmsp) {
+            return 'waiting';
+        }
+
         $nextInWeek = $tomorrow + 3600*24;
-        if ($timestamp >= $tomorrow && $timestamp < $nextInWeek) {
+        if ($activationTmsp >= $tomorrow && $activationTmsp < $nextInWeek) {
             return 'tomorrow';
         }
 
@@ -107,12 +113,12 @@ class DashboardController extends Controller
         while (date('N', $nextWeek) != 1) {
             $nextWeek += 3600*24;
         }
-        if ($timestamp >= $nextInWeek && $timestamp < $nextWeek) {
+        if ($activationTmsp >= $nextInWeek && $activationTmsp < $nextWeek) {
             return 'week';
         }
 
         $after = $nextWeek + 3600*24*7;
 
-        return $timestamp >= $nextWeek && $timestamp < $after ? 'next_week' : 'after';
+        return $activationTmsp >= $nextWeek && $activationTmsp < $after ? 'next_week' : 'after';
     }
 }

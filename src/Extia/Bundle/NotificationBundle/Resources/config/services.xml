@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="extia_notification.notifier.class">Extia\Bundle\NotificationBundle\Notification\Notifier</parameter>
+        <parameter key="extia_notification.twig.extension.class">Extia\Bundle\NotificationBundle\Twig\NotificationExtension</parameter>
     </parameters>
 
     <services>
@@ -17,6 +18,11 @@
             <argument>%extia_notification.flat_template%</argument>
         </service>
         <service id="notifier" alias="extia_notification.notifier" />
+
+        <service id="extia_notification.twig.extension" class="%extia_notification.twig.extension.class%">
+            <tag name="twig.extension" alias="extia_notification" />
+            <argument type="service" id="service_container" /> <!-- because circular reference on "templating" -->
+        </service>
     </services>
 
 </container>

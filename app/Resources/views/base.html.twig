@@ -53,11 +53,11 @@
                         left: ($('#ajaxWaiter').innerWidth()-150)/2
                     });
                     $('#ajaxWaiter').each(function(index, elt){
-                        $(elt).ajaxStart(function() {
+                        $(document).ajaxStart(function() {
                             $('#ajaxWaiter, #ajaxWaiterConteneur').show();
                         });
 
-                        $(elt).ajaxStop(function() {
+                        $(document).ajaxStop(function() {
                             $('#ajaxWaiter, #ajaxWaiterConteneur').hide();
                         });
                     });

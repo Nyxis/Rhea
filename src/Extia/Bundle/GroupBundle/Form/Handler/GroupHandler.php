@@ -40,7 +40,7 @@ class GroupHandler
      */
     public function handle(Form $form, Request $request)
     {
-        $form->bind($request);
+        $form->submit($request);
 
         if (!$form->isValid()) {
             $this->notifier->add('warning', 'group.admin.notification.validation_warning');

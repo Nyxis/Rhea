@@ -19,7 +19,7 @@ class BootstrapNodeHandler extends AbstractNodeHandler
      */
     public function handle(Form $form, Request $request, Task $task)
     {
-        $form->bind($request);
+        $form->submit($request);
         if (!$form->isValid()) {
             return false;
         }
@@ -28,11 +28,15 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         $data = $form->getData();
 
         $task->setUserTargetId($data['user_target_id']);
+
         $task->setActivationDate(strtotime(date('Y-m-d')));
+        $task->defineCompletionDate('+1 day');
 
         // activate before given date for pre-notification
-        $task->data()->set('meeting_date', $this->findNextWorkingDay($data['next_date']));
-        $task->data()->set('notif_date', $this->findNextWorkingDay($this->removeDays($data['next_date'], 7)));
+        $task->data()->set('meeting_date', $task->findNextWorkingDay($data['next_date']));
+        $task->data()->set('notif_date', $task->findNextWorkingDay(
+            (int) $task->calculateDate($data['next_date'], '-7 days', 'U')
+        ));
 
         // updates workflow fields
         $this->updateWorkflow($data, $task);

@@ -30,9 +30,13 @@ set :model_manager,               "propel"
 set :app_config_file,             "parameters.yml"
 
 set :use_composer,                true
-set :composer_options,            "--prefer-dist --verbose -o"
+set :composer_options,            "--no-dev --prefer-dist --verbose -o"
 #set :update_vendors,              true
 #set :vendors_mode,                "install"
+
+# Options cache
+set :cache_warmup,                true
+set :console_options,             "--env=prod"
 
 # Use AsseticBundle
 set :dump_assetic_assets,         true
@@ -43,9 +47,9 @@ set :assets_symlinks,             true
 set :normalize_asset_timestamps,  false
 
 set :shared_files,                [app_path + "/config/parameters.yml"]
-set :shared_children,             [log_path]
+set :shared_children,             [log_path, "data"]
 
-set :writable_dirs,               [log_path, cache_path]
+set :writable_dirs,               [log_path, cache_path, "data"]
 set :webserver_user,              "www-data"
 set :permission_method,           :acl
 set :use_set_permissions,         true

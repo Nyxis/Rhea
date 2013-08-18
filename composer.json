@@ -34,6 +34,7 @@
 
         "jquery/jquery": "1.10.*",
         "jquery/file-input": "*",
+        "jquery/form": "*",
 
         "ornicar/gravatar-bundle": "dev-master"
     },
@@ -64,6 +65,17 @@
                 "version": "dev-master",
                 "dist": {
                     "url": "http://gregpike.net/demos/bootstrap-file-input/bootstrap.file-input.js",
+                    "type": "file"
+                }
+            }
+        },
+        "jquery/form": {
+            "type": "package",
+            "package": {
+                "name": "jquery/form",
+                "version": "dev-master",
+                "dist": {
+                    "url": "http://malsup.github.io/min/jquery.form.min.js",
                     "type": "file"
                 }
             }
