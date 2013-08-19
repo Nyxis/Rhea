@@ -2,6 +2,9 @@
 
 
 namespace Extia\Bundle\MissionBundle\Form\Type;
+
+use Extia\Bundle\MissionBundle\Form\Transformer\ClientToIdsTransformer;
+use Extia\Bundle\MissionBundle\Form\Transformer\ManagerToIdsTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -9,9 +12,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Created by rhea.
+ *
  * @author lesmyrmidons <lesmyrmidons@gmail.com>
- * Date: 15/08/13
- * Time: 18:38
+ *         Date: 15/08/13
+ *         Time: 18:38
  */
 class MissionType extends AbstractType
 {
@@ -23,7 +27,7 @@ class MissionType extends AbstractType
      */
     public function getName()
     {
-        return 'company';
+        return 'mission';
     }
 
     /**
@@ -32,8 +36,8 @@ class MissionType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         return $resolver->setDefaults(array (
-            'data_class' => 'Extia\Bundle\MissionBundle\Model\Mission'
-        ));
+                                          'data_class' => 'Extia\Bundle\MissionBundle\Model\Mission'
+                                      ));
     }
 
     /**
@@ -42,10 +46,17 @@ class MissionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', 'text')
-            ->add('manager', 'text', array ('required' => false))
-            ->add('client', 'text', array ('required' => false))
-            ->add('type', 'number', array ('required' => false))
-            ->add('label', 'text', array ('required' => false));
+        $transformerClient = new ClientToIdsTransformer();
+        $transformerManager = new ManagerToIdsTransformer();
+
+        $builder->add('label', 'text')
+        ->add($builder->create('manager', 'text', array (
+                'required' => true,
+            ))->addModelTransformer($transformerManager));
+        $builder->add(
+            $builder->create('client', 'text', array (
+                'required' => true,
+            ))->addModelTransformer($transformerClient));
+        $builder->add('type', 'text', array ('required' => false));
     }
 }
