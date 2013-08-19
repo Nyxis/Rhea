@@ -5,39 +5,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="extia.node.abstract_type.class">Extia\Bundle\TaskBundle\Form\Type\AbstractNodeType</parameter>
-        <parameter key="extia.node.abstract_handler.class">Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler</parameter>
-        <parameter key="extia.workflow.data_type.class">Extia\Bundle\TaskBundle\Form\Type\WorkflowDataType</parameter>
-
         <parameter key="easy_task.workflows_container.class">Extia\Bundle\TaskBundle\Workflow\Aggregator</parameter>
         <parameter key="extia.task.credentials_warmer.class">Extia\Bundle\TaskBundle\CacheWarmer\TaskCredentialsWarmer</parameter>
         <parameter key="extia.task.security_voter.class">Extia\Bundle\TaskBundle\Security\Authorization\Voter\TaskVoter</parameter>
     </parameters>
 
     <services>
-
-        <!-- Workflow Node Form abstract definition -->
-        <service id="extia.node.abstract_form" class="Symfony\Component\Form\Form" abstract="true"
-            factory-service="form.factory" factory-method="create" />
-
-        <!-- Workflow Node Type abstract definition -->
-        <service id="extia.node.abstract_type" class="%extia.node.abstract_type.class%" abstract="true">
-            <argument type="service" id="translator" />
-            <argument type="service" id="security.context" />
-            <argument type="service" id="document.factory" />
-        </service>
-
-        <!-- Workflow Node Handler abstract definition -->
-        <service id="extia.node.abstract_handler" class="%extia.node.abstract_handler.class%" abstract="true">
-            <call method="setWorkflows">
-                <argument type="service" id="workflows" />
-            </call>
-        </service>
-
-        <!-- Workflow data form type -->
-        <service id="extia.workflow.data_type" class="%extia.workflow.data_type.class%">
-            <tag name="form.type" alias="workflow_data" />
-        </service>
 
         <!-- Credentials warmer -->
         <service id="extia.task.credentials_warmer" class="%extia.task.credentials_warmer.class%">

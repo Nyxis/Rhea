@@ -94,6 +94,28 @@ class TaskController extends Controller
     }
 
     /**
+     * differs given task with a message
+     * @param  Request  $request
+     * @return Response
+     */
+    public function differAction(Request $request)
+    {
+        $form = $this->get('extia.task.form.differ');
+
+        if ($request->request->has($form->getName())) {
+            $this->get('extia.task.form.differ_handler')->handle($form, $request);
+
+            return $this->redirect($request->query->get('_redirect_url',
+                $this->get('router')->generate('Rhea_homepage')
+            ));
+        }
+
+        return $this->render('ExtiaTaskBundle:Task:differ.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
      * displays given workflow documents
      * @param  Request  $request
      * @param  int      $workflowId

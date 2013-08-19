@@ -45,6 +45,9 @@
             <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal">
                 <i class="icon-ok"></i> {{ 'handle_link'|trans }}
             </a>
+            <a href="#differ" class="button" role="button" data-differ-id="{{ task.id }}">
+                <i class="icon-refresh"></i> {{ 'task.differ.button'|trans }}
+            </a>
             {% endif %}
         </div>
         <div id="comments-{{ task.id }}" class="comments">

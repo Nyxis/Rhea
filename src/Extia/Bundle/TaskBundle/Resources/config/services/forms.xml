@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="extia.node.abstract_type.class">Extia\Bundle\TaskBundle\Form\Type\AbstractNodeType</parameter>
+        <parameter key="extia.node.abstract_handler.class">Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler</parameter>
+
+        <parameter key="extia.workflow.data_type.class">Extia\Bundle\TaskBundle\Form\Type\WorkflowDataType</parameter>
+
+        <parameter key="extia.task.form.differ_type.class">Extia\Bundle\TaskBundle\Form\Type\DifferTaskType</parameter>
+        <parameter key="extia.task.form.differ_handler.class">Extia\Bundle\TaskBundle\Form\Handler\DifferTaskHandler</parameter>
+    </parameters>
+
+    <services>
+
+        <!-- Workflow Node Form abstract definition -->
+        <service id="extia.node.abstract_form" class="Symfony\Component\Form\Form" abstract="true"
+            factory-service="form.factory" factory-method="create" />
+
+        <service id="extia.node.abstract_type" class="%extia.node.abstract_type.class%" abstract="true">
+            <argument type="service" id="translator" />
+            <argument type="service" id="security.context" />
+            <argument type="service" id="document.factory" />
+        </service>
+
+        <service id="extia.node.abstract_handler" class="%extia.node.abstract_handler.class%" abstract="true">
+            <call method="setWorkflows">
+                <argument type="service" id="workflows" />
+            </call>
+        </service>
+
+
+        <!-- Workflow data form -->
+        <service id="extia.workflow.data_type" class="%extia.workflow.data_type.class%">
+            <tag name="form.type" alias="workflow_data" />
+        </service>
+
+
+        <!-- Task differing form -->
+        <service id="extia.task.form.differ" class="Symfony\Component\Form\Form"
+            factory-service="form.factory" factory-method="create" >
+            <argument type="service" id="extia.task.form.differ_type" />
+        </service>
+
+        <service id="extia.task.form.differ_type" class="%extia.task.form.differ_type.class%">
+
+        </service>
+
+        <service id="extia.task.form.differ_handler" class="%extia.task.form.differ_handler.class%">
+            <argument type="service" id="templating" />
+            <argument type="service" id="notifier" />
+        </service>
+
+    </services>
+
+</container>
