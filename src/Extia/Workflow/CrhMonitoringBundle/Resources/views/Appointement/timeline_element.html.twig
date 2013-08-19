@@ -1,16 +1,10 @@
-<div class="task_timeline_element crh_monitoring_appointement">
-    <h4>
-        {{ 'crh_appointement.timeline.hook'|trans }}
-        {% if task.userTarget is not empty and user_target|default(false) == true %}
-            <br />{% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.userTarget } only %}
-        {% endif %}
-    </h4>
-    <div class="clearfix">
-    {% if task.isCompleted == true and extra_data is defined and extra_data is not empty %}
-        <p>
-            {{ 'crh_appointement.timeline.meeting_date'|trans }}
-            <span class="data">{{ task.data.get('meeting_date')|date('crh_appointement.timeline.meeting_date_format'|trans) }}</span>.
-        </p>
-    {% endif %}
-    </div>
-</div>
+{% extends 'ExtiaTaskBundle:Workflow:timeline_element.html.twig' %}
+
+{% block task_title %}{{ 'crh_appointement.timeline.hook'|trans }}{% endblock %}
+
+{% block task_data %}
+    <p>
+        {{ 'crh_appointement.timeline.meeting_date'|trans }}
+        <span class="data">{{ task.data.get('meeting_date')|date('crh_appointement.timeline.meeting_date_format'|trans) }}</span>.
+    </p>
+{% endblock %}

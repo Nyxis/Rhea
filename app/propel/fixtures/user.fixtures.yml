@@ -97,6 +97,12 @@ Extia\Bundle\GroupBundle\Model\Credential:
     crh_monitoring_write:
         type: task
         code: workflow_crh_monitoring_write
+    annual_review_read:
+        type: task
+        code: workflow_annual_review_read
+    annual_review_write:
+        type: task
+        code: workflow_annual_review_write
 
 Extia\Bundle\GroupBundle\Model\CredentialI18n:
     admin_fr:
@@ -139,6 +145,14 @@ Extia\Bundle\GroupBundle\Model\CredentialI18n:
         id: crh_monitoring_write
         locale: fr
         label: ""
+    annual_review_read_fr:
+        id: annual_review_read
+        locale: fr
+        label: ""
+    annual_review_write_fr:
+        id: annual_review_write
+        locale: fr
+        label: ""
 
 Extia\Bundle\GroupBundle\Model\Group:
     crh:
@@ -170,6 +184,18 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_crh_monitoring_write:
         GroupId: crh
         CredentialId: crh_monitoring_write
+    gp_annual_review_read:
+        GroupId: crh
+        CredentialId: annual_review_read
+    gp_annual_review_write:
+        GroupId: crh
+        CredentialId: annual_review_write
+    gp_manager_annual_review_read:
+        GroupId: manager
+        CredentialId: annual_review_read
+    gp_manager_annual_review_write:
+        GroupId: manager
+        CredentialId: annual_review_write
     gp_manager_auth:
         GroupId: manager
         CredentialId: authentication

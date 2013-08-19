@@ -33,10 +33,14 @@ class WorkflowDataType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text')
-            ->add('description', 'textarea', array(
-                'required' => false
-            ));
+        $builder->add('name', 'text', array(
+            'label' => 'workflow.form.name'
+        ));
+
+        $builder->add('description', 'textarea', array(
+            'label'    => 'workflow.form.description',
+            'required' => false
+        ));
     }
 
 }

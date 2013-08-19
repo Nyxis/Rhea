@@ -1,14 +1,16 @@
-<div class="task_timeline_element crh_monitoring_bootstrap">
-    <h4>
-        {{ 'crh_bootstrap.timeline.hook'|trans }}
-        {% if task.userTarget is not empty and user_target|default(false) == true %}
-            <br />{% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.userTarget } only %}
-        {% endif %}
-    </h4>
-    <div class="clearfix">
-    {% if extra_data is defined and extra_data is not empty %}
-        <p>{{ 'crh_bootstrap.timeline.next_meeting'|trans }} <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.</p>
-        <p>{{ 'crh_bootstrap.timeline.notified_at'|trans }} <span class="data">{{ task.data.get('notif_date')|date('date_format.ymd'|trans) }}</span>.</p>
-    {% endif %}
-    </div>
-</div>
+{% extends 'ExtiaTaskBundle:Workflow:timeline_element.html.twig' %}
+
+{% block task_title %}
+    {{ 'crh_bootstrap.timeline.hook'|trans }}
+{% endblock %}
+
+{% block task_data %}
+    <p>
+        {{ 'crh_bootstrap.timeline.next_meeting'|trans }}
+        <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.
+    </p>
+    <p>
+        {{ 'crh_bootstrap.timeline.notified_at'|trans }}
+        <span class="data">{{ task.data.get('notif_date')|date('date_format.ymd'|trans) }}</span>.
+    </p>
+{% endblock %}

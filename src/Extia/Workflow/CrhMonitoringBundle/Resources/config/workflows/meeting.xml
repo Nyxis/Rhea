@@ -10,10 +10,6 @@
     </parameters>
 
     <services>
-        <!-- Form -->
-        <service id="crh_monitoring.meeting.form" class="Symfony\Component\Form\Form" parent="extia.node.abstract_form">
-            <argument type="service" id="crh_monitoring.meeting.type" />
-        </service>
 
         <!-- Form Type -->
         <service id="crh_monitoring.meeting.type" class="%crh_monitoring.meeting.type.class%" parent="extia.node.abstract_type">

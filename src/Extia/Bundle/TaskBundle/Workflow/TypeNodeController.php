@@ -187,4 +187,104 @@ class TypeNodeController extends EasyTaskTypeNodeController
         return parent::render($view, array_replace_recursive($extraParameters, $parameters), $response);
     }
 
+
+    // -----------------------------------------------
+    // Mutualized tasks actions (override for custom)
+    // -----------------------------------------------
+
+    /**
+     * has to return templates for node actions
+     * @example
+     *     return array(
+     *         'node' => 'MyVendorWorkflowBundle:Node:node.html.twig'
+     *     );
+     *
+     * @return array
+     */
+    protected function getTemplates()
+    {
+        throw new \BadMethodCallException('This method has to be defined in children node task classes.');
+    }
+
+    /**
+     * has to return execute given node task, and return a response
+     * @param  Request  $request
+     * @param  int      $workflowId
+     * @param  Task     $task
+     * @param  string   $template
+     * @return Response
+     * @return array
+     */
+    protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = '')
+    {
+        throw new \BadMethodCallException('This method has to be defined in children node task classes.');
+    }
+
+    /**
+     * return template for given typeis modal, node, timeline....
+     * @param  string $type
+     * @return string
+     */
+    private function getTemplate($type)
+    {
+        $templates = $this->getTemplates();
+
+        return empty($templates[$type]) ?
+            'ExtiaTaskBundle:Workflow:'.$type.'.html.twig' :
+            $templates[$type];
+    }
+
+    /**
+     * node action - execution of current node
+     *
+     * @param  Request  $request
+     * @param  int      $workflowId
+     * @param  Task     $task
+     * @return Response
+     */
+    public function nodeAction(Request $request, $workflowId = null, Task $task = null)
+    {
+        return $this->executeNode($request, $workflowId, $task, $this->getTemplate('node'));
+    }
+
+    /**
+     * modal action - execution of current node and renderer as a modal
+     *
+     * @param  Request  $request
+     * @param  int      $workflowId
+     * @param  Task     $task
+     * @return Response
+     */
+    public function modalAction(Request $request, $workflowId = null, Task $task = null)
+    {
+        return $this->executeNode($request, $workflowId, $task, $this->getTemplate('modal'));
+    }
+
+    /**
+     * notification action - renders state of this node for notification
+     *
+     * @param  Request  $request
+     * @param  int      $workflowId
+     * @return Response
+     */
+    public function notificationAction(Request $request, $taskId)
+    {
+        return $this->render($this->getTemplate('notification'), array(
+            'task' => $this->findTask($taskId)
+        ));
+    }
+
+    /**
+     * timeline action - renders state of this node as timeline
+     *
+     * @param  Request  $request
+     * @param  int      $taskId
+     * @return Response
+     */
+    public function timelineAction(Request $request, $taskId, $params = array())
+    {
+        return $this->render($this->getTemplate('timeline_element'),
+            array_replace_recursive($params, array('task' => $this->findTask($taskId)))
+        );
+    }
 }

@@ -17,16 +17,8 @@ class BootstrapNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function handle(Form $form, Request $request, Task $task)
+    public function resolve(array $data, Task $task, Request $request)
     {
-        $form->submit($request);
-        if (!$form->isValid()) {
-            return false;
-        }
-
-        // updates task with incomming data
-        $data = $form->getData();
-
         $task->setUserTargetId($data['user_target_id']);
 
         $task->setActivationDate(strtotime(date('Y-m-d')));
@@ -44,10 +36,6 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         $task->save();
 
         // notify next node
-        $workflow = $task->getNode()->getWorkflow();
-
-        return $this->workflows
-            ->getNode($workflow, 'appointement')
-            ->notify($workflow, $request);
+        return $this->notifyNext('appointement', $task, $request);
     }
 }

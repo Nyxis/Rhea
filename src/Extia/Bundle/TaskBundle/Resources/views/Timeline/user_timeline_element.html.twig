@@ -15,7 +15,7 @@
         {% if task.isCompleted is empty %}
             <i class="icon-calendar"></i>
             {{ 'task.handle_limit'|trans }}
-            {{ task.completionDate('date_format.md'|trans) }}
+            {{ task.completionDate('date_format.md'|trans)|default('...') }}
         {% endif %}
         </div>
     </div>

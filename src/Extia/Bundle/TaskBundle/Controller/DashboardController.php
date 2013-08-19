@@ -64,6 +64,7 @@ class DashboardController extends Controller
 
         foreach ($paged as $task) {
             $key = $this->getTemporalKey($task);
+            $key = is_numeric($key) ? $key : 'dashboard.timeline.header.'.$key;
             if (empty($temporalizedTasks[$key])) {
                 $temporalizedTasks[$key] = array();
             }
@@ -95,7 +96,7 @@ class DashboardController extends Controller
             return 'past';
         }
 
-        $tomorrow = $today + 3600*24;
+        $tomorrow = $task->calculateDate($today, '+1 day', 'U');
         if ($activationTmsp >= $today && $activationTmsp < $tomorrow) {
             return 'today';
         }
@@ -104,7 +105,7 @@ class DashboardController extends Controller
             return 'waiting';
         }
 
-        $nextInWeek = $tomorrow + 3600*24;
+        $nextInWeek = $task->calculateDate($today, '+2 days', 'U');
         if ($activationTmsp >= $tomorrow && $activationTmsp < $nextInWeek) {
             return 'tomorrow';
         }
@@ -117,8 +118,18 @@ class DashboardController extends Controller
             return 'week';
         }
 
-        $after = $nextWeek + 3600*24*7;
+        if ($activationTmsp >= $nextWeek && $activationTmsp < $task->calculateDate($nextWeek, '+7 days', 'U')) {
+            return 'next_week';
+        }
 
-        return $activationTmsp >= $nextWeek && $activationTmsp < $after ? 'next_week' : 'after';
+        // search for next month
+        $thisMonth = strtotime(date('Y-m-1'));
+        $nextMonth = $task->calculateDate($thisMonth, '+1 month', 'U');
+
+        if ($activationDate >= $nextMonth && $activationTmsp < $task->calculateDate($nextMonth, '+1 month', 'U')) {
+            return 'next_month';
+        }
+
+        return $activationDate->format('Y');
     }
 }
