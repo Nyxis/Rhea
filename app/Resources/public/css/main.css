@@ -143,6 +143,15 @@ blockquote .button i {
     border-top: 1px dotted lightgrey;
 
 }
+.comments blockquote p {
+    margin: 0px;
+}
+.comments blockquote p.sys-comment {
+    color: #999999;
+    font-family: "Courier New", Courier, monospace;
+    font-style: normal;
+    margin-bottom: 5px;
+}
 .comments blockquote p:last-child{
     color: #999999;
     line-height: 20px;

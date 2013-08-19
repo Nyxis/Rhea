@@ -1,4 +1,5 @@
 <blockquote>
+    <p class="sys-comment">{{ comment.sysText }}</p>
     <p>
         <i class="icon-quote-left"></i>
         {% autoescape false %}{{ comment.text|capitalize }}{% endautoescape %}

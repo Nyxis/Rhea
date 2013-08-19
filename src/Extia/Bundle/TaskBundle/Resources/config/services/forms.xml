@@ -50,7 +50,9 @@
         </service>
 
         <service id="extia.task.form.differ_handler" class="%extia.task.form.differ_handler.class%">
-            <argument type="service" id="templating" />
+            <argument type="service" id="workflows" />
+            <argument type="service" id="security.context" />
+            <argument type="service" id="translator" />
             <argument type="service" id="notifier" />
         </service>
 
