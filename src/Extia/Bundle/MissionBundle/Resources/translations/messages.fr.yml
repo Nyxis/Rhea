@@ -1,6 +1,24 @@
+mission:
+    admin:
+        notification:
+            save_success: La mission "%mission_name%" a été enregistré
+
+company:
+    admin:
+        notification:
+            save_success: La société "%company_name%" a été enregistré
+
+
+# form
 company:
     title: Raison social
     description: Description
     address: Adresse
     zipCode: Code Postal
     city: Ville
+
+mission:
+    label: Titre
+    manager: Manager
+    client: Société
+    type: Type

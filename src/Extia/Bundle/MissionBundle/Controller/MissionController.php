@@ -2,24 +2,80 @@
 
 namespace Extia\Bundle\MissionBundle\Controller;
 
+use Extia\Bundle\MissionBundle\Model\Mission;
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class MissionController extends Controller
 {
-    public function listAction($page)
+    public function listAction(Request $request, $page)
+    {
+
+    }
+
+    public function newAction(Request $request)
+    {
+        $mission = new Mission();
+
+        return $this->renderForm($request, $mission, 'ExtiaMissionBundle:Mission:new.html.twig');
+    }
+
+    public function editAction(Request $request, $id)
+    {
+        $mission = MissionQuery::create()
+            ->joinWith('Client')
+                   ->useClientQuery()
+                   ->endUse()
+            ->joinWith('Internal')
+                ->useManagerQuery()
+            ->endUse()
+            ->findByPk($id);
+
+        if (empty($consultant)) {
+            throw new NotFoundHttpException(sprintf('Any mission found for given id, "%s" given.', $id));
+        }
+
+        return $this->renderForm($request, $mission, 'ExtiaMissionBundle:Mission:edit.html.twig');
+    }
+
+    public function deleteAction(Request $request, $id)
     {
     }
 
-    public function newAction()
+    /**
+     * @param Request                                   $request
+     * @param \Extia\Bundle\MissionBundle\Model\Mission $mission
+     * @param                                           $template
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function renderForm(Request $request, Mission $mission, $template)
     {
-    }
+        $form  = $this->get('form.factory')->create('mission', $mission, array());
+        $isNew = $mission->isNew();
 
-    public function editAction($id)
-    {
-    }
+        if ($request->request->has($form->getName())) {
+            if ($this->get('extia_mission.form.mission_handler')->process($form, $request)) {
 
-    public function deleteAction($id)
-    {
-    }
+                // success message
+                $this->get('notifier')->add(
+                    'success', 'mission.admin.notification.save_success',
+                    array('%mission_name%' => $mission->getLabel())
+                );
 
+                // redirect on edit if was new
+                if ($isNew) {
+                    $response = new Response();
+                    return $response->setContent(json_encode(array('success' => true)));
+                }
+            }
+        }
+
+        return $this->render($template, array(
+            'consultant' => $mission,
+            'form'       => $form->createView(),
+//            'locales'    => $this->container->getParameter('extia_group.managed_locales')
+        ));
+    }
 }
