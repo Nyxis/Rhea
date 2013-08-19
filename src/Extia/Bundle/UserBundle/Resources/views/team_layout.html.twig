@@ -6,3 +6,8 @@
         {% block current_breadcrumb %}{% endblock %}
     </ul>
 {% endblock %}
+
+{% block modal %}
+    {{ parent() }}
+    {{ render(controller('ExtiaTaskBundle:Task:differ')) }}
+{% endblock %}

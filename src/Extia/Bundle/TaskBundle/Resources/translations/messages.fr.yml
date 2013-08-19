@@ -71,3 +71,17 @@ task:
     handle_limit: À traiter avant le
     retard_of: "{1} en retard d'un jour|]1,Inf] en retard de %retard% jours"
     handle_retard_of: "{1} traité un jour en retard|]1,Inf] traité %retard% jours en retard"
+    differ:
+        button: Décaller
+        header: Décaller une tâche
+        comment:
+            auto_message: "Tâche décallée du %old_date% au %new_date%."
+        form:
+            differ_date: Décaller au
+            comment: Raison
+            submit: Décaller la tâche
+        notification:
+            success: La tache \"%task%\" a bien été décallée du %old_date% au %new_date%
+            invalid: "Impossible de décaller cette tâche, les données transmises sont incorrectes"
+            error: Une erreur est survenue lors du traitement du décallage de la tâche.
+

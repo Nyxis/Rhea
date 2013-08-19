@@ -33,6 +33,15 @@ class TypeNodeController extends EasyTaskTypeNodeController
     protected function onTaskCreation(Request $request, Task $nextTask, Task $prevTask = null, \Pdo $connection = null) { }
 
     /**
+     * hook method called after changing an active node task activation date
+     * @param Task $task
+     */
+    public function onTaskDiffering(Task $task)
+    {
+        $task->defineCompletionDate('+1 day');
+    }
+
+    /**
      * {@inherit_doc}
      *
      * override to create Extia task in same time

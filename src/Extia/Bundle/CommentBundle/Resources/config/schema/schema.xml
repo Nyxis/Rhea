@@ -5,6 +5,7 @@
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
 
         <column name="text" type="LONGVARCHAR" required="true" />
+        <column name="sys_text" type="LONGVARCHAR" required="false" />
 
         <column name="task_id" type="INTEGER" required="true" />
         <foreign-key foreignTable="task" onDelete="cascade" onUpdate="cascade">

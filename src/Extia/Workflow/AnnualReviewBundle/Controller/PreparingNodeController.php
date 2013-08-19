@@ -49,9 +49,17 @@ class PreparingNodeController extends TypeNodeController
         $nextTask->setActivationDate($nextTask->findNextWorkingDay(
             (int) $nextTask->calculateDate($meetingDate, '-1 month', 'U')
         ));
-        $nextTask->defineCompletionDate('+21 day');
+        $nextTask->defineCompletionDate('+21 days');
 
         return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);
+    }
+
+    /**
+     * {@inherit_doc}
+     */
+    public function onTaskDiffering(Task $task)
+    {
+        $task->defineCompletionDate('+21 days');
     }
 
     /**
