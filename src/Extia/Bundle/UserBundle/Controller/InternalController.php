@@ -74,6 +74,39 @@ class InternalController extends Controller
     }
 
     /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function listAjaxAction(Request $request)
+    {
+        $value = $request->get('q');
+
+        $managers = InternalQuery::create()
+                    ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                    ->joinWith('Group')
+                    ->useGroupQuery()
+                        ->filterBy('id', 2)
+                    ->endUse()
+                    ->filterByFirstname('%' . $value . '%')
+                    ->filterByLastname('%' . $value . '%')
+                    ->find();
+
+        $json = array ();
+        foreach ($managers as $manager) {
+            $json[] = array (
+                'id'   => $manager->getId(),
+                'name' => $manager->getTitle()
+            );
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode($json));
+
+        return $response;
+    }
+
+    /**
      * lists all user consultants
      *
      * @param Request $request

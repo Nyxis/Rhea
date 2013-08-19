@@ -6,6 +6,7 @@ use Extia\Bundle\MissionBundle\Model\Company;
 use Extia\Bundle\MissionBundle\Model\CompanyQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CompanyController extends Controller
 {
@@ -17,6 +18,31 @@ class CompanyController extends Controller
 //    {
 //        return $this->render('ExtiaMissionBundle:Company:list.html.twig', array ('name' => $name));
 //    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function listAjaxAction(Request $request)
+    {
+        $value = $request->get('q');
+
+        $clients = CompanyQuery::create()->findByTitle('%' . $value . '%');
+
+        $json = array ();
+        foreach ($clients as $client) {
+            $json[] = array (
+                'id'   => $client->getId(),
+                'name' => $client->getTitle()
+            );
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode($json));
+
+        return $response;
+    }
 
     /**
      * @param Request $request
@@ -44,7 +70,7 @@ class CompanyController extends Controller
     public function editAction(Request $request, Company $company)
     {
         if (empty($company)) {
-            throw new NotFoundHttpException(sprintf('Any company found for given id, "%s" given.', $Id));
+            throw new NotFoundHttpException('Any company found for given id.');
         }
 
         $form = $this->renderForm($request, $company);
@@ -59,17 +85,23 @@ class CompanyController extends Controller
 //        return $this->render('ExtiaMissionBundle:Company:index.html.twig', array ('name' => $name));
 //    }
 
+    /**
+     * @param Request $request
+     * @param Company $company
+     *
+     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
     private function renderForm(Request $request, Company $company)
     {
-        $form = $this->get('form.factory')->create('company', $company, array ());
+        $form  = $this->get('form.factory')->create('company', $company, array ());
         $isNew = $company->isNew();
 
         if ($request->request->has($form->getName())) {
             if ($this->get('extia_mission.form.company_handler')->process($form, $request)) {
                 // success message
                 $this->get('notifier')->add(
-                    'success', 'mission.company.notification.save_success',
-                    array ('%company%' => $company->getTitle())
+                    'success', 'company.admin.notification.save_success',
+                    array ('%company_name%' => $company->getTitle())
                 );
 
                 if ($isNew) {

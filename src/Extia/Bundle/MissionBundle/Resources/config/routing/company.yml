@@ -13,3 +13,7 @@ extia_mission_company_edit:
 extia_mission_company_delete:
     pattern: /delete/{id}
     defaults: { _controller: ExtiaMissionBundle:Company:delete }
+
+extia_mission_company_ajax_list:
+    pattern:  /ajax-list
+    defaults: { _controller: ExtiaMissionBundle:Company:listAjax }
