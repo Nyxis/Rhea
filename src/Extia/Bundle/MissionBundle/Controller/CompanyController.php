@@ -102,8 +102,8 @@ class CompanyController extends Controller
         }
 
         return $this->render($template, array (
-            'consultant' => $company,
-            'form'       => $form->createView(),
+            'company' => $company,
+            'form'    => $form->createView(),
 //            'locales'    => $this->container->getParameter('extia_group.managed_locales')
         ));
     }
