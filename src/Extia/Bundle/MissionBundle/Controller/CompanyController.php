@@ -5,6 +5,7 @@ namespace Extia\Bundle\MissionBundle\Controller;
 use Extia\Bundle\MissionBundle\Model\Company;
 use Extia\Bundle\MissionBundle\Model\CompanyQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,7 +39,7 @@ class CompanyController extends Controller
             );
         }
 
-        $response = new Response();
+        $response = new JsonResponse();
         $response->setContent(json_encode($json));
 
         return $response;
@@ -53,11 +54,8 @@ class CompanyController extends Controller
     {
         $company = new Company();
 
-        $form = $this->renderForm($request, $company);
+        return $this->renderForm($request, $company, 'ExtiaMissionBundle:Company:new.html.twig');
 
-        return $this->render('ExtiaMissionBundle:Company:new.html.twig', array (
-            'form' => $form->createView(),
-        ));
     }
 
     /**
@@ -69,15 +67,7 @@ class CompanyController extends Controller
      */
     public function editAction(Request $request, Company $company)
     {
-        if (empty($company)) {
-            throw new NotFoundHttpException('Any company found for given id.');
-        }
-
-        $form = $this->renderForm($request, $company);
-
-        return $this->render('ExtiaMissionBundle:Company:edit.html.twig', array (
-            'form' => $form->createView(),
-        ));
+        return $this->renderForm($request, $company, 'ExtiaMissionBundle:Company:edit.html.twig');
     }
 
 //    public function deleteAction(Request $request, $name)
@@ -88,12 +78,13 @@ class CompanyController extends Controller
     /**
      * @param Request $request
      * @param Company $company
+     * @param         $template
      *
      * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    private function renderForm(Request $request, Company $company)
+    private function renderForm(Request $request, Company $company, $template)
     {
-        $form  = $this->get('form.factory')->create('company', $company, array ());
+        $form = $this->get('form.factory')->create('company', $company, array ());
         $isNew = $company->isNew();
 
         if ($request->request->has($form->getName())) {
@@ -110,6 +101,10 @@ class CompanyController extends Controller
             }
         }
 
-        return $form;
+        return $this->render($template, array (
+            'consultant' => $company,
+            'form'       => $form->createView(),
+//            'locales'    => $this->container->getParameter('extia_group.managed_locales')
+        ));
     }
 }
