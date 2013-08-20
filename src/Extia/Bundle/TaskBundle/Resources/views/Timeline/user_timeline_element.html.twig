@@ -45,6 +45,9 @@
             <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal">
                 <i class="icon-ok"></i> {{ 'handle_link'|trans }}
             </a>
+            <a href="#differ" class="button" role="button" data-differ-id="{{ task.id }}">
+                <i class="icon-refresh"></i> {{ 'task.differ.button'|trans }}
+            </a>
             {% endif %}
             <a href="{{ path('TaskBundle_workflow_history', { 'workflow_id': task.node.workflow.id }) }}" class="button">
                 <i class="icon-list"></i> {{ 'history_link'|trans }}

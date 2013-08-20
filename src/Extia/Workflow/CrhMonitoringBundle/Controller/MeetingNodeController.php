@@ -47,6 +47,14 @@ class MeetingNodeController extends TypeNodeController
     /**
      * {@inherit_doc}
      */
+    public function onTaskDiffering(Task $task)
+    {
+        $task->defineCompletionDate('+2 days');
+    }
+
+    /**
+     * {@inherit_doc}
+     */
     protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle::node.html.twig')
     {
         $error = '';
