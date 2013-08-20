@@ -41,7 +41,9 @@ body {
 .row-fluid [class*="span"] {
     min-height: auto;
 }
-
+.big-button-bar {
+    margin-bottom: 15px;
+}
 .badge {
     color: white;
     border: 0px solid #989898;
@@ -205,30 +207,35 @@ blockquote .button i {
 .sidebar .box .badge.badge-user {
     background-color: #BBBBBB;
 }
-.clt-header {
+.clt-header, .int-header {
     margin-top: 10px;
 }
-.box-body .clt-header {
+.box-body .clt-header,
+.box-body .int-header {
     margin-top: 0px;
 }
-.clt-header .gravatar {
+.clt-header .gravatar,
+.int-header .gravatar {
     margin-left: 0px;
     padding-left: 0px;
 }
-.clt-badge {
+.clt-badge, .int-badge {
     margin-top: 20px;
 }
-.box-body .clt-badge {
+.box-body .clt-badge,
+.box-body .int-badge {
     margin-top: 0px;
 }
-.clt-badge a {
+.clt-badge a,
+.int-badge a {
     color: inherit;
 }
 .clt-badge h4 a:hover,
 .int-badge h4 a:hover {
     color: #005580 !important;
 }
-.black-box .clt-badge h4 a:hover {
+.black-box .clt-badge h4 a:hover,
+.black-box .int-badge h4 a:hover, {
     color: #CCCCCC !important;
 }
 

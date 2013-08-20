@@ -3,21 +3,72 @@
 namespace Extia\Bundle\UserBundle\Controller;
 
 use Extia\Bundle\UserBundle\Model\Internal;
+use Extia\Bundle\UserBundle\Model\InternalQuery;
 
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 
-use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Controller for internal actions and features
  */
 class InternalController extends Controller
 {
+    /**
+     * displays given internal timeline
+     *
+     * @param  Request                                                           $request
+     * @param  int                                                               $Id      internal id
+     * @param  string                                                            $Url     internal url (slug)
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     * @return Response
+     */
+    public function timelineAction(Request $request, $Id, $Url)
+    {
+        // can access this timeline ?
+        if (!$this->get('security.context')->isGranted('ROLE_INTERNAL_READ', $this->getUser())) {
+            throw new AccessDeniedHttpException(sprintf('You have any credentials to access internal timeline.'));
+        }
+
+        $locale = $request->attributes->get('_locale');
+
+        $user = InternalQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->filterById($Id)
+            ->filterByUrl($Url)
+
+            ->joinWith('Job')
+            ->useJobQuery()
+                ->joinWithI18n($locale)
+            ->endUse()
+
+            ->findOne();
+
+        if (empty($user)) {
+            throw new NotFoundHttpException(sprintf('Requested internal not found : %s - id %s',
+                $Url, $Id
+            ));
+        }
+
+        // can access this timeline ?
+        if (!$this->get('security.context')->isGranted('USER_DATA', $user)) {
+            throw new AccessDeniedHttpException(sprintf('You have any credentials to access %s %s timeline.',
+                $user->getFirstname(), $user->getLastname()
+            ));
+        }
+
+        return $this->render('ExtiaUserBundle:Internal:timeline.html.twig', array(
+            'internal' => $user
+        ));
+    }
+
     /**
      * list past tasks for given user team
      *
@@ -44,6 +95,10 @@ class InternalController extends Controller
             'tasks' => $taskCollection
         ));
     }
+
+    // --------------------------------------------------------
+    // Admin
+    // --------------------------------------------------------
 
     /**
      * lists all user consultants

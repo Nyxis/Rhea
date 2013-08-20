@@ -89,8 +89,17 @@ task:
 # Internals
 internal:
     breadcrumbs:
-#        timeline: Timeline
+        dashboard: Organiseur
         list: Liste
+    details:
+        header: Détails
+        contact: Contact
+        referer:
+            header: Référents
+            internal: Supérieur
+    actions:
+        edit_user: Editer l'interne
+        back_list: Retour à la liste
     admin:
         breadcrumbs:
             edit: Edition
