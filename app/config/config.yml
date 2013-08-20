@@ -80,6 +80,7 @@ assetic:
                 - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/responsive-max768.css
                 - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/responsive-max480.css
                 - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/prettify.css
+                - %kernel.root_dir%/../vendor/jquery/tokeninput/styles/token-input.css
 
         # all js compilation
         compiled_js:
@@ -89,6 +90,7 @@ assetic:
                 - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
                 - %kernel.root_dir%/../vendor/jquery/file-input/bootstrap.file-input.js
                 - %kernel.root_dir%/../vendor/jquery/form/jquery.form.min.js
+                - %kernel.root_dir%/../vendor/jquery/tokeninput/src/jquery.tokeninput.js
 
                 # underscore (to remove asap)
                 - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/javascripts/underscore.js
