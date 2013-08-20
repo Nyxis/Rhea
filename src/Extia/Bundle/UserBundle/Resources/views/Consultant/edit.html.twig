@@ -6,6 +6,10 @@
     <li class=""><a data-toggle="tab" href="#file"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.file'|trans }}</a></li>
 {% endblock %}
 
+{% block modal %}
+    {% include 'ExtiaMissionBundle:Mission:modal_new_mission.html.twig' %}
+{% endblock %}
+
 {% block main_content %}
     <div id="civility" class="tab-pane active">
         <div class="padded">
@@ -109,3 +113,25 @@
         }
     </style>
 {% endblock %}
+
+{#{% block javascripts %}#}
+    {#{{ parent() }}#}
+    {#<script type="text/javascript">#}
+        {#jQuery(document).ready(function($) {#}
+            {#$('#wf_edit_open').on('click', function(e) {#}
+                {#e.preventDefault();#}
+                {#$('#wf_show').hide();#}
+                {#$('#wf_edit').show();#}
+            {#});#}
+            {#$('#wf_edit_close').on('click', function(e) {#}
+                {#e.preventDefault();#}
+                {#$('#wf_show').show();#}
+                {#$('#wf_edit').hide();#}
+            {#});#}
+            {#$('#wf_submit').on('click', function(e) {#}
+                {#e.preventDefault();#}
+                {#$(this).parents('form').submit();#}
+            {#});#}
+        {#});#}
+    {#</script>#}
+{#{% endblock %}#}

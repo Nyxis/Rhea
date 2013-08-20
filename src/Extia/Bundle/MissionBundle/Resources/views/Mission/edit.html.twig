@@ -1,6 +1,6 @@
 <div id="civility" class="tab-pane active">
     <div class="padded">
-        <form id="group-form" class="fill-up" method="post" {{ form_enctype(form) }}>
+        <form action="{% block mission_action '' %}" id="group-form" class="fill-up" method="post" {{ form_enctype(form) }}>
             <p>
                 {{ form_label(form.label, form.label.vars.id|replace({'_':'.'})) }}
                 {{ form_errors(form.label) }}
@@ -35,9 +35,17 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#mission_client").tokenInput("{{ path('extia_mission_company_ajax_list') }}");
+        $("#mission_client").tokenInput("{{ path('extia_mission_company_ajax_list') }}", {
+            minChars: 4,
+            tokenLimit: 1,
+            theme: 'facebook'
+        });
     });
     $(document).ready(function () {
-        $("#mission_manager").tokenInput("{{ path('extia_user_ajax_list') }}");
+        $("#mission_manager").tokenInput("{{ path('extia_user_ajax_list') }}", {
+            minChars: 4,
+            tokenLimit: 1,
+            theme: 'facebook'
+        });
     });
 </script>

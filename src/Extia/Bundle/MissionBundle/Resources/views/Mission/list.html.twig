@@ -1,4 +1,10 @@
 <div>
+    <div class="action">
+        <a href="#new_mission" data-toggle="modal" role="button" class="button large">
+            <i class="icon-plus"></i>
+            <span>{{ 'mission.admin.content.button_new'|trans }}</span>
+        </a>
+    </div>
     {% for mission in missions %}
         <div>
             <div><strong>{{ mission.mission.label }}</strong></div>
