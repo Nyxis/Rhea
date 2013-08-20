@@ -9,6 +9,7 @@ use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -82,28 +83,25 @@ class InternalController extends Controller
     {
         $value = $request->get('q');
 
+        // TODO Manque le rebase pour la recherche
         $managers = InternalQuery::create()
                     ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                    ->joinWith('Group')
-                    ->useGroupQuery()
-                        ->filterBy('id', 2)
-                    ->endUse()
-                    ->filterByFirstname('%' . $value . '%')
-                    ->filterByLastname('%' . $value . '%')
+                    ->joinWith('PersonType')
+                        ->usePersonTypeQuery()
+                            ->filterByCode('ia')
+                        ->endUse()
+                    ->filterByUrl('%' . $value . '%')
                     ->find();
 
         $json = array ();
         foreach ($managers as $manager) {
             $json[] = array (
                 'id'   => $manager->getId(),
-                'name' => $manager->getTitle()
+                'name' => $manager->getFirstname() . ' ' . $manager->getLastname()
             );
         }
 
-        $response = new Response();
-        $response->setContent(json_encode($json));
-
-        return $response;
+        return JsonResponse::create($json);
     }
 
     /**
