@@ -29,7 +29,8 @@ class CompanyController extends Controller
     {
         $value = $request->get('q');
 
-        $clients = CompanyQuery::create()->findByTitle('%' . $value . '%');
+        $clients = CompanyQuery::create()
+                   ->findByTitle('%' . $value . '%');
 
         $json = array ();
         foreach ($clients as $client) {
@@ -39,10 +40,7 @@ class CompanyController extends Controller
             );
         }
 
-        $response = new JsonResponse();
-        $response->setContent(json_encode($json));
-
-        return $response;
+        return JsonResponse::create($json);
     }
 
     /**
@@ -62,8 +60,7 @@ class CompanyController extends Controller
      * @param Request $request
      * @param Company $company
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws NotFoundHttpException
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Company $company)
     {
@@ -80,7 +77,7 @@ class CompanyController extends Controller
      * @param Company $company
      * @param         $template
      *
-     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     private function renderForm(Request $request, Company $company, $template)
     {

@@ -67,7 +67,7 @@
     </div>
     <div id="mission" class="tab-pane">
         <div class="padded">
-            Ici toutes les missions du consultant
+            {% render(controller('ExtiaMissionBundle:Mission:list', { 'consultantId': consultant.id })) %}
         </div>
     </div>
     <div id="file" class="tab-pane">

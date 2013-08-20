@@ -1,9 +1,8 @@
 extia_mission_mission_list:
-    pattern: /list/{consultant}/{page}
-    defaults: { _controller: ExtiaMissionBundle:Mission:list, page: 1 }
+    pattern: /list/{consultantId}
+    defaults: { _controller: ExtiaMissionBundle:Mission:list }
     requirements:
-        consultant: \w+
-        page: \d+
+        consultantId: \d+
 
 extia_mission_mission_new:
     pattern: /new

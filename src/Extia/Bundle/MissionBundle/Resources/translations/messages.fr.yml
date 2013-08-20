@@ -3,6 +3,12 @@ mission:
         notification:
             save_success: La mission "%mission_name%" a été enregistré
 
+        content:
+            manager: "Manager :"
+            client: "Société :"
+            begin_date: Commencement de la mission
+            end_date: Date de fin de mission
+
 company:
     admin:
         notification:

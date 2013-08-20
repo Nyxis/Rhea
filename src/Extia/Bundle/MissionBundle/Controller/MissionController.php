@@ -4,14 +4,27 @@ namespace Extia\Bundle\MissionBundle\Controller;
 
 use Extia\Bundle\MissionBundle\Model\Mission;
 use Extia\Bundle\MissionBundle\Model\MissionQuery;
+use Extia\Bundle\UserBundle\Model\ConsultantMissionQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MissionController extends Controller
 {
-    public function listAction(Request $request, $page)
+    public function listAction(Request $request, $consultantId)
     {
+        $missions = ConsultantMissionQuery::create()
+                    ->joinWith('Mission m')
+                    ->joinWith('m.Client')
+                    ->joinWith('m.Manager')
+                    ->filterByConsultantId($consultantId)
+                    ->find();
 
+        if (empty($missions)) {
+            throw new NotFoundHttpException(sprintf('Any mission found for given id, "%s" given.', $consultantId));
+        }
+
+        return $this->render('ExtiaMissionBundle:Mission:list.html.twig', array ('missions' => $missions));
     }
 
     public function newAction(Request $request)
@@ -24,13 +37,9 @@ class MissionController extends Controller
     public function editAction(Request $request, $id)
     {
         $mission = MissionQuery::create()
-            ->joinWith('Client')
-                   ->useClientQuery()
-                   ->endUse()
-            ->joinWith('Internal')
-                ->useManagerQuery()
-            ->endUse()
-            ->findByPk($id);
+                   ->joinWith('Client')
+                   ->joinWith('Internal')
+                   ->findByPk($id);
 
         if (empty($consultant)) {
             throw new NotFoundHttpException(sprintf('Any mission found for given id, "%s" given.', $id));
@@ -52,7 +61,7 @@ class MissionController extends Controller
      */
     public function renderForm(Request $request, Mission $mission, $template)
     {
-        $form  = $this->get('form.factory')->create('mission', $mission, array());
+        $form  = $this->get('form.factory')->create('mission', $mission, array ());
         $isNew = $mission->isNew();
 
         if ($request->request->has($form->getName())) {
@@ -61,18 +70,19 @@ class MissionController extends Controller
                 // success message
                 $this->get('notifier')->add(
                     'success', 'mission.admin.notification.save_success',
-                    array('%mission_name%' => $mission->getLabel())
+                    array ('%mission_name%' => $mission->getLabel())
                 );
 
                 // redirect on edit if was new
                 if ($isNew) {
                     $response = new Response();
-                    return $response->setContent(json_encode(array('success' => true)));
+
+                    return $response->setContent(json_encode(array ('success' => true)));
                 }
             }
         }
 
-        return $this->render($template, array(
+        return $this->render($template, array (
             'consultant' => $mission,
             'form'       => $form->createView(),
 //            'locales'    => $this->container->getParameter('extia_group.managed_locales')
