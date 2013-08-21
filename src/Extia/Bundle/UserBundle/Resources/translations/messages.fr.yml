@@ -52,6 +52,14 @@ consultant:
         new:
             header: Nouveau consultant
 
+    #form
+    person:
+        firstname: Prénom
+        lastname: Nom
+        email: Courriel
+        telephone: Téléphone
+        mobile: Mobile
+
     missions:
         header: Missions
     documents:
@@ -96,7 +104,3 @@ internal:
             header: Edition de l'interne %internal_name%
             civility: Civilité
             file: Documents
-# forms
-consultant_person_firstname: Prénom
-consultant_person_lastname: Nom
-consultant_person_email: Courriel
