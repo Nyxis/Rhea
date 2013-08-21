@@ -78,6 +78,7 @@
                 "dist": {
                     "url": "http://malsup.github.io/min/jquery.form.min.js",
                     "type": "file"
+                }
             }
         },
         "jquery/tokeninput": {
