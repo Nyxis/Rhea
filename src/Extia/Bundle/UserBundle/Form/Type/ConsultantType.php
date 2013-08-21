@@ -36,9 +36,9 @@ class ConsultantType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('person', 'person', array ('label' => false))
-                ->add('manager', 'text', array ('label' => 'Manager'))
-                ->add('rh', 'text', array ('label' => 'R.H.'));
+        $builder->add('person', 'person', array ('label' => false));
+//                ->add('manager', 'text', array ('label' => 'Manager'))
+//                ->add('rh', 'text', array ('label' => 'R.H.'));
 
     }
 
