@@ -8,6 +8,10 @@
     <li class="active"><a href="#">{{ 'consultant.breadcrumbs.timeline'|trans }}</a></li>
 {% endblock %}
 
+{% block modal %}
+    {% include 'ExtiaMissionBundle:Mission:modal_new_mission.html.twig' %}
+{% endblock %}
+
 {% block main %}
     <div class="row-fluid">
         <div class="span12">
@@ -93,6 +97,10 @@
                 <a href="{{ path('UserBundle_consultant_edit', user.routing) }}" class="button large">
                     <i class="icon-edit"></i>
                     <span>{{ 'consultant.actions.edit_user'|trans }}</span>
+                </a>
+                <a href="#new_mission" data-toggle="modal" role="button" class="button large">
+                    <i class="icon-plus"></i>
+                    <span>{{ 'mission.admin.content.button_new'|trans }}</span>
                 </a>
             </div>
         </div>

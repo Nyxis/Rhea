@@ -92,21 +92,6 @@
         </foreign-key>
     </table>
 
-
-    <table name="person_credential">
-        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-
-        <column name="person_id" type="INTEGER" required="true" />
-        <foreign-key foreignTable="person" onDelete="cascade" onUpdate="cascade">
-            <reference local="person_id" foreign="id" />
-        </foreign-key>
-
-        <column name="credential_id" type="INTEGER" required="true" />
-        <foreign-key foreignTable="credential" onDelete="cascade" onUpdate="cascade">
-            <reference local="credential_id" foreign="id" />
-        </foreign-key>
-    </table>
-
     <table name="consultant_mission">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
         <column name="consultant_id" type="INTEGER" required="true" />
@@ -123,16 +108,18 @@
         </foreign-key>
     </table>
 
-    <table name="mission">
+    <table name="person_credential">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-        <column name="manager_id" type="INTEGER" required="true" />
-        <column name="type" type="VARCHAR" size="20" required="true" />
-        <column name="label" type="VARCHAR" size="255" required="true" />
 
-        <foreign-key foreignTable="internal" phpName="Manager">
-            <reference local="manager_id" foreign="id" />
+        <column name="person_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="person" onDelete="cascade" onUpdate="cascade">
+            <reference local="person_id" foreign="id" />
         </foreign-key>
-        <behavior name="timestampable" />
+
+        <column name="credential_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="credential" onDelete="cascade" onUpdate="cascade">
+            <reference local="credential_id" foreign="id" />
+        </foreign-key>
     </table>
 
     <!-- Documents Internal & Tasks n:n:n table -->

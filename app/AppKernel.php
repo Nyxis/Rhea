@@ -41,6 +41,7 @@ class AppKernel extends Kernel
             new Extia\Bundle\NotificationBundle\ExtiaNotificationBundle(),
             new Extia\Bundle\GroupBundle\ExtiaGroupBundle(),
             new Extia\Bundle\DocumentBundle\ExtiaDocumentBundle(),
+            new Extia\Bundle\MissionBundle\ExtiaMissionBundle(),
 
             // Workflows
             new Extia\Workflow\CrhMonitoringBundle\ExtiaWorkflowCrhMonitoringBundle(),
