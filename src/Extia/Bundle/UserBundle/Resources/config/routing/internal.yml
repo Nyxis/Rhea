@@ -26,7 +26,7 @@ extia_user_manager_new:
     defaults: { _controller: 'ExtiaUserBundle:Internal:new' }
 
 extia_user_manager_edit:
-    pattern: /manager/edit/{id}/{firstname}-{lastname}
+    pattern: /manager/edit/{Id}/{Url}
     defaults: { _controller: 'ExtiaUserBundle:Internal:edit' }
     requirements:
         id: \d+
