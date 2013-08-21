@@ -44,7 +44,7 @@ extia_user_crh_new:
     defaults: { _controller: 'ExtiaUserBundle:Crh:new' }
 
 extia_user_crh_edit:
-    pattern: /crh/edit/{id}/{firstname}-{lastname}
+    pattern: /crh/edit/{Id}/{Url}
     defaults: { _controller: 'ExtiaUserBundle:Crh:edit' }
     requirements:
         id: \d+

@@ -78,7 +78,7 @@ class CrhController extends Controller
      * @throws NotFoundHttpException
      * @return Response
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $Id)
     {
         $internal = InternalQuery::create()
                     ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -86,10 +86,10 @@ class CrhController extends Controller
                     ->useJobQuery()
                     ->joinWithI18n()
                     ->endUse()
-                    ->findPk($id);
+                    ->findPk($Id);
 
         if (empty($internal)) {
-            throw new NotFoundHttpException(sprintf('Any consultant found for given id, "%s" given.', $id));
+            throw new NotFoundHttpException(sprintf('Any consultant found for given id, "%s" given.', $Id));
         }
 
         $form = $this->renderForm($request, $internal);
