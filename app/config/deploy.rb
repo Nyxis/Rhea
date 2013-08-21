@@ -49,7 +49,7 @@ set :normalize_asset_timestamps,  false
 set :shared_files,                [app_path + "/config/parameters.yml"]
 set :shared_children,             [log_path, "data"]
 
-set :writable_dirs,               [log_path, cache_path, "data"]
+set :writable_dirs,               [log_path, cache_path]
 set :webserver_user,              "www-data"
 set :permission_method,           :acl
 set :use_set_permissions,         true

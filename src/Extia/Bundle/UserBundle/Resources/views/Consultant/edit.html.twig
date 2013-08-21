@@ -2,8 +2,8 @@
 
 {% block nav_tabs_profile %}
     <li class="active"><a data-toggle="tab" href="#civility"><i class="icon-globe"></i> {{ 'consultant.admin.edit.civility'|trans }}</a></li>
-    <li class=""><a data-toggle="tab" href="#mission"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.mission'|trans }}</a></li>
-    <li class=""><a data-toggle="tab" href="#file"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.file'|trans }}</a></li>
+    <li><a data-toggle="tab" href="#mission"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.mission'|trans }}</a></li>
+    <li><a data-toggle="tab" href="#file"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.file'|trans }}</a></li>
 {% endblock %}
 
 {% block modal %}
@@ -13,7 +13,7 @@
 {% block main_content %}
     <div id="civility" class="tab-pane active">
         <div class="padded">
-            <form id="group-form" class="fill-up" method="POST">
+            <form id="group-form" class="fill-up" method="post">
                 {{ form_errors(form) }}
                 <div class="row-fluid">
                     <div class="span2">
