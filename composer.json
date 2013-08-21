@@ -86,7 +86,7 @@
                 "name": "jquery/tokeninput",
                 "version": "dev-master",
                 "dist": {
-                    "url": "https://github.com/loopj/jquery-tokeninput/zipball/jquery-tokeninput-1.6.0",
+                    "url": "https://github.com/loopj/jquery-tokeninput/zipball/master",
                     "type": "zip"
                 }
             }
