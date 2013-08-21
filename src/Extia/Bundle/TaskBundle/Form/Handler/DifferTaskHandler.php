@@ -47,6 +47,7 @@ class DifferTaskHandler
 
         if (!$form->isValid()) {
             $this->notifier->add('warning', 'task.differ.notification.invalid');
+
             return;
         }
 
@@ -57,7 +58,12 @@ class DifferTaskHandler
             $teamIds  = $internal->getTeamIds();
 
             // me and my team
-            $teamIds = empty($teamIds) ? array($internal->getId()) : $teamIds->prepend($internal->getId())->getData();
+            if (empty($teamIds)) {
+                $teamIds = array($internal->getId());
+            } else {
+                $teamIds->prepend($internal->getId());
+                $teamIds = $teamIds->getData();
+            }
 
             $task = TaskQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -67,6 +73,7 @@ class DifferTaskHandler
 
             if (empty($task)) {
                 $this->notifier->add('warning', 'task.differ.notification.invalid');
+
                 return;
             }
 

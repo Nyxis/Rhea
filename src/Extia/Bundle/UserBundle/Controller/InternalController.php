@@ -9,6 +9,7 @@ use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -71,6 +72,36 @@ class InternalController extends Controller
             'user'      => $internal,
             'internals' => $pagination
         ));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function listAjaxAction(Request $request)
+    {
+        $value = $request->get('q');
+
+        // TODO Manque le rebase pour la recherche
+        $managers = InternalQuery::create()
+                    ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                    ->joinWith('PersonType')
+                        ->usePersonTypeQuery()
+                            ->filterByCode('ia')
+                        ->endUse()
+                    ->filterByUrl('%' . $value . '%')
+                    ->find();
+
+        $json = array ();
+        foreach ($managers as $manager) {
+            $json[] = array (
+                'id'   => $manager->getId(),
+                'name' => $manager->getFirstname() . ' ' . $manager->getLastname()
+            );
+        }
+
+        return JsonResponse::create($json);
     }
 
     /**

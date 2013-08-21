@@ -1,15 +1,21 @@
 <?php
-namespace Extia\Bundle\UserBundle\Form\Type;
 
+
+namespace Extia\Bundle\MissionBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+
 /**
- *
+ * Created by rhea.
+ * @author lesmyrmidons <lesmyrmidons@gmail.com>
+ * Date: 15/08/13
+ * Time: 18:39
  */
-class ConsultantType extends AbstractType
+class CompanyType extends AbstractType
 {
+
     /**
      * Returns the name of this type.
      *
@@ -17,7 +23,7 @@ class ConsultantType extends AbstractType
      */
     public function getName()
     {
-        return 'consultant';
+        return 'company';
     }
 
     /**
@@ -26,8 +32,8 @@ class ConsultantType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         return $resolver->setDefaults(array (
-                                          'data_class' => 'Extia\Bundle\UserBundle\Model\Consultant'
-                                      ));
+            'data_class' => 'Extia\Bundle\MissionBundle\Model\Company'
+        ));
     }
 
     /**
@@ -36,11 +42,10 @@ class ConsultantType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('person', 'person', array ('label' => false));
-//                ->add('manager', 'text', array ('label' => 'Manager'))
-//                ->add('rh', 'text', array ('label' => 'R.H.'));
-
+        $builder->add('title', 'text')
+            ->add('description', 'textarea', array ('required' => false))
+            ->add('address', 'textarea', array ('required' => false))
+            ->add('zipCode', 'number', array ('required' => false))
+            ->add('city', 'text', array ('required' => false));
     }
-
-
 }

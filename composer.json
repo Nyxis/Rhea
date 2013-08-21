@@ -33,6 +33,7 @@
         "extia/backend-tb-theme": "*",
 
         "jquery/jquery": "1.10.*",
+        "jquery/tokeninput": "*",
         "jquery/file-input": "*",
         "jquery/form": "*",
 
@@ -77,6 +78,17 @@
                 "dist": {
                     "url": "http://malsup.github.io/min/jquery.form.min.js",
                     "type": "file"
+                }
+            }
+        },
+        "jquery/tokeninput": {
+            "type": "package",
+            "package": {
+                "name": "jquery/tokeninput",
+                "version": "dev-master",
+                "dist": {
+                    "url": "https://github.com/loopj/jquery-tokeninput/zipball/master",
+                    "type": "zip"
                 }
             }
         }

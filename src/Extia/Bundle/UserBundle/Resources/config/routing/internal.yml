@@ -50,3 +50,7 @@ extia_user_crh_edit:
         id: \d+
         firstname: \w+
         lastname: \w+
+
+extia_user_ajax_list:
+    pattern: /manager/ajax-list
+    defaults: { _controller: ExtiaUserBundle:Internal:listAjax }
