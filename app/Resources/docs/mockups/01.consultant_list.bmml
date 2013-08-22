@@ -53,7 +53,7 @@
         <text>Cr%E9er%20un%0Aconsultant</text>
       </controlProperties>
     </control>
-    <control controlID="16" controlTypeID="com.balsamiq.mockups::FieldSet" x="1250" y="319" w="273" h="440" measuredW="200" measuredH="170" zOrder="12" locked="true" isInGroup="-1">
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::FieldSet" x="1250" y="319" w="273" h="440" measuredW="200" measuredH="170" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Recherche</text>
       </controlProperties>

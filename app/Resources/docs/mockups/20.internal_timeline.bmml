@@ -403,9 +403,9 @@
         <text/>
       </controlProperties>
     </control>
-    <control controlID="82" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="461" y="132" w="-1" h="-1" measuredW="226" measuredH="24" zOrder="58" locked="false" isInGroup="-1">
+    <control controlID="82" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="461" y="132" w="-1" h="-1" measuredW="242" measuredH="24" zOrder="58" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Mon%20%E9quipe%2C%20un%20interne%2C%20Organiseur</text>
+        <text>Mon%20%E9quipe%2C%20Pr%E9nom%20Nom%2C%20Organiseur</text>
       </controlProperties>
     </control>
     <control controlID="83" controlTypeID="com.balsamiq.mockups::Label" x="1054" y="229" w="-1" h="-1" measuredW="47" measuredH="22" zOrder="59" locked="false" isInGroup="-1">

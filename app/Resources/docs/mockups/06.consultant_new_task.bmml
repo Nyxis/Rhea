@@ -48,7 +48,7 @@
         <text>Nouveau%20consultant</text>
       </controlProperties>
     </control>
-    <control controlID="15" controlTypeID="com.balsamiq.mockups::MultilineButton" x="1279" y="224" w="89" h="83" measuredW="73" measuredH="66" zOrder="11" locked="false" isInGroup="-1">
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::MultilineButton" x="1279" y="224" w="89" h="83" measuredW="74" measuredH="66" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Enreg.%0Ale%20clt</text>
       </controlProperties>
@@ -58,61 +58,51 @@
         <text>Retour%0Aliste</text>
       </controlProperties>
     </control>
-    <control controlID="17" controlTypeID="com.balsamiq.mockups::TabBar" x="461" y="241" w="795" h="741" measuredW="358" measuredH="100" zOrder="13" locked="true" isInGroup="-1">
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Label" x="485" y="330" w="-1" h="-1" measuredW="116" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
       <controlProperties>
-        <selectedIndex>0</selectedIndex>
-        <text>Informations%20g%E9n%E9rales%2C%20Mission%2C%20Droits%20d%27acc%E8s</text>
+        <text>Suivi%20consultant%20RH</text>
       </controlProperties>
     </control>
-    <control controlID="18" controlTypeID="com.balsamiq.mockups::Label" x="481" y="292" w="-1" h="-1" measuredW="27" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::CheckBox" x="485" y="357" w="-1" h="-1" measuredW="123" measuredH="22" zOrder="14" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Nom</text>
+        <text>cr%E9er%20un%20suivi%20RH</text>
       </controlProperties>
     </control>
-    <control controlID="19" controlTypeID="com.balsamiq.mockups::TextInput" x="625" y="289" w="216" h="-1" measuredW="79" measuredH="26" zOrder="15" locked="false" isInGroup="-1"/>
-    <control controlID="20" controlTypeID="com.balsamiq.mockups::Label" x="481" y="331" w="-1" h="-1" measuredW="45" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::Label" x="485" y="412" w="-1" h="-1" measuredW="71" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Pr%E9nom</text>
+        <text>Bilan%20annuel</text>
       </controlProperties>
     </control>
-    <control controlID="21" controlTypeID="com.balsamiq.mockups::TextInput" x="625" y="328" w="216" h="-1" measuredW="79" measuredH="26" zOrder="17" locked="false" isInGroup="-1"/>
-    <control controlID="22" controlTypeID="com.balsamiq.mockups::Label" x="883" y="295" w="-1" h="-1" measuredW="32" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::CheckBox" x="485" y="439" w="-1" h="-1" measuredW="145" measuredH="22" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Email</text>
+        <text>cr%E9er%20un%20bilan%20annuel</text>
       </controlProperties>
     </control>
-    <control controlID="23" controlTypeID="com.balsamiq.mockups::TextInput" x="1017" y="292" w="216" h="-1" measuredW="79" measuredH="26" zOrder="19" locked="false" isInGroup="-1"/>
-    <control controlID="24" controlTypeID="com.balsamiq.mockups::DateChooser" x="625" y="367" w="216" h="-1" measuredW="129" measuredH="25" zOrder="20" locked="false" isInGroup="-1">
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::StickyNote" x="784" y="330" w="319" h="135" measuredW="109" measuredH="123" zOrder="17" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>xx%20/%20xx%20/%20xxxx</text>
+        <text>Initialise%20les%20t%E2ches%20pour%20ce%20consultant%2C%20assign%E9%20%E0%20sa%20RH%2C%20avec%20des%20valeurs%20par%20d%E9faut%0A%20%0APour%20le%20suivi%20consultant%2C%20le%20premier%20point%20est%20param%E9tr%E9%20%E0%201%20mois</text>
       </controlProperties>
     </control>
-    <control controlID="25" controlTypeID="com.balsamiq.mockups::Label" x="481" y="367" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::Arrow" x="662" y="357" w="131" h="40" measuredW="150" measuredH="100" zOrder="18" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Date%20de%20naissance</text>
+        <curvature>0</curvature>
+        <rightArrow>false</rightArrow>
+        <text/>
       </controlProperties>
     </control>
-    <control controlID="26" controlTypeID="com.balsamiq.mockups::DateChooser" x="625" y="437" w="216" h="-1" measuredW="129" measuredH="25" zOrder="23" locked="false" isInGroup="-1">
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::Arrow" x="662" y="397" w="131" h="40" measuredW="150" measuredH="100" zOrder="19" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>xx%20/%20xx%20/%20xxxx</text>
+        <curvature>0</curvature>
+        <direction>bottom</direction>
+        <rightArrow>false</rightArrow>
+        <text/>
       </controlProperties>
     </control>
-    <control controlID="27" controlTypeID="com.balsamiq.mockups::Label" x="483" y="437" w="-1" h="-1" measuredW="81" measuredH="21" zOrder="22" locked="false" isInGroup="-1">
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::ButtonBar" x="480" y="253" w="755" h="51" measuredW="403" measuredH="27" zOrder="20" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Date%20d%27entr%E9e</text>
+        <selectedIndex>3</selectedIndex>
+        <text>Informations%20g%E9n%E9rales%2C%20Mission%2C%20Droits%20d%27acc%E8s%2C%20T%E2ches</text>
       </controlProperties>
     </control>
-    <control controlID="28" controlTypeID="com.balsamiq.mockups::Label" x="883" y="329" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="24" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>T%E9l%E9phone</text>
-      </controlProperties>
-    </control>
-    <control controlID="29" controlTypeID="com.balsamiq.mockups::TextInput" x="1017" y="326" w="216" h="-1" measuredW="79" measuredH="26" zOrder="25" locked="false" isInGroup="-1"/>
-    <control controlID="30" controlTypeID="com.balsamiq.mockups::Label" x="883" y="367" w="-1" h="-1" measuredW="38" measuredH="21" zOrder="26" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Mobile</text>
-      </controlProperties>
-    </control>
-    <control controlID="31" controlTypeID="com.balsamiq.mockups::TextInput" x="1017" y="364" w="216" h="-1" measuredW="79" measuredH="26" zOrder="27" locked="false" isInGroup="-1"/>
   </controls>
 </mockup>
