@@ -37,7 +37,5 @@ jQuery(document).ready(function($) {
         });
 
         $pageSelector.find('a:first-child').trigger('click');
-    })
-
-
+    });
 });
