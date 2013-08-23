@@ -6,17 +6,13 @@
         <column name="email" type="VARCHAR" size="255" required="true" />
         <column name="firstname" type="VARCHAR" size="255" required="true" />
         <column name="lastname" type="VARCHAR" size="255" required="true" />
+        <column name="job" type="VARCHAR" size="255" required="true" />
         <column name="telephone" type="VARCHAR" size="255" required="false" />
         <column name="mobile" type="VARCHAR" size="255" required="false" />
 
         <column name="person_type_id" type="INTEGER" required="true" />
         <foreign-key foreignTable="person_type" onDelete="cascade" onUpdate="cascade">
             <reference local="person_type_id" foreign="id" />
-        </foreign-key>
-
-        <column name="job_id" type="INTEGER" required="false" />
-        <foreign-key foreignTable="job" onDelete="setnull" onUpdate="cascade">
-            <reference local="job_id" foreign="id" />
         </foreign-key>
 
         <unique>
@@ -35,7 +31,7 @@
         <column name="code" type="VARCHAR" size="20" required="true" />
 
         <!-- I18n -->
-        <column name="label" type="VARCHAR" size="20" required="true" />
+        <column name="label" type="VARCHAR" size="255" required="true" />
 
         <unique>
             <unique-column name="code" />
@@ -46,34 +42,34 @@
         </behavior>
     </table>
 
-    <table name="job">
-        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-
-        <!-- i18n -->
-        <column name="label" type="VARCHAR" size="255" required="true" />
-
-        <behavior name="i18n">
-            <parameter name="i18n_columns" value="label" />
-            <parameter name="default_locale" value="fr" />
-        </behavior>
-
-        <behavior name="timestampable" />
-    </table>
-
     <table name="internal">
         <behavior name="concrete_inheritance">
             <parameter name="extends" value="person" />
         </behavior>
 
+        <column name="trigram" type="VARCHAR" size="3" required="false" />
         <column name="password" type="VARCHAR" size="255" required="true" />
+        <column name="image" type="VARCHAR" size="255" required="false" />
+        <column name="contract_begin_date" type="TIMESTAMP" required="true" />
 
-        <column name="group_id" type="INTEGER" required="false" />
-        <foreign-key foreignTable="group" onDelete="setnull" onUpdate="cascade">
+        <column name="agency_id" type="INTEGER" required="false" />
+        <column name="group_id" type="INTEGER" required="true" />
+        <column name="resignation_id" type="INTEGER" required="false" />
+
+        <!-- Agency relation -->
+        <foreign-key foreignTable="agency" onUpdate="cascade">
+            <reference local="agency_id" foreign="id" />
+        </foreign-key>
+
+        <!-- Group relation -->
+        <foreign-key foreignTable="group" onUpdate="cascade">
             <reference local="group_id" foreign="id" />
         </foreign-key>
 
-        <column name="contract_begin_date" type="TIMESTAMP" required="true" />
-        <column name="contract_end_date" type="TIMESTAMP" required="false" />
+        <!-- Resignation relation -->
+        <foreign-key foreignTable="resignation" onUpdate="cascade">
+            <reference local="resignation_id" foreign="id" />
+        </foreign-key>
 
         <behavior name="nested_set">
             <parameter name="use_scope" value="true" />
@@ -90,6 +86,31 @@
         <foreign-key foreignTable="internal" phpName="Crh" onDelete="setnull" onUpdate="cascade">
             <reference local="crh_id" foreign="id" />
         </foreign-key>
+
+        <!-- Cooptation -->
+        <column name="coopted_by_id" type="INTEGER" required="false" />
+        <foreign-key foreignTable="person" phpName="Coopter" onDelete="setnull" onUpdate="cascade">
+            <reference local="coopted_by_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+    <table name="resignation">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="code" type="ENUM" required="true" valueSet="resignation, end_test, end_contract, end_training, leaving" />
+        <column name="comment" type="LONGVARCHAR" required="true" />
+        <column name="leave_at" type="TIMESTAMP" required="true" />
+
+        <column name="resigned_by_id" type="INTEGER" required="true" primaryKey="true" />
+        <foreign-key foreignTable="person" phpName="Resigner" onDelete="cascade" onUpdate="cascade">
+            <reference local="resigned_by_id" foreign="id" />
+        </foreign-key>
+
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="agency">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="code" type="VARCHAR" size="20" required="true" />
     </table>
 
     <table name="mission_order">

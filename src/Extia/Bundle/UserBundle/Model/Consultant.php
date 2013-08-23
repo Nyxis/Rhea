@@ -19,10 +19,10 @@ class Consultant extends BaseConsultant
      */
     public function getStatus()
     {
-        $contractEndDate = $this->getContractEndDate();
-        if (!empty($contractEndDate)) {
-            return self::STATUS_RESIGNED;
-        }
+        // $contractEndDate = $this->getContractEndDate();
+        // if (!empty($contractEndDate)) {
+        //     return self::STATUS_RESIGNED;
+        // }
 
         $currentMission = $this->getCurrentMission();
 

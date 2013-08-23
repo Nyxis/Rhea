@@ -27,7 +27,7 @@
                             <td class="image"><img src="{{ gravatar(consultant.email, 50) }}"></td>
                             <td class="name">
                                 <a href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">{{ consultant.longname }}</a><br/>
-                                {{ consultant.job.label }}
+                                {{ consultant.job }}
                             </td>
                             <td>{{ consultant.email }}</td>
                             <td>
