@@ -4,8 +4,11 @@ namespace Extia\Bundle\UserBundle\Controller;
 
 use Extia\Bundle\UserBundle\Model\Internal;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
+use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
+
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -32,8 +35,10 @@ class InternalController extends Controller
      */
     public function timelineAction(Request $request, $Id, $Url)
     {
+        $isAdminGranted = $this->get('security.context')->isGranted('ROLE_ADMIN', $this->getUser());
+
         // can access this timeline ?
-        if (!$this->get('security.context')->isGranted('ROLE_INTERNAL_READ', $this->getUser())) {
+        if (!$isAdminGranted && !$this->get('security.context')->isGranted('ROLE_INTERNAL_READ', $this->getUser())) {
             throw new AccessDeniedHttpException(sprintf('You have any credentials to access internal timeline.'));
         }
 
@@ -58,7 +63,7 @@ class InternalController extends Controller
         }
 
         // can access this timeline ?
-        if (!$this->get('security.context')->isGranted('USER_DATA', $user)) {
+        if (!$isAdminGranted && !$this->get('security.context')->isGranted('USER_DATA', $user)) {
             throw new AccessDeniedHttpException(sprintf('You have any credentials to access %s %s timeline.',
                 $user->getFirstname(), $user->getLastname()
             ));
@@ -66,6 +71,53 @@ class InternalController extends Controller
 
         return $this->render('ExtiaUserBundle:Internal:timeline.html.twig', array(
             'internal' => $user
+        ));
+    }
+
+    /**
+     * list consultants for given internal
+     *
+     * @param  Request  $request
+     * @param  Internal $internal
+     * @return Response
+     */
+    public function consultantsListAction(Request $request, Internal $internal)
+    {
+        $consultants = ConsultantQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->filterByInternalReferer($internal)
+            ->find();
+
+        return $this->render('ExtiaUserBundle:Internal:consultants.html.twig', array(
+            'consultants' => $consultants
+        ));
+    }
+
+    /**
+     * list missions for given internal
+     *
+     * @param  Request  $request
+     * @param  Internal $internal
+     * @return Response
+     */
+    public function missionsListAction(Request $request, Internal $internal)
+    {
+        $missions = MissionQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->filterByManagerId($internal->getId())
+            ->filterByType('client')
+
+            ->joinWith('Client')
+
+            ->joinWith('MissionOrder')
+            ->withColumn('COUNT(MissionOrder.Id)', 'NbClt')
+
+            ->groupBy('Id')
+            ->orderBy('NbClt', \Criteria::DESC)
+            ->find();
+
+        return $this->render('ExtiaUserBundle:Internal:missions.html.twig', array(
+            'missions' => $missions
         ));
     }
 
@@ -110,14 +162,25 @@ class InternalController extends Controller
      */
     public function teamListAction(Request $request, $page = 1)
     {
-        $internal = $this->getUser();
+        $internal       = $this->getUser();
+        $isAdminGranted = $this->get('security.context')->isGranted('ROLE_ADMIN', $internal);
+
+        if (!$isAdminGranted && !$this->get('security.context')->isGranted('ROLE_INTERNAL_READ', $user)) {
+            throw new AccessDeniedHttpException(sprintf('You have any credentials to internals.',
+                $user->getFirstname(), $user->getLastname()
+            ));
+        }
 
         $internalCollection = InternalQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->usePersonTypeQuery()
-                ->filterByCode(array('crh', 'ia', 'dir'))
+                ->filterByCode(array('clt'), \Criteria::NOT_IN)
             ->endUse()
-            ->descendantsOf($internal)
+            // ->filterByEndContractDate(null, \Criteria::ISNULL) // @todo
+            ->_if(!$isAdminGranted)
+                ->descendantsOf($internal)
+            ->_endif()
+            ->orderByTreeLeft()
         ;
 
         $pagination = $this->get('knp_paginator')
@@ -159,38 +222,38 @@ class InternalController extends Controller
         return JsonResponse::create($json);
     }
 
-    /**
-     * lists all user consultants
-     *
-     * @param Request $request
-     * @param         $page
-     *
-     * @return Response
-     */
-    public function listAction(Request $request, $page)
-    {
-        $internal = $this->getUser();
+    // /**
+    //  * lists all user consultants
+    //  *
+    //  * @param Request $request
+    //  * @param         $page
+    //  *
+    //  * @return Response
+    //  */
+    // public function listAction(Request $request, $page)
+    // {
+    //     $internal = $this->getUser();
 
-        $internalCollection = InternalQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Job')
-            ->useJobQuery()
-                ->joinWithI18n()
-            ->endUse()
-            ->joinWith('Group')
-            ->useGroupQuery()
-                ->filterById(2)
-            ->endUse();
+    //     $internalCollection = InternalQuery::create()
+    //         ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+    //         ->joinWith('Job')
+    //         ->useJobQuery()
+    //             ->joinWithI18n()
+    //         ->endUse()
+    //         ->joinWith('Group')
+    //         ->useGroupQuery()
+    //             ->filterById(2)
+    //         ->endUse();
 
-        $paginator = $this->get('knp_paginator');
+    //     $paginator = $this->get('knp_paginator');
 
-        $pagination = $paginator->paginate($internalCollection, $page, 20);
+    //     $pagination = $paginator->paginate($internalCollection, $page, 20);
 
-        return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
-            'user'      => $internal,
-            'internals' => $pagination
-        ));
-    }
+    //     return $this->render('ExtiaUserBundle:Internal:list.html.twig', array (
+    //         'user'      => $internal,
+    //         'internals' => $pagination
+    //     ));
+    // }
 
     /**
      * renders a new consultant form

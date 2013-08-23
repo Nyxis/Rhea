@@ -15,7 +15,7 @@
             <a href="{{ timeline_path }}">{{ clt.longname }}</a><br />
             <small>
                 {{ clt.job.label }}
-                {% if clt.status == 'placed' %} - {{ clt.currentMission.mission.label }}{% endif %}
+                {% if clt.status == 'placed' %} - {{ clt.currentMission.label }}{% endif %}
             </small>
         </h4>
     </div>

@@ -29,19 +29,9 @@ class UserDataVoter implements VoterInterface
         foreach ($attributes as $attribute) {
             if ($this->supportsAttribute($attribute) && $this->supportsClass($object)) {
 
-                // admin can access everything
-                if (in_array('ROLE_ADMIN', $token->getRoles())) {
-                    return VoterInterface::ACCESS_GRANTED;
-                }
-
                 $user = $token->getUser();
 
-                // consultants cannot manage anyone
-                if ($user instanceof Consultant) {
-                    return VoterInterface::ACCESS_DENIED;
-                }
-
-                // everybody can access a Consultant
+                // Consultants are managed by another ROLE
                 if ($user instanceof Internal && $object instanceof Consultant) {
                     return VoterInterface::ACCESS_GRANTED;
                 }

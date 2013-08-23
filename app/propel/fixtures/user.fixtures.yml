@@ -214,7 +214,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         GroupId: manager
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 1
-        treeRight:
+        treeRight: 14
         treeLevel: 0
     pauline:
         email: pdantin@extia.fr
@@ -226,7 +226,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         GroupId: crh
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 2
-        treeRight: 10
+        treeRight: 11
         treeLevel: 1
     marine:
         email: mgiuliani@extia.fr
@@ -249,8 +249,8 @@ Extia\Bundle\UserBundle\Model\Internal:
         JobId: ia
         GroupId: manager
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
-        treeLeft: 11
-        treeRight: 12
+        treeLeft: 12
+        treeRight: 13
         treeLevel: 1
 
 Extia\Bundle\UserBundle\Model\Consultant:
@@ -292,8 +292,8 @@ Extia\Bundle\UserBundle\Model\Consultant:
         GroupId: consultant
         CrhId: pauline
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
-        treeLeft: 8
-        treeRight: 9
+        treeLeft: 9
+        treeRight: 10
         treeLevel: 2
 
 Extia\Bundle\MissionBundle\Model\Company:
@@ -339,7 +339,7 @@ Extia\Bundle\MissionBundle\Model\Mission:
         ManagerId: caroline
         ClientId: extia
 
-Extia\Bundle\UserBundle\Model\ConsultantMission:
+Extia\Bundle\UserBundle\Model\MissionOrder:
     m_kevin:
         ConsultantId: kevin
         MissionId: sfr_kevin

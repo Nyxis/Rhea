@@ -4,7 +4,7 @@
         <i class="icon-bug"></i>
         {{ 'consultants.intercontract.box.header'|trans }}
     </div>
-    <table class="table table-striped">
+    <table class="table table-striped consultants-list">
         <thead>
             <th colspan="2">{{ 'consultants.intercontract.box.th_name'|trans }}</th>
             <th>{{ 'consultants.intercontract.box.th_date_begin'|trans }}</th>
@@ -16,7 +16,7 @@
             <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
                 <td><img src="{{ gravatar(clt.email, 30) }}"></td>
                 <td class="name"><div class="wrap">{{ clt.longname }}</div></td>
-                <td>{{ clt.currentMission.beginDate('date_format.ymd'|trans) }}</td>
+                <td>{{ clt.currentMissionOrder.beginDate('date_format.ymd'|trans) }}</td>
                 <td>
                     {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': clt.crh } only %}
                     {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': clt.manager } only %}

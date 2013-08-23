@@ -9,6 +9,7 @@ user_status:
     placed: en mission
     ic: en intercontrat
     resigned: a démissioné
+    recruited: embauche directe
 
 consultant:
     breadcrumbs:
@@ -100,12 +101,22 @@ internal:
     actions:
         edit_user: Editer l'interne
         back_list: Retour à la liste
+    consultants:
+        header: Consultants
+        th_name: Nom
+        th_status: Statut
+        th_internal: Référents
+    missions:
+        header: Missions
+        th_client: Client
+        th_mission: Libellé de mission
+        td_consultants: "{0} aucun consultants|{1} 1 consultant|]1, Inf] %nb% consultants"
     admin:
         breadcrumbs:
             edit: Edition
         list:
-            header: Liste des Consultant(e)s Resources Humaines
-            th_user: Consultant(e)
+            header: Liste des internes
+            th_user: Nom
             th_email: Email
             th_contacts: Téléphone(s)
             th_actions: Actions

@@ -1,7 +1,7 @@
 {% extends 'ExtiaUserBundle::team_layout.html.twig' %}
 
 {% block inactive_breadcrumb %}
-    <li><a href="{{ path('extia_user_internal_list_team') }}"><i class="icon-group"></i> {{ 'menu.team'|trans }}</a></li>
+    <li><a href="{{ path('UserBundle_internal_list') }}"><i class="icon-group"></i> {{ 'menu.team'|trans }}</a></li>
     <li><a href="#">{{ internal.longname }}</a></li>
 {% endblock %}
 {% block current_breadcrumb %}
@@ -63,11 +63,17 @@
                 <i class="icon-edit"></i>
                 <span>{{ 'internal.actions.edit_user'|trans }}</span>
             </a>
-            <a href="{{ path('extia_user_internal_list_team') }}" class="button large">
+            <a href="{{ path('UserBundle_internal_list') }}" class="button large">
                 <i class="icon-reply"></i>
                 <span>{{ 'internal.actions.back_list'|trans }}</span>
             </a>
         </div>
     </div>
+    {% if is_granted('ROLE_CONSULTANT_READ', app.user) %}
+        {% render(controller('ExtiaUserBundle:Internal:consultantsList', { 'internal': internal })) %}
+    {% endif %}
+    {% if is_granted('ROLE_MISSION_READ', app.user) %}
+        {% render(controller('ExtiaUserBundle:Internal:missionsList', { 'internal': internal })) %}
+    {% endif %}
 </div>
 {% endblock %}

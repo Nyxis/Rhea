@@ -1,5 +1,4 @@
-# todo : modify name
-extia_user_internal_list_team:
+UserBundle_internal_list:
     pattern: /
     defaults:
         _controller: 'ExtiaUserBundle:Internal:teamList'

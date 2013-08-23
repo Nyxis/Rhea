@@ -112,7 +112,7 @@ class ConsultantController extends Controller
                 ->joinWithI18n()
             ->endUse()
 
-            ->useConsultantMissionQuery()
+            ->useMissionOrderQuery()
                 ->filterByCurrent(true)
                 ->useMissionQuery()
                     ->filterByType('ic')
@@ -153,7 +153,6 @@ class ConsultantController extends Controller
             'documents'  => $documentsCollection
         ));
     }
-
 
     // --------------------------------------------------------
     // Admin

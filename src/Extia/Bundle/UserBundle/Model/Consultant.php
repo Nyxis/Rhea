@@ -6,11 +6,12 @@ use Extia\Bundle\UserBundle\Model\om\BaseConsultant;
 
 class Consultant extends BaseConsultant
 {
-    protected $currentMission = false;
+    protected $currentMissionOrder = false;
 
-    const STATUS_PLACED   = 'placed';
-    const STATUS_IC       = 'ic';
-    const STATUS_RESIGNED = 'resigned';
+    const STATUS_PLACED    = 'placed';
+    const STATUS_IC        = 'ic';
+    const STATUS_RECRUITED = 'recruited';
+    const STATUS_RESIGNED  = 'resigned';
 
     /**
      * returns consultant status
@@ -25,26 +26,44 @@ class Consultant extends BaseConsultant
 
         $currentMission = $this->getCurrentMission();
 
-        return empty($currentMission) ? self::STATUS_IC : self::STATUS_PLACED;
+        if ($currentMission->getType() == 'ic') {
+            return self::STATUS_IC;
+        }
+
+        if ($currentMission->getType() == 'waiting') {
+            return self::STATUS_RECRUITED;
+        }
+
+        return self::STATUS_PLACED;
     }
 
     /**
      * selects and returns current mission
      *
-     * @param \Pdo $con option db connection
-     *
+     * @param  \Pdo    $con option db connection
      * @return Mission
      */
     public function getCurrentMission(\Pdo $con = null)
     {
-        if ($this->currentMission !== false) {
-            return $this->currentMission;
+        return $this->getCurrentMissionOrder($con)->getMission();
+    }
+
+    /**
+     * select and return current mission order
+     *
+     * @param  \Pdo         $con
+     * @return MissionOrder
+     */
+    public function getCurrentMissionOrder(\Pdo $con = null)
+    {
+        if ($this->currentMissionOrder !== false) {
+            return $this->currentMissionOrder;
         }
 
-        $this->currentMission = null;
+        $this->currentMissionOrder = null;
 
-        $missions = $this->getConsultantMissions(
-            ConsultantMissionQuery::create()
+        $missionsOrders = $this->getMissionOrders(
+            MissionOrderQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->filterByEndDate(null, \Criteria::ISNULL)
                 ->orderBybeginDate(\Criteria::DESC)
@@ -52,11 +71,11 @@ class Consultant extends BaseConsultant
                 ->joinWith('Mission.Manager')
         );
 
-        if (!$missions->isEmpty()) { // no more selects
-            $this->currentMission = $missions->getFirst();
+        if (!$missionsOrders->isEmpty()) { // no more selects
+            $this->currentMissionOrder = $missionsOrders->getFirst();
         }
 
-        return $this->currentMission;
+        return $this->currentMissionOrder;
     }
 
     /**
@@ -66,8 +85,6 @@ class Consultant extends BaseConsultant
      */
     public function getManager(\Pdo $con = null)
     {
-        return $this->getCurrentMission($con)
-            ->getMission()
-            ->getManager();
+        return $this->getCurrentMission($con)->getManager();
     }
 }
