@@ -196,6 +196,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         firstname: Pauline
         lastname: Dantin
         trigram: PDA
+        NbIc: 1
         password: <?php echo sha1('pdantin')."\n" ?>
         AgencyId: paris_media
         PersonTypeId: crh
@@ -224,6 +225,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         firstname: Caroline
         lastname: Gautier
         trigram: CGA
+        NbIc: 1
         password: <?php echo sha1('cgautier')."\n" ?>
         AgencyId: paris_media
         PersonTypeId: ia
@@ -247,6 +249,7 @@ Extia\Bundle\UserBundle\Model\Consultant:
         Job: Développeur
         GroupId: consultant
         CrhId: pauline
+        ManagerId: caroline
         ContractBeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
         treeLeft: 7
         treeRight: 8
@@ -261,6 +264,7 @@ Extia\Bundle\UserBundle\Model\Consultant:
         Job: Architecte
         GroupId: consultant
         CrhId: marine
+        ManagerId: caroline
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
         treeLeft: 4
         treeRight: 5
@@ -275,6 +279,7 @@ Extia\Bundle\UserBundle\Model\Consultant:
         Job: Développeur front
         GroupId: consultant
         CrhId: pauline
+        ManagerId: caroline
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
         treeLeft: 9
         treeRight: 10

@@ -51,6 +51,7 @@
         <column name="password" type="VARCHAR" size="255" required="true" />
         <column name="image" type="VARCHAR" size="255" required="false" />
         <column name="contract_begin_date" type="TIMESTAMP" required="true" />
+        <column name="nb_ic" type="INTEGER" required="true" defaultValue="0" />
 
         <column name="agency_id" type="INTEGER" required="false" />
         <column name="group_id" type="INTEGER" required="true" />
@@ -82,9 +83,15 @@
         </behavior>
 
         <!-- Crh relation -->
-        <column name="crh_id" type="INTEGER" required="false" />
-        <foreign-key foreignTable="internal" phpName="Crh" onDelete="setnull" onUpdate="cascade">
+        <column name="crh_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="internal" phpName="Crh" onUpdate="cascade">
             <reference local="crh_id" foreign="id" />
+        </foreign-key>
+
+        <!-- Manager relation -->
+        <column name="manager_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="internal" phpName="Manager" onUpdate="cascade">
+            <reference local="manager_id" foreign="id" />
         </foreign-key>
 
         <!-- Cooptation -->

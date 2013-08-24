@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
 use Symfony\Component\Form\Form;
 
 /**
@@ -22,7 +21,7 @@ class AdminConsultantController extends Controller
 {
     /**
      * injects filters and sorts into query
-     * @return
+     * @return Form
      */
     protected function processFilters(Request $request, ConsultantQuery $query)
     {
@@ -68,9 +67,7 @@ class AdminConsultantController extends Controller
         }
         // name
         if(!empty($filters['name'])) {
-            $query->filterByFirstname('%'.$filters['name'].'%', \Criteria::LIKE)
-                ->_or()
-                ->filterByLastname('%'.$filters['name'].'%', \Criteria::LIKE);
+            $query->filterByName($filters['name']);
         }
         // status
         if(!empty($filters['status'])) {

@@ -78,14 +78,4 @@ class Consultant extends BaseConsultant
 
         return $this->currentMissionOrder;
     }
-
-    /**
-     * returns consultant current manager (function of mission)
-     * @param  Pdo          $con option db connection
-     * @return Manager|null
-     */
-    public function getManager(\Pdo $con = null)
-    {
-        return $this->getCurrentMission($con)->getManager();
-    }
 }

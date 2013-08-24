@@ -12,21 +12,29 @@ user_status:
     resigned: a démissioné
     recruited: embauche directe
 
-agency:
-    paris_media: Paris - Agence médias
-    paris_energy: Paris - Agence énergie
-    rha: Rhône Alpes
+person_type:
+    crh: Crh
+    dir: Directeur d'agence
+    ia: Manager
+    pdg: P. Directeur Gal
+
 
 admin:
+    form:
+        agency: Agence
+        agency_choices:
+            paris_media: Paris - Agence médias
+            paris_energy: Paris - Agence énergie
+            rha: Rhône Alpes
+        manager: Manager
+        crh: Crh
+        client: Client
+        internal_type: Poste
+        parent: Dans l'équipe de
     filters:
         form:
-            agency: Agence
-            manager: Manager
-            crh: Crh
-            client: Client
             submit: Filtrer la liste
             reset: Réinitialiser
-
 
 consultant:
     breadcrumbs:
@@ -145,12 +153,25 @@ internal:
     admin:
         breadcrumbs:
             edit: Edition
+        sidebar:
+            button_new: Nouvel interne
         list:
             header: Liste des internes
-            th_user: Nom
-            th_email: Email
-            th_contacts: Téléphone(s)
+            th_name: Interne
+            th_internal_type: Poste
+            th_nb_clt: Nb Consultants
+            th_nb_ic: Nb Intercontrats
+            th_past_tasks: Tâches retard / total
             th_actions: Actions
+        filters:
+            header: Filtres
+            mine: Mon équipe
+            all: Tous les internes
+            form:
+                display: Afficher
+                name: Nom
+                with_past_tasks: A des tâches en retard
+                with_ic: A des intercontrats
         edit:
             header: Edition de l'interne %internal_name%
             civility: Civilité

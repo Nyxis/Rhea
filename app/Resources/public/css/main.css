@@ -486,6 +486,16 @@ th .sorts a {
 th .sorts a.active {
     color: #AAAAAA;
 }
+td.tree {
+    padding: 0px;
+}
+td.tree .branch {
+    border-left: solid 1px #666666;
+}
+td.tree .dtable{
+    margin: 5px;
+    vertical-align: middle;
+}
 
 .admin-filters .form-horizontal {
     padding: 0px;
@@ -501,6 +511,9 @@ th .sorts a.active {
 }
 .admin-filters .form-horizontal .control-group:last-child {
     margin-bottom: 0px;
+}
+.admin-filters .form-horizontal .control-group.unmarged {
+    margin-top: -10px;
 }
 
 .user-admin .table td.image {

@@ -7,31 +7,6 @@ use Extia\Bundle\UserBundle\Model\om\BaseConsultantQuery;
 class ConsultantQuery extends BaseConsultantQuery
 {
     /**
-     * filters query on a manager
-     * @param  Internal        $internal
-     * @return ConsultantQuery
-     */
-    public function filterByManager(Internal $internal)
-    {
-        return $this->filterByManagerId($internal->getId());
-    }
-
-    /**
-     * filters query on a manager id
-     * @param  int             $id
-     * @return ConsultantQuery
-     */
-    public function filterByManagerId($id)
-    {
-        return $this->useMissionOrderQuery()
-                ->filterByCurrent(true)
-                ->useMissionQuery()
-                    ->filterByManagerId($id)
-                ->endUse()
-            ->endUse();
-    }
-
-    /**
      * filters query on consultant status
      * @param  string          $status
      * @return ConsultantQuery
@@ -78,17 +53,9 @@ class ConsultantQuery extends BaseConsultantQuery
     public function filterByInternalReferer(Internal $internal)
     {
         return $this
-            ->setModelAlias('c')
-            ->innerJoin('c.MissionOrder cm')
-            ->innerJoin('cm.Mission m')
-
-            ->condition('crh', 'c.CrhId = ?', $internal->getId())
-
-            ->condition('current_mission', 'cm.Current = ?', true)
-            ->condition('manager', 'm.ManagerId = ?', $internal->getId())
-            ->combine(array('current_mission', 'manager'), 'and', 'current_manager')
-
-            ->where(array('crh', 'current_manager'), 'or')
+            ->filterByManager($internal)
+                ->_or()
+            ->filterByCrh($internal)
         ;
     }
 

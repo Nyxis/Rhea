@@ -4,6 +4,8 @@ namespace Extia\Bundle\UserBundle\Model;
 
 use Extia\Bundle\UserBundle\Model\om\BaseInternal;
 
+use Extia\Bundle\TaskBundle\Model\TaskQuery;
+
 use Extia\Bundle\GroupBundle\Model\GroupQuery;
 use Extia\Bundle\GroupBundle\Model\CredentialQuery;
 
@@ -158,5 +160,44 @@ class Internal extends BaseInternal  implements UserInterface
             ->find();
 
         return $consultantsId;
+    }
+
+    /**
+     * count consultants
+     * @return int
+     */
+    public function countConsultants()
+    {
+        return $this->hasVirtualColumn('nbConsultants') ?
+            $this->getVirtualColumn('nbConsultants') :
+            count($this->getConsultantsIds())
+        ;
+    }
+
+    /**
+     * count active tasks
+     * @return int
+     */
+    public function countActiveTasks()
+    {
+        return $this->hasVirtualColumn('nbActiveTasks') ?
+            $this->getVirtualColumn('nbActiveTasks') :
+            $this->getActiveTasks()->count()
+        ;
+    }
+
+    /**
+     * returns internal active assigned tasks
+     * @return PropelCollection|null
+     */
+    public function getActiveTasks()
+    {
+        return TaskQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->filterByAssignedTo($this->getId())
+            ->useNodeQuery()
+                ->filterByCurrent(true)
+            ->endUse()
+            ->find();
     }
 }

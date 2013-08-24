@@ -4,6 +4,7 @@ namespace Extia\Bundle\UserBundle\Form\Type;
 
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Extia\Bundle\UserBundle\Model\AgencyQuery;
+use Extia\Bundle\UserBundle\Model\PersonTypeQuery;
 
 use Extia\Bundle\MissionBundle\Model\ClientQuery;
 
@@ -12,10 +13,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Base form type for list filters
+ * Base form type for all admin form
  * @see Extia/Bundles/UserBundle/Resources/config/admin.xml
  */
-abstract class AdminFilterType extends AbstractType
+abstract class AdminType extends AbstractType
 {
     protected $securityContext;
 
@@ -30,7 +31,7 @@ abstract class AdminFilterType extends AbstractType
 
     /**
      * tests id current user is admin
-     * @return boolean [description]
+     * @return boolean
      */
     public function isUserAdmin()
     {
@@ -40,11 +41,38 @@ abstract class AdminFilterType extends AbstractType
     }
 
     /**
-     * adds a filter on agency
+     * adds a form for internal type
+     * @param [type] $builder [description]
+     * @param [type] $options [description]
+     */
+    public function addInternalTypeForm($codes, $builder, $options)
+    {
+        $internalTypes = PersonTypeQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->select(array('Id', 'Code'))
+            ->filterByCode($codes)
+            ->find();
+
+        $choices = array();
+        array_walk($internalTypes, function($row) use (&$choices) {
+            $choices[$row['Id']] = 'person_type.'.$row['Code'];
+        });
+
+        $builder->add('internal_type', 'choice', array(
+            'required' => false,
+            'expanded' => false,
+            'multiple' => false,
+            'label'    => 'admin.form.internal_type',
+            'choices'  => $choices
+        ));
+    }
+
+    /**
+     * adds a form for agency
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function addAgencyFilter(FormBuilderInterface $builder, array $options)
+    public function addAgencyForm(FormBuilderInterface $builder, array $options)
     {
         $agencies = AgencyQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -53,32 +81,32 @@ abstract class AdminFilterType extends AbstractType
 
         $choices = array();
         array_walk($agencies, function($row) use (&$choices) {
-            $choices[$row['Id']] = 'agency.'.$row['Code'];
+            $choices[$row['Id']] = 'admin.form.agency_choices.'.$row['Code'];
         });
 
         $builder->add('agency', 'choice', array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
-            'label'    => 'admin.filters.form.agency',
+            'label'    => 'admin.form.agency',
             'choices'  => $choices
         ));
     }
 
     /**
-     * adds a filter on an internal
+     * adds a form for an internal
      * @param string               $fieldName
      * @param array                $internalTypes
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function addInternalFilter($fieldName, $internalTypes, FormBuilderInterface $builder, array $options)
+    public function addInternalForm($fieldName, $internalTypes, FormBuilderInterface $builder, array $options)
     {
         $builder->add($fieldName, 'choice', array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
-            'label'    => 'admin.filters.form.'.$fieldName,
+            'label'    => 'admin.form.'.$fieldName,
             'choices'  => InternalQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->filterByType($internalTypes)
@@ -89,17 +117,17 @@ abstract class AdminFilterType extends AbstractType
     }
 
     /**
-     * adds a filter on an client
+     * adds a form for an client
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function addClientFilter(FormBuilderInterface $builder, array $options)
+    public function addClientForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('client', 'choice', array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
-            'label'    => 'admin.filters.form.client',
+            'label'    => 'admin.form.client',
             'choices'  => ClientQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->find()

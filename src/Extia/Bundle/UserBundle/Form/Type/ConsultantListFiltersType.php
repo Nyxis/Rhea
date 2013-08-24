@@ -2,7 +2,6 @@
 
 namespace Extia\Bundle\UserBundle\Form\Type;
 
-
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -11,7 +10,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  * Form type for list filters
  * @see Extia/Bundles/UserBundle/Resources/config/admin.xml
  */
-class ConsultantListFiltersType extends AdminFilterType
+class ConsultantListFiltersType extends AdminType
 {
     /**
      * @see AbstracType::getName()
@@ -68,16 +67,16 @@ class ConsultantListFiltersType extends AdminFilterType
         ));
 
         // agency
-        $this->addAgencyFilter($builder, $options);
+        $this->addAgencyForm($builder, $options);
 
         // manager
-        $this->addInternalFilter('manager', array('dir', 'ia'), $builder, $options);
+        $this->addInternalForm('manager', array('dir', 'ia'), $builder, $options);
 
         // crh
-        $this->addInternalFilter('crh', array('crh'), $builder, $options);
+        $this->addInternalForm('crh', array('crh'), $builder, $options);
 
         // client
-        $this->addClientFilter($builder, $options);
+        $this->addClientForm($builder, $options);
     }
 
 }
