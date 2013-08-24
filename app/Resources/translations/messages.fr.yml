@@ -35,6 +35,12 @@ datetime_format:
     ymdhis: 'd/m/Y H:i:s'
     ymdhi: 'd/m/Y H:i'
     mdhi: 'd/m H:i'
+dateinterval_format:
+    year: "{0} |{1} 1 an|]1, Inf] %year% ans"
+    month: "{0} |[1, Inf] %month% mois"
+
+Previous: Précédent
+Next: Suivant
 
 menu:
     dashboard: Organiseur

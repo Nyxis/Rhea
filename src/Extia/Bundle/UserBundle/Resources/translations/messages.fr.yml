@@ -6,10 +6,27 @@ save_button: Enregistrer
 add_button: Ajouter
 
 user_status:
+    active: actif
     placed: en mission
     ic: en intercontrat
     resigned: a démissioné
     recruited: embauche directe
+
+agency:
+    paris_media: Paris - Agence médias
+    paris_energy: Paris - Agence énergie
+    rha: Rhône Alpes
+
+admin:
+    filters:
+        form:
+            agency: Agence
+            manager: Manager
+            crh: Crh
+            client: Client
+            submit: Filtrer la liste
+            reset: Réinitialiser
+
 
 consultant:
     breadcrumbs:
@@ -33,11 +50,25 @@ consultant:
             edit: Edition
             new: Nouveau
         list:
-            header: Mes consultants
-            th_user: Consultant
-            th_email: Email
-            th_contacts: Téléphone(s)
+            header: Consultants
+            th_name: Consultant
+            th_status: Statut
+            th_mission: Mission
+            th_begin_date: Début de contrat
+            th_internals: Référents
             th_actions: Actions
+
+        filters:
+            header: Filtres
+            mine: Mes consultants
+            all: Tous les consultants
+            form:
+                display: Afficher
+                name: Nom
+                status: Statut
+
+        notifications:
+            filters_error: Les filtres soumis sont invalides.
 
         sidebar:
             button_new_consultant: Nouveau consultant

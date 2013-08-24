@@ -100,6 +100,38 @@ class Internal extends BaseInternal  implements UserInterface
     }
 
     /**
+     * builds and return trigram - firstname lastname
+     * @return string
+     */
+    public function getTryptedName($sep = ' - ')
+    {
+        return sprintf('%s%s%s',
+            $this->getTrigram(), $sep, $this->getLongname()
+        );
+    }
+
+    /**
+     * tests if current use is active
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->getResignation() === null;
+    }
+
+    /**
+     * calculate and returns date interval between now and contract begin date
+     * @return DateInterval
+     */
+    public function getSeniority()
+    {
+        $begin = $this->getContractBeginDate();
+        $ref   = $this->isActive() ? new \DateTime() : $this->getResignation();
+
+        return $begin->diff($ref);
+    }
+
+    /**
      * returns team user ids
      * @return array
      */

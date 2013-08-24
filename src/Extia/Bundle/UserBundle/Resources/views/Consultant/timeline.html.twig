@@ -27,19 +27,7 @@
                             {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'clt': user.consultant } only %}
                         </div>
                         <div class="pull-right status">
-                            {% if user.status == 'resigned' %}
-                                <span class="badge badge-info">
-                                    <i class="icon-signout"></i> {{ 'user_status.resigned'|trans }}
-                                </span>
-                            {% elseif user.status == 'ic' %}
-                                <span class="badge badge-important">
-                                    <i class="icon-warning-sign"></i> {{ 'user_status.ic'|trans }}
-                                </span>
-                            {% else %}
-                                <span class="badge badge-success">
-                                    <i class="icon-ok"></i> {{ 'user_status.placed'|trans }}
-                                </span>
-                            {% endif %}
+                            {% include 'ExtiaUserBundle:Consultant:status.html.twig' with { 'consultant': user.consultant } only %}
                         </div>
                     </div>
 

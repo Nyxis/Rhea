@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="extia_user.admin.admin_filters_form_type.class">Extia\Bundle\UserBundle\Form\Type\AdminFiltersType</parameter>
+        <parameter key="extia_user.admin.consultant_filters_form_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantListFiltersType</parameter>
+    </parameters>
+
+    <services>
+
+        <!-- Admin filters -->
+        <service id="extia_user.admin.admin_filters_form_type" class="%extia_user.admin.admin_filters_form_type.class%" abstract="true">
+            <argument type="service" id="security.context" />
+        </service>
+
+        <!-- Consultants list Form -->
+        <service id="extia_user.admin.consultant_filters_form" class="Symfony\Component\Form\Form" parent="extia.node.abstract_form">
+            <argument type="service" id="extia_user.admin.consultant_filters_form_type" />
+        </service>
+        <service id="extia_user.admin.consultant_filters_form_type" class="%extia_user.admin.consultant_filters_form_type.class%" parent="extia_user.admin.admin_filters_form_type">
+        </service>
+
+    </services>
+
+</container>

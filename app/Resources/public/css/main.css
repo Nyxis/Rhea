@@ -80,7 +80,7 @@ dl {
 .table {
     width: 100%;
 }
-.table td {
+.table td, .table thead th {
     vertical-align: middle;
 }
 .table td.actions, .table th.actions {
@@ -255,15 +255,6 @@ blockquote .button i {
     max-width: 90px;
     line-height: normal;
 }
-
-
-.user-admin .table td.image {
-    width: 65px;
-}
-.user-admin .table td.name {
-    padding-left: 0px;
-}
-
 
 
 /* ---------------- */
@@ -475,7 +466,53 @@ label.required:after{
     margin: 3px 3px;
 }
 
+/* ---------------- */
+/* admin            */
+/* ---------------- */
+th .wrap {
+    display: table-cell;
+    vertical-align: middle;
+}
+th .sorts {
+    display: table-cell;
+    padding-left: 10px;
+}
+th .sorts a {
+    display: block;
+    line-height: 0;
+    font-size: 10px;
+    margin-bottom: -2px;
+}
+th .sorts a.active {
+    color: #AAAAAA;
+}
 
+.admin-filters .form-horizontal {
+    padding: 0px;
+}
+.admin-filters .form-horizontal .control-label {
+    text-align: left;
+}
+.admin-filters .form-horizontal .control-label {
+    width: 80px;
+}
+.admin-filters .form-horizontal .controls {
+    margin-left: 90px;
+}
+.admin-filters .form-horizontal .control-group:last-child {
+    margin-bottom: 0px;
+}
+
+.user-admin .table td.image {
+    width: 65px;
+}
+.user-admin .table td.name {
+    padding-left: 0px;
+}
+.user-admin .table td.name a {
+    color: #434343;
+    font-size: 16px;
+}
 
 /* ---------------- */
 /* pagination       */
@@ -493,7 +530,12 @@ label.required:after{
 .btn-group.page-selector .inactive:hover {
     color: inherit;
 }
-
+.pagination {
+    margin: 5px 5px 0 0;
+}
+.pagination a {
+    color: #333333;
+}
 
 /* ---------------- */
 /* ajax             */

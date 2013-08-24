@@ -11,13 +11,13 @@
         <foreign-key foreignTable="person" phpName="Manager">
             <reference local="manager_id" foreign="id" />
         </foreign-key>
-        <foreign-key foreignTable="company" phpName="Client">
+        <foreign-key foreignTable="client">
             <reference local="client_id" foreign="id" />
         </foreign-key>
         <behavior name="timestampable" />
     </table>
 
-    <table name="company">
+    <table name="client">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
         <column name="title" type="VARCHAR" size="80" required="true" />
         <column name="description" type="VARCHAR" size="255" required="false" />

@@ -1,7 +1,7 @@
 UserBundle_internal_list:
     pattern: /
     defaults:
-        _controller: 'ExtiaUserBundle:Internal:teamList'
+        _controller: 'ExtiaUserBundle:AdminInternal:list'
         page: 1
     requirements:
         page: \d+

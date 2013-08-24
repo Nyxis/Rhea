@@ -280,7 +280,7 @@ Extia\Bundle\UserBundle\Model\Consultant:
         treeRight: 10
         treeLevel: 2
 
-Extia\Bundle\MissionBundle\Model\Company:
+Extia\Bundle\MissionBundle\Model\Client:
     tf1:
         title: e-Tf1
         description: Secteur d'activité média
