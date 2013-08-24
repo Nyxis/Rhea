@@ -92,17 +92,15 @@
 {% block sidebar %}
 <div class="row-fluid">
     <div class="span12">
-        <div style="margin-bottom: 20px;">
-            <div class="big-button-bar">
-                <a href="{{ path('UserBundle_consultant_edit', user.routing) }}" class="button large">
-                    <i class="icon-edit"></i>
-                    <span>{{ 'consultant.actions.edit_user'|trans }}</span>
-                </a>
-                <a href="#new_mission" data-toggle="modal" role="button" class="button large">
-                    <i class="icon-plus"></i>
-                    <span>{{ 'mission.admin.content.button_new'|trans }}</span>
-                </a>
-            </div>
+        <div class="big-button-bar">
+            <a href="{{ path('UserBundle_consultant_edit', user.routing) }}" class="button large">
+                <i class="icon-edit"></i>
+                <span>{{ 'consultant.actions.edit_user'|trans }}</span>
+            </a>
+            <a href="#new_mission" data-toggle="modal" role="button" class="button large">
+                <i class="icon-plus"></i>
+                <span>{{ 'mission.admin.content.button_new'|trans }}</span>
+            </a>
         </div>
     </div>
 </div>

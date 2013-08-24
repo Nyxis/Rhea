@@ -35,8 +35,8 @@ class MainMenuBuilder
     /**
      * creates a new menu item, including twitter bootstrap options
      *
-     * @param  MenuItem $menuItem
-     * @param  array    $options
+     * @param MenuItem $menuItem
+     * @param array    $options
      *
      * @return MenuItem created child
      */
@@ -121,7 +121,7 @@ class MainMenuBuilder
         if ($accessTeam) {
             $this->addTbChild($menu, array (
                 'label'      => 'menu.team',
-                'route'      => 'extia_user_internal_list_team',
+                'route'      => 'UserBundle_internal_list',
                 'current'    => $request->get('_menu') == 'team',
                 'icon'       => 'group',
                 'icon-white' => true

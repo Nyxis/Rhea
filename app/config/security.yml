@@ -10,6 +10,13 @@ security:
 
     role_hierarchy:
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN:
+            - ROLE_CONSULTANT_WRITE
+            - ROLE_CONSULTANT_READ
+            - ROLE_INTERNAL_WRITE
+            - ROLE_INTERNAL_READ
+            - ROLE_MISSION_WRITE
+            - ROLE_MISSION_READ
 
     providers:
         extia:

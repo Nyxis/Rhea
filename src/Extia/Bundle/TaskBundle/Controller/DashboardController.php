@@ -17,25 +17,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class DashboardController extends Controller
 {
     /**
-     * prints user timeline
-     * @param  Request  $request
-     * @return Response
+     * selects and returns all user tasks for dashboard
+     * @param  int   $userId
+     * @return array
      */
-    public function userDashboardAction(Request $request)
-    {
-        return $this->render('ExtiaTaskBundle:Dashboard:user_dashboard.html.twig', array(
-            'user' => $this->getUser()
-        ));
-    }
-
-    /**
-     * renders a partial timeline for current user, use knppaginator for lightweight loading
-     *
-     * @param  Request  $request
-     * @param  integer  $page
-     * @return Response
-     */
-    public function dashboardTimelineAction(Request $request, $page = 1)
+    protected function getUserDashboardTasks($userId, $page = 1)
     {
         if (empty($page) || $page < 1) {
             throw new NotFoundHttpException('Given page is invalid');
@@ -47,7 +33,7 @@ class DashboardController extends Controller
             ->joinWithTargettedUser()
             ->joinWithCurrentNodes()
 
-            ->filterByAssignedTo($this->getUser()->getId())
+            ->filterByAssignedTo($userId)
             ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('write')))
 
             ->orderByActivationDate()
@@ -58,11 +44,41 @@ class DashboardController extends Controller
         $maxPerPage = 10;
         $paged = array_slice($tasks, $page*$maxPerPage, $page*$maxPerPage + $maxPerPage);
 
+        return $paged;
+    }
+
+    /**
+     * prints user timeline
+     * @param  Request  $request
+     * @param  integer  $page
+     * @return Response
+     */
+    public function userDashboardAction(Request $request, $page = 1)
+    {
+        return $this->render('ExtiaTaskBundle:Dashboard:user_dashboard.html.twig', array(
+            'user'  => $this->getUser()
+        ));
+    }
+
+    /**
+     * renders a dashboard with given tasks
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function dashboardTimelineAction(Request $request, $tasks = array(), $userId = null)
+    {
+        if (empty($tasks)) {
+            $tasks = $this->getUserDashboardTasks(
+                empty($userId) ? $this->getUser()->getId() : $userId
+            );
+        }
+
         // split into differents arrays for time separation
         // (past, today, tomorrow, next week and so on...)
         $temporalizedTasks = array();
 
-        foreach ($paged as $task) {
+        foreach ($tasks as $task) {
             $key = $this->getTemporalKey($task);
             $key = is_numeric($key) ? $key : 'dashboard.timeline.header.'.$key;
             if (empty($temporalizedTasks[$key])) {

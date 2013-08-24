@@ -92,7 +92,7 @@
         </foreign-key>
     </table>
 
-    <table name="consultant_mission">
+    <table name="mission_order">
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
         <column name="consultant_id" type="INTEGER" required="true" />
         <column name="mission_id" type="INTEGER" required="true" />

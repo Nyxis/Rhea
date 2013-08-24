@@ -31,7 +31,7 @@
                                 <img src="{{ gravatar(internal.email, 50) }}"/>
                             </td>
                             <td class="name">
-                                <a href="{{ path('UserBundle_consultant_timeline', internal.routing) }}">{{ internal.longname }}</a><br/>
+                                <a href="{{ path('UserBundle_internal_timeline', internal.routing) }}">{{ internal.longname }}</a><br/>
                                 {{ internal.job.label }}
                             </td>
                             <td>{{ internal.email }}</td>
@@ -41,18 +41,13 @@
                             </td>
                             <td class="actions">
                                 <div class="btn-group">
-                                    {#<a class="button" href="{{ path('extia_user_internal_timeline', internal.routing) }}">#}
-                                        {#<i class="icon-tasks"></i>#}
-                                    {#</a>#}
+                                    <a class="button" href="{{ path('UserBundle_internal_timeline', internal.routing) }}">
+                                        <i class="icon-tasks"></i>
+                                    </a>
                                     {% if is_granted('ROLE_INTERNAL_WRITE', user) %}
-                                        {% block internal_action %}
-                                            <a class="button" href="{{ path('extia_user_manager_edit', internal.routing) }}">
-                                                <i class="icon-pencil"></i>
-                                            </a>
-                                            {#<a class="button" href="{{ path('extia_user_internal_delete', { 'id': internal.id }) }}">#}
-                                                {#<i class="icon-remove"></i>#}
-                                            {#</a>#}
-                                        {% endblock %}
+                                        <a class="button" href="{{ path('extia_user_manager_edit', internal.routing) }}">
+                                            <i class="icon-pencil"></i>
+                                        </a>
                                     {% endif %}
                                 </div>
                             </td>
