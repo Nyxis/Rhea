@@ -16,7 +16,7 @@ class ConsultantQuery extends BaseConsultantQuery
     {
         return $this
             ->setModelAlias('c')
-            ->innerJoin('c.ConsultantMission cm')
+            ->innerJoin('c.MissionOrder cm')
             ->innerJoin('cm.Mission m')
 
             ->condition('crh', 'c.CrhId = ?', $internal->getId())

@@ -4,7 +4,7 @@ namespace Extia\Bundle\MissionBundle\Controller;
 
 use Extia\Bundle\MissionBundle\Model\Mission;
 use Extia\Bundle\MissionBundle\Model\MissionQuery;
-use Extia\Bundle\UserBundle\Model\ConsultantMissionQuery;
+use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -13,7 +13,7 @@ class MissionController extends Controller
 {
     public function listAction(Request $request, $consultantId)
     {
-        $missions = ConsultantMissionQuery::create()
+        $missions = MissionOrderQuery::create()
                     ->joinWith('Mission m')
                     ->joinWith('m.Client')
                     ->joinWith('m.Manager')

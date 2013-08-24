@@ -41,7 +41,9 @@ body {
 .row-fluid [class*="span"] {
     min-height: auto;
 }
-
+.big-button-bar {
+    margin-bottom: 15px;
+}
 .badge {
     color: white;
     border: 0px solid #989898;
@@ -88,6 +90,9 @@ dl {
     word-wrap: break-word;
     overflow: hidden;
     position: relative;
+}
+.table tfoot td {
+    text-align: right;
 }
 .bolder {
     font-weight: bold;
@@ -205,30 +210,35 @@ blockquote .button i {
 .sidebar .box .badge.badge-user {
     background-color: #BBBBBB;
 }
-.clt-header {
+.clt-header, .int-header {
     margin-top: 10px;
 }
-.box-body .clt-header {
+.box-body .clt-header,
+.box-body .int-header {
     margin-top: 0px;
 }
-.clt-header .gravatar {
+.clt-header .gravatar,
+.int-header .gravatar {
     margin-left: 0px;
     padding-left: 0px;
 }
-.clt-badge {
+.clt-badge, .int-badge {
     margin-top: 20px;
 }
-.box-body .clt-badge {
+.box-body .clt-badge,
+.box-body .int-badge {
     margin-top: 0px;
 }
-.clt-badge a {
+.clt-badge a,
+.int-badge a {
     color: inherit;
 }
 .clt-badge h4 a:hover,
 .int-badge h4 a:hover {
     color: #005580 !important;
 }
-.black-box .clt-badge h4 a:hover {
+.black-box .clt-badge h4 a:hover,
+.black-box .int-badge h4 a:hover, {
     color: #CCCCCC !important;
 }
 
@@ -463,6 +473,25 @@ label.required:after{
 
 #appointement_form_meeting_date input {
     margin: 3px 3px;
+}
+
+
+
+/* ---------------- */
+/* pagination       */
+/* ---------------- */
+.btn-group.page-selector .inactive {
+    background: #e8e8e8;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Q2ZDZkNiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2U4ZThlOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d6d6d6), color-stop(100%, #e8e8e8));
+    background-image: -webkit-linear-gradient(top, #d6d6d6, #e8e8e8);
+    background-image: -moz-linear-gradient(top, #d6d6d6, #e8e8e8);
+    background-image: -o-linear-gradient(top, #d6d6d6, #e8e8e8);
+    background-image: linear-gradient(top, #d6d6d6, #e8e8e8); }
+}
+.btn-group.page-selector .inactive:hover {
+    color: inherit;
 }
 
 
