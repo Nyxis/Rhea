@@ -32,39 +32,13 @@ Extia\Bundle\UserBundle\Model\PersonTypeI18n:
         id: clt
         label: Consultant
 
-Extia\Bundle\UserBundle\Model\Job:
-    pdg:
-        id: ~
-    rh:
-        id: ~
-    ia:
-        id: ~
-    archi:
-        id: ~
-    dev:
-        id: ~
-    dev_front:
-        id: ~
-
-Extia\Bundle\UserBundle\Model\JobI18n:
-    pdgFr:
-        id: pdg
-        label: Président directeur général
-    rhFr:
-        id: rh
-        label: Responsable RH
-    iaFr:
-        id: ia
-        label: Responsable IA
-    archiFr:
-        id: archi
-        label: Architecte Logiciel
-    devFr:
-        id: dev
-        label: Développeur
-    devFrontFr:
-        id: dev_front
-        label: Développeur Front
+Extia\Bundle\UserBundle\Model\Agency:
+    paris_media:
+        Code: paris_media
+    paris_energy:
+        Code: paris_energy
+    rha:
+        Code: rha
 
 Extia\Bundle\GroupBundle\Model\Credential:
     admin:
@@ -208,9 +182,10 @@ Extia\Bundle\UserBundle\Model\Internal:
         email: afrey@extia.fr
         firstname: Arnaud
         lastname: Frey
+        trigram: AFR
         password: <?php echo sha1('afrey')."\n" ?>
         PersonTypeId: pdg
-        JobId: pdg
+        Job: Président directeur général
         GroupId: manager
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 1
@@ -220,9 +195,11 @@ Extia\Bundle\UserBundle\Model\Internal:
         email: pdantin@extia.fr
         firstname: Pauline
         lastname: Dantin
+        trigram: PDA
         password: <?php echo sha1('pdantin')."\n" ?>
+        AgencyId: paris_media
         PersonTypeId: crh
-        JobId: rh
+        Job: Responsable RH
         GroupId: crh
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 2
@@ -231,10 +208,12 @@ Extia\Bundle\UserBundle\Model\Internal:
     marine:
         email: mgiuliani@extia.fr
         firstname: Marine
-        lastname: Guiliani
+        lastname: Giuliani
+        trigram: MGI
         password: <?php echo sha1('mgiuliani')."\n" ?>
+        AgencyId: paris_media
         PersonTypeId: crh
-        JobId: rh
+        Job: CRH
         GroupId: crh
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 3
@@ -244,9 +223,11 @@ Extia\Bundle\UserBundle\Model\Internal:
         email: cgautier@extia.fr
         firstname: Caroline
         lastname: Gautier
+        trigram: CGA
         password: <?php echo sha1('cgautier')."\n" ?>
+        AgencyId: paris_media
         PersonTypeId: ia
-        JobId: ia
+        Job: Responsable ingénieur d'affaires
         GroupId: manager
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 12
@@ -259,10 +240,11 @@ Extia\Bundle\UserBundle\Model\Consultant:
         firstname: Kevin
         lastname: Arbouin
         password: <?php echo sha1('karbouin')."\n" ?>
+        AgencyId: paris_media
         mobile: "+33 6 12 34 56 78"
         telephone: "+33 1 12 34 56 78"
         PersonTypeId: clt
-        JobId: dev
+        Job: Développeur
         GroupId: consultant
         CrhId: pauline
         ContractBeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
@@ -274,8 +256,9 @@ Extia\Bundle\UserBundle\Model\Consultant:
         firstname: Quentin
         lastname: Cerny
         password: <?php echo sha1('qcerny')."\n" ?>
+        AgencyId: paris_media
         PersonTypeId: clt
-        JobId: archi
+        Job: Architecte
         GroupId: consultant
         CrhId: marine
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
@@ -287,8 +270,9 @@ Extia\Bundle\UserBundle\Model\Consultant:
         firstname: César
         lastname: Vidril
         password: <?php echo sha1('cvidril')."\n" ?>
+        AgencyId: paris_media
         PersonTypeId: clt
-        JobId: dev_front
+        Job: Développeur front
         GroupId: consultant
         CrhId: pauline
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>

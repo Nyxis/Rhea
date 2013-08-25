@@ -41,15 +41,7 @@ class TaskQuery extends BaseTaskQuery
      */
     public function joinWithTargettedUser($locale = null)
     {
-        return $this->joinWith('UserTarget', \Criteria::LEFT_JOIN)
-            ->joinWith('UserTarget.Job')
-            ->useUserTargetQuery(null, \Criteria::LEFT_JOIN)
-                ->useJobQuery()
-                    ->_if(empty($locale))->joinWithI18n()
-                    ->_else()->joinWithI18n($locale)
-                    ->_endif()
-                ->endUse()
-            ->endUse();
+        return $this->joinWith('UserTarget', \Criteria::LEFT_JOIN);
     }
 
     /**

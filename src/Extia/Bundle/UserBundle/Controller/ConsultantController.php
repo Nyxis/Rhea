@@ -39,8 +39,6 @@ class ConsultantController extends Controller
             throw new AccessDeniedHttpException(sprintf('You have any credentials to access consultants timeline.'));
         }
 
-        $locale = $request->attributes->get('_locale');
-
         $user = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->filterById($Id)
@@ -48,10 +46,6 @@ class ConsultantController extends Controller
 
             ->joinWith('Crh')
             ->joinWith('Group', \Criteria::LEFT_JOIN)
-            ->joinWith('Job')
-            ->useJobQuery()
-                ->joinWithI18n($locale)
-            ->endUse()
 
             ->findOne();
 
@@ -107,10 +101,6 @@ class ConsultantController extends Controller
     {
         $consultantCollection = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Job')
-            ->useJobQuery()
-                ->joinWithI18n()
-            ->endUse()
 
             ->useMissionOrderQuery()
                 ->filterByCurrent(true)
@@ -170,13 +160,7 @@ class ConsultantController extends Controller
 
         $consultantCollection = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Job')
-            ->useJobQuery()
-                ->joinWithI18n()
-            ->endUse()
-
             ->filterByInternalReferer($internal)
-
             ->find();
 
         return $this->render('ExtiaUserBundle:Consultant:list.html.twig', array(
@@ -211,10 +195,6 @@ class ConsultantController extends Controller
     {
         $consultant = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Job')
-            ->useJobQuery()
-                ->joinWithI18n()
-            ->endUse()
             ->filterByUrl($Url)
             ->findPk($Id);
 
