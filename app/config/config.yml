@@ -84,6 +84,7 @@ assetic:
                 - %kernel.root_dir%/../vendor/jquery/tokeninput/styles/token-input.css
                 - %kernel.root_dir%/../vendor/jquery/tokeninput/styles/token-input-facebook.css
                 - %kernel.root_dir%/../vendor/jquery/tokeninput/styles/token-input-mac.css
+                - %kernel.root_dir%/../app/Resources/public/css/token-input-rhea.css
 
         # all js compilation
         compiled_js:
