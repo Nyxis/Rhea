@@ -1,0 +1,145 @@
+@field-background-color: #fff;
+@field-border-radius: 4px;
+
+/* color and percent for values selected */
+@token-selected-color-top1: #f4f4f4;
+@token-selected-color-top2: #f0f0f0;
+@token-selected-color-top3: #e8e8e8;
+@token-selected-color-top4: #eeeeee;
+@token-selected-percent-top1: percentage(0.2);
+@token-selected-percent-top2: percentage(0.5);
+@token-selected-percent-top3: percentage(0.52);
+@token-selected-percent-top4: percentage(1);
+
+/* color and percent for li hover */
+@li-token-hover-color-top: #3875d7;
+@li-token-hover-percent-top: percentage(0.2);
+@li-token-hover-color: #2a62bc;
+@li-token-hover-percent: percentage(0.9);
+
+/* color font */
+@font-color-selected: #333;
+@font-color-closed: #777;
+
+.field-border-radius (@radius: 3px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -khtml-border-radius: @radius;
+}
+
+.init-marg-pad () {
+  margin: 0;
+  padding: 0;
+}
+
+ul.token-input-list-rhea {
+  overflow: hidden;
+  height: 32px;
+  width: 100%;
+  cursor: text;
+  z-index: 999;
+  background-color: @field-background-color;
+  .field-border-radius(@field-border-radius);
+  margin-bottom: 10px;
+  li {
+    list-style-type: none;
+    input {
+      border: 0;
+      width: 100%;
+      margin: 0;
+      background-color: @field-background-color;
+      &:focus { box-shadow: none; }
+    }
+  }
+}
+
+li {
+  &.token-input-token-rhea {
+    overflow: hidden;
+    margin: 5px;
+    font-weight: bold;
+    display: block;
+    .field-border-radius(3px);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@token-selected-color-top1, endColorstr=@token-selected-color-top4, GradientType=0);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(@token-selected-percent-top1, @token-selected-color-top1), color-stop(@token-selected-percent-top2, @token-selected-color-top2), color-stop(@token-selected-percent-top3, @token-selected-color-top3), color-stop(@token-selected-percent-top4, @token-selected-color-top4));
+    background-image: -webkit-linear-gradient(top, @token-selected-color-top1 @token-selected-percent-top1, @token-selected-color-top2 @token-selected-percent-top2, @token-selected-color-top3 @token-selected-percent-top3, @token-selected-color-top4 @token-selected-percent-top4);
+    background-image: -moz-linear-gradient(top, @token-selected-color-top1 @token-selected-percent-top1, @token-selected-color-top2 @token-selected-percent-top2, @token-selected-color-top3 @token-selected-percent-top3, @token-selected-color-top4 @token-selected-percent-top4);
+    background-image: -o-linear-gradient(top, @token-selected-color-top1 @token-selected-percent-top1, @token-selected-color-top2 @token-selected-percent-top2, @token-selected-color-top3 @token-selected-percent-top3, @token-selected-color-top4 @token-selected-percent-top4);
+    background-image: linear-gradient(@token-selected-color-top1 @token-selected-percent-top1, @token-selected-color-top2 @token-selected-percent-top2, @token-selected-color-top3 @token-selected-percent-top3, @token-selected-color-top4 @token-selected-percent-top4);
+    color: @font-color-selected;
+    border: 1px solid #aaaaaa;
+    line-height: 13px;
+    padding: 3px 20px 3px 5px;
+    position: relative;
+    cursor: default;
+    & > p {
+      float: left;
+      .init-marg-pad;
+      width: auto;
+      line-height: 13px;
+      color: @font-color-selected;
+      text-shadow: none;
+    }
+    span {
+      float: right;
+      color: @font-color-closed;
+      cursor: pointer;
+      display: block;
+      position: absolute;
+      right: 3px;
+      top: 1px;
+      width: 12px;
+      font-size: 18px;
+    }
+  }
+  .token-input-selected-token-rhea {
+    span {
+      color: #bbb;
+    }
+  }
+}
+
+div.token-input-dropdown-rhea {
+  position: absolute;
+  background-color: @field-background-color;
+  overflow: hidden;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  cursor: default;
+  p {
+    margin: 0;
+    padding: 5px;
+    font-weight: bold;
+    color: @font-color-closed;
+  }
+  ul {
+    .init-marg-pad;
+    li {
+      background-color: @field-background-color;
+      padding: 3px;
+      list-style-type: none;
+      &.token-input-dropdown-item-rhea {
+        background-color: #fafafa;
+      }
+      &.token-input-dropdown-item2-rhea {
+        background-color: @field-background-color;
+      }
+      em {
+        font-weight: bold;
+        font-style: normal;
+      }
+      &.token-input-selected-dropdown-item-rhea {
+        background-color: @li-token-hover-color-top;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@li-token-hover-color-top, endColorstr=@li-token-hover-color, GradientType=0);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(@li-token-hover-percent-top, @li-token-hover-color-top), color-stop(@li-token-hover-percent, @li-token-hover-color));
+        background-image: -webkit-linear-gradient(top, @li-token-hover-color-top @li-token-hover-percent-top, @li-token-hover-color @li-token-hover-percent);
+        background-image: -moz-linear-gradient(top, @li-token-hover-color-top @li-token-hover-percent-top, @li-token-hover-color @li-token-hover-percent);
+        background-image: -o-linear-gradient(top, @li-token-hover-color-top @li-token-hover-percent-top, @li-token-hover-color @li-token-hover-percent);
+        background-image: linear-gradient(@li-token-hover-color-top @li-token-hover-percent-top, @li-token-hover-color @li-token-hover-percent);
+        color: @field-background-color;
+      }
+    }
+  }
+}
