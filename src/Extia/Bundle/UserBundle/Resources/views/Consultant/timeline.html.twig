@@ -56,11 +56,14 @@
                             <h5>{{ 'consultant.details.contract.header'|trans }}</h5>
                             <ul>
                                 <li><i class="icon-signin"></i> {{ 'consultant.details.contract.begin'|trans }} {{ user.contractBeginDate('date_format.ymd'|trans) }}</li>
+
+                                {#
                                 {% if user.contractEndDate is not empty %}
                                     <li>
                                         <i class="icon-signout"></i> {{ 'consultant.details.contract.end'|trans }} {{ user.contractEndDate('date_format.ymd'|trans) }}
                                     </li>
                                 {% endif %}
+                                #}
                             </ul>
                         </div>
                         <div class="span4 internals">

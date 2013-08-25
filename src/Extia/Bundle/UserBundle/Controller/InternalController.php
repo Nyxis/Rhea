@@ -48,12 +48,6 @@ class InternalController extends Controller
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->filterById($Id)
             ->filterByUrl($Url)
-
-            ->joinWith('Job')
-            ->useJobQuery()
-                ->joinWithI18n($locale)
-            ->endUse()
-
             ->findOne();
 
         if (empty($user)) {
@@ -288,10 +282,6 @@ class InternalController extends Controller
     {
         $internal = InternalQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Job')
-            ->useJobQuery()
-                ->joinWithI18n()
-            ->endUse()
             ->findPk($Id);
 
         if (empty($internal)) {

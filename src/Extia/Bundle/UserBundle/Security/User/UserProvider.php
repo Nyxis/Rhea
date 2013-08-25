@@ -31,14 +31,7 @@ class UserProvider implements UserProviderInterface
                 ->_else()
                     ->filterByEmail($username)
                 ->_endif()
-
                 ->joinWith('Group')
-
-                ->joinWith('Job')
-                ->useJobQuery()
-                    ->joinWithI18n()
-                ->endUse()
-
                 ->findOne();
             ;
 
