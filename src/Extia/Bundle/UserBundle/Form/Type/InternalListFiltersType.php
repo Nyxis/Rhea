@@ -55,13 +55,13 @@ class InternalListFiltersType extends AdminType
         ));
 
         // internal type
-        $this->addInternalTypeForm(array('dir', 'ia', 'crh', 'pdg'), $builder, $options);
+        $this->addInternalTypeForm('internal_type', array('dir', 'ia', 'crh', 'pdg'), $builder);
 
         // agency
-        $this->addAgencyForm($builder, $options);
+        $this->addAgencyForm($builder);
 
         // manager
-        $this->addInternalForm('parent', array('dir', 'ia', 'crh', 'pdg'), $builder, $options);
+        $this->addInternalForm('parent', array('dir', 'ia', 'crh', 'pdg'), $builder);
 
         // ic option
         $builder->add('with_ic', 'checkbox', array(

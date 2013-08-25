@@ -163,21 +163,21 @@ class MainMenuBuilder
         ));
         $adminMenu->setAttribute('class', sprintf('parent%s', $adminActive ? ' open' : ''));
 
-        // managers
-        $this->addTbChild($adminMenu, array (
-            'label'      => 'menu.managers',
-            'route'      => 'extia_user_manager_list',
-            'icon'       => 'eur',
-            'icon-white' => true
-        ));
+        // // managers
+        // $this->addTbChild($adminMenu, array (
+        //     'label'      => 'menu.managers',
+        //     'route'      => 'extia_user_manager_list',
+        //     'icon'       => 'eur',
+        //     'icon-white' => true
+        // ));
 
-        // crh
-        $this->addTbChild($adminMenu, array (
-            'label'      => 'menu.crh',
-            'route'      => 'extia_user_crh_list',
-            'icon'       => 'group',
-            'icon-white' => true
-        ));
+        // // crh
+        // $this->addTbChild($adminMenu, array (
+        //     'label'      => 'menu.crh',
+        //     'route'      => 'extia_user_crh_list',
+        //     'icon'       => 'group',
+        //     'icon-white' => true
+        // ));
 
         // groups
         $this->addTbChild($adminMenu, array (

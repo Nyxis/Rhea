@@ -1,99 +1,11 @@
-{% extends 'ExtiaUserBundle::profile.html.twig' %}
+{% extends 'ExtiaUserBundle:AdminInternal:form.html.twig' %}
 
-{% block nav_tabs_profile %}
-    <li class="active"><a data-toggle="tab" href="#civility"><i class="icon-globe"></i> {{ 'internal.admin.edit.civility'|trans }}</a></li>
-    <li class=""><a data-toggle="tab" href="#file"><i class="icon-hdd"></i> {{ 'internal.admin.edit.file'|trans }}</a></li>
+{% block inactive_breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('UserBundle_internal_timeline', internal.routing) }}">{{ internal.longName }}</a></li>
 {% endblock %}
-
-{% block main_content %}
-    <div id="civility" class="tab-pane active">
-        <div class="padded">
-            <form id="group-form" class="fill-up" method="POST">
-                <div class="row-fluid">
-                    <div class="span2">
-                        {% if gravatar(form.person.email.vars.value, 165) is not null %}
-                            {% set img = gravatar(form.person.email.vars.value, 165) %}
-                        {% else %}
-                            {% set img = asset('/images/defaut-avatar.png') %}
-                        {% endif %}
-                        <img src="{{ img }}" alt="default avatar" title="{{ 'internal.admin.edit.img.avatar.title'|trans }}" />
-                    </div>
-                    <div class="span10">
-                        <p>
-                            {{ form_label(form.person.firstname) }}
-                            {{ form_errors(form.person.firstname) }}
-                            {{ form_widget(form.person.firstname) }}
-                        </p>
-                        <p>
-                            {{ form_label(form.person.lastname) }}
-                            {{ form_errors(form.person.lastname) }}
-                            {{ form_widget(form.person.lastname) }}
-                        </p>
-                        <p>
-                            {{ form_label(form.person.email) }}
-                            {{ form_errors(form.person.email) }}
-                            {{ form_widget(form.person.email) }}
-                        </p>
-                    </div>
-                </div>
-                <div class="row-fluid profile-label">
-                    <div class="span12">
-                        <p>
-                            {{ form_label(form.person.telephone) }}
-                            {{ form_errors(form.person.telephone) }}
-                            {{ form_widget(form.person.telephone) }}
-                        </p>
-                        <p>
-                            {{ form_label(form.person.mobile) }}
-                            {{ form_errors(form.person.mobile) }}
-                            {{ form_widget(form.person.mobile) }}
-                        </p>
-                        <div>
-                            {{ form_label(form.password) }}
-                            {{ form_errors(form.password) }}
-                            {{ form_widget(form.password) }}
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div id="file" class="tab-pane">
-        <div class="padded">
-            Ici tous les documents sur le suivi du internal
-        </div>
-    </div>
-{% endblock %}
-
 {% block current_breadcrumb %}
-    <li><a href="#">{{ internal.longName }}</a></li>
     <li class="active"><a href="#">{{ 'internal.admin.breadcrumbs.edit'|trans }}</a></li>
 {% endblock %}
 
 {% block form_header %}{{ 'internal.admin.edit.header'|trans({ '%internal_name%': internal.longName }) }}{% endblock %}
-
-{% block stylesheets %}
-    {{  parent() }}
-    <style>
-        .fill-up label {
-            display: inline;
-        }
-
-        .fill-up p, .fill-up .span12>div, .fill-up div.control-group {
-            padding-left: 140px;
-            width: 100%;
-            float: left;
-        }
-
-        .fill-up p label, .fill-up .span12>div>label, .fill-up div.control-group>label {
-            float: left;
-            margin-left: -140px;
-            text-align: right;
-            width: 130px;
-        }
-
-        .fill-up .profile-label  {
-            margin-top: 20px;
-        }
-    </style>
-{% endblock %}

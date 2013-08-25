@@ -2,8 +2,10 @@ UserBundle_internal_list:
     pattern: /
     defaults:
         _controller: 'ExtiaUserBundle:AdminInternal:list'
+        _format: html
         page: 1
     requirements:
+        _format: html
         page: \d+
 
 UserBundle_internal_timeline:
@@ -11,50 +13,29 @@ UserBundle_internal_timeline:
     defaults:
         _controller: 'ExtiaUserBundle:Internal:timeline'
         _format: html
-        _menu: team
     requirements:
         Id: \d+
         _format: html
 
-
-
-
-
-extia_user_manager_list:
-    pattern: /manager/{page}
-    defaults: { _controller: 'ExtiaUserBundle:Internal:list', page: 1 }
+UserBundle_internal_edit:
+    pattern: /{Id}/{Url}/edit
+    defaults:
+        _controller: 'ExtiaUserBundle:AdminInternal:edit'
+        _format: html
     requirements:
-        page: \d+
+        Id: \d+
+        _format: html
 
-extia_user_manager_new:
-    pattern: /manager/new
-    defaults: { _controller: 'ExtiaUserBundle:Internal:new' }
-
-extia_user_manager_edit:
-    pattern: /manager/{Id}/{Url}/edit
-    defaults: { _controller: 'ExtiaUserBundle:Internal:edit' }
+UserBundle_internal_new:
+    pattern: /new
+    defaults:
+        _controller: 'ExtiaUserBundle:AdminInternal:new'
+        _format: html
     requirements:
-        id: \d+
-        firstname: \w+
-        lastname: \w+
+        _format: html
 
-extia_user_crh_list:
-    pattern: /crh/{page}
-    defaults: { _controller: 'ExtiaUserBundle:Crh:list', page: 1 }
-    requirements:
-        page: \d+
 
-extia_user_crh_new:
-    pattern: /crh/new
-    defaults: { _controller: 'ExtiaUserBundle:Crh:new' }
 
-extia_user_crh_edit:
-    pattern: /crh/edit/{Id}/{Url}/edit
-    defaults: { _controller: 'ExtiaUserBundle:Crh:edit' }
-    requirements:
-        id: \d+
-        firstname: \w+
-        lastname: \w+
 
 extia_user_ajax_list:
     pattern: /manager/ajax-list

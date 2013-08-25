@@ -230,23 +230,92 @@ class AdminInternalController extends Controller
         ));
     }
 
+    /**
+     * renders a new consultant form
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function newAction(Request $request)
+    {
+        $internal = new Internal();
 
+        return $this->renderForm(
+            $request,
+            $internal,
+            'ExtiaUserBundle:AdminInternal:new.html.twig'
+        );
+    }
 
+    /**
+     * renders an edit form for given user id
+     *
+     * @param Request $request
+     * @param int     $id
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return Response
+     */
+    public function editAction(Request $request, Internal $internal)
+    {
+        return $this->renderForm(
+            $request,
+            $internal,
+            'ExtiaUserBundle:AdminInternal:edit.html.twig'
+        );
+    }
 
+    /**
+     * executes form on given consultant and renders it on given template
+     *
+     * @param Request    $request
+     * @param Consultant $consultant
+     * @param string     $template
+     *
+     * @return Response
+     */
+    public function renderForm(Request $request, Internal $internal, $template)
+    {
+        $isNew = $internal->isNew();
 
+        // default under the root node
+        $parentId = InternalQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->select('Id')
+            ->findRoot();
 
+        if (!$isNew) {
+            $parent = $internal->getParent();
+            if (!empty($parent)) {
+                $parentId = $parent->getId();
+            }
+        }
 
+        $form = $this->get('form.factory')
+            ->create('internal_form', $internal, array(
+                'internal_id' => $isNew ? null : $internal->getId()
+            ))
+        ;
 
+        // unmapped data
+        $form->get('parent')->setData($parentId);
 
+        if ($request->request->has($form->getName()) &&
+            $this->get('extia_user.admin.internal_form_handler')->handle($form, $request) ) {
 
+            if ($isNew) { // redirect on edit if was new
+                return $this->redirect($this->get('router')->generate(
+                    'UserBundle_internal_edit', $internal->getRouting()
+                ));
+            }
+        }
 
-
-
-
-
-
-
-
+        return $this->render($template, array(
+            'internal' => $internal,
+            'form'     => $form->createView()
+        ));
+    }
 
 
 
@@ -284,87 +353,4 @@ class AdminInternalController extends Controller
         return JsonResponse::create($json);
     }
 
-    /**
-     * renders a new consultant form
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function newAction(Request $request)
-    {
-        $internal = new Internal();
-
-        $form = $this->renderForm($request, $internal);
-
-        return $this->render('ExtiaUserBundle:Internal:new.html.twig', array (
-            'internal' => $internal,
-            'form'     => $form->createView(),
-            'locales'  => $this->container->getParameter('extia_group.managed_locales')
-        ));
-    }
-
-    /**
-     * renders an edit form for given user id
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return Response
-     */
-    public function editAction(Request $request, $Id)
-    {
-        $internal = InternalQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->findPk($Id);
-
-        if (empty($internal)) {
-            throw new NotFoundHttpException(sprintf('Any consultant found for given id, "%s" given.', $Id));
-        }
-
-        $form = $this->renderForm($request, $internal);
-
-        return $this->render('ExtiaUserBundle:Internal:edit.html.twig', array (
-            'internal' => $internal,
-            'form'     => $form->createView(),
-            'locales'  => $this->container->getParameter('extia_group.managed_locales')
-        ));
-    }
-
-    /**
-     * executes form on given consultant and renders it on given template
-     *
-     * @param Request    $request
-     * @param Consultant $consultant
-     * @param string     $template
-     *
-     * @return Response
-     */
-    public function renderForm(Request $request, Internal $internal)
-    {
-        $form = $this->get('form.factory')->create('manager', $internal, array ());
-        $isNew = $internal->isNew();
-
-        if ($request->request->has($form->getName())) {
-
-            if ($this->get('extia_group.form.group_handler')->handle($form, $request)) {
-
-                // success message
-                $this->get('notifier')->add(
-                    'success', 'manager.admin.notification.save_success',
-                    array ('%manager_name%' => $internal->getLongName())
-                );
-
-                // redirect on edit if was new
-                if ($isNew) {
-                    return $this->redirect($this->get('router')->generate(
-                        'extia_user_manager_edit', array ('id' => $internal->getId())
-                    ));
-                }
-            }
-        }
-
-        return $form;
-    }
 }

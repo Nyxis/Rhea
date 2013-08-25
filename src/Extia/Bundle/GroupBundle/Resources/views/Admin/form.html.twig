@@ -29,15 +29,3 @@
     </div>
 </div>
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $('a[data-form]').on('click', function(e) {
-                e.preventDefault();
-                $($(this).data('form')).trigger('submit');
-            });
-        });
-    </script>
-{% endblock %}

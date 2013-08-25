@@ -21,6 +21,9 @@ class InternalQuery extends BaseInternalQuery
             ->leftJoin('ConsultantRelatedByCrhId CrhClt')
             ->leftJoin('ConsultantRelatedByManagerId MngClt')
 
+            ->groupBy('CrhClt.Id')
+            ->groupBy('MngClt.Id')
+
             // ->withColumn('COUNT(`CrhClt`.`id`)', 'nbByCrh')
             // ->withColumn('COUNT(`MngClt`.`id`)', 'nbByMng')
             ->withColumn('COUNT(`MngClt`.`id`) + COUNT(`CrhClt`.`id`)', 'nbConsultants')
@@ -50,17 +53,11 @@ class InternalQuery extends BaseInternalQuery
         $this->isCountingTasks = true;
 
         return $this
-            ->withColumn('"0"', 'nbPastTasks')
+            ->leftJoin('Person.TaskRelatedByAssignedTo')
+            ->leftJoin('TaskRelatedByAssignedTo.Node')
 
-            // ->join('Person.TaskRelatedByAssignedTo', \Criteria::LEFT_JOIN)
-            // ->condition('test', 'Person.Id = TaskRelatedByAssignedTo.AssignedTo')
-            // ->setJoinCondition('TaskRelatedByAssignedTo', 'test')
-
-            // ->leftJoin('Person.TaskRelatedByAssignedTo')
-            // ->leftJoin('TaskRelatedByAssignedTo.Node')
-
-            // ->withColumn('SUM(if(task.completion_date > '.date('Y-m-d').' AND workflow_node.current = 1, 1, 0))', 'nbPastTasks')
-            // ->withColumn('SUM(if(workflow_node.current = 1, 1, 0))', 'nbActiveTasks')
+            ->withColumn('SUM(if(task.completion_date < "'.date('Y-m-d H:i:s').'" AND workflow_node.current = 1, 1, 0))', 'nbPastTasks')
+            ->withColumn('SUM(if(workflow_node.current = 1, 1, 0))', 'nbActiveTasks')
         ;
     }
 

@@ -1,0 +1,86 @@
+{% extends 'ExtiaUserBundle:AdminInternal:layout.html.twig' %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="tabbable box">
+                <div class="tab-header">{% block form_header %}{% endblock %}</div>
+                <form id="internal-form" class="form-horizontal" method="POST" {{ form_enctype(form) }}>
+                    {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#general">{{ 'internal.admin.form.tab.general'|trans }}</a></li>
+                        <li><a data-toggle="tab" href="#security">{{ 'internal.admin.form.tab.security'|trans }}</a></li>
+                    </ul>
+                    <div class="tab-content padded">
+                        <div id="general" class="tab-pane active">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <h4>{{ 'internal.admin.form.header.civility'|trans }}</h4>
+                                    {% block civility %}
+                                        {{ form_row(form.lastname) }}
+                                        {{ form_row(form.firstname) }}
+                                        {{ form_row(form.birthdate) }}
+
+
+                                        <div class=" control-group" id="{{ form.image.vars.id }}">
+                                            {{ form_label(form.image) }}
+                                            <div class=" controls">
+                                                {{ form_widget(form.image, { 'attr': { 'title': 'internal.admin.form.image_button'|trans, 'data-document': true } }) }}
+                                            </div>
+                                        </div>
+
+                                    {% endblock %}
+                                </div>
+                                <div class="span6">
+                                    <h4>{{ 'internal.admin.form.header.extia'|trans }}</h4>
+                                    {% block extia %}
+                                        {{ form_row(form.trigram) }}
+                                        {{ form_row(form.person_type_id) }}
+                                        {{ form_row(form.parent) }}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <h4>{{ 'internal.admin.form.header.contact'|trans }}</h4>
+                                    {% block contact %}
+                                        {{ form_row(form.email) }}
+                                        {{ form_row(form.telephone) }}
+                                        {{ form_row(form.mobile) }}
+                                    {% endblock %}
+                                </div>
+                                <div class="span6">
+                                    <h4>{{ 'internal.admin.form.header.authentication'|trans }}</h4>
+                                    {% block authentication %}
+                                        {{ form_row(form.password) }}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                            {{ form_rest(form) }}
+                        </div>
+                        <div id="security" class="tab-pane">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="big-button-bar">
+            <a href="#" class="button large" data-form="#internal-form">
+                <i class="icon-ok"></i>
+                <span>{{ 'admin.buttons.save'|trans }}</span>
+            </a>
+            <a href="{{ path('UserBundle_internal_list') }}" class="button large">
+                <i class="icon-reply"></i>
+                <span>{{ 'admin.buttons.back'|trans }}</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

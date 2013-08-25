@@ -31,6 +31,7 @@ admin:
         client: Client
         internal_type: Poste
         parent: Dans l'équipe de
+        sup_id: Dans l'équipe de
     filters:
         form:
             submit: Filtrer la liste
@@ -172,6 +173,31 @@ internal:
                 name: Nom
                 with_past_tasks: A des tâches en retard
                 with_ic: A des intercontrats
+        form:
+            tab:
+                general: Info générales
+                security: Droits d'accès
+            header:
+                civility: Etat civil
+                extia: Extia
+                contact: Contact
+                authentication: Authentification
+
+            lastname: Nom
+            firstname: Prénom
+            image: Photo
+            image_button: Sélectionner
+            birthdate: Date de naissance
+            trigram: Trigramme
+            email: Email
+            telephone: Téléphone
+            mobile: Mobile
+            password: Mot de passe
+            confirm_password: Confirmez
+
+        new:
+            header: Nouvel interne
+
         edit:
             header: Edition de l'interne %internal_name%
             civility: Civilité

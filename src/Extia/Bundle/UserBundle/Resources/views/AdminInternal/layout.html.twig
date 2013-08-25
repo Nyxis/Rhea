@@ -1,0 +1,7 @@
+{% extends 'ExtiaUserBundle::admin_layout.html.twig' %}
+
+{% block body_class %}user-admin{% endblock %}
+
+{% block inactive_breadcrumb %}
+    <li><a href="{{ path('UserBundle_internal_list') }}"><i class="icon-group"></i> {{ 'menu.team'|trans }}</a></li>
+{% endblock %}

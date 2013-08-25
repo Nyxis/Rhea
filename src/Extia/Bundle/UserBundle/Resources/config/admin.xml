@@ -5,13 +5,17 @@
 
     <parameters>
         <parameter key="extia_user.admin.admin_form_type.class">Extia\Bundle\UserBundle\Form\Type\AdminType</parameter>
+
         <parameter key="extia_user.admin.consultant_filters_form_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantListFiltersType</parameter>
+
         <parameter key="extia_user.admin.internal_filters_form_type.class">Extia\Bundle\UserBundle\Form\Type\InternalListFiltersType</parameter>
+        <parameter key="extia_user.admin.internal_form_type.class">Extia\Bundle\UserBundle\Form\Type\InternalType</parameter>
+        <parameter key="extia_user.admin.internal_form_handler.class">Extia\Bundle\UserBundle\Form\Handler\InternalHandler</parameter>
     </parameters>
 
     <services>
 
-        <!-- Admin filters -->
+        <!-- Admin form -->
         <service id="extia_user.admin.admin_form_type" class="%extia_user.admin.admin_form_type.class%" abstract="true">
             <argument type="service" id="security.context" />
         </service>
@@ -29,6 +33,18 @@
         </service>
         <service id="extia_user.admin.internal_filters_form_type" class="%extia_user.admin.internal_filters_form_type.class%" parent="extia_user.admin.admin_form_type">
         </service>
+
+        <!-- Internal form -->
+        <service id="extia_user.admin.internal_form_type" class="%extia_user.admin.internal_form_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="internal_form" />
+        </service>
+        <service id="extia_user.admin.internal_form_handler" class="%extia_user.admin.internal_form_handler.class%">
+            <argument type="service" id="notifier" />
+            <argument type="service" id="logger" />
+            <argument>%kernel.debug%</argument>
+        </service>
+
 
     </services>
 

@@ -67,16 +67,16 @@ class ConsultantListFiltersType extends AdminType
         ));
 
         // agency
-        $this->addAgencyForm($builder, $options);
+        $this->addAgencyForm($builder);
 
         // manager
-        $this->addInternalForm('manager', array('dir', 'ia'), $builder, $options);
+        $this->addInternalForm('manager', array('dir', 'ia'), $builder);
 
         // crh
-        $this->addInternalForm('crh', array('crh'), $builder, $options);
+        $this->addInternalForm('crh', array('crh'), $builder);
 
         // client
-        $this->addClientForm($builder, $options);
+        $this->addClientForm($builder);
     }
 
 }

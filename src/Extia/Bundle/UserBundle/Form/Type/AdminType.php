@@ -2,10 +2,12 @@
 
 namespace Extia\Bundle\UserBundle\Form\Type;
 
+use Extia\Bundle\UserBundle\Form\DataTransformer\InternalCredentialsDataTransformer;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Extia\Bundle\UserBundle\Model\AgencyQuery;
 use Extia\Bundle\UserBundle\Model\PersonTypeQuery;
 
+use Extia\Bundle\GroupBundle\Model\GroupQuery;
 use Extia\Bundle\MissionBundle\Model\ClientQuery;
 
 use Symfony\Component\Form\AbstractType;
@@ -42,10 +44,10 @@ abstract class AdminType extends AbstractType
 
     /**
      * adds a form for internal type
-     * @param [type] $builder [description]
-     * @param [type] $options [description]
+     * @param FormBuilderInterface $builder
+     * @param array                $options
      */
-    public function addInternalTypeForm($codes, $builder, $options)
+    public function addInternalTypeForm($fieldName, $codes, $builder, $options = array())
     {
         $internalTypes = PersonTypeQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -58,13 +60,13 @@ abstract class AdminType extends AbstractType
             $choices[$row['Id']] = 'person_type.'.$row['Code'];
         });
 
-        $builder->add('internal_type', 'choice', array(
+        $builder->add($fieldName, 'choice', array_replace_recursive(array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
             'label'    => 'admin.form.internal_type',
             'choices'  => $choices
-        ));
+        ), $options));
     }
 
     /**
@@ -72,7 +74,7 @@ abstract class AdminType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function addAgencyForm(FormBuilderInterface $builder, array $options)
+    public function addAgencyForm(FormBuilderInterface $builder, array $options = array())
     {
         $agencies = AgencyQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -84,13 +86,13 @@ abstract class AdminType extends AbstractType
             $choices[$row['Id']] = 'admin.form.agency_choices.'.$row['Code'];
         });
 
-        $builder->add('agency', 'choice', array(
+        $builder->add('agency', 'choice', array_replace_recursive(array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
             'label'    => 'admin.form.agency',
             'choices'  => $choices
-        ));
+        ), $options));
     }
 
     /**
@@ -100,9 +102,9 @@ abstract class AdminType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function addInternalForm($fieldName, $internalTypes, FormBuilderInterface $builder, array $options)
+    public function addInternalForm($fieldName, $internalTypes, FormBuilderInterface $builder, array $options = array())
     {
-        $builder->add($fieldName, 'choice', array(
+        $builder->add($fieldName, 'choice', array_replace_recursive(array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
@@ -111,9 +113,10 @@ abstract class AdminType extends AbstractType
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->filterByType($internalTypes)
                 ->filterByActive()
+                ->orderByTreeLeft()
                 ->find()
                 ->toKeyValue('Id', 'TryptedName')
-        ));
+        ), $options));
     }
 
     /**
@@ -121,9 +124,9 @@ abstract class AdminType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function addClientForm(FormBuilderInterface $builder, array $options)
+    public function addClientForm(FormBuilderInterface $builder, array $options = array())
     {
-        $builder->add('client', 'choice', array(
+        $builder->add('client', 'choice', array_replace_recursive(array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
@@ -132,6 +135,44 @@ abstract class AdminType extends AbstractType
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->find()
                 ->toKeyValue('Id', 'Title')
+        ), $options));
+    }
+
+    /**
+     * adds a form for a group
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function addGroupForm(FormBuilderInterface $builder, array $options = array())
+    {
+        $builder->add('group_id', 'choice', array_replace_recursive(array(
+            'required' => true,
+            'expanded' => false,
+            'multiple' => false,
+            'label'    => 'admin.form.client',
+            'choices'  => GroupQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->find()
+                ->toKeyValue('Id', 'Label')
+        ), $options));
+    }
+
+    /**
+     * adds a form for a person credential list
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function addPersonCredentialForm(FormBuilderInterface $builder, array $options = array())
+    {
+        $internalId = null;
+        if (!empty($options['internal_id'])) {
+            $internalId = $options['internal_id'];
+        }
+        unset($options['internal_id']);
+
+        $builder->add($builder
+            ->create('PersonCredentials', 'credentials_form', $options)
+            ->addModelTransformer(new InternalCredentialsDataTransformer($internalId)
         ));
     }
 

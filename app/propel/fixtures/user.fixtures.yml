@@ -187,6 +187,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         PersonTypeId: pdg
         Job: Président directeur général
         GroupId: manager
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 1
         treeRight: 14
@@ -202,6 +203,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         PersonTypeId: crh
         Job: Responsable RH
         GroupId: crh
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 2
         treeRight: 11
@@ -216,6 +218,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         PersonTypeId: crh
         Job: CRH
         GroupId: crh
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 3
         treeRight: 6
@@ -231,6 +234,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         PersonTypeId: ia
         Job: Responsable ingénieur d'affaires
         GroupId: manager
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 12
         treeRight: 13
@@ -250,6 +254,7 @@ Extia\Bundle\UserBundle\Model\Consultant:
         GroupId: consultant
         CrhId: pauline
         ManagerId: caroline
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
         treeLeft: 7
         treeRight: 8
@@ -265,6 +270,7 @@ Extia\Bundle\UserBundle\Model\Consultant:
         GroupId: consultant
         CrhId: marine
         ManagerId: caroline
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
         treeLeft: 4
         treeRight: 5
@@ -280,6 +286,7 @@ Extia\Bundle\UserBundle\Model\Consultant:
         GroupId: consultant
         CrhId: pauline
         ManagerId: caroline
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
         treeLeft: 9
         treeRight: 10

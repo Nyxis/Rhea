@@ -1,6 +1,4 @@
-{% extends 'ExtiaUserBundle::admin_consultant_layout.html.twig' %}
-
-{% block body_class %}user-admin{% endblock %}
+{% extends 'ExtiaUserBundle:AdminInternal:layout.html.twig' %}
 
 {% block current_breadcrumb %}
     <li class="active"><a href="#">{{ 'internal.breadcrumbs.list'|trans }}</a></li>
@@ -61,7 +59,7 @@
                                         <i class="icon-tasks"></i>
                                     </a>
                                     {% if is_granted('ROLE_INTERNAL_WRITE', user) %}
-                                        <a class="button" href="{{ path('extia_user_manager_edit', internal.routing) }}">
+                                        <a class="button" href="{{ path('UserBundle_internal_edit', internal.routing) }}">
                                             <i class="icon-pencil"></i>
                                         </a>
                                     {% endif %}
@@ -88,7 +86,7 @@
     <div class="span12">
         <div class="big-button-bar">
         {% if is_granted('ROLE_INTERNAL_WRITE', user) %}
-            <a href="{{ path('UserBundle_consultant_new') }}" class="button large">
+            <a href="{{ path('UserBundle_internal_new') }}" class="button large">
                 <i class="icon-plus"></i>
                 <span>{{ 'internal.admin.sidebar.button_new'|trans }}</span>
             </a>
