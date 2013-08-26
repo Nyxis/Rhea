@@ -26,7 +26,8 @@ class InternalType extends AdminType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'internal_id' => null
+            'internal_id' => null,
+            'with_resign' => false
         ));
     }
 
@@ -47,7 +48,6 @@ class InternalType extends AdminType
 
         $builder->add('birthdate', 'date', array(
             'required' => true,
-            // 'input'    => 'timestamp',
             'widget'   => 'text',
             'label'    => 'internal.admin.form.birthdate'
         ));
@@ -111,5 +111,13 @@ class InternalType extends AdminType
             'label'       => 'internal.admin.form.credentials',
             'internal_id' => $options['internal_id']
         ));
+
+        if (!empty($options['with_resign'])) {
+            $builder->add('resignation', 'internal_resignation', array(
+                'required' => false,
+                'mapped'   => false,
+                'label'    => false
+            ));
+        }
     }
 }

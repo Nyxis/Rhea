@@ -66,7 +66,6 @@ class InternalCredentialsDataTransformer implements DataTransformerInterface
         $personCredentialCollection = new \PropelCollection();
         if (empty($this->internalId)) { // creates mapping
 
-
             $selectedCredentials = CredentialQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->filterById($selectedCredentialsIds)

@@ -18,7 +18,6 @@ person_type:
     ia: Manager
     pdg: P. Directeur Gal
 
-
 admin:
     form:
         agency: Agence
@@ -26,6 +25,13 @@ admin:
             paris_media: Paris - Agence médias
             paris_energy: Paris - Agence énergie
             rha: Rhône Alpes
+        resignation_code: Type de démission
+        resignation_code_choice:
+            resignation: Démission
+            end_test: Fin de PE
+            end_contract: Fin de contrat
+            end_training: Fin de stage
+            leaving: Abandon de poste
         manager: Manager
         crh: Crh
         client: Client
@@ -173,16 +179,24 @@ internal:
                 name: Nom
                 with_past_tasks: A des tâches en retard
                 with_ic: A des intercontrats
+        notification:
+            invalid_form: Le formulaire contient des erreurs.
+            invalid_image: Le format de l'image est incorrect, png ou jpg seulement.
+            error_image: Une erreur s'est produite lors du téléchargement de l'image
+            save_success: L'interne %internal_name% a bien été enregistré
+            error: Une erreur s'est produite à l'enregistrement de l'interne.
         form:
             tab:
                 general: Info générales
                 security: Droits d'accès
+                resignation: Démission
             header:
                 civility: Etat civil
                 extia: Extia
                 contact: Contact
                 authentication: Authentification
-
+                credentials: Droits d'accès
+                resignation: Démission
             lastname: Nom
             firstname: Prénom
             image: Photo
@@ -194,6 +208,13 @@ internal:
             mobile: Mobile
             password: Mot de passe
             confirm_password: Confirmez
+            group: Groupe d'accès
+            credentials: Droits d'accès personnels
+            resign_internal: Démissionner l'interne
+            resign_leave_at: Date de départ
+            resign_type: Type de démission
+            resign_reason: Commentaire
+            resign_assign_all_to: Réassigner les tâches, consultants et missions à
 
         new:
             header: Nouvel interne

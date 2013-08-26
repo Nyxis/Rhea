@@ -59,8 +59,6 @@ class AdminInternalController extends Controller
             }
         }
 
-
-
         // person type
         if(!empty($filters['internal_type'])) {
             $query->filterByPersonTypeId($filters['internal_type']);
@@ -294,7 +292,8 @@ class AdminInternalController extends Controller
 
         $form = $this->get('form.factory')
             ->create('internal_form', $internal, array(
-                'internal_id' => $isNew ? null : $internal->getId()
+                'internal_id' => $isNew ? null : $internal->getId(),
+                'with_resign' => !$isNew
             ))
         ;
 

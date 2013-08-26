@@ -176,5 +176,25 @@ abstract class AdminType extends AbstractType
         ));
     }
 
-
+    /**
+     * adds a form for resignation type
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function addResignationTypeForm(FormBuilderInterface $builder, array $options = array())
+    {
+        $builder->add('resignation_code', 'choice', array_replace_recursive(array(
+            'required' => true,
+            'expanded' => false,
+            'multiple' => false,
+            'label'    => 'admin.form.resignation_code',
+            'choices'  => array(
+                'resignation'  => 'admin.form.resignation_code_choice.resignation',
+                'end_test'     => 'admin.form.resignation_code_choice.end_test',
+                'end_contract' => 'admin.form.resignation_code_choice.end_contract',
+                'end_training' => 'admin.form.resignation_code_choice.end_training',
+                'leaving'      => 'admin.form.resignation_code_choice.leaving'
+            )
+        ), $options));
+    }
 }

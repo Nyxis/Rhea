@@ -11,6 +11,9 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#general">{{ 'internal.admin.form.tab.general'|trans }}</a></li>
                         <li><a data-toggle="tab" href="#security">{{ 'internal.admin.form.tab.security'|trans }}</a></li>
+                        {% if form.resignation is defined %}
+                            <li><a data-toggle="tab" href="#resignation">{{ 'internal.admin.form.tab.resignation'|trans }}</a></li>
+                        {% endif %}
                     </ul>
                     <div class="tab-content padded">
                         <div id="general" class="tab-pane active">
@@ -21,7 +24,6 @@
                                         {{ form_row(form.lastname) }}
                                         {{ form_row(form.firstname) }}
                                         {{ form_row(form.birthdate) }}
-
 
                                         <div class=" control-group" id="{{ form.image.vars.id }}">
                                             {{ form_label(form.image) }}
@@ -57,11 +59,37 @@
                                     {% endblock %}
                                 </div>
                             </div>
-                            {{ form_rest(form) }}
                         </div>
                         <div id="security" class="tab-pane">
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <h4>{{ 'internal.admin.form.header.credentials'|trans }}</h4>
+                                    {% block credentials %}
+                                        {{ form_row(form.group_id) }}
+                                        {{ form_row(form.PersonCredentials) }}
+                                    {% endblock %}
+                                </div>
+                            </div>
                         </div>
+                        {% if form.resignation is defined %}
+                        <div id="resignation" class="tab-pane">
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <h4>{{ 'internal.admin.form.header.resignation'|trans }}</h4>
+                                    {% block resignation %}
+                                        <div class="control-group" id="{{ form.resignation.resign_internal.vars.id }}">
+                                            <div class=" controls">
+                                                {{ form_widget(form.resignation.resign_internal) }}
+                                            </div>
+                                        </div>
+                                        {{ form_rest(form.resignation) }}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
+                    {{ form_rest(form) }}
                 </form>
             </div>
         </div>
