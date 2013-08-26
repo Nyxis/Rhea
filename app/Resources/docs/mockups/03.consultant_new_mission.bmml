@@ -118,12 +118,12 @@
         <text>Trigramme%20-%20Nom</text>
       </controlProperties>
     </control>
-    <control controlID="44" controlTypeID="com.balsamiq.mockups::StickyNote" x="481" y="525" w="215" h="76" measuredW="109" measuredH="123" zOrder="25" locked="false" isInGroup="-1">
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::StickyNote" x="547" y="609" w="215" h="76" measuredW="109" measuredH="123" zOrder="25" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Si%20%22embauche%20directe%22%20d%E9coch%E9e%2C%20affiche%20ce%20champ</text>
       </controlProperties>
     </control>
-    <control controlID="45" controlTypeID="com.balsamiq.mockups::Arrow" x="689" y="495" w="66" h="77" measuredW="150" measuredH="100" zOrder="26" locked="false" isInGroup="-1">
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::Arrow" x="694" y="495" w="61" h="140" measuredW="150" measuredH="100" zOrder="26" locked="false" isInGroup="-1">
       <controlProperties>
         <curvature>0</curvature>
         <direction>bottom</direction>
@@ -147,6 +147,12 @@
     <control controlID="49" controlTypeID="com.balsamiq.mockups::PointyButton" x="1172" y="560" w="-1" h="-1" measuredW="63" measuredH="27" zOrder="29" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Suivant</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::PointyButton" x="481" y="560" w="-1" h="-1" measuredW="81" measuredH="27" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>left</direction>
+        <text>Pr%E9c%E9dent</text>
       </controlProperties>
     </control>
   </controls>
