@@ -29,4 +29,13 @@ class Person extends BasePerson
             'Url' => $this->getUrl()
         );
     }
+
+    /**
+     * adds alias for getConsultantRelatedById
+     * @return Consultant
+     */
+    public function getConsultant()
+    {
+        return $this->getConsultantRelatedById();
+    }
 }
