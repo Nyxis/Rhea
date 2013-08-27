@@ -6,12 +6,17 @@
     <parameters>
         <parameter key="extia_user.admin.admin_form_type.class">Extia\Bundle\UserBundle\Form\Type\AdminType</parameter>
 
-        <parameter key="extia_user.admin.consultant_filters_form_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantListFiltersType</parameter>
-
+        <!-- Internal -->
         <parameter key="extia_user.admin.internal_filters_form_type.class">Extia\Bundle\UserBundle\Form\Type\InternalListFiltersType</parameter>
         <parameter key="extia_user.admin.internal_form_type.class">Extia\Bundle\UserBundle\Form\Type\InternalType</parameter>
         <parameter key="extia_user.admin.internal_resignation_form_type.class">Extia\Bundle\UserBundle\Form\Type\InternalResignationType</parameter>
         <parameter key="extia_user.admin.internal_form_handler.class">Extia\Bundle\UserBundle\Form\Handler\InternalHandler</parameter>
+
+        <!-- Consultant -->
+        <parameter key="extia_user.admin.consultant_filters_form_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantListFiltersType</parameter>
+        <parameter key="extia_user.admin.consultant_form_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantType</parameter>
+        <parameter key="extia_user.admin.consultant_resignation_form_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantResignationType</parameter>
+        <parameter key="extia_user.admin.consultant_form_handler.class">Extia\Bundle\UserBundle\Form\Handler\ConsultantHandler</parameter>
     </parameters>
 
     <services>
@@ -19,13 +24,6 @@
         <!-- Admin form -->
         <service id="extia_user.admin.admin_form_type" class="%extia_user.admin.admin_form_type.class%" abstract="true">
             <argument type="service" id="security.context" />
-        </service>
-
-        <!-- Consultants list filters -->
-        <service id="extia_user.admin.consultant_filters_form" class="Symfony\Component\Form\Form" parent="extia.node.abstract_form">
-            <argument type="service" id="extia_user.admin.consultant_filters_form_type" />
-        </service>
-        <service id="extia_user.admin.consultant_filters_form_type" class="%extia_user.admin.consultant_filters_form_type.class%" parent="extia_user.admin.admin_form_type">
         </service>
 
         <!-- Internals list filters -->
@@ -50,6 +48,31 @@
             <argument>%kernel.root_dir%</argument>
             <argument type="service" id="logger" />
             <argument>%kernel.debug%</argument>
+        </service>
+
+
+        <!-- Consultants list filters -->
+        <service id="extia_user.admin.consultant_filters_form" class="Symfony\Component\Form\Form" parent="extia.node.abstract_form">
+            <argument type="service" id="extia_user.admin.consultant_filters_form_type" />
+        </service>
+        <service id="extia_user.admin.consultant_filters_form_type" class="%extia_user.admin.consultant_filters_form_type.class%" parent="extia_user.admin.admin_form_type">
+        </service>
+
+        <!-- Consultant form -->
+        <service id="extia_user.admin.consultant_form_type" class="%extia_user.admin.consultant_form_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="consultant_form" />
+        </service>
+        <!-- <service id="extia_user.admin.consultant_resignation_form_type" class="%extia_user.admin.consultant_resignation_form_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="consultant_resignation" />
+        </service> -->
+        <service id="extia_user.admin.consultant_form_handler" class="%extia_user.admin.consultant_form_handler.class%">
+<!--             <argument type="service" id="security.context" />
+            <argument type="service" id="notifier" />
+            <argument>%kernel.root_dir%</argument>
+            <argument type="service" id="logger" />
+            <argument>%kernel.debug%</argument> -->
         </service>
 
 

@@ -1,0 +1,11 @@
+{% extends 'ExtiaUserBundle::admin_layout.html.twig' %}
+
+{% block body_class %}user-admin{% endblock %}
+
+{% block inactive_breadcrumb %}
+    <li>
+        <a href="{{ path('UserBundle_consultant_list') }}"><i class="icon-bug"></i>
+            {{ 'menu.consultants'|trans }}
+        </a>
+    </li>
+{% endblock %}
