@@ -108,9 +108,12 @@ class MainMenuBuilder
         $teamIds = $user->getTeamIds();
         $cltIds  = $user->getConsultantsIds();
 
-        $accessTeam = !empty($teamIds) && $this->securityContext->isGranted('ROLE_INTERNAL_READ', $user);
+        $accessTeam = (!empty($teamIds) && $this->securityContext->isGranted('ROLE_INTERNAL_READ', $user))
+            || $this->securityContext->isGranted('ROLE_INTERNAL_WRITE', $user) // can create int
+        ;
         $accessClts = (!$cltIds->isEmpty() && $this->securityContext->isGranted('ROLE_CONSULTANT_READ', $user)) // have clt and can read
-            || $this->securityContext->isGranted('ROLE_CONSULTANT_WRITE', $user); // can create clt
+            || $this->securityContext->isGranted('ROLE_CONSULTANT_WRITE', $user) // can create clt
+        ;
 
         // have no team, or cannot read user, no menu
         if (!$accessTeam && !$accessClts) {
@@ -120,7 +123,7 @@ class MainMenuBuilder
         // internals
         if ($accessTeam) {
             $this->addTbChild($menu, array (
-                'label'      => 'menu.team',
+                'label'      => $this->securityContext->isGranted('ROLE_INTERNAL_WRITE', $user) ? 'menu.internals' : 'menu.team',
                 'route'      => 'UserBundle_internal_list',
                 'current'    => $request->get('_menu') == 'team',
                 'icon'       => 'group',

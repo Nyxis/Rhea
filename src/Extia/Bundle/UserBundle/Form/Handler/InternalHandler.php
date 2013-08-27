@@ -154,6 +154,12 @@ class InternalHandler
                         ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                         ->filterByManagerId($internal->getId())
                         ->update(array('ManagerId' => $internalId), $pdo);
+
+                    // assign user team to parent
+                    foreach ($internal->getChildren($pdo) as $child) {
+                        $child->moveToLastChildOf($internal->getParent($pdo));
+                        $child->save($pdo);
+                    }
                 }
             }
 
