@@ -215,23 +215,12 @@ class AdminConsultantController extends Controller
     /**
      * renders an edit form for given user id
      *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @param Request    $request
+     * @param Consultant $consultant
      * @return Response
      */
-    public function editAction(Request $request, $Id, $Url)
+    public function editAction(Request $request, Consultant $consultant)
     {
-        $consultant = ConsultantQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByUrl($Url)
-            ->findPk($Id);
-
-        if (empty($consultant)) {
-            throw new NotFoundHttpException(sprintf('Any consultant found for given id/url, "%s/%s" given.', $Id, $Url));
-        }
-
         return $this->renderForm($request, $consultant, 'ExtiaUserBundle:AdminConsultant:edit.html.twig');
     }
 
@@ -250,8 +239,10 @@ class AdminConsultantController extends Controller
             throw new AccessDeniedHttpException(sprintf('You have any credentials to write internals.'));
         }
 
-        $form  = $this->get('form.factory')->create('consultant', $consultant, array());
         $isNew = $consultant->isNew();
+        $form  = $this->get('form.factory')->create('consultant_form', $consultant, array(
+            'consultant_id' => $isNew ? null : $consultant->getId()
+        ));
 
         if ($request->request->has($form->getName())) {
             if ($this->get('extia_user.admin.consultant_form_handler')->handle($form, $request)) {

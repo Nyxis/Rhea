@@ -62,7 +62,7 @@ class InternalHandler
             ->findPk($parentId, $pdo);
 
         if (!$form->isValid() || empty($parent)) {
-            $this->notifier->add('warning', 'internal.admin.notification.invalid_form');
+            $this->notifier->add('warning', 'internal.admin.notifications.invalid_form');
 
             return false;
         }
@@ -76,7 +76,7 @@ class InternalHandler
                 try {
                     $extension = $image->guessExtension();
                     if (!in_array($extension, array('jpeg', 'png'))) {
-                        $this->notifier->add('warning', 'internal.admin.notification.invalid_image');
+                        $this->notifier->add('warning', 'internal.admin.notifications.invalid_image');
                     } else {
                         $fileName = $internal->getUrl().'.'.$extension;
                         $webPath  = 'images/avatars/';
@@ -96,7 +96,7 @@ class InternalHandler
                     }
 
                     $this->logger->err($e->getMessage());
-                    $this->notifier->add('error', 'internal.admin.notification.error_image');
+                    $this->notifier->add('error', 'internal.admin.notifications.error_image');
                 }
             }
 
@@ -115,7 +115,7 @@ class InternalHandler
             if (!$internal->isNew()) {
                 $resignation = $form->get('resignation')->getData();
                 if (empty($resignation['resign_internal'])) {
-                    $this->notifier->add('warning', 'internal.admin.notification.invalid_form');
+                    $this->notifier->add('warning', 'internal.admin.notifications.invalid_form');
 
                     return false;
                 } else {
@@ -169,7 +169,7 @@ class InternalHandler
 
             // success message
             $this->notifier->add(
-                'success', 'internal.admin.notification.save_success',
+                'success', 'internal.admin.notifications.save_success',
                 array ('%internal_name%' => $internal->getLongName())
             );
 
@@ -184,7 +184,7 @@ class InternalHandler
 
             $this->logger->err($e->getMessage());
             $this->notifier->add(
-                'error', 'internal.admin.notification.error'
+                'error', 'internal.admin.notifications.error'
             );
 
             return false;
