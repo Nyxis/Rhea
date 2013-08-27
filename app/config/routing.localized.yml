@@ -1,0 +1,90 @@
+# ---------------------------------------
+# Authentication
+# ---------------------------------------
+#ExtiaUserBundle_login:
+#    resource: "@ExtiaUserBundle/Resources/config/routing/login.yml"
+#    prefix:   /
+
+# ---------------------------------------
+# Workflow management
+# ---------------------------------------
+EasyTaskWorkflowBundle_nodes:
+    resource: .
+    type: workflow_nodes
+    defaults:
+        _menu: dashboard
+
+EasyTaskWorkflowBundle_workflow:
+    resource: "@EasyTaskWorkflowBundle/Resources/config/routing/workflow.yml"
+    prefix:   /task
+    defaults:
+        _menu: dashboard
+
+ExtiaTaskBundle:
+    resource: "@ExtiaTaskBundle/Resources/config/routing.yml"
+    prefix:   /task
+    defaults:
+        _menu: dashboard
+
+# ---------------------------------------
+# Comments
+# ---------------------------------------
+ExtiaCommentBundle:
+    resource: "@ExtiaCommentBundle/Resources/config/routing.yml"
+    prefix:   /comment
+
+# ---------------------------------------
+# Search
+# ---------------------------------------
+ExtiaSearchBundle:
+    resource: "@ExtiaSearchBundle/Resources/config/routing.yml"
+    prefix:   /search
+
+# ---------------------------------------
+# Activity
+# ---------------------------------------
+ExtiaActivityBundle:
+    resource: "@ExtiaActivityBundle/Resources/config/routing.yml"
+    prefix:   /activity
+    defaults:
+        _menu: activity
+
+# ---------------------------------------
+# Document
+# ---------------------------------------
+ExtiaDocumentBundle:
+    resource: "@ExtiaDocumentBundle/Resources/config/routing.yml"
+    prefix:   /document
+
+# ---------------------------------------
+# Group
+# ---------------------------------------
+ExtiaGroupBundle:
+    resource: "@ExtiaGroupBundle/Resources/config/routing.yml"
+    prefix:   /admin/group
+    defaults:
+        _menu: admin
+        _submenu: group
+
+# ---------------------------------------
+# Users
+# ---------------------------------------
+_extia_user:
+    resource: "@ExtiaUserBundle/Resources/config/routing.yml"
+
+# ---------------------------------------
+# Mission
+# ---------------------------------------
+_extia_mission:
+    resource: "@ExtiaMissionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# ---------------------------------------
+# Home
+# ---------------------------------------
+Rhea_homepage:
+    pattern: /
+    defaults:
+        _controller: ExtiaTaskBundle:Dashboard:userDashboard
+        _format: html
+        _menu: dashboard

@@ -1,0 +1,47 @@
+{% if consultants.isEmpty() == false %}
+<div class="box consultants">
+    <div class="tab-header">
+        <i class="icon-bug"></i>
+        {{ 'consultants.intercontract.box.header'|trans }}
+    </div>
+    <table class="table table-striped consultants-list">
+        <thead>
+            <th colspan="2">{{ 'consultants.intercontract.box.th_name'|trans }}</th>
+            <th>{{ 'consultants.intercontract.box.th_date_begin'|trans }}</th>
+            <th>{{ 'consultants.intercontract.box.th_internal'|trans }}</th>
+            <th></th>
+        </thead>
+        <tbody>
+        {% for clt in consultants %}
+            <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                <td><img src="{{ gravatar(clt.email, 30) }}"></td>
+                <td class="name"><div class="wrap">{{ clt.longname }}</div></td>
+                <td>{{ clt.currentMissionOrder.beginDate('date_format.ymd'|trans) }}</td>
+                <td>
+                    {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': clt.crh } only %}
+                    {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': clt.manager } only %}
+                </td>
+                <td class="actions">
+                    <div class="btn-group">
+                        {% if is_granted('ROLE_CONSULTANT_READ', app.user) %}
+                        <a class="button" title="{{ 'consultants.intercontract.box.user_timeline_link'|trans }}"
+                            href="{{ path('UserBundle_consultant_timeline', clt.routing) }}">
+                            <i class="icon-tasks"></i>
+                        </a>
+                        {% endif %}
+                        {% if is_granted('ROLE_CONSULTANT_WRITE', app.user) %}
+                        <a class="button" title="{{ 'consultants.intercontract.box.user_edit_link'|trans }}" href="#">
+                            <i class="icon-pencil"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <td colspan="5">&nbsp;</td>
+        </tfoot>
+    </table>
+</div>
+{% endif %}

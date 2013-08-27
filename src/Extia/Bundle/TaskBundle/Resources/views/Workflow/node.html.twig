@@ -1,0 +1,17 @@
+{% extends 'ExtiaTaskBundle:Dashboard:user_dashboard.html.twig' %}
+
+{% block modal %}
+    {{ parent() }}
+    <div id="current_task_{{ task.id }}" class="black-box modal fade hide">
+        {% block modal_template %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('#current_task_{{ task.id }}').modal();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,361 @@
+Extia\Bundle\UserBundle\Model\PersonType:
+    pdg:
+        code: pdg
+    dir:
+        code: dir
+    crh:
+        code: crh
+    ia:
+        code: ia
+    clt:
+        code: clt
+
+Extia\Bundle\UserBundle\Model\PersonTypeI18n:
+    pdg_fr:
+        locale: fr
+        id: pdg
+        label: Président directeur général
+    dir_fr:
+        locale: fr
+        id: dir
+        label: Directeur d'agence
+    crh_fr:
+        locale: fr
+        id: crh
+        label: Consultant en Ressources Humaines
+    ia_fr:
+        locale: fr
+        id: ia
+        label: Ingénieur d'affaires
+    clt_fr:
+        locale: fr
+        id: clt
+        label: Consultant
+
+Extia\Bundle\UserBundle\Model\Agency:
+    paris_media:
+        Code: paris_media
+    paris_energy:
+        Code: paris_energy
+    rha:
+        Code: rha
+
+Extia\Bundle\GroupBundle\Model\Credential:
+    admin:
+        type: general
+        code: admin
+    authentication:
+        type: general
+        code: authentication
+    consultant_write:
+        type: user
+        code: consultant_write
+    consultant_read:
+        type: user
+        code: consultant_read
+    internal_write:
+        type: user
+        code: internal_write
+    internal_read:
+        type: user
+        code: internal_read
+    mission_read:
+        type: mission
+        code: mission_read
+    mission_write:
+        type: mission
+        code: mission_write
+    crh_monitoring_read:
+        type: task
+        code: workflow_crh_monitoring_read
+    crh_monitoring_write:
+        type: task
+        code: workflow_crh_monitoring_write
+    annual_review_read:
+        type: task
+        code: workflow_annual_review_read
+    annual_review_write:
+        type: task
+        code: workflow_annual_review_write
+
+Extia\Bundle\GroupBundle\Model\CredentialI18n:
+    admin_fr:
+        id: admin
+        locale: fr
+        label: Administration
+    authentication_fr:
+        id: authentication
+        locale: fr
+        label: Connexion
+    consultant_write_fr:
+        id: consultant_write
+        locale: fr
+        label: Créer / éditer un consultant
+    consultant_read_fr:
+        id: consultant_read
+        locale: fr
+        label: Voir les fiches consultant
+    internal_write_fr:
+        id: internal_write
+        locale: fr
+        label: Créer / éditer un interne
+    internal_read_fr:
+        id: internal_read
+        locale: fr
+        label: Voir les fiches internes
+    mission_read_fr:
+        id: mission_read
+        locale: fr
+        label: Voir les fiches mission
+    mission_write_fr:
+        id: mission_write
+        locale: fr
+        label: Créer / éditer les fiches mission
+    crh_monitoring_read_fr:
+        id: crh_monitoring_read
+        locale: fr
+        label: ""
+    crh_monitoring_write_fr:
+        id: crh_monitoring_write
+        locale: fr
+        label: ""
+    annual_review_read_fr:
+        id: annual_review_read
+        locale: fr
+        label: ""
+    annual_review_write_fr:
+        id: annual_review_write
+        locale: fr
+        label: ""
+
+Extia\Bundle\GroupBundle\Model\Group:
+    crh:
+        label: Crh
+    manager:
+        label: IA - Manager
+    consultant:
+        label: Consultant
+
+Extia\Bundle\GroupBundle\Model\GroupCredential:
+    gp_crh_auth:
+        GroupId: crh
+        CredentialId: authentication
+    gp_crh_consultant_write:
+        GroupId: crh
+        CredentialId: consultant_write
+    gp_crh_consultant_read:
+        GroupId: crh
+        CredentialId: consultant_read
+    gp_crh_internal_write:
+        GroupId: crh
+        CredentialId: internal_write
+    gp_crh_internal_read:
+        GroupId: crh
+        CredentialId: internal_read
+    gp_crh_monitoring_read:
+        GroupId: crh
+        CredentialId: crh_monitoring_read
+    gp_crh_monitoring_write:
+        GroupId: crh
+        CredentialId: crh_monitoring_write
+    gp_annual_review_read:
+        GroupId: crh
+        CredentialId: annual_review_read
+    gp_annual_review_write:
+        GroupId: crh
+        CredentialId: annual_review_write
+    gp_manager_annual_review_read:
+        GroupId: manager
+        CredentialId: annual_review_read
+    gp_manager_annual_review_write:
+        GroupId: manager
+        CredentialId: annual_review_write
+    gp_manager_auth:
+        GroupId: manager
+        CredentialId: authentication
+    gp_manager_user_read:
+        GroupId: manager
+        CredentialId: consultant_read
+
+Extia\Bundle\UserBundle\Model\Internal:
+    arnaud:
+        email: afrey@extia.fr
+        firstname: Arnaud
+        lastname: Frey
+        trigram: AFR
+        password: <?php echo sha1('afrey')."\n" ?>
+        PersonTypeId: pdg
+        Job: Président directeur général
+        GroupId: manager
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
+        treeLeft: 1
+        treeRight: 14
+        treeLevel: 0
+    pauline:
+        email: pdantin@extia.fr
+        firstname: Pauline
+        lastname: Dantin
+        trigram: PDA
+        NbIc: 1
+        password: <?php echo sha1('pdantin')."\n" ?>
+        AgencyId: paris_media
+        PersonTypeId: crh
+        Job: Responsable RH
+        GroupId: crh
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
+        treeLeft: 2
+        treeRight: 11
+        treeLevel: 1
+    marine:
+        email: mgiuliani@extia.fr
+        firstname: Marine
+        lastname: Giuliani
+        trigram: MGI
+        password: <?php echo sha1('mgiuliani')."\n" ?>
+        AgencyId: paris_media
+        PersonTypeId: crh
+        Job: CRH
+        GroupId: crh
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
+        treeLeft: 3
+        treeRight: 6
+        treeLevel: 2
+    caroline:
+        email: cgautier@extia.fr
+        firstname: Caroline
+        lastname: Gautier
+        trigram: CGA
+        NbIc: 1
+        password: <?php echo sha1('cgautier')."\n" ?>
+        AgencyId: paris_media
+        PersonTypeId: ia
+        Job: Responsable ingénieur d'affaires
+        GroupId: manager
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
+        ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
+        treeLeft: 12
+        treeRight: 13
+        treeLevel: 1
+
+Extia\Bundle\UserBundle\Model\Consultant:
+    kevin:
+        email: lesmyrmidons@gmail.com
+        firstname: Kevin
+        lastname: Arbouin
+        password: <?php echo sha1('karbouin')."\n" ?>
+        AgencyId: paris_media
+        mobile: "+33 6 12 34 56 78"
+        telephone: "+33 1 12 34 56 78"
+        PersonTypeId: clt
+        Job: Développeur
+        GroupId: consultant
+        CrhId: pauline
+        ManagerId: caroline
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
+        ContractBeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+        treeLeft: 7
+        treeRight: 8
+        treeLevel: 2
+    quentin:
+        email: quentin.cerny@gmail.com
+        firstname: Quentin
+        lastname: Cerny
+        password: <?php echo sha1('qcerny')."\n" ?>
+        AgencyId: paris_media
+        PersonTypeId: clt
+        Job: Architecte
+        GroupId: consultant
+        CrhId: marine
+        ManagerId: caroline
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
+        ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
+        treeLeft: 4
+        treeRight: 5
+        treeLevel: 3
+    cesar:
+        email: yimiprod@gmail.com
+        firstname: César
+        lastname: Vidril
+        password: <?php echo sha1('cvidril')."\n" ?>
+        AgencyId: paris_media
+        PersonTypeId: clt
+        Job: Développeur front
+        GroupId: consultant
+        CrhId: pauline
+        ManagerId: caroline
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
+        ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
+        treeLeft: 9
+        treeRight: 10
+        treeLevel: 2
+
+Extia\Bundle\MissionBundle\Model\Client:
+    tf1:
+        title: e-Tf1
+        description: Secteur d'activité média
+        address:
+        zipCode:
+        city: Paris
+    sfr:
+        title: SFR Business Team
+        description: SFR pour les professionnels : cloud, mobile, internet
+        address:
+        zipCode:
+        city: Meudon
+    killix:
+        title: Killix by Extia
+        description: Pôle forfait d'Extia
+        address:
+        zipCode:
+        city: Sèvres
+    extia:
+        title: Extia
+        description: SSII
+        address:
+        zipCode:
+        city: Sèvres
+
+Extia\Bundle\MissionBundle\Model\Mission:
+    tf1_quentin:
+        Label: Développeur Web
+        Type: client
+        ManagerId: caroline
+        ClientId: tf1
+    sfr_kevin:
+        Label: Développeur Web
+        Type: client
+        ManagerId: caroline
+        ClientId: sfr
+    intercontrat:
+        Label: Intercontrat
+        Type: ic
+        ManagerId: caroline
+        ClientId: extia
+
+Extia\Bundle\UserBundle\Model\MissionOrder:
+    m_kevin:
+        ConsultantId: kevin
+        MissionId: sfr_kevin
+        BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+        Current: true
+    m_quentin:
+        ConsultantId: quentin
+        MissionId: tf1_quentin
+        BeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
+        Current: true
+    m_cesar:
+        ConsultantId: cesar
+        MissionId: intercontrat
+        BeginDate: <?php echo strtotime('2013-06-01')."\n" ?>
+        Current: true
+
+Extia\Bundle\UserBundle\Model\PersonCredential:
+    pauline_admin:
+        PersonId: pauline
+        CredentialId: admin
+    arnaud_cred:
+        PersonId: arnaud
+        CredentialId: internal_write

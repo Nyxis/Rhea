@@ -1,13 +1,38 @@
-# Bootstrap
-app/bootstrap*
+# Project conf
+.bundle/
+.buildpath
+.project
+.settings
+*.sublime-*
 
 # Symfony directories
+bin/*
 vendor/*
-*/logs/*
-*/cache/*
+build/*
+app/bin/*
+app/logs/*
+app/cache/*
+app/config/deploy/*
+app/bootstrap.php.cache
 web/uploads/*
 web/bundles/*
+web/css/*
+web/js/*
+web/font/*
+web/asset_*/*
+web/assetic
 
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+
+# Propel directories
+*/propel/sql/*
+src/*/Bundle/*Bundle/Model/map/*
+src/*/Bundle/*Bundle/Model/om/*
+
+# Composer
+composer.phar
+
+# Uploads
+data/*

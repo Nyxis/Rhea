@@ -1,0 +1,9 @@
+<blockquote>
+    <p class="sys-comment">{{ comment.sysText }}</p>
+    <p>
+        <i class="icon-quote-left"></i>
+        {% autoescape false %}{{ comment.text|capitalize }}{% endautoescape %}
+        <i class="icon-quote-right"></i>
+    </p>
+    <p><em>{{ comment.person.longName }} <small>{{ comment.createdAt|date('datetime_format.mdhi'|trans) }}</small></em></p>
+</blockquote>

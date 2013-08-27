@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        {% block inactive_breadcrumb %}{% endblock %}
+        {% block current_breadcrumb %}{% endblock %}
+    </ul>
+{% endblock %}
+
+{% block modal %}
+    {{ parent() }}
+    {{ render(controller('ExtiaTaskBundle:Task:differ')) }}
+{% endblock %}

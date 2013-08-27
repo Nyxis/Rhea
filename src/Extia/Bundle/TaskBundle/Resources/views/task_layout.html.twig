@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li class="active"><a href="#"><i class="icon-list-ul"></i> {{ 'menu.dashboard'|trans }}</a></li>
+    </ul>
+{% endblock %}
+
+{% block modal %}
+    {% if is_granted('TASK_CREATION', app.user) %}
+    <div id="new_task" class="black-box modal hide fade">
+        <div class="modal-header tab-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <span>{{ 'new_task'|trans }}</span>
+        </div>
+        {{ render(controller('EasyTaskWorkflowBundle:Workflow:form')) }}
+    </div>
+    {% endif %}
+    {{ render(controller('ExtiaTaskBundle:Task:differ')) }}
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="big-button-bar">
+            {% if is_granted('TASK_CREATION', app.user) %}
+            <a href="#new_task" class="button large" role="button" data-toggle="modal">
+                <i class="icon-calendar"></i>
+                <span>{{ 'dashboard.sidebar.button.new_task'|trans }}</span>
+            </a>
+            {% endif %}
+            {% if is_granted('ROLE_CONSULTANT_WRITE', app.user) %}
+            <a href="{{ path('UserBundle_consultant_new') }}" class="button large">
+                <i class="icon-bug"></i>
+                <span>{{ 'dashboard.sidebar.button.new_consultant'|trans }}</span>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

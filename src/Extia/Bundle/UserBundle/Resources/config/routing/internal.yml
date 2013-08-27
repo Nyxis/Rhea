@@ -1,0 +1,42 @@
+UserBundle_internal_list:
+    pattern: /
+    defaults:
+        _controller: 'ExtiaUserBundle:AdminInternal:list'
+        _format: html
+        page: 1
+    requirements:
+        _format: html
+        page: \d+
+
+UserBundle_internal_timeline:
+    pattern: /{Id}/{Url}/timeline
+    defaults:
+        _controller: 'ExtiaUserBundle:Internal:timeline'
+        _format: html
+    requirements:
+        Id: \d+
+        _format: html
+
+UserBundle_internal_edit:
+    pattern: /{Id}/{Url}/edit
+    defaults:
+        _controller: 'ExtiaUserBundle:AdminInternal:edit'
+        _format: html
+    requirements:
+        Id: \d+
+        _format: html
+
+UserBundle_internal_new:
+    pattern: /new
+    defaults:
+        _controller: 'ExtiaUserBundle:AdminInternal:new'
+        _format: html
+    requirements:
+        _format: html
+
+
+
+
+extia_user_ajax_list:
+    pattern: /manager/ajax-list
+    defaults: { _controller: ExtiaUserBundle:Internal:listAjax }

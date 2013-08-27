@@ -1,0 +1,86 @@
+by: créé par
+comments_link: Commentaires
+history_link: Historique
+handle_link: Traiter
+differ_link: Différer
+close_link: Fermer
+
+# Workflow form
+new_task: Nouvelle tâche
+Title: Titre
+Description: Description
+workflow_submit: Créer la tâche
+workflow_cancel: Annuler
+task_submit: Sauvegarder
+
+# Timeline
+task_managed_by: Géré par
+task_managed_at: le
+task_managed_for: pour le consultant
+
+# dashboard
+dashboard:
+    timeline:
+        header:
+            past: En retard
+            waiting: En attente
+            today: Aujourd'hui
+            tomorrow: Demain
+            week: Cette semaine
+            next_week: La semaine prochaine
+            next_month: Le mois prochain
+    sidebar:
+        button:
+            new_task: Nouvelle tâche
+            new_consultant: Nouveau consultant
+
+# Workflow
+workflow:
+    breadcrumb:
+        timeline: Timeline
+    box_header:
+        details: Détails tâche
+    details:
+        created_at: Créée le
+        created_by: par
+        edit_button: Editer
+        close_button: Terminer
+        reopen_button: Relancer
+        save_button: Sauvegarder
+        close_form_button: Fermer le formulaire
+    status:
+        running: en cours
+        closed: fermé
+        retarded: en retard
+    documents:
+        header: Documents
+    contributors:
+        header: Participants
+    form:
+        name: Nom de la tâche
+        description: Description de la tâche
+    notification:
+        default: La tâche a bien été traitée.
+
+# Task
+task:
+    status:
+        planed: à traiter
+        handled: traitée
+        past: en retard
+    handle_limit: À traiter avant le
+    retard_of: "{1} en retard d'un jour|]1,Inf] en retard de %retard% jours"
+    handle_retard_of: "{1} traité un jour en retard|]1,Inf] traité %retard% jours en retard"
+    differ:
+        button: Décaler
+        header: Décaler une tâche
+        comment:
+            auto_message: "Tâche décalée du %old_date% au %new_date%."
+        form:
+            differ_date: Décaler au
+            comment: Raison
+            submit: Décaler la tâche
+        notification:
+            success: La tache \"%task%\" a bien été décalée du %old_date% au %new_date%
+            invalid: "Impossible de décaler cette tâche, les données transmises sont incorrectes"
+            error: Une erreur est survenue lors du traitement du décalage de la tâche.

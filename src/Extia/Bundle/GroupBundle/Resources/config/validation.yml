@@ -1,0 +1,4 @@
+Extia\Bundle\GroupBundle\Model\Group:
+    properties:
+        label:
+            - NotBlank: ~

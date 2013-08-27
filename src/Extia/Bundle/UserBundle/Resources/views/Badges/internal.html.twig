@@ -1,0 +1,26 @@
+<div class="int-badge">
+    {% if with_contact|default(false) is not empty %}
+        <div class="pull-right int_contact">
+            {% include 'ExtiaUserBundle:Badges:internal_contact.html.twig' %}
+        </div>
+    {% endif %}
+    <div class="dtable">
+        {% if is_granted('USER_DATA', int) %}
+            {% set timeline_path = path('UserBundle_consultant_timeline', int.routing) %}
+        {% else %}
+            {% set timeline_path = '#' %}
+        {% endif %}
+
+        <div class="dtable-cell gravatar">
+            <a href="{{ timeline_path }}">
+                <img src="{{ gravatar(int.email, gravatar_size|default(50)) }}">
+            </a>
+        </div>
+        <h4 class="dtable-cell">
+            <a href="{{ timeline_path }}">{{ int.longname }}</a><br />
+            <small>
+                {{ int.job }}
+            </small>
+        </h4>
+    </div>
+</div>

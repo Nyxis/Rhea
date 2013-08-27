@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="default" namespace="Extia\Bundle\UserBundle\Model">
+
+    <table name="person">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="email" type="VARCHAR" size="255" required="true" />
+        <column name="firstname" type="VARCHAR" size="255" required="true" />
+        <column name="lastname" type="VARCHAR" size="255" required="true" />
+        <column name="job" type="VARCHAR" size="255" required="true" />
+        <column name="telephone" type="VARCHAR" size="255" required="false" />
+        <column name="mobile" type="VARCHAR" size="255" required="false" />
+
+        <column name="person_type_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="person_type" onDelete="cascade" onUpdate="cascade">
+            <reference local="person_type_id" foreign="id" />
+        </foreign-key>
+
+        <unique>
+            <unique-column name="email" />
+        </unique>
+        <behavior name="sluggable" >
+            <parameter name="slug_column" value="url" />
+            <parameter name="slug_pattern" value="{firstname}-{lastname}" />
+        </behavior>
+        <behavior name="timestampable" />
+
+    </table>
+
+    <table name="person_type">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="code" type="VARCHAR" size="20" required="true" />
+
+        <!-- I18n -->
+        <column name="label" type="VARCHAR" size="255" required="true" />
+
+        <unique>
+            <unique-column name="code" />
+        </unique>
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="label" />
+            <parameter name="default_locale" value="fr" />
+        </behavior>
+    </table>
+
+    <table name="internal">
+        <behavior name="concrete_inheritance">
+            <parameter name="extends" value="person" />
+        </behavior>
+
+        <column name="trigram" type="VARCHAR" size="3" required="false" />
+        <column name="password" type="VARCHAR" size="255" required="true" />
+        <column name="image" type="VARCHAR" size="255" required="false" />
+        <column name="birthdate" type="TIMESTAMP" required="true" />
+        <column name="contract_begin_date" type="TIMESTAMP" required="true" />
+        <column name="nb_ic" type="INTEGER" required="true" defaultValue="0" />
+
+        <column name="agency_id" type="INTEGER" required="false" />
+        <column name="group_id" type="INTEGER" required="true" />
+        <column name="resignation_id" type="INTEGER" required="false" />
+
+        <!-- Agency relation -->
+        <foreign-key foreignTable="agency" onUpdate="cascade">
+            <reference local="agency_id" foreign="id" />
+        </foreign-key>
+
+        <!-- Group relation -->
+        <foreign-key foreignTable="group" onUpdate="cascade">
+            <reference local="group_id" foreign="id" />
+        </foreign-key>
+
+        <!-- Resignation relation -->
+        <foreign-key foreignTable="resignation" onUpdate="cascade">
+            <reference local="resignation_id" foreign="id" />
+        </foreign-key>
+
+        <behavior name="nested_set">
+            <parameter name="use_scope" value="true" />
+        </behavior>
+    </table>
+
+    <table name="consultant">
+        <behavior name="concrete_inheritance">
+            <parameter name="extends" value="internal" />
+        </behavior>
+
+        <!-- Crh relation -->
+        <column name="crh_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="internal" phpName="Crh" onUpdate="cascade">
+            <reference local="crh_id" foreign="id" />
+        </foreign-key>
+
+        <!-- Manager relation -->
+        <column name="manager_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="internal" phpName="Manager" onUpdate="cascade">
+            <reference local="manager_id" foreign="id" />
+        </foreign-key>
+
+        <!-- Cooptation -->
+        <column name="coopted_by_id" type="INTEGER" required="false" />
+        <foreign-key foreignTable="person" phpName="Coopter" onDelete="setnull" onUpdate="cascade">
+            <reference local="coopted_by_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+    <table name="resignation">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="code" type="ENUM" required="true" valueSet="resignation, end_test, end_contract, end_training, leaving" />
+        <column name="comment" type="LONGVARCHAR" required="true" />
+        <column name="leave_at" type="TIMESTAMP" required="true" />
+
+        <column name="resigned_by_id" type="INTEGER" required="true" primaryKey="true" />
+        <foreign-key foreignTable="person" phpName="Resigner" onDelete="cascade" onUpdate="cascade">
+            <reference local="resigned_by_id" foreign="id" />
+        </foreign-key>
+
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="agency">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="code" type="VARCHAR" size="20" required="true" />
+    </table>
+
+    <table name="mission_order">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="consultant_id" type="INTEGER" required="true" />
+        <column name="mission_id" type="INTEGER" required="true" />
+        <column name="current" type="BOOLEAN" required="true" default="false" />
+        <column name="begin_date" type="TIMESTAMP" required="true" />
+        <column name="end_date" type="TIMESTAMP" required="false" />
+
+        <foreign-key foreignTable="consultant">
+            <reference local="consultant_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="mission">
+            <reference local="mission_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+    <table name="person_credential">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+
+        <column name="person_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="person" onDelete="cascade" onUpdate="cascade">
+            <reference local="person_id" foreign="id" />
+        </foreign-key>
+
+        <column name="credential_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="credential" onDelete="cascade" onUpdate="cascade">
+            <reference local="credential_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+    <!-- Documents Internal & Tasks n:n:n table -->
+    <table name="person_task_document" isCrossRef="true">
+        <column name="person_id" type="INTEGER" required="true" primaryKey="true" />
+        <foreign-key foreignTable="person" onDelete="cascade" onUpdate="cascade">
+            <reference local="person_id" foreign="id" />
+        </foreign-key>
+
+        <column name="document_id" type="INTEGER" required="true" primaryKey="true" />
+        <foreign-key foreignTable="document" onDelete="cascade" onUpdate="cascade">
+            <reference local="document_id" foreign="id" />
+        </foreign-key>
+
+        <column name="task_id" type="INTEGER" required="false" />
+        <foreign-key foreignTable="task" onDelete="setnull" onUpdate="cascade">
+            <reference local="task_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+</database>

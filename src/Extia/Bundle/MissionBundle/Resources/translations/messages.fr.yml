@@ -1,0 +1,32 @@
+mission:
+    # Form
+    label: Titre
+    manager: Manager
+    client: Société
+    type: Type
+
+    admin:
+        notification:
+            save_success: La mission "%mission_name%" a été enregistré
+
+        content:
+            manager: "Manager :"
+            client: "Société :"
+            begin_date: "Commencement de la mission :"
+            end_date: "Date de fin de mission :"
+            box: Nouvelle mission
+            button_new: Nouvelle mission
+
+company:
+    admin:
+        notification:
+            save_success: La société "%company_name%" a été enregistré
+
+
+# form
+company:
+    title: Raison social
+    description: Description
+    address: Adresse
+    zipCode: Code Postal
+    city: Ville

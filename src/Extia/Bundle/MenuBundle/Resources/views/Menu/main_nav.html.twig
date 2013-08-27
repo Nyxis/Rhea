@@ -1,0 +1,23 @@
+{% block profile_nav %}
+    <div class="nav-profile dtable">
+        <div class="dtable-cell">
+            <p class="avatar"><img src="{{ gravatar(app.user.email, 50) }}"></p>
+        </div>
+        <div class="dtable-cell">
+            <div class="user-actions btn-group pull-right">
+                <button data-toggle="dropdown" class="button mini inset black dropdown-toggle"><i class="icon-cog"></i></button>
+                <ul class="dropdown-menu black-box-dropdown">
+                    <li><a href="{{ path('UserBundle_logout') }}"><i class="icon-off"></i>{{ 'logout_link'|trans }}</a></li>
+                </ul>
+            </div>
+            <p class="title">{{ app.user.longName }}</p>
+            <p class="job">{{ app.user.job|capitalize }}</p>
+        </div>
+    </div>
+{% endblock %}
+
+<nav class="main-nav">
+{% block main_nav %}
+    {{ knp_menu_render('main_menu') }}
+{% endblock %}
+</nav>

@@ -1,0 +1,13 @@
+{% if task.status == 'handled' %}
+    <span class="badge badge-success">
+        <i class="icon-ok"></i> {{ 'task.status.handled'|trans }}
+    </span>
+{% elseif task.status == 'past' and task.pastDays > 0 %}
+    <span class="badge badge-important">
+        <i class="icon-warning-sign"></i> {{ 'task.retard_of'|transchoice(task.pastDays, {'%retard%' : task.pastDays}) }}
+    </span>
+{% else %}
+    <span class="badge badge-warning">
+        <i class="icon-calendar"></i> {{ 'task.status.planed'|trans }}
+    </span>
+{% endif %}

@@ -1,0 +1,16 @@
+{% extends 'ExtiaTaskBundle:Workflow:timeline_element.html.twig' %}
+
+{% block task_title %}
+    {{ 'crh_bootstrap.timeline.hook'|trans }}
+{% endblock %}
+
+{% block task_data %}
+    <p>
+        {{ 'crh_bootstrap.timeline.next_meeting'|trans }}
+        <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.
+    </p>
+    <p>
+        {{ 'crh_bootstrap.timeline.notified_at'|trans }}
+        <span class="data">{{ task.data.get('notif_date')|date('date_format.ymd'|trans) }}</span>.
+    </p>
+{% endblock %}

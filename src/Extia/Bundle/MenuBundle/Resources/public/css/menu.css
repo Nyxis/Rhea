@@ -1,0 +1,157 @@
+.menu-bar {
+    width: 220px;
+    height: 100%;
+}
+li [class^="icon-"], li [class*=" icon-"] {
+    display: inline-block;
+    text-align: center;
+    width: 1.25em;
+}
+/* ------------------- main ------------------------ */
+
+.menu-bar nav {
+    vertical-align: top;
+    background: url('../images/linen-gray.png');
+    height: 100%;
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.4);
+}
+.menu-bar nav ul {
+    /*border-bottom: 1px solid #4A4A54;*/
+}
+.menu-bar nav ul > li {
+    border-bottom: 1px solid #1D1E21;
+    border-top: 1px solid #4A4A54;
+}
+.menu-bar nav ul > li > a {
+    color: #fff;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+    display: block;
+    padding: 7px 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 28px;
+    padding-left: 15px;
+    text-align: left;
+}
+.menu-bar nav ul > li > a:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+.menu-bar nav ul > li > a i {
+    color: #eee;
+    font-size: 28px;
+    vertical-align: middle;
+}
+.menu-bar nav:last-child {
+    border-right: 1px solid black;
+}
+.menu-bar nav > ul > li.open > a {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);
+    border-bottom: 1px dotted #4A4A54;
+}
+.menu-bar nav ul > li.active > a {
+    background: #c5c5c5;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VjZWNlYyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2M1YzVjNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ececec), color-stop(100%, #c5c5c5));
+    background-image: -webkit-linear-gradient(top, #ececec, #c5c5c5);
+    background-image: -moz-linear-gradient(top, #ececec, #c5c5c5);
+    background-image: -o-linear-gradient(top, #ececec, #c5c5c5);
+    background-image: linear-gradient(top, #ececec, #c5c5c5);
+    color: #35353C;
+    text-shadow: 0px 1px 1px rgba(248, 248, 248, 0.5);
+    border-bottom: 0px;
+}
+.menu-bar nav > ul > li.parent > a::after {
+    content: "";
+    float: right;
+    width: 0;
+    height: 0;
+
+    margin-right: 13px;
+    margin-top: 7px;
+    border-right: 0px;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid white;
+}
+.menu-bar nav > ul > li.parent.open > a::after {
+    margin-right: 10px;
+    margin-top: 10px;
+
+    border-bottom: 0px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid white;
+}
+.menu-bar nav > ul > li.parent.active > a::after {
+    border-top-color: #35353C;
+}
+.menu-bar nav ul > li.active > a i {
+    color: #35353C;
+}
+
+.menu-bar nav ul ul {
+    margin-left: 35px;
+    display: none;
+}
+.menu-bar nav ul .active ul,
+.menu-bar nav ul .open ul {
+    display: block;
+}
+.menu-bar nav ul ul > li {
+    border: 0px;
+    border-left: 1px dotted #4A4A54;
+}
+.menu-bar nav ul ul > li + li {
+    border-top: 1px dotted #4A4A54;
+}
+.menu-bar nav ul .active ul > li {
+    border-left-color: #EEEEEE;
+}
+.menu-bar nav ul ul > li.active {
+    border: 0px solid;
+}
+.menu-bar nav ul ul > li > a {
+    padding: 7px 0;
+    font-size: 12px;
+    line-height: 28px;
+    padding-left: 15px;
+    text-align: left;
+}
+
+/* ------------------- profile ------------------------ */
+.menu-bar .nav-profile {
+    background: url("../images/linen-gray.png") repeat scroll 0 0 transparent;
+    border: 1px solid #1D1E21;
+    border-width: 0 1px 1px 0;
+    width: 100%;
+    color: white;
+}
+.menu-bar .nav-profile .dtable-cell {
+    vertical-align: middle;
+}
+.menu-bar .nav-profile > div:first-child {
+    width: 50px;
+}
+.menu-bar .nav-profile > div+div {
+    padding-left: 0px;
+}
+.menu-bar .nav-profile > div {
+    padding: 10px;
+}
+.menu-bar .nav-profile p {
+    margin: 0px;
+    padding: 0px;
+}
+.menu-bar .nav-profile p.title {
+    font-weight: bolder;
+    font-size: larger;
+}
+.menu-bar .nav-profile .user-actions {
+    margin: 0px;
+    margin-left: 5px;
+}
+.menu-bar .nav-profile .user-actions i {
+    margin-right: 0px;
+}

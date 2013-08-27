@@ -1,0 +1,34 @@
+{% extends 'ExtiaUserBundle::admin_consultant_layout.html.twig' %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="tabbable black-box">
+                <div class="tab-header">{% block form_header ''%}</div>
+                <ul class="nav nav-tabs">
+                    {% block nav_tabs_profile '' %}
+                </ul>
+                <div class="tab-content">
+                    {% block main_content '' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="big-button-bar">
+                <a href="#" class="button large" data-form="#group-form">
+                    <i class="icon-ok"></i>
+                    <span>{{ 'admin.buttons.save'|trans }}</span>
+                </a>
+                <a href="{{ path('UserBundle_consultant_list') }}" class="button large">
+                    <i class="icon-reply"></i>
+                    <span>{{ 'admin.buttons.back'|trans }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

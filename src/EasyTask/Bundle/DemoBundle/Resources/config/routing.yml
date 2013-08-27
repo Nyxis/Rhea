@@ -1,0 +1,17 @@
+demo_say_hello:
+    pattern: /demo/say_hello/{workflowId}
+    defaults:
+        _controller: EasyTaskDemoBundle:SayHelloNode:node
+        _node: say_hello
+
+demo_answer_hello:
+    pattern: /demo/answer_hello/{workflowId}
+    defaults:
+        _controller: EasyTaskDemoBundle:AnswerHelloNode:node
+        _node: answer_hello
+
+demo_then_fight:
+    pattern: /demo/then_fight/{workflowId}
+    defaults:
+        _controller: EasyTaskDemoBundle:ThenFightNode:node
+        _node: then_fight

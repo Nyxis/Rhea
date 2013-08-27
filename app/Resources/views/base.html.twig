@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- Always force latest IE rendering engine or request Chrome Frame -->
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+        <title>{% block title %}Rhea{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets
+                'css/compiled.css'
+                '%kernel.root_dir%/Resources/public/css/main.css'
+                'bundles/extiamenu/css/*'
+                'bundles/extiadocument/css/*'
+                'bundles/extianotification/css/*'
+                filter='cssrewrite'  %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+
+            {#
+            <!--[if lt IE 9]>
+            <link href="{{ asset('stylesheets/iefix.css') }}" media="screen" rel="stylesheet" type="text/css" />
+            <![endif]-->
+            #}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% javascripts
+                'js/compiled.js'
+                '%kernel.root_dir%/Resources/public/js/main.js'
+                '@ExtiaCommentBundle/Resources/public/js/comments.js'
+                '@ExtiaMenuBundle/Resources/public/js/menu.js'
+                '@ExtiaDocumentBundle/Resources/public/js/form.js'
+                '@ExtiaTaskBundle/Resources/public/js/tasks.js'
+                %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
+            {#
+            <!--[if lt IE 9]>
+            <script src="{{ asset('javascripts/html5shiv.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('javascripts/excanvas.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('javascripts/iefix.js') }}" type="text/javascript"></script>
+            <![endif]-->
+            #}
+
+            <script type="text/javascript">
+                prettyPrint();
+
+                jQuery(document).ready(function($) {
+                    // loader ajax
+                    $('#ajaxWaiter').css('height', $(document).height());
+                    $('#ajaxWaiterConteneur').css({
+                        top: ($('#ajaxWaiter').innerHeight()-100)/2,
+                        left: ($('#ajaxWaiter').innerWidth()-150)/2
+                    });
+                    $('#ajaxWaiter').each(function(index, elt){
+                        $(document).ajaxStart(function() {
+                            $('#ajaxWaiter, #ajaxWaiterConteneur').show();
+                        });
+
+                        $(document).ajaxStop(function() {
+                            $('#ajaxWaiter, #ajaxWaiterConteneur').hide();
+                        });
+                    });
+
+                    //pane togglers
+                    $('a[data-toggle-target]').on('click', function(e) {
+                        e.preventDefault();
+                        $('#' + $(this).data('toggle-target')).slideToggle();
+                    });
+                });
+            </script>
+        {% endblock %}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
+    </head>
+    {% block body %}
+    <body class="{% block body_class %}{% endblock %}">
+        {% block modal %}{% endblock %}
+
+        {# Top bar #}
+        <div class="navbar navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a href="{{ path('Rhea_homepage') }}" class="brand">Rhea</a>
+                </div>
+            </div>
+        </div>
+
+        {# Left menu bar #}
+        <div class="menu-bar pull-left">
+            {% include 'ExtiaMenuBundle:Menu:main_nav.html.twig' %}
+        </div>
+
+        {# Main content #}
+        <section id="main">
+            <div class="top-nav">
+            {% block top_nav %}
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span12">
+                        {% block breadcrumbs %}{% endblock %}
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12 search-button-bar-container">
+                            {% block search_bar %}
+                            <form><input type="text" placeholder="Search..." class="search"></form>
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+            </div>
+            <div class="container-fluid">
+            {% block content %}
+                {% block content_top %}{% endblock content_top %}
+                <div class="row-fluid">
+                    <div class="span7">
+                        {% block main %}{% endblock main %}
+                    </div>
+                    <div class="span5 sidebar">
+                        {% block sidebar %}{% endblock sidebar %}
+                    </div>
+                </div>
+            {% endblock content %}
+            </div>
+            {% block footer %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="footer">2013 &copy; Extia</div>
+                </div>
+            </div>
+            {% endblock %}
+        </section>
+
+        {% block notifications %}
+            {{ render(controller('ExtiaNotificationBundle:Notification:display')) }}
+        {% endblock %}
+
+        {% block ajaxWaiter %}
+            <div id="ajaxWaiter" style="display:none;"></div>
+            <div id="ajaxWaiterConteneur" style="display:none;">
+                <img src="{{ asset('images/ajax-loader.gif') }} " alt=""><br />
+                {{ 'ajax_loading'|trans }}...
+            </div>
+        {% endblock %}
+
+    </body>
+    {% endblock %}
+</html>

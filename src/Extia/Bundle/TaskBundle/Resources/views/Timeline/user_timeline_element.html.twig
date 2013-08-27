@@ -1,0 +1,60 @@
+{% if task.node.current is empty %}
+    {% set refDate = task.node.completedAt %}
+{% else %}
+    {% set refDate = task.activationDate %}
+{% endif %}
+
+<div class="box task_details">
+    <div class="tab-header">
+        <div class="pull-left">
+            <i class="icon-tasks"></i>
+            {{ refDate|date('date_format.md'|trans) }} -
+            {{ (task.node.workflow.name ~ ' - ' ~ task.node.workflow.type|trans) |truncate(30, true, '') }}
+        </div>
+        <div class="pull-right">
+        {% if task.isCompleted is empty %}
+            <i class="icon-calendar"></i>
+            {{ 'task.handle_limit'|trans }}
+            {{ task.completionDate('date_format.md'|trans)|default('...') }}
+        {% endif %}
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="clearfix">
+            <div class="pull-right status">
+                {% include 'ExtiaTaskBundle:Task:task_status.html.twig' with { 'task': task } only %} <br />
+                {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': task.userAssigned } only %}
+            </div>
+            {% if extra_data is not defined %}{% set extra_data = true %}{% endif %}
+            {{  render(controller(task.node.type.action('timeline'), {
+                    'taskId': task.id,
+                    'params': {
+                        'user_target': user_target|default(false),
+                        'extra_data': extra_data
+                    }
+                }))
+            }}
+            {% include 'ExtiaTaskBundle:Task:planed_task_state.html.twig' with { 'task': task } only %}
+        </div>
+        <div class="btn-group">
+            <a class="button" data-toggle-target="comments-{{ task.id }}" href="#">
+                <i class="icon-comments-alt"></i> {{ 'comments_link'|trans }}
+                {% if task.comments|length %}({{ task.comments.count }}){% endif %}
+            </a>
+            {% if task.isCompleted != true %}
+            <a href="#task_{{ task.id }}" class="button" role="button" data-toggle="modal">
+                <i class="icon-ok"></i> {{ 'handle_link'|trans }}
+            </a>
+            <a href="#differ" class="button" role="button" data-differ-id="{{ task.id }}">
+                <i class="icon-refresh"></i> {{ 'task.differ.button'|trans }}
+            </a>
+            {% endif %}
+            <a href="{{ path('TaskBundle_workflow_history', { 'workflow_id': task.node.workflow.id }) }}" class="button">
+                <i class="icon-list"></i> {{ 'history_link'|trans }}
+            </a>
+        </div>
+        <div id="comments-{{ task.id }}" class="comments">
+            {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' %}
+        </div>
+    </div>
+</div>

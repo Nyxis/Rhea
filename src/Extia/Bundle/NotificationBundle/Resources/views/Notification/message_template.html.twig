@@ -1,0 +1,10 @@
+{% spaceless %}
+{% set icons = {'error' : 'bolt', 'warning' : 'warning-sign', 'info' : 'info', 'success' : 'ok'} %}
+<div class="notif_content">
+    <div class="picto text-{{ type }}"><i class="icon-{{ icons[type] }}"></i></div>
+    <div class="text">
+        <p class="notif-head text-{{ type }}">{{ ('notifications.title.' ~ type)|trans }}</p>
+        <p>{{ notif|trim }}</p>
+    </div>
+</div>
+{% endspaceless %}
