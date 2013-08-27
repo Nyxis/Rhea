@@ -31,7 +31,7 @@ class DifferTaskHandler
     {
         $this->workflows       = $workflows;
         $this->securityContext = $securityContext;
-        $this->translator  = $translator;
+        $this->translator      = $translator;
         $this->notifier        = $notifier;
     }
 
@@ -67,8 +67,10 @@ class DifferTaskHandler
 
             $task = TaskQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                ->filterByWorkflowTypes(array_keys($this->workflows->getAllowed('write')))
-                ->filterByAssignedTo($teamIds)
+                ->_if(!$this->securityContext->isGranted('ROLE_ADMIN'))
+                    ->filterByWorkflowTypes(array_keys($this->workflows->getAllowed('write')))
+                    ->filterByAssignedTo($teamIds)
+                ->_endif()
                 ->findPk($data['task_id']);
 
             if (empty($task)) {

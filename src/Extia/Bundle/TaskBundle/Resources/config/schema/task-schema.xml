@@ -13,12 +13,12 @@
         </behavior>
 
         <column name="assigned_to" type="INTEGER" required="true" description="who have to handle this task" />
-        <foreign-key foreignTable="person" onUpdate="cascade" phpName="UserAssigned">
+        <foreign-key foreignTable="person" onDelete="cascade" onUpdate="cascade" phpName="UserAssigned">
             <reference local="assigned_to" foreign="id" />
         </foreign-key>
 
         <column name="workflow_created_by" type="INTEGER" required="true" description="user who create workflow" />
-        <foreign-key foreignTable="person" onUpdate="cascade" phpName="UserCreatedWorkflow">
+        <foreign-key foreignTable="person" onDelete="cascade" onUpdate="cascade" phpName="UserCreatedWorkflow">
             <reference local="workflow_created_by" foreign="id" />
         </foreign-key>
 
