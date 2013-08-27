@@ -251,8 +251,8 @@ knp_paginator:
     page_range: 5
     default_options:
         page_name: page
-        sort_field_name: sort
-        sort_direction_name: direction
+        sort_field_name: _sort
+        sort_direction_name: _direction
         distinct: true
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig

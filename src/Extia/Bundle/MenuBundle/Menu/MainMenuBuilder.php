@@ -108,9 +108,12 @@ class MainMenuBuilder
         $teamIds = $user->getTeamIds();
         $cltIds  = $user->getConsultantsIds();
 
-        $accessTeam = !empty($teamIds) && $this->securityContext->isGranted('ROLE_INTERNAL_READ', $user);
+        $accessTeam = (!empty($teamIds) && $this->securityContext->isGranted('ROLE_INTERNAL_READ', $user))
+            || $this->securityContext->isGranted('ROLE_INTERNAL_WRITE', $user) // can create int
+        ;
         $accessClts = (!$cltIds->isEmpty() && $this->securityContext->isGranted('ROLE_CONSULTANT_READ', $user)) // have clt and can read
-            || $this->securityContext->isGranted('ROLE_CONSULTANT_WRITE', $user); // can create clt
+            || $this->securityContext->isGranted('ROLE_CONSULTANT_WRITE', $user) // can create clt
+        ;
 
         // have no team, or cannot read user, no menu
         if (!$accessTeam && !$accessClts) {
@@ -120,7 +123,7 @@ class MainMenuBuilder
         // internals
         if ($accessTeam) {
             $this->addTbChild($menu, array (
-                'label'      => 'menu.team',
+                'label'      => $this->securityContext->isGranted('ROLE_INTERNAL_WRITE', $user) ? 'menu.internals' : 'menu.team',
                 'route'      => 'UserBundle_internal_list',
                 'current'    => $request->get('_menu') == 'team',
                 'icon'       => 'group',
@@ -163,21 +166,21 @@ class MainMenuBuilder
         ));
         $adminMenu->setAttribute('class', sprintf('parent%s', $adminActive ? ' open' : ''));
 
-        // managers
-        $this->addTbChild($adminMenu, array (
-            'label'      => 'menu.managers',
-            'route'      => 'extia_user_manager_list',
-            'icon'       => 'eur',
-            'icon-white' => true
-        ));
+        // // managers
+        // $this->addTbChild($adminMenu, array (
+        //     'label'      => 'menu.managers',
+        //     'route'      => 'extia_user_manager_list',
+        //     'icon'       => 'eur',
+        //     'icon-white' => true
+        // ));
 
-        // crh
-        $this->addTbChild($adminMenu, array (
-            'label'      => 'menu.crh',
-            'route'      => 'extia_user_crh_list',
-            'icon'       => 'group',
-            'icon-white' => true
-        ));
+        // // crh
+        // $this->addTbChild($adminMenu, array (
+        //     'label'      => 'menu.crh',
+        //     'route'      => 'extia_user_crh_list',
+        //     'icon'       => 'group',
+        //     'icon-white' => true
+        // ));
 
         // groups
         $this->addTbChild($adminMenu, array (

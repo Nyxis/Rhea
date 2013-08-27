@@ -1,0 +1,17 @@
+{% if consultant.status == 'resigned' %}
+    <span class="badge">
+        <i class="icon-signout"></i> {{ 'user_status.resigned'|trans }}
+    </span>
+{% elseif consultant.status == 'ic' %}
+    <span class="badge badge-important">
+        <i class="icon-warning-sign"></i> {{ 'user_status.ic'|trans }}
+    </span>
+{% elseif consultant.status == 'recruited' %}
+    <span class="badge badge-warning">
+        <i class="icon-refresh"></i> {{ 'user_status.recruited'|trans }}
+    </span>
+{% else %}
+    <span class="badge badge-success">
+        <i class="icon-external-link"></i> {{ 'user_status.placed'|trans }}
+    </span>
+{% endif %}

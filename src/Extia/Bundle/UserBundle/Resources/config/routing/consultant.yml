@@ -1,7 +1,7 @@
 UserBundle_consultant_list:
     pattern: /
     defaults:
-        _controller: 'ExtiaUserBundle:Consultant:list'
+        _controller: 'ExtiaUserBundle:AdminConsultant:list'
         _format: html
     requirements:
         _format: html
@@ -9,7 +9,7 @@ UserBundle_consultant_list:
 UserBundle_consultant_new:
     pattern: /new
     defaults:
-        _controller: 'ExtiaUserBundle:Consultant:new'
+        _controller: 'ExtiaUserBundle:AdminConsultant:new'
         _format: html
     requirements:
         _format: html
@@ -28,7 +28,7 @@ UserBundle_consultant_timeline:
 UserBundle_consultant_edit:
     pattern: /{Id}/{Url}/edit
     defaults:
-        _controller: 'ExtiaUserBundle:Consultant:edit'
+        _controller: 'ExtiaUserBundle:AdminConsultant:edit'
         _format: html
     requirements:
         id: \d+
@@ -39,7 +39,7 @@ UserBundle_consultant_edit:
 UserBundle_consultant_delete:
     pattern: /{Id}/delete
     defaults:
-        _controller: 'ExtiaUserBundle:Consultant:delete'
+        _controller: 'ExtiaUserBundle:AdminConsultant:delete'
         _format: html
     requirements:
         id: \d+

@@ -187,6 +187,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         PersonTypeId: pdg
         Job: Président directeur général
         GroupId: manager
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 1
         treeRight: 14
@@ -196,11 +197,13 @@ Extia\Bundle\UserBundle\Model\Internal:
         firstname: Pauline
         lastname: Dantin
         trigram: PDA
+        NbIc: 1
         password: <?php echo sha1('pdantin')."\n" ?>
         AgencyId: paris_media
         PersonTypeId: crh
         Job: Responsable RH
         GroupId: crh
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 2
         treeRight: 11
@@ -215,6 +218,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         PersonTypeId: crh
         Job: CRH
         GroupId: crh
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 3
         treeRight: 6
@@ -224,11 +228,13 @@ Extia\Bundle\UserBundle\Model\Internal:
         firstname: Caroline
         lastname: Gautier
         trigram: CGA
+        NbIc: 1
         password: <?php echo sha1('cgautier')."\n" ?>
         AgencyId: paris_media
         PersonTypeId: ia
         Job: Responsable ingénieur d'affaires
         GroupId: manager
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2007-01-01')."\n" ?>
         treeLeft: 12
         treeRight: 13
@@ -247,6 +253,8 @@ Extia\Bundle\UserBundle\Model\Consultant:
         Job: Développeur
         GroupId: consultant
         CrhId: pauline
+        ManagerId: caroline
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2012-09-01')."\n" ?>
         treeLeft: 7
         treeRight: 8
@@ -261,6 +269,8 @@ Extia\Bundle\UserBundle\Model\Consultant:
         Job: Architecte
         GroupId: consultant
         CrhId: marine
+        ManagerId: caroline
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
         treeLeft: 4
         treeRight: 5
@@ -275,12 +285,14 @@ Extia\Bundle\UserBundle\Model\Consultant:
         Job: Développeur front
         GroupId: consultant
         CrhId: pauline
+        ManagerId: caroline
+        Birthdate: <?php echo strtotime('1950-01-01')."\n" ?>
         ContractBeginDate: <?php echo strtotime('2011-09-12')."\n" ?>
         treeLeft: 9
         treeRight: 10
         treeLevel: 2
 
-Extia\Bundle\MissionBundle\Model\Company:
+Extia\Bundle\MissionBundle\Model\Client:
     tf1:
         title: e-Tf1
         description: Secteur d'activité média
