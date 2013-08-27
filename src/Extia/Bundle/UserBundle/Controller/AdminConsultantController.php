@@ -51,26 +51,25 @@ class AdminConsultantController extends Controller
             if ($form->isValid()) {
                 $filters = $form->getData();
                 $session->set('consultant_filters_data', $filters);
-            }
-            else {
+            } else {
                 $this->get('notifier')->add('warning', 'consultant.admin.notifications.filters_error');
             }
         }
 
         // display
-        if($filters['display'] == 'mine') {
+        if ($filters['display'] == 'mine') {
             $query->filterByInternalReferer($user);
         }
         // agency
-        if(!empty($filters['agency'])) {
+        if (!empty($filters['agency'])) {
             $query->filterByAgencyId($filters['agency']);
         }
         // name
-        if(!empty($filters['name'])) {
+        if (!empty($filters['name'])) {
             $query->filterByName($filters['name']);
         }
         // status
-        if(!empty($filters['status'])) {
+        if (!empty($filters['status'])) {
             // active by default
             $query->_if($filters['status'] == 'resigned')
                     ->filterByInactive()
@@ -80,15 +79,15 @@ class AdminConsultantController extends Controller
                 ->_endif();
         }
         // manager
-        if(!empty($filters['manager'])) {
+        if (!empty($filters['manager'])) {
             $query->filterByManagerId($filters['manager']);
         }
         // crh
-        if(!empty($filters['crh'])) {
+        if (!empty($filters['crh'])) {
             $query->filterByCrhId($filters['crh']);
         }
         // client
-        if(!empty($filters['client'])) {
+        if (!empty($filters['client'])) {
             $query->filterByClient($filters['client'], true); // current client
         }
 
@@ -226,10 +225,6 @@ class AdminConsultantController extends Controller
     {
         $consultant = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Job')
-            ->useJobQuery()
-                ->joinWithI18n()
-            ->endUse()
             ->filterByUrl($Url)
             ->findPk($Id);
 
@@ -250,11 +245,16 @@ class AdminConsultantController extends Controller
      */
     public function renderForm(Request $request, Consultant $consultant, $template)
     {
+        $user = $this->getUser();
+        if (!$this->get('security.context')->isGranted('ROLE_CONSULTANT_WRITE', $user)) {
+            throw new AccessDeniedHttpException(sprintf('You have any credentials to write internals.'));
+        }
+
         $form  = $this->get('form.factory')->create('consultant', $consultant, array());
         $isNew = $consultant->isNew();
 
         if ($request->request->has($form->getName())) {
-            if ($this->get('extia_group.form.group_handler')->handle($form, $request)) {
+            if ($this->get('extia_user.admin.consultant_form_handler')->handle($form, $request)) {
 
                 // success message
                 $this->get('notifier')->add(
@@ -265,8 +265,7 @@ class AdminConsultantController extends Controller
                 // redirect on edit if was new
                 if ($isNew) {
                     return $this->redirect($this->get('router')->generate(
-                        'UserBundle_consultant_edit',
-                        $consultant->getRouting()
+                        'UserBundle_consultant_edit', $consultant->getRouting()
                     ));
                 }
             }
@@ -274,8 +273,7 @@ class AdminConsultantController extends Controller
 
         return $this->render($template, array(
             'consultant' => $consultant,
-            'form'       => $form->createView(),
-            'locales'    => $this->container->getParameter('extia_group.managed_locales')
+            'form'       => $form->createView()
         ));
     }
 }

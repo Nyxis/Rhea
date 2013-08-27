@@ -1,22 +1,21 @@
 <?php
+
 namespace Extia\Bundle\UserBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Form type for consultant model
- * @see Extia/Bundles/UserBundle/Resources/config/admin.xml
+ * form type for consultant resignation
  */
-class ConsultantType extends AdminType
+class ConsultantResignationType extends AdminType
 {
     /**
-     * @see AbstracType::getName()
+     * @see AbstractType::getName()
      */
     public function getName()
     {
-        return 'consultant_form';
+        return 'consultant_resignation';
     }
 
     /**
@@ -24,7 +23,9 @@ class ConsultantType extends AdminType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return $resolver->setDefaults(array());
+        return $resolver->setDefaults(array(
+
+        ));
     }
 
     /**
@@ -34,5 +35,4 @@ class ConsultantType extends AdminType
     {
 
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Extia\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
