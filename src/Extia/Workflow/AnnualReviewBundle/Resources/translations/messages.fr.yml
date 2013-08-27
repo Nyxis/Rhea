@@ -16,7 +16,7 @@ annual_review_initiation:
 
 preparing: Préparation
 annual_review_preparing:
-    notification: "Le bilan annuel a bien été planifié avec %mgr% pour le consultant %clt%, le %notif_date%."
+    notification: "Le bilan annuel a bien été planifié pour le consultant %clt%, le %notif_date%."
     form:
         hook: Veuillez faire remplir le document de bilan annuel, puis téléchargez le à réception pour planifier la réunion avec le manager.
         document: Bilan annuel consultant

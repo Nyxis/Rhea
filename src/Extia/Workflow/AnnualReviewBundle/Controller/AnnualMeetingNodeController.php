@@ -41,8 +41,10 @@ class AnnualMeetingNodeController extends TypeNodeController
         $nextTask->data()->set('crh_id', $prevTask->getAssignedTo());
         $nextTask->setAssignedTo($prevTask->data()->get('manager_id'));
 
-        $nextTask->setActivationDate($prevTask->data()->get('meeting_date'));
+        $nextTask->setActivationDate(strtotime(date('Y-m-d', $prevTask->data()->get('meeting_date'))));
         $nextTask->defineCompletionDate('+2 days');
+
+        $nextTask->data()->set('meeting_date', $prevTask->data()->get('meeting_date'));
 
         return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);
     }
@@ -53,6 +55,15 @@ class AnnualMeetingNodeController extends TypeNodeController
     public function onTaskDiffering(Task $task)
     {
         $task->defineCompletionDate('+2 days');
+
+        // recalculate meeting date
+        $oldDate = $task->data()->get('meeting_date');
+        $newDate = $task->getActivationDate();
+
+        $task->data()->set('meeting_date', mktime(
+            date('H', $oldDate), date('i', $oldDate), 0,
+            $newDate->format('n'), $newDate->format('j'), $newDate->format('Y')
+        ));
     }
 
     /**

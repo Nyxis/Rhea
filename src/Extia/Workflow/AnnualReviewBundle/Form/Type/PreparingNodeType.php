@@ -42,12 +42,12 @@ class PreparingNodeType extends AbstractNodeType
             'label'    => 'annual_review_preparing.form.manager_id'
         ));
 
-        $builder->add('meeting_date', 'date', array(
-            'required' => true,
-            'widget'   => 'text',
-            'input'    => 'timestamp',
-            'format'   => 'dd/MM/yyyy',
-            'label'    => 'annual_review_preparing.form.meeting_date'
+        $builder->add('meeting_date', 'datetime', array(
+            'required'    => true,
+            'date_widget' => 'text',
+            'time_widget' => 'text',
+            'input'       => 'timestamp',
+            'label'       => 'annual_review_preparing.form.meeting_date'
         ));
     }
 }
