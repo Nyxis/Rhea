@@ -1,0 +1,10 @@
+{% set current = active|default({'field': '', 'direction': ''}) %}
+
+<div class="sorts">
+    <a href="?sort={{ field }}&dir=asc" class="sort-up{% if current.field == field and current.direction == 'asc' %} active{% endif %}">
+        <i class="icon-chevron-up"></i>
+    </a>
+    <a href="?sort={{ field }}&dir=desc" class="sort-down{% if current.field == field and current.direction == 'desc' %} active{% endif %}">
+        <i class="icon-chevron-down"></i>
+    </a>
+</div>

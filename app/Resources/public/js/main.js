@@ -38,4 +38,12 @@ jQuery(document).ready(function($) {
 
         $pageSelector.find('a:first-child').trigger('click');
     });
+
+
+    // form submit
+    $('a[data-form]').on('click', function(e) {
+        e.preventDefault();
+        $($(this).data('form')).trigger('submit');
+    });
+
 });

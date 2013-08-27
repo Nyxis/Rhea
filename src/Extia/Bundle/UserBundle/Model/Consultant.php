@@ -65,8 +65,9 @@ class Consultant extends BaseConsultant
         $missionsOrders = $this->getMissionOrders(
             MissionOrderQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->filterByCurrent(true)
                 ->filterByEndDate(null, \Criteria::ISNULL)
-                ->orderBybeginDate(\Criteria::DESC)
+                ->orderByBeginDate(\Criteria::DESC)
                 ->joinWith('Mission')
                 ->joinWith('Mission.Manager')
         );
@@ -76,15 +77,5 @@ class Consultant extends BaseConsultant
         }
 
         return $this->currentMissionOrder;
-    }
-
-    /**
-     * returns consultant current manager (function of mission)
-     * @param  Pdo          $con option db connection
-     * @return Manager|null
-     */
-    public function getManager(\Pdo $con = null)
-    {
-        return $this->getCurrentMission($con)->getManager();
     }
 }

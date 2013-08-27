@@ -1,0 +1,11 @@
+{% extends 'ExtiaUserBundle::admin_layout.html.twig' %}
+
+{% block body_class %}user-admin{% endblock %}
+
+{% block inactive_breadcrumb %}
+    <li>
+        <a href="{{ path('UserBundle_internal_list') }}"><i class="icon-group"></i>
+            {% if is_granted('ROLE_INTERNAL_WRITE', app.user) %}{{ 'menu.internals'|trans }}{% else %}{{ 'menu.team'|trans }}{% endif %}
+        </a>
+    </li>
+{% endblock %}
