@@ -5,9 +5,6 @@ namespace Extia\Bundle\UserBundle\Controller;
 use Extia\Bundle\UserBundle\Model\Internal;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 
-use Extia\Bundle\TaskBundle\Model\TaskQuery;
-use Extia\Bundle\TaskBundle\Model\TaskPeer;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -53,22 +50,21 @@ class AdminInternalController extends Controller
             if ($form->isValid()) {
                 $filters = $form->getData();
                 $session->set('internal_filters_data', $filters);
-            }
-            else {
+            } else {
                 $this->get('notifier')->add('warning', 'internal.admin.notifications.filters_error');
             }
         }
 
         // person type
-        if(!empty($filters['internal_type'])) {
+        if (!empty($filters['internal_type'])) {
             $query->filterByPersonTypeId($filters['internal_type']);
         }
         // agency
-        if(!empty($filters['agency'])) {
+        if (!empty($filters['agency'])) {
             $query->filterByAgencyId($filters['agency']);
         }
         // name
-        if(!empty($filters['name'])) {
+        if (!empty($filters['name'])) {
             $query->filterByName($filters['name']);
         }
 
@@ -78,7 +74,7 @@ class AdminInternalController extends Controller
             ->_endif();
 
         // parent
-        if(!empty($filters['parent'])) {
+        if (!empty($filters['parent'])) {
             $query->descendantsOf(
                 InternalQuery::create()
                     ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -117,13 +113,13 @@ class AdminInternalController extends Controller
         $defaultSortField     = 'tree';
         $defaultSortDirection = 'asc';
 
-        $currentSortField     = $request->query->get('sort', $session->get('consultants_list_sort_field', $defaultSortField));
-        $currentSortDirection = $request->query->get('dir', $session->get('consultants_list_sort_direction', $defaultSortDirection));
+        $currentSortField     = $request->query->get('sort', $session->get('internal_list_sort_field', $defaultSortField));
+        $currentSortDirection = $request->query->get('dir', $session->get('internal_list_sort_direction', $defaultSortDirection));
 
         // reset button
         if ($request->request->has('reset_filters')) {
-            $session->remove('consultants_list_sort_field');
-            $session->remove('consultants_list_sort_direction');
+            $session->remove('internal_list_sort_field');
+            $session->remove('internal_list_sort_direction');
             $currentSortField     = $defaultSortField;
             $defaultSortDirection = $defaultSortDirection;
         }
@@ -143,8 +139,8 @@ class AdminInternalController extends Controller
             $query->orderByTreeLeft(\Criteria::ASC);
         }
 
-        $session->set('consultants_list_sort_field', $currentSortField);
-        $session->set('consultants_list_sort_direction', $currentSortDirection);
+        $session->set('internal_list_sort_field', $currentSortField);
+        $session->set('internal_list_sort_direction', $currentSortDirection);
 
         return array(
             'field'     => $currentSortField,
@@ -180,7 +176,7 @@ class AdminInternalController extends Controller
     /**
      * lists internals
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function listAction(Request $request, $page = 1)
@@ -304,6 +300,7 @@ class AdminInternalController extends Controller
             $this->get('extia_user.admin.internal_form_handler')->handle($form, $request) ) {
 
             if ($isNew) { // redirect on edit if was new
+
                 return $this->redirect($this->get('router')->generate(
                     'UserBundle_internal_edit', $internal->getRouting()
                 ));
@@ -315,12 +312,6 @@ class AdminInternalController extends Controller
             'form'     => $form->createView()
         ));
     }
-
-
-
-
-
-
 
     /**
      * @param Request $request

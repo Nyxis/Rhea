@@ -1,4 +1,4 @@
-{% extends 'ExtiaUserBundle::admin_consultant_layout.html.twig' %}
+{% extends 'ExtiaUserBundle::admin_layout.html.twig' %}
 
 {% block body_class %}user-admin{% endblock %}
 
@@ -107,12 +107,17 @@
                 {{ 'consultant.admin.filters.header'|trans }}
             </div>
             <div class="padded">
-                <form class="form form-horizontal" method="POST" {{ form_enctype(form) }}>
+                <form class="form" method="POST" {{ form_enctype(form) }}>
                     {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+
+                    <div class="control-group horizontal" id="{{ form.display.vars.id }}">
+                        {{ form_label(form.display) }}
+                        <div class="controls">{{ form_widget(form.display) }}</div>
+                    </div>
 
                     {{ form_rest(form) }}
 
-                    <div class="control-group">
+                    <div class="control-group actions">
                         <div class=" controls">
                             <input class="button" type="submit" value="{{ 'admin.filters.form.submit'|trans }}" />
                             <input class="button" name="reset_filters" type="submit" value="{{ 'admin.filters.form.reset'|trans }}" />

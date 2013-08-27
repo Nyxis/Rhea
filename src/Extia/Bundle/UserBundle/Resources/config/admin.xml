@@ -45,6 +45,7 @@
             <tag name="form.type" alias="internal_resignation" />
         </service>
         <service id="extia_user.admin.internal_form_handler" class="%extia_user.admin.internal_form_handler.class%">
+            <argument type="service" id="security.context" />
             <argument type="service" id="notifier" />
             <argument>%kernel.root_dir%</argument>
             <argument type="service" id="logger" />

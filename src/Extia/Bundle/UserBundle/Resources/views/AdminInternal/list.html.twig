@@ -109,7 +109,7 @@
                 <form class="form" method="POST" {{ form_enctype(form) }}>
                     {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
-                    <div class="control-group horizontal">
+                    <div class="control-group horizontal" id="{{ form.display.vars.id }}">
                         {{ form_label(form.display) }}
                         <div class="controls">{{ form_widget(form.display) }}</div>
                     </div>

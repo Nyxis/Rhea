@@ -475,6 +475,7 @@ th .wrap {
 }
 th .sorts {
     display: table-cell;
+    vertical-align: middle;
     padding-left: 10px;
 }
 th .sorts a {
