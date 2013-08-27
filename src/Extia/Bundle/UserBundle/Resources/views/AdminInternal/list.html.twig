@@ -106,23 +106,27 @@
                 {{ 'internal.admin.filters.header'|trans }}
             </div>
             <div class="padded">
-                <form class="form form-horizontal" method="POST" {{ form_enctype(form) }}>
+                <form class="form" method="POST" {{ form_enctype(form) }}>
                     {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
-                    {{ form_row(form.display) }}
+                    <div class="control-group horizontal">
+                        {{ form_label(form.display) }}
+                        <div class="controls">{{ form_widget(form.display) }}</div>
+                    </div>
+
                     {{ form_row(form.name) }}
                     {{ form_row(form.internal_type) }}
                     {{ form_row(form.agency) }}
                     {{ form_row(form.parent) }}
 
-                    <div class="unmarged control-group" id="{{ form.with_ic.vars.id }}">
+                    <div class="control-group" id="{{ form.with_ic.vars.id }}">
                         <div class="controls">{{ form_widget(form.with_ic) }}</div>
                     </div>
 
                     {{ form_rest(form) }}
 
-                    <div class="control-group">
-                        <div class=" controls">
+                    <div class="control-group actions">
+                        <div class="controls">
                             <input class="button" type="submit" value="{{ 'admin.filters.form.submit'|trans }}" />
                             <input class="button" name="reset_filters" type="submit" value="{{ 'admin.filters.form.reset'|trans }}" />
                         </div>

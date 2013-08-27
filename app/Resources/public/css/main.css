@@ -312,8 +312,8 @@ blockquote .button i {
 .task_timeline p {
     font-size: 14px;
     color: #333333;
-    font-style: italic;
-    margin: 0 0 10px;
+    font-style: italic
+;    margin: 0 0 10px;
     padding: 0px;
 }
 .task_timeline .black-box p {
@@ -497,24 +497,30 @@ td.tree .dtable{
     vertical-align: middle;
 }
 
-.admin-filters .form-horizontal {
+.admin-filters .form {
     padding: 0px;
+    font-size: 12px;
 }
-.admin-filters .form-horizontal .control-label {
-    text-align: left;
+.admin-filters .form select,
+.admin-filters .form label,
+.admin-filters .form textarea,
+.admin-filters .form input {
+    font-size: 12px;
 }
-.admin-filters .form-horizontal .control-label {
-    width: 80px;
+.admin-filters .form .control-group {
+    margin: 0px;
 }
-.admin-filters .form-horizontal .controls {
-    margin-left: 90px;
+.admin-filters .form .control-group.horizontal > * {
+    display: table-cell;
+    vertical-align: top;
 }
-.admin-filters .form-horizontal .control-group:last-child {
-    margin-bottom: 0px;
+.admin-filters .form .control-group.horizontal .controls {
+    padding-left: 30px;
 }
-.admin-filters .form-horizontal .control-group.unmarged {
-    margin-top: -10px;
+.admin-filters .form .control-group.actions {
+    margin-top: 15px;
 }
+
 
 .user-admin .table td.image {
     width: 65px;
