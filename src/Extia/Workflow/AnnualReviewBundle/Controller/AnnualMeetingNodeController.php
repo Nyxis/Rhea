@@ -19,6 +19,14 @@ class AnnualMeetingNodeController extends TypeNodeController
     /**
      * {@inherit_doc}
      */
+    public function getHandler()
+    {
+        return $this->get('annual_review.annual_meeting.handler');
+    }
+
+    /**
+     * {@inherit_doc}
+     */
     protected function getTemplates()
     {
         return array(
@@ -85,8 +93,7 @@ class AnnualMeetingNodeController extends TypeNodeController
 
         if ($request->request->has($form->getName())) {
 
-            $handler  = $this->get('annual_review.annual_meeting.handler');
-            $response = $handler->handle($form, $request, $task);
+            $response = $this->getHandler()->handle($form, $request, $task);
 
             // we dont use default redirect response : our tasks are asynchronous
             // we redirect previous page with a message instead

@@ -81,6 +81,11 @@ class ConsultantType extends AdminType
             'label'    => 'consultant.admin.form.contract_begin'
         ));
 
+        $builder->add('job', 'text', array(
+            'required' => true,
+            'label'    => 'consultant.admin.form.job'
+        ));
+
         $this->addAgencyForm($builder, array(
             'required' => true,
             'label'    => 'consultant.admin.form.agency'
@@ -92,7 +97,7 @@ class ConsultantType extends AdminType
         ));
 
         $builder->add('coopted_by_id', 'choice', array(
-            'required' => true,
+            'required' => false,
             'expanded' => false,
             'multiple' => false,
             'label'    => 'consultant.admin.form.coopted_by',
@@ -118,7 +123,7 @@ class ConsultantType extends AdminType
             'mapped'   => false
         ));
 
-        $this->addInternalForm('manager_id', array('crh'), $builder, array(
+        $this->addInternalForm('manager_id', array('dir', 'ia'), $builder, array(
             'required' => false,
             'label'    => 'consultant.admin.form.manager',
             'mapped'   => false

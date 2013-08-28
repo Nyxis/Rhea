@@ -60,8 +60,8 @@ class AdminInternalController extends Controller
             $query->filterByPersonTypeId($filters['internal_type']);
         }
         // agency
-        if (!empty($filters['agency'])) {
-            $query->filterByAgencyId($filters['agency']);
+        if (!empty($filters['agency_id'])) {
+            $query->filterByAgencyId($filters['agency_id']);
         }
         // name
         if (!empty($filters['name'])) {

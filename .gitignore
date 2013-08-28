@@ -36,3 +36,4 @@ composer.phar
 
 # Uploads
 data/*
+web/images/avatars/*

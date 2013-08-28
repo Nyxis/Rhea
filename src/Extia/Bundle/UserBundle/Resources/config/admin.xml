@@ -68,11 +68,12 @@
             <tag name="form.type" alias="consultant_resignation" />
         </service> -->
         <service id="extia_user.admin.consultant_form_handler" class="%extia_user.admin.consultant_form_handler.class%">
-<!--             <argument type="service" id="security.context" />
+            <argument type="service" id="security.context" />
             <argument type="service" id="notifier" />
+            <argument type="service" id="workflows" />
             <argument>%kernel.root_dir%</argument>
             <argument type="service" id="logger" />
-            <argument>%kernel.debug%</argument> -->
+            <argument>%kernel.debug%</argument>
         </service>
 
 

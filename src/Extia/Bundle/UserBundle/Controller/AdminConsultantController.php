@@ -61,8 +61,8 @@ class AdminConsultantController extends Controller
             $query->filterByInternalReferer($user);
         }
         // agency
-        if (!empty($filters['agency'])) {
-            $query->filterByAgencyId($filters['agency']);
+        if (!empty($filters['agency_id'])) {
+            $query->filterByAgencyId($filters['agency_id']);
         }
         // name
         if (!empty($filters['name'])) {
@@ -246,13 +246,6 @@ class AdminConsultantController extends Controller
 
         if ($request->request->has($form->getName())) {
             if ($this->get('extia_user.admin.consultant_form_handler')->handle($form, $request)) {
-
-                // success message
-                $this->get('notifier')->add(
-                    'success', 'consultant.admin.notification.save_success',
-                    array('%consultant_name%' => $consultant->getLongName())
-                );
-
                 // redirect on edit if was new
                 if ($isNew) {
                     return $this->redirect($this->get('router')->generate(

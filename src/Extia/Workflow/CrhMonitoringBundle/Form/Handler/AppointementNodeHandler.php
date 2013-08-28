@@ -17,14 +17,14 @@ class AppointementNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request)
+    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
     {
         // activate before given date for pre-notification
         $task->data()->set('meeting_date', $task->findNextWorkingDay($data['meeting_date']));
 
-        $task->save();
+        $task->save($pdo);
 
         // notify next node
-        return $this->notifyNext('meeting', $task, $request);
+        return $this->notifyNext('meeting', $task, $request, $pdo);
     }
 }

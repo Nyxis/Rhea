@@ -17,15 +17,15 @@ class PreparingNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request)
+    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
     {
         $task->addDocument($data['annual_review_doc']);
 
         $task->data()->set('manager_id', $data['manager_id']);
         $task->data()->set('meeting_date', $task->findNextWorkingDay($data['meeting_date']));
 
-        $task->save();
+        $task->save($pdo);
 
-        return $this->notifyNext('annual_meeting', $task, $request);
+        return $this->notifyNext('annual_meeting', $task, $request, $pdo);
     }
 }

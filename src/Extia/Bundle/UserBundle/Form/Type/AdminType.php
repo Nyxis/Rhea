@@ -87,7 +87,7 @@ abstract class AdminType extends AbstractType
             $choices[$row['Id']] = 'admin.form.agency_choices.'.$row['Code'];
         });
 
-        $builder->add('agency', 'choice', array_replace_recursive(array(
+        $builder->add('agency_id', 'choice', array_replace_recursive(array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
@@ -154,6 +154,7 @@ abstract class AdminType extends AbstractType
             'choices'  => MissionQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->joinWith('Client')
+                ->filterByType('client')
                 ->find()
                 ->toKeyValue('Id', 'FullLabel')
         ), $options));

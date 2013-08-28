@@ -115,6 +115,7 @@ consultant:
             telephone: Téléphone
             mobile: Mobile
             contract_begin: Date d'entrée
+            job: Poste
             agency: Agence
             crh: Crh
             coopted_by: Coopté par

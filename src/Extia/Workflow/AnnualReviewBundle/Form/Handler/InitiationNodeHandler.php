@@ -17,7 +17,7 @@ class InitiationNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request)
+    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
     {
         $task->setUserTargetId($data['user_target_id']);
 
@@ -29,8 +29,8 @@ class InitiationNodeHandler extends AbstractNodeHandler
         // updates workflow fields
         $this->updateWorkflow($data, $task);
 
-        $task->save();
+        $task->save($pdo);
 
-        return $this->notifyNext('preparing', $task, $request);
+        return $this->notifyNext('preparing', $task, $request, $pdo);
     }
 }
