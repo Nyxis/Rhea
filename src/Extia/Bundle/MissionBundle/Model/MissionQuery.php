@@ -52,6 +52,4 @@ class MissionQuery extends BaseMissionQuery
     {
         return $this->orderByContactName($dir);
     }
-
-
 }

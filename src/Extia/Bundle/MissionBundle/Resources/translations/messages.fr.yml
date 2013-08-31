@@ -24,6 +24,13 @@ mission:
 
         filters:
             header: Filtres
+            form:
+                display: Afficher
+                mine: mes missions
+                all: toutes les missions
+                client_name: Nom client
+                mission_label: Libellé mission
+                manager: Missions de
 
         content:
             manager: "Manager :"

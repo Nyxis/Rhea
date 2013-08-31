@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <!-- <parameter key="extia_mission.admin.form.mission.class">Extia\Bundle\MissionBundle\Form\Type\MissionType</parameter> -->
+        <parameter key="extia_mission.form.mission_filters_type.class">Extia\Bundle\MissionBundle\Form\Type\MissionFiltersType</parameter>
+    </parameters>
+
+    <services>
+        <!-- Mission filters -->
+        <service id="extia_mission.form.mission_filters" class="Symfony\Component\Form\Form"
+            factory-service="form.factory" factory-method="create" >
+            <argument type="service" id="extia_mission.form.mission_filters_type" />
+        </service>
+        <service id="extia_mission.form.mission_filters_type" class="%extia_mission.form.mission_filters_type.class%"
+            parent="extia_user.admin.admin_form_type" >
+
+        </service>
+
+    </services>
+</container>

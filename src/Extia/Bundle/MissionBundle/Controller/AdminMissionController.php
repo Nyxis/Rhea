@@ -17,6 +17,76 @@ use Symfony\Component\Form\Form;
  */
 class AdminMissionController extends Controller
 {
+    /**
+     * injects filters and sorts into query
+     *
+     * @param  Request      $request
+     * @param  MissionQuery $query
+     * @return Form
+     */
+    protected function processFilters(Request $request, MissionQuery $query)
+    {
+        $session = $this->get('session');
+
+        // reset button
+        if ($request->request->has('reset_filters')) {
+            $session->remove('mission_filters_data');
+        }
+
+        $user = $this->getUser();
+        $form = $this->get('extia_mission.form.mission_filters');
+
+        $defaultData = array(
+            'display' => $this->get('security.context')->isGranted('ROLE_ADMIN') ? 'all' : 'mine',
+        );
+
+        $filters = $session->get('mission_filters_data', $defaultData);
+
+        $form->setData($filters);
+
+        // no incomming form
+        if ($request->request->has($form->getName()) && !$request->request->has('reset_filters')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                $filters = $form->getData();
+                $session->set('mission_filters_data', $filters);
+            } else {
+                $this->get('notifier')->add('warning', 'mission.admin.notifications.filters_error');
+            }
+        }
+
+        // adds filters to query
+
+        $user = $this->getUser();
+        if ($filters['display'] == 'mine' || !$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $teamIds = $user->getTeamIds();
+            if (!empty($teamIds)) {
+                $teamIds->append($user->getId());
+            }
+            else {
+                array_push((array) $teamIds, $user->getId());
+            }
+
+            $query->filterByManagerId($teamIds);
+        }
+
+        if (!empty($filters['client_name'])) {
+            $query->useClientQuery()
+                    ->filterByTitle('%'.$filters['client_name'].'%', \Criteria::LIKE)
+                ->endUse()
+            ;
+        }
+
+        if (!empty($filters['mission_label'])) {
+            $query->filterByLabel('%'.$filters['mission_label'].'%', \Criteria::LIKE);
+        }
+
+        if (!empty($filters['manager'])) {
+            $query->filterByManagerId($filters['manager']);
+        }
+
+        return $form;
+    }
 
 
     /**
@@ -122,6 +192,8 @@ class AdminMissionController extends Controller
             ->groupBy('Id')
         ;
 
+        $filtersForm = $this->processFilters($request, $missionsQuery);
+
         $sorts = $this->processSorts($request, $missionsQuery);
 
         $missionsCollection = $this->get('knp_paginator')->paginate(
@@ -130,6 +202,7 @@ class AdminMissionController extends Controller
 
         return $this->render('ExtiaMissionBundle:AdminMission:list.html.twig', array(
             'missions' => $missionsCollection,
+            'form'     => $filtersForm->createView(),
             'sort'     => $sorts
         ));
     }

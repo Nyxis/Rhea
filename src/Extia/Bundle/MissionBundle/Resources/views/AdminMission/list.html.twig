@@ -89,7 +89,18 @@
             </div>
             <div class="padded">
                 <form class="form" method="POST" >
-                    <div class="control-group actions">
+                    <div class="control-group actions" {{ form_enctype(form) }}>
+                        {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+
+                        {% if form.display is defined %}
+                        <div class="control-group horizontal" id="{{ form.display.vars.id }}">
+                            {{ form_label(form.display) }}
+                            <div class="controls">{{ form_widget(form.display) }}</div>
+                        </div>
+                        {% endif %}
+
+                        {{ form_rest(form) }}
+
                         <div class=" controls">
                             <input class="button" type="submit" value="{{ 'admin.filters.form.submit'|trans }}" />
                             <input class="button" name="reset_filters" type="submit" value="{{ 'admin.filters.form.reset'|trans }}" />
