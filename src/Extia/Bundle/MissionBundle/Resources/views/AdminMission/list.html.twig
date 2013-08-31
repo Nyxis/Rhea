@@ -1,0 +1,53 @@
+{% extends 'ExtiaMissionBundle:AdminMission:layout.html.twig' %}
+
+{% block current_breadcrumb %}
+    <li class="active"><a href="#">{{ 'mission.breadcrumbs.list'|trans }}</a></li>
+{% endblock %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box">
+                <div class="tab-header">
+                    <i class="icon-th-list"></i>
+                    {{ 'mission.admin.list.header'|trans }}
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <th>&nbsp;</th>
+                    </thead>
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <td>&nbsp;</td>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid admin-filters">
+    <div class="span12">
+        <div class="box">
+            <div class="tab-header">
+                <i class="icon-search"></i>
+                {{ 'mission.admin.filters.header'|trans }}
+            </div>
+            <div class="padded">
+                <form class="form" method="POST" >
+
+                    <div class="control-group actions">
+                        <div class=" controls">
+                            <input class="button" type="submit" value="{{ 'admin.filters.form.submit'|trans }}" />
+                            <input class="button" name="reset_filters" type="submit" value="{{ 'admin.filters.form.reset'|trans }}" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

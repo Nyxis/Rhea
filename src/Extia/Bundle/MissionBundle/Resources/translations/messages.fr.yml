@@ -5,9 +5,18 @@ mission:
     client: Société
     type: Type
 
+    breadcrumbs:
+        list: Liste
+
     admin:
         notification:
             save_success: La mission "%mission_name%" a été enregistré
+
+        list:
+            header: Liste des missions
+
+        filters:
+            header: Filtres
 
         content:
             manager: "Manager :"

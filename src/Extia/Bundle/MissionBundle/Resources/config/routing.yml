@@ -4,6 +4,6 @@ _mission_company:
 
 _mission_mission:
     resource: "routing/mission.yml"
-    prefix: /mission
+    prefix: /missions
 
 

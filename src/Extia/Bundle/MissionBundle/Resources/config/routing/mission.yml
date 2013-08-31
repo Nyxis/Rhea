@@ -19,3 +19,14 @@ extia_mission_mission_delete:
     defaults: { _controller: ExtiaMissionBundle:Mission:delete }
     requirements:
         id: \w+
+
+
+
+
+MissionBundle_mission_admin_list:
+    pattern: /
+    defaults:
+        _controller: ExtiaMissionBundle:AdminMission:list
+        _format: html
+    requirements:
+        _format: html
