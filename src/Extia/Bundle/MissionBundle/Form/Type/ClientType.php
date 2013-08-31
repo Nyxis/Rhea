@@ -36,11 +36,25 @@ class ClientType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('title', 'text')
-            ->add('zipCode', 'number', array ('required' => false))
-            ->add('city', 'text', array ('required' => false))
-            ->add('image', 'file', array ('required' => false))
-        ;
+        $builder->add('title', 'text', array(
+            'required' => true,
+            'label'    => 'client.admin.form.name'
+        ));
+
+        $builder->add('zipCode', 'number', array(
+            'required' => false,
+            'label'    => 'client.admin.form.zipcode'
+        ));
+
+        $builder->add('city', 'text', array(
+            'required' => false,
+            'label'    => 'client.admin.form.city'
+        ));
+
+        $builder->add('image', 'file', array(
+            'required' => false,
+            'label'    => 'client.admin.form.image',
+            'mapped'   => false
+        ));
     }
 }

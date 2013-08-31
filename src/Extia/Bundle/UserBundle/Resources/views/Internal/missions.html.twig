@@ -18,7 +18,13 @@
                 <tbody>
                 {% for mission in missions %}
                     <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
-                        <td><img src="http://placehold.it/30x30"></td>
+                        <td>
+                            {% if mission.client.image is not empty %}
+                                <img src="{{ asset(mission.client.image) }}">
+                            {% else %}
+                                <img src="http://placehold.it/30x30">
+                            {% endif %}
+                        </td>
                         <td>
                             {{ mission.client.title }}<br/>
                             {{ mission.label }}

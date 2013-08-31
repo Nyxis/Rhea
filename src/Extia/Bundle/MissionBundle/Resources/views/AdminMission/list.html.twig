@@ -40,7 +40,11 @@
                     {% for mission in missions %}
                         <tr>
                             <td class="image">
-                                <img src="{{ mission.client.image|default('http://placehold.it/50x50') }}">
+                                {% if mission.client.image is not empty %}
+                                    <img src="{{ asset(mission.client.image) }}">
+                                {% else %}
+                                    <img src="http://placehold.it/50x50">
+                                {% endif %}
                             </td>
                             <td class="name">
                                 <a href="{{ path('MissionBundle_mission_admin_edit', { 'Id': mission.id }) }}">{{ mission.client.title }}</a>

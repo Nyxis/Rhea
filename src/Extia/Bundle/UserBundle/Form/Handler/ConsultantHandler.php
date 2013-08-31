@@ -81,7 +81,6 @@ class ConsultantHandler
 
         try {
             if (!empty($image)) {   // image uploading
-
                 try {
                     $extension = $image->guessExtension();
                     if (!in_array($extension, array('jpeg', 'png'))) {
