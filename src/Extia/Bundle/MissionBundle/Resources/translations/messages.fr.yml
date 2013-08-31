@@ -14,6 +14,13 @@ mission:
 
         list:
             header: Liste des missions
+            th_client: Client
+            th_label: Libellé
+            th_manager: Manager
+            th_nb_consultants: Nb de consultants
+            th_contact: Contact
+            th_actions: Actions
+            edit_button: Editer la mission
 
         filters:
             header: Filtres

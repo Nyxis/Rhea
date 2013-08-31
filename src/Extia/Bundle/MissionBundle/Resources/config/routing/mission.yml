@@ -30,3 +30,12 @@ MissionBundle_mission_admin_list:
         _format: html
     requirements:
         _format: html
+
+MissionBundle_mission_admin_edit:
+    pattern: /{Id}/edit
+    defaults:
+        _controller: ExtiaMissionBundle:AdminMission:edit
+        _format: html
+    requirements:
+        id: \d+
+        _format: html

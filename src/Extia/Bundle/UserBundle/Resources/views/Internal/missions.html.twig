@@ -32,7 +32,7 @@
                             <div class="btn-group">
                                 {% if is_granted('ROLE_MISSION_WRITE', app.user) %}
                                 <a class="button" title="{{ ''|trans }}"
-                                    href="{# {{ path('UserBundle_consultant_timeline', clt.routing) }} #}">
+                                    href="{{ path('MissionBundle_mission_admin_edit', { 'Id': mission.id }) }}">
                                     <i class="icon-pencil"></i>
                                 </a>
                                 {% endif %}
