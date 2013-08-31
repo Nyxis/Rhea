@@ -17,7 +17,7 @@ class BootstrapNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request)
+    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
     {
         $task->setUserTargetId($data['user_target_id']);
 
@@ -31,11 +31,11 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         ));
 
         // updates workflow fields
-        $this->updateWorkflow($data, $task);
+        $this->updateWorkflow($data, $task, $pdo);
 
-        $task->save();
+        $task->save($pdo);
 
         // notify next node
-        return $this->notifyNext('appointement', $task, $request);
+        return $this->notifyNext('appointement', $task, $request, $pdo);
     }
 }

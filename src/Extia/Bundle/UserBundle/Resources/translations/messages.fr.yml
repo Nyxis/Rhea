@@ -84,6 +84,7 @@ consultant:
 
         notifications:
             filters_error: Les filtres soumis sont invalides.
+            save_success: Le consultant %consultant_name% a bien été sauvegardé.
 
         sidebar:
             button_new_consultant: Nouveau consultant
@@ -99,13 +100,49 @@ consultant:
         new:
             header: Nouveau consultant
 
-    #form
-    person:
-        firstname: Prénom
-        lastname: Nom
-        email: Courriel
-        telephone: Téléphone
-        mobile: Mobile
+        form:
+            tab:
+                general: Info générales
+                mission: Mission
+                security: Droits d'accès
+                tasks: Tâches
+                resignation: Démission
+            header:
+                civility: Etat civil
+                contact: Contacts
+                contract: Contrat
+                mission: Première mission
+                credentials: Droits d'accès
+                tasks: Initier des tâches
+                resignation: Démission
+            lastname: Nom
+            firstname: Prénom
+            birthdate: Date de naissance
+            image: Photo
+            email: Email
+            telephone: Téléphone
+            mobile: Mobile
+            contract_begin: Date d'entrée
+            job: Poste
+            agency: Agence
+            crh: Crh
+            coopted_by: Coopté par
+            begin_at: Débute le
+            on_profile: Recrutement sur profil
+            manager: Manager
+            mission: Mission
+            group: Groupe d'accès
+            credentials: Droits d'accès
+            create_crh_monitoring: Créer un suivi RH
+            create_annual_review: Créer le bilan annuel
+            resign_consultant: Démissionner le consultant
+            resign_leave_at: Date de départ
+            resign_type: Type de démission
+            resign_reason: Commentaires
+            resign_options: Options
+            resign_options_choices:
+                close_tasks: Fermer les tâches du consultant (suivi RH, etc...)
+                end_mission: Mettre fin à la mission
 
     missions:
         header: Missions
@@ -160,6 +197,7 @@ internal:
     admin:
         breadcrumbs:
             edit: Edition
+            new: Nouveau
         sidebar:
             button_new: Nouvel interne
         list:
@@ -179,7 +217,7 @@ internal:
                 name: Nom
                 with_past_tasks: A des tâches en retard
                 with_ic: A des intercontrats
-        notification:
+        notifications:
             invalid_form: Le formulaire contient des erreurs.
             invalid_image: Le format de l'image est incorrect, png ou jpg seulement.
             error_image: Une erreur s'est produite lors du téléchargement de l'image
@@ -203,6 +241,7 @@ internal:
             image_button: Sélectionner
             birthdate: Date de naissance
             trigram: Trigramme
+            job: Mission
             email: Email
             telephone: Téléphone
             mobile: Mobile

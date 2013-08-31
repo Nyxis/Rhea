@@ -6,13 +6,6 @@
     <parameters>
         <parameter key="easy_task.user_provider.class">Extia\Bundle\UserBundle\Security\User\UserProvider</parameter>
         <parameter key="easy_task.user_data_voter.class">Extia\Bundle\UserBundle\Security\Authorization\Voter\UserDataVoter</parameter>
-
-        <parameter key="extia_user.form.person_type.class">Extia\Bundle\UserBundle\Form\Type\PersonType</parameter>
-        <parameter key="extia_user.form.person_handler.class">Extia\Bundle\UserBundle\Form\Handler\PersonHandler</parameter>
-        <parameter key="extia_user.form.consultant_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantType</parameter>
-        <parameter key="extia_user.form.consultant_handler.class">Extia\Bundle\UserBundle\Form\Handler\ConsultantHandler</parameter>
-        <parameter key="extia_user.form.manager_type.class">Extia\Bundle\UserBundle\Form\Type\ManagerType</parameter>
-        <parameter key="extia_user.form.crh_type.class">Extia\Bundle\UserBundle\Form\Type\CrhType</parameter>
     </parameters>
 
     <services>
@@ -22,30 +15,6 @@
         <!-- User voter -->
         <service id="easy_task.user_data_voter" class="%easy_task.user_data_voter.class%">
             <tag name="security.voter"/>
-        </service>
-
-        <!-- Person Form -->
-        <service id="extia_user.form.person_type" class="%extia_user.form.person_type.class%">
-            <tag name="form.type" alias="person" />
-        </service>
-        <service id="extia_user.form.person_handler" class="%extia_user.form.person_handler.class%" scope="request">
-
-        </service>
-
-        <!-- Consultant form -->
-        <service id="extia_user.form.consultant_type" class="%extia_user.form.consultant_type.class%">
-            <tag name="form.type" alias="consultant" />
-        </service>
-        <service id="extia_user.form.consultant_handler" class="%extia_user.form.consultant_handler.class%"/>
-
-        <!-- Internal manager form -->
-        <service id="extia_user.form.manager_type" class="%extia_user.form.manager_type.class%">
-            <tag name="form.type" alias="manager" />
-        </service>
-
-        <!-- Internal Crh form -->
-        <service id="extia_user.form.crh_type" class="%extia_user.form.crh_type.class%">
-            <tag name="form.type" alias="crh" />
         </service>
 
     </services>

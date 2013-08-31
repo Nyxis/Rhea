@@ -60,8 +60,8 @@ class AdminInternalController extends Controller
             $query->filterByPersonTypeId($filters['internal_type']);
         }
         // agency
-        if (!empty($filters['agency'])) {
-            $query->filterByAgencyId($filters['agency']);
+        if (!empty($filters['agency_id'])) {
+            $query->filterByAgencyId($filters['agency_id']);
         }
         // name
         if (!empty($filters['name'])) {
@@ -271,6 +271,11 @@ class AdminInternalController extends Controller
      */
     public function renderForm(Request $request, Internal $internal, $template)
     {
+        $user = $this->getUser();
+        if (!$this->get('security.context')->isGranted('ROLE_INTERNAL_WRITE', $user)) {
+            throw new AccessDeniedHttpException(sprintf('You have any credentials to write internals.'));
+        }
+
         $isNew = $internal->isNew();
 
         // default under the root node

@@ -52,18 +52,18 @@ abstract class AbstractNodeHandler
 
     /**
      * notify task given node name as next node
-     * @param  string  $nodeName
-     * @param  Task    $task
-     * @param  Request $request
+     * @param  string        $nodeName
+     * @param  Task          $task
+     * @param  Request       $request
      * @return Response|null
      */
-    public function notifyNext($nodeName, Task $task, Request $request)
+    public function notifyNext($nodeName, Task $task, Request $request, \Pdo $pdo = null)
     {
         $workflow = $task->getNode()->getWorkflow();
 
         return $this->workflows
             ->getNode($workflow, $nodeName)
-            ->notify($workflow, $request);
+            ->notify($workflow, $request, $pdo);
     }
 
     /**
@@ -73,7 +73,7 @@ abstract class AbstractNodeHandler
      * @param  Task     $task
      * @return Response | null
      */
-    abstract public function resolve(array $data, Task $task, Request $request);
+    abstract public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null);
 
     /**
      * updates task linked workflow if workflow data given

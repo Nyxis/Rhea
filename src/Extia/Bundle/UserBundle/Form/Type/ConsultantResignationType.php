@@ -6,16 +6,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * form type for internal resignation
+ * form type for consultant resignation
  */
-class InternalResignationType extends AdminType
+class ConsultantResignationType extends AdminType
 {
     /**
      * @see AbstractType::getName()
      */
     public function getName()
     {
-        return 'internal_resignation';
+        return 'consultant_resignation';
     }
 
     /**
@@ -33,30 +33,36 @@ class InternalResignationType extends AdminType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('resign_internal', 'checkbox', array(
+        $builder->add('resign_consultant', 'checkbox', array(
             'required' => true,
-            'label'    => 'internal.admin.form.resign_internal'
+            'label'    => 'consultant.admin.form.resign_consultant'
         ));
 
         $builder->add('leave_at', 'date', array(
             'required' => true,
             'widget'   => 'text',
-            'label'    => 'internal.admin.form.resign_leave_at'
+            'label'    => 'consultant.admin.form.resign_leave_at'
         ));
 
         $this->addResignationTypeForm($builder, array(
             'required' => true,
-            'label'    => 'internal.admin.form.resign_type'
+            'label'    => 'consultant.admin.form.resign_type'
         ));
 
         $builder->add('reason', 'textarea', array(
             'required' => true,
-            'label'    => 'internal.admin.form.resign_reason'
+            'label'    => 'consultant.admin.form.resign_reason'
         ));
 
-        $this->addInternalForm('assign_all_to', array('dir', 'ia', 'crh', 'pdg'), $builder, array(
-            'required' => true,
-            'label'    => 'internal.admin.form.resign_assign_all_to'
+        $builder->add('options', 'choice', array(
+            'required' => false,
+            'multiple' => true,
+            'expanded' => true,
+            'label'    => 'consultant.admin.form.resign_options',
+            'choices'  => array(
+                'close_tasks' => 'consultant.admin.form.resign_options_choices.close_tasks',
+                'end_mission' => 'consultant.admin.form.resign_options_choices.end_mission'
+            )
         ));
     }
 }

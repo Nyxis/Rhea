@@ -17,7 +17,7 @@ class AnnualMeetingNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request)
+    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
     {
         $task->addDocument($data['annual_review_doc']);
 
@@ -31,8 +31,8 @@ class AnnualMeetingNodeHandler extends AbstractNodeHandler
             $task->calculateDate($nextTimestamp, '+1 year', 'U')
         ));
 
-        $task->save();
+        $task->save($pdo);
 
-        return $this->notifyNext('preparing', $task, $request);
+        return $this->notifyNext('preparing', $task, $request, $pdo);
     }
 }

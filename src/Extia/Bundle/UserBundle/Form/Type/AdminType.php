@@ -8,6 +8,7 @@ use Extia\Bundle\UserBundle\Model\AgencyQuery;
 use Extia\Bundle\UserBundle\Model\PersonTypeQuery;
 
 use Extia\Bundle\GroupBundle\Model\GroupQuery;
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
 use Extia\Bundle\MissionBundle\Model\ClientQuery;
 
 use Symfony\Component\Form\AbstractType;
@@ -86,7 +87,7 @@ abstract class AdminType extends AbstractType
             $choices[$row['Id']] = 'admin.form.agency_choices.'.$row['Code'];
         });
 
-        $builder->add('agency', 'choice', array_replace_recursive(array(
+        $builder->add('agency_id', 'choice', array_replace_recursive(array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
@@ -135,6 +136,27 @@ abstract class AdminType extends AbstractType
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->find()
                 ->toKeyValue('Id', 'Title')
+        ), $options));
+    }
+
+    /**
+     * adds a form for an mission
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function addMissionForm(FormBuilderInterface $builder, array $options = array())
+    {
+        $builder->add('mission', 'choice', array_replace_recursive(array(
+            'required' => false,
+            'expanded' => false,
+            'multiple' => false,
+            'label'    => 'admin.form.mission',
+            'choices'  => MissionQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->joinWith('Client')
+                ->filterByType('client')
+                ->find()
+                ->toKeyValue('Id', 'FullLabel')
         ), $options));
     }
 
