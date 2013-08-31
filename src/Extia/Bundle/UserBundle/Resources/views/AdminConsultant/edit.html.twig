@@ -1,5 +1,13 @@
 {% extends 'ExtiaUserBundle:AdminConsultant:form.html.twig' %}
 
+{% block current_breadcrumb %}
+    <li><a href="#">{{ consultant.longName }}</a></li>
+    <li class="active"><a href="#">{{ 'consultant.admin.breadcrumbs.edit'|trans }}</a></li>
+{% endblock %}
+
+{% block form_header %}{{ 'consultant.admin.edit.header'|trans({ '%consultant_name%': consultant.longName }) }}{% endblock %}
+
+{#
 {% block nav_tabs_profile %}
     <li class="active"><a data-toggle="tab" href="#civility"><i class="icon-globe"></i> {{ 'consultant.admin.edit.civility'|trans }}</a></li>
     <li><a data-toggle="tab" href="#mission"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.mission'|trans }}</a></li>
@@ -64,6 +72,7 @@
                             {#{{ form_errors(form.rh) }}#}
                             {#{{ form_widget(form.rh) }}#}
                         {#</p>#}
+{#
                     </div>
                 </div>
             </form>
@@ -80,13 +89,7 @@
         </div>
     </div>
 {% endblock %}
-
-{% block current_breadcrumb %}
-    <li><a href="#">{{ consultant.longName }}</a></li>
-    <li class="active"><a href="#">{{ 'consultant.admin.breadcrumbs.edit'|trans }}</a></li>
-{% endblock %}
-
-{% block form_header %}{{ 'consultant.admin.edit.header'|trans({ '%consultant_name%': consultant.longName }) }}{% endblock %}
+#}
 
 {% block stylesheets %}
     {{  parent() }}
