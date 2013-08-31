@@ -33,7 +33,7 @@ class AdminMissionController extends Controller
         $sorts = array(
             'client_name' => 'ClientName',
             'label'       => 'Label',
-            'manager'     => 'ManagerId',
+            'manager'     => 'Manager',
             'nb_clt'      => 'NbConsultants',
             'contact'     => 'Contact'
         );
@@ -107,7 +107,20 @@ class AdminMissionController extends Controller
         }
 
         $missionsQuery = MissionQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__));
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->join('Manager')
+            ->join('Client')
+            ->join('MissionOrder')
+
+            ->withColumn('COUNT(MissionOrder.Id)', 'NbConsultants')
+            ->filterByType('client')
+
+            ->useMissionOrderQuery()
+                ->filterByCurrent(true)
+            ->endUse()
+
+            ->groupBy('Id')
+        ;
 
         $sorts = $this->processSorts($request, $missionsQuery);
 

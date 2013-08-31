@@ -51,7 +51,7 @@
                             <td>
                                 {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': mission.manager } only %}
                             </td>
-                            <td>0</td>
+                            <td>{{ mission.getNbConsultants() }}</td>
                             <td>
                                 {% if mission.contactName is not empty %}<span class="contact_name">{{ mission.contactName }}</span>{% endif %}
                                 {% if mission.contactEmail is not empty %}<br /><span class="contact_email">{{ mission.contactEmail }}</span>{% endif %}
