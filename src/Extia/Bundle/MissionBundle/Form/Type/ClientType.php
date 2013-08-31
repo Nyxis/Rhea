@@ -38,9 +38,9 @@ class ClientType extends AbstractType
     {
         $builder
             ->add('title', 'text')
-            ->add('description', 'textarea', array ('required' => false))
-            ->add('address', 'textarea', array ('required' => false))
             ->add('zipCode', 'number', array ('required' => false))
-            ->add('city', 'text', array ('required' => false));
+            ->add('city', 'text', array ('required' => false))
+            ->add('image', 'file', array ('required' => false))
+        ;
     }
 }

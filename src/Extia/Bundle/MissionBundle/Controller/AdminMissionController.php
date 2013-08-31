@@ -2,6 +2,7 @@
 
 namespace Extia\Bundle\MissionBundle\Controller;
 
+use Extia\Bundle\MissionBundle\Model\Mission;
 use Extia\Bundle\MissionBundle\Model\MissionQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -204,6 +205,49 @@ class AdminMissionController extends Controller
             'missions' => $missionsCollection,
             'form'     => $filtersForm->createView(),
             'sort'     => $sorts
+        ));
+    }
+
+    /**
+     * displays an edit form for given mission
+     *
+     * @param  Request  $request
+     * @param  Mission  $mission
+     * @return Response
+     */
+    public function editAction(Request $request, Mission $mission)
+    {
+        return $this->renderForm(
+            $request,
+            $mission,
+            'ExtiaMissionBundle:AdminMission:edit.html.twig'
+        );
+    }
+
+    /**
+     * displays form for given mission
+     *
+     * @param  Request $request
+     * @param  Mission $mission
+     * @param  string  $template
+     * @return Response
+     */
+    protected function renderForm(Request $request, Mission $mission, $template)
+    {
+        $user = $this->getUser();
+        if (!$this->get('security.context')->isGranted('ROLE_MISSION_WRITE', $user)) {
+            throw new AccessDeniedHttpException(sprintf('You have any credentials to write missions.'));
+        }
+
+        $form = $this->get('form.factory')->create('mission_form', $mission, array());
+
+        if ($request->request->has($form->getName())) {
+            $this->get('extia_mission.form.mission_handler')->handle($form, $request);
+        }
+
+        return $this->render($template, array(
+            'mission' => $mission,
+            'form'    => $form->createView()
         ));
     }
 }

@@ -23,7 +23,8 @@
         </service>
 
         <!-- Mission -->
-        <service id="extia_mission.form.mission_type" class="%extia_mission.form.mission_type.class%">
+        <service id="extia_mission.form.mission_type" class="%extia_mission.form.mission_type.class%"
+            parent="extia_user.admin.admin_form_type">
             <tag name="form.type" alias="mission_form" />
         </service>
 
