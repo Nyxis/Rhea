@@ -108,7 +108,7 @@ class AdminMissionController extends Controller
             'contact'     => 'Contact'
         );
 
-        $defaultSortField     = 'label';
+        $defaultSortField     = 'client_name';
         $defaultSortDirection = 'asc';
 
         // reset button

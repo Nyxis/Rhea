@@ -2,25 +2,12 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
+<!--
     <parameters>
-        <parameter key="extia_mission.form.company_type.class">Extia\Bundle\MissionBundle\Form\Type\CompanyType</parameter>
-        <parameter key="extia_mission.form.mission_type.class">Extia\Bundle\MissionBundle\Form\Type\MissionType</parameter>
-        <parameter key="extia_mission.form.company_handler.class">Extia\Bundle\MissionBundle\Form\Handler\CompanyHandler</parameter>
-        <parameter key="extia_mission.form.mission_handler.class">Extia\Bundle\MissionBundle\Form\Handler\MissionHandler</parameter>
+
     </parameters>
 
     <services>
-        <!-- Company Form -->
-        <service id="extia_mission.form.company_type" class="%extia_mission.form.company_type.class%">
-            <tag name="form.type" alias="company"/>
-        </service>
-        <service id="extia_mission.form.company_handler" class="%extia_mission.form.company_handler.class%"/>
 
-        <!-- Mission Form -->
-        <service id="extia_mission.form.mission_type" class="%extia_mission.form.mission_type.class%">
-            <tag name="form.type" alias="mission"/>
-        </service>
-        <service id="extia_mission.form.mission_handler" class="%extia_mission.form.mission_handler.class%"/>
-    </services>
+    </services> -->
 </container>

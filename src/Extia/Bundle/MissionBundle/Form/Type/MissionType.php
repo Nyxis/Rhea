@@ -1,48 +1,42 @@
 <?php
 
-
 namespace Extia\Bundle\MissionBundle\Form\Type;
 
 use Extia\Bundle\MissionBundle\Form\Transformer\ClientToIdsTransformer;
 use Extia\Bundle\MissionBundle\Form\Transformer\ManagerToIdsTransformer;
+
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-
 /**
- * Created by rhea.
+ * form type for mission forms
  *
- * @author lesmyrmidons <lesmyrmidons@gmail.com>
- *         Date: 15/08/13
- *         Time: 18:38
+ * @see Extia/Bundles/MissionBundle/Resources/config/admin.xml
  */
 class MissionType extends AbstractType
 {
-
     /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
+     * @see AbstracType::getName()
      */
     public function getName()
     {
-        return 'mission';
+        return 'mission_form';
     }
 
     /**
-     * {@inheritdoc}
+     * @see AbstracType::setDefaultOptions()
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         return $resolver->setDefaults(array (
-                                          'data_class' => 'Extia\Bundle\MissionBundle\Model\Mission'
-                                      ));
+            'data_class' => 'Extia\Bundle\MissionBundle\Model\Mission'
+        ));
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @see AbstracType::buildForm()
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

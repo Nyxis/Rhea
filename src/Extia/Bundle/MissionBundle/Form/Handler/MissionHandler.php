@@ -5,10 +5,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Created by rhea.
- * @author lesmyrmidons <lesmyrmidons@gmail.com>
- * Date: 15/08/13
- * Time: 18:39
+ *
  */
 class MissionHandler
 {

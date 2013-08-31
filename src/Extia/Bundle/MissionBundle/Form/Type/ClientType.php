@@ -1,48 +1,43 @@
 <?php
 
-
 namespace Extia\Bundle\MissionBundle\Form\Type;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-
 /**
- * Created by rhea.
- * @author lesmyrmidons <lesmyrmidons@gmail.com>
- * Date: 15/08/13
- * Time: 18:39
+ * form type for client forms
+ *
+ * @see Extia/Bundles/MissionBundle/Resources/config/admin.xml
  */
-class CompanyType extends AbstractType
+class ClientType extends AbstractType
 {
-
     /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
+     * @see AbstracType::getName()
      */
     public function getName()
     {
-        return 'company';
+        return 'client_form';
     }
 
     /**
-     * {@inheritdoc}
+     * @see AbstracType::setDefaultOptions()
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         return $resolver->setDefaults(array (
-            'data_class' => 'Extia\Bundle\MissionBundle\Model\Company'
+            'data_class' => 'Extia\Bundle\MissionBundle\Model\Client'
         ));
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @see AbstracType::buildForm()
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title', 'text')
+        $builder
+            ->add('title', 'text')
             ->add('description', 'textarea', array ('required' => false))
             ->add('address', 'textarea', array ('required' => false))
             ->add('zipCode', 'number', array ('required' => false))
