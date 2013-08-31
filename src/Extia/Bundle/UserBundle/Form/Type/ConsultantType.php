@@ -74,7 +74,7 @@ class ConsultantType extends AdminType
             'label'    => 'consultant.admin.form.mobile'
         ));
 
-        $builder->add('ContractBeginDate', 'date', array(
+        $builder->add('contractBeginDate', 'date', array(
             'required' => true,
             'widget'   => 'text',
             'format'   => 'dd/MM/yyyy',
@@ -108,35 +108,35 @@ class ConsultantType extends AdminType
         ));
 
         // mission
+        if (empty($options['consultant_id'])) {
+            $builder->add('begin_at', 'date', array(
+                'required' => true,
+                'widget'   => 'text',
+                'format'   => 'dd/MM/yyyy',
+                'label'    => 'consultant.admin.form.begin_at',
+                'mapped'   => false
+            ));
 
-        $builder->add('begin_at', 'date', array(
-            'required' => true,
-            'widget'   => 'text',
-            'format'   => 'dd/MM/yyyy',
-            'label'    => 'consultant.admin.form.begin_at',
-            'mapped'   => false
-        ));
+            $builder->add('on_profile', 'checkbox', array(
+                'required' => false,
+                'label'    => 'consultant.admin.form.on_profile',
+                'mapped'   => false
+            ));
 
-        $builder->add('on_profile', 'checkbox', array(
-            'required' => false,
-            'label'    => 'consultant.admin.form.on_profile',
-            'mapped'   => false
-        ));
+            $this->addInternalForm('manager_id', array('dir', 'ia'), $builder, array(
+                'required' => false,
+                'label'    => 'consultant.admin.form.manager',
+                'mapped'   => false
+            ));
 
-        $this->addInternalForm('manager_id', array('dir', 'ia'), $builder, array(
-            'required' => false,
-            'label'    => 'consultant.admin.form.manager',
-            'mapped'   => false
-        ));
-
-        $this->addMissionForm($builder, array(
-            'required' => false,
-            'label'    => 'consultant.admin.form.mission',
-            'mapped'   => false
-        ));
+            $this->addMissionForm($builder, array(
+                'required' => false,
+                'label'    => 'consultant.admin.form.mission',
+                'mapped'   => false
+            ));
+        }
 
         // credentials
-
         $this->addGroupForm($builder, array(
             'required' => true,
             'label'    => 'consultant.admin.form.group'
@@ -149,17 +149,27 @@ class ConsultantType extends AdminType
         ));
 
         // tasks
+        if (empty($options['consultant_id'])) {
+            $builder->add('create_crh_monitoring', 'checkbox', array(
+                'required' => false,
+                'label'    => 'consultant.admin.form.create_crh_monitoring',
+                'mapped'   => false
+            ));
 
-        $builder->add('create_crh_monitoring', 'checkbox', array(
-            'required' => false,
-            'label'    => 'consultant.admin.form.create_crh_monitoring',
-            'mapped'   => false
-        ));
+            $builder->add('create_annual_review', 'checkbox', array(
+                'required' => false,
+                'label'    => 'consultant.admin.form.create_annual_review',
+                'mapped'   => false
+            ));
+        }
 
-        $builder->add('create_annual_review', 'checkbox', array(
-            'required' => false,
-            'label'    => 'consultant.admin.form.create_annual_review',
-            'mapped'   => false
-        ));
+        // resignation
+        if (!empty($options['consultant_id'])) {
+            $builder->add('resignation', 'consultant_resignation', array(
+                'required' => false,
+                'mapped'   => false,
+                'label'    => false
+            ));
+        }
     }
 }

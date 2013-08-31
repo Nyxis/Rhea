@@ -63,7 +63,23 @@ class InternalType extends AdminType
             'label'    => 'internal.admin.form.trigram'
         ));
 
+        $builder->add('contractBeginDate', 'date', array(
+            'required' => true,
+            'widget'   => 'text',
+            'format'   => 'dd/MM/yyyy',
+            'label'    => 'consultant.admin.form.contract_begin'
+        ));
+
         $this->addInternalTypeForm('person_type_id', array('dir', 'ia', 'crh', 'pdg'), $builder, array(
+            'required' => true
+        ));
+
+        $builder->add('job', 'text', array(
+            'required' => true,
+            'label'    => 'internal.admin.form.job'
+        ));
+
+        $this->addAgencyForm($builder, array(
             'required' => true
         ));
 

@@ -128,7 +128,7 @@ class Internal extends BaseInternal  implements UserInterface
     public function getSeniority()
     {
         $begin = $this->getContractBeginDate();
-        $ref   = $this->isActive() ? new \DateTime() : $this->getResignation();
+        $ref   = $this->isActive() ? new \DateTime() : $this->getResignation()->getLeaveAt();
 
         return $begin->diff($ref);
     }

@@ -114,11 +114,8 @@ class InternalHandler
 
             if (!$internal->isNew()) {
                 $resignation = $form->get('resignation')->getData();
-                if (empty($resignation['resign_internal'])) {
-                    $this->notifier->add('warning', 'internal.admin.notifications.invalid_form');
+                if (!empty($resignation['resign_internal'])) {
 
-                    return false;
-                } else {
                     // creates a new resignation
                     $resign = new Resignation();
                     $resign->setLeaveAt($resignation['leave_at']);

@@ -60,6 +60,8 @@ admin:
     buttons:
         save: Enregistrer
         back: Retour
+        list: Liste
+        timeline: Timeline
 
 ajax_loading: Chargement
 logout_link: Déconnexion

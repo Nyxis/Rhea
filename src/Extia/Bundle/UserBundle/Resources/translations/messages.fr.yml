@@ -84,6 +84,7 @@ consultant:
 
         notifications:
             filters_error: Les filtres soumis sont invalides.
+            save_success: Le consultant %consultant_name% a bien été sauvegardé.
 
         sidebar:
             button_new_consultant: Nouveau consultant
@@ -106,7 +107,14 @@ consultant:
                 security: Droits d'accès
                 tasks: Tâches
                 resignation: Démission
-
+            header:
+                civility: Etat civil
+                contact: Contacts
+                contract: Contrat
+                mission: Première mission
+                credentials: Droits d'accès
+                tasks: Initier des tâches
+                resignation: Démission
             lastname: Nom
             firstname: Prénom
             birthdate: Date de naissance
@@ -127,6 +135,14 @@ consultant:
             credentials: Droits d'accès
             create_crh_monitoring: Créer un suivi RH
             create_annual_review: Créer le bilan annuel
+            resign_consultant: Démissionner le consultant
+            resign_leave_at: Date de départ
+            resign_type: Type de démission
+            resign_reason: Commentaires
+            resign_options: Options
+            resign_options_choices:
+                close_tasks: Fermer les tâches du consultant (suivi RH, etc...)
+                end_mission: Mettre fin à la mission
 
     missions:
         header: Missions
@@ -181,6 +197,7 @@ internal:
     admin:
         breadcrumbs:
             edit: Edition
+            new: Nouveau
         sidebar:
             button_new: Nouvel interne
         list:
@@ -224,6 +241,7 @@ internal:
             image_button: Sélectionner
             birthdate: Date de naissance
             trigram: Trigramme
+            job: Mission
             email: Email
             telephone: Téléphone
             mobile: Mobile

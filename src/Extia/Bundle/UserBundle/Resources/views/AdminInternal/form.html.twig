@@ -38,7 +38,9 @@
                                     <h4>{{ 'internal.admin.form.header.extia'|trans }}</h4>
                                     {% block extia %}
                                         {{ form_row(form.trigram) }}
+                                        {{ form_row(form.contractBeginDate) }}
                                         {{ form_row(form.person_type_id) }}
+                                        {{ form_row(form.job) }}
                                         {{ form_row(form.agency_id) }}
                                         {{ form_row(form.parent) }}
                                     {% endblock %}
@@ -79,7 +81,7 @@
                                     <h4>{{ 'internal.admin.form.header.resignation'|trans }}</h4>
                                     {% block resignation %}
                                         <div class="control-group" id="{{ form.resignation.resign_internal.vars.id }}">
-                                            <div class=" controls">
+                                            <div class="controls">
                                                 {{ form_widget(form.resignation.resign_internal) }}
                                             </div>
                                         </div>
@@ -105,9 +107,15 @@
                 <i class="icon-ok"></i>
                 <span>{{ 'admin.buttons.save'|trans }}</span>
             </a>
+            {% if internal.isNew != true %}
+                <a href="{{ path('UserBundle_internal_timeline', internal.routing) }}" class="button large">
+                    <i class="icon-tasks"></i>
+                    <span>{{ 'admin.buttons.timeline'|trans }}</span>
+                </a>
+            {% endif %}
             <a href="{{ path('UserBundle_internal_list') }}" class="button large">
-                <i class="icon-reply"></i>
-                <span>{{ 'admin.buttons.back'|trans }}</span>
+                <i class="icon-th-list"></i>
+                <span>{{ 'admin.buttons.list'|trans }}</span>
             </a>
         </div>
     </div>

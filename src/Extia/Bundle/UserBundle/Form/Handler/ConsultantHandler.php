@@ -5,17 +5,20 @@ namespace Extia\Bundle\UserBundle\Form\Handler;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Extia\Bundle\UserBundle\Model\PersonTypeQuery;
 use Extia\Bundle\UserBundle\Model\MissionOrder;
-// use Extia\Bundle\UserBundle\Model\Resignation;
+use Extia\Bundle\UserBundle\Model\Resignation;
+
 // use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 
 // use Extia\Bundle\TaskBundle\Model\TaskQuery;
-// use Extia\Bundle\MissionBundle\Model\MissionQuery;
+
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
+use Extia\Bundle\MissionBundle\Model\ClientQuery;
 
 use Extia\Bundle\TaskBundle\Workflow\Aggregator;
-
 use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowNodeQuery;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -124,15 +127,72 @@ class ConsultantHandler
 
             // mission
             if ($consultant->isNew() && $form->has('on_profile')) {  // replace with form type
+
                 $missionOrder = new MissionOrder();
                 $missionOrder->setConsultant($consultant);
-                $missionOrder->setMissionId($form->get('mission')->getData());
                 $missionOrder->setBeginDate($form->get('begin_at')->getData());
                 $missionOrder->setCurrent(true);
-            }
 
-            // tmp
-            $consultant->setManagerId($form->get('manager_id')->getData());
+                $onProfile = $form->get('on_profile')->getData();
+                if ($onProfile) {
+
+                    $managerId = $form->get('manager_id')->getData();
+
+                    // look for manager "on profile mission"
+                    $mission = MissionQuery::create()
+                        ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                        ->filterByType('waiting')
+                        ->filterByManagerId($managerId)
+                        ->filterByClientId(
+                            ClientQuery::create()
+                                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                                ->select('Id')
+                                ->findOneByTitle('Extia')
+                        )
+                        ->findOneOrCreate($pdo)
+                    ;
+
+                    if ($mission->isNew()) {
+                        $mission->setLabel('Recrutement sur profil');
+                    }
+                }
+                else {
+                    // retrieve mission
+                    $mission = MissionQuery::create()
+                        ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                        ->findPk($form->get('mission')->getData(), $pdo);
+
+                    // mission starts more than 2 days after contract conclusion -> create a waiting mission order
+                    if (($missionOrder->getBeginDate('U') - $consultant->getContractBeginDate('U')) > 48*3600) {
+
+                        $waitingMission = MissionQuery::create()
+                            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                            ->filterByType('waiting')
+                            ->filterByManagerId($mission->getManagerId())
+                            ->filterByClientId(
+                                ClientQuery::create()
+                                    ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                                    ->select('Id')
+                                    ->findOneByTitle('Extia')
+                            )
+                            ->findOneOrCreate($pdo)
+                        ;
+
+                        if ($waitingMission->isNew()) {
+                            $waitingMission->setLabel('Recrutement sur profil');
+                        }
+
+                        $waitingMissionOrder = new MissionOrder();
+                        $waitingMissionOrder->setMission($waitingMission);
+                        $waitingMissionOrder->setConsultant($consultant);
+                        $waitingMissionOrder->setBeginDate($consultant->getContractBeginDate());
+                        $waitingMissionOrder->setEndDate($missionOrder->getBeginDate());
+                    }
+                }
+
+                $missionOrder->setMission($mission);
+                $consultant->setManagerId($mission->getManagerId());
+            }
 
             // saving with NestedSet
             if ($consultant->isNew()) {
@@ -143,11 +203,60 @@ class ConsultantHandler
 
             $consultant->save($pdo);
 
+            // reinjects credentials into person (cascade save doesnt work with inheritance)
+            $consultant->getPerson()->setPersonCredentials(
+                $consultant->getPersonCredentials()
+            );
+
             // success message
             $this->notifier->add(
                 'success', 'consultant.admin.notifications.save_success',
                 array ('%consultant_name%' => $consultant->getLongName())
             );
+
+            // resignation
+            if ($form->has('resignation')) {
+                $resignation = $form->get('resignation')->getData();
+                if (!empty($resignation['resign_consultant'])) {
+
+                    // creates a new resignation
+                    $resign = new Resignation();
+                    $resign->setLeaveAt($resignation['leave_at']);
+                    $resign->setCode($resignation['resignation_code']);
+                    $resign->setComment($resignation['reason']);
+                    $resign->setResignedById($this->securityContext->getToken()->getUser()->getId());
+
+                    $consultant->setResignation($resign);
+
+                    // close tasks
+                    if (in_array('close_tasks', $resignation['options'])) {
+                        $nodesToDesativate = WorkflowNodeQuery::create()
+                            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                            ->filterByCurrent(true)
+                            ->useTaskQuery()
+                                ->filterByUserTargetId($consultant->getId())
+                            ->endUse()
+                            ->find($pdo);
+
+                        $nbTasks = $nodesToDesativate->count();
+                        foreach ($nodesToDesativate as $node) {
+                            $node->setCurrent(false);
+                            $node->setEnded(true);
+                            $node->save($pdo);
+                        }
+                    }
+
+                    // end mission
+                    if (in_array('end_mission', $resignation['options'])) {
+                        $lastMissionOrder = $consultant->getCurrentMissionOrder($pdo);
+                        $lastMissionOrder->setCurrent(false);
+                        $lastMissionOrder->setEndDate($resign->getLeaveAt());
+                        $lastMissionOrder->save($pdo);
+                    }
+
+                    $consultant->save($pdo);
+                }
+            }
 
             // task creation
             if ($form->has('create_crh_monitoring') && true == $form->get('create_crh_monitoring')->getData()) {
@@ -203,11 +312,10 @@ class ConsultantHandler
 
             $this->logger->err($e->getMessage());
             $this->notifier->add(
-                'error', 'internal.admin.notifications.error'
+                'error', 'consultant.admin.notifications.error'
             );
 
             return false;
         }
-
     }
 }

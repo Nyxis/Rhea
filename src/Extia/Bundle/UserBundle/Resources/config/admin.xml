@@ -63,10 +63,10 @@
             parent="extia_user.admin.admin_form_type">
             <tag name="form.type" alias="consultant_form" />
         </service>
-        <!-- <service id="extia_user.admin.consultant_resignation_form_type" class="%extia_user.admin.consultant_resignation_form_type.class%"
+        <service id="extia_user.admin.consultant_resignation_form_type" class="%extia_user.admin.consultant_resignation_form_type.class%"
             parent="extia_user.admin.admin_form_type">
             <tag name="form.type" alias="consultant_resignation" />
-        </service> -->
+        </service>
         <service id="extia_user.admin.consultant_form_handler" class="%extia_user.admin.consultant_form_handler.class%">
             <argument type="service" id="security.context" />
             <argument type="service" id="notifier" />

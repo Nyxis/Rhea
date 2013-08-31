@@ -6,7 +6,102 @@
         <div class="tabbable box">
             <div class="tab-header">{% block form_header %}{% endblock %}</div>
             <form id="consultant-form" class="form-horizontal" method="POST" {{ form_enctype(form) }}>
-                {{ form_rest(form) }}
+                {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#general">{{ 'consultant.admin.form.tab.general'|trans }}</a></li>
+                    {% if form.on_profile is defined %}
+                    <li><a data-toggle="tab" href="#mission">{{ 'consultant.admin.form.tab.mission'|trans }}</a></li>
+                    {% endif %}
+                    <li><a data-toggle="tab" href="#security">{{ 'consultant.admin.form.tab.security'|trans }}</a></li>
+                    {% if form.create_crh_monitoring is defined %}
+                    <li><a data-toggle="tab" href="#tasks">{{ 'consultant.admin.form.tab.tasks'|trans }}</a></li>
+                    {% endif %}
+                    {% if form.resignation is defined %}
+                        <li><a data-toggle="tab" href="#resignation">{{ 'consultant.admin.form.tab.resignation'|trans }}</a></li>
+                    {% endif %}
+                </ul>
+                <div class="tab-content padded">
+                    <div id="general" class="tab-pane active">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <h4>{{ 'consultant.admin.form.header.civility'|trans }}</h4>
+                                {{ form_row(form.lastname) }}
+                                {{ form_row(form.firstname) }}
+                                {{ form_row(form.birthdate) }}
+
+                                <div class=" control-group" id="{{ form.image.vars.id }}">
+                                    {{ form_label(form.image) }}
+                                    <div class=" controls">
+                                        {{ form_widget(form.image, { 'attr': { 'title': 'internal.admin.form.image_button'|trans, 'data-document': true } }) }}
+                                    </div>
+                                </div>
+
+                                <h4>{{ 'consultant.admin.form.header.contact'|trans }}</h4>
+                                {{ form_row(form.email) }}
+                                {{ form_row(form.telephone) }}
+                                {{ form_row(form.mobile) }}
+                            </div>
+                            <div class="span6">
+                                <h4>{{ 'consultant.admin.form.header.contract'|trans }}</h4>
+                                {{ form_row(form.contractBeginDate) }}
+                                {{ form_row(form.job) }}
+                                {{ form_row(form.agency_id) }}
+                                {{ form_row(form.crh_id) }}
+                                {{ form_row(form.coopted_by_id) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% if form.on_profile is defined %}
+                    <div id="mission" class="tab-pane">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h4>{{ 'consultant.admin.form.header.mission'|trans }}</h4>
+                                {{ form_row(form.begin_at) }}
+                                <div class="control-group" id="{{ form.on_profile.vars.id }}">
+                                    <div class="controls">
+                                        {{ form_widget(form.on_profile) }}
+                                    </div>
+                                </div>
+                                {{ form_row(form.manager_id) }}
+                                {{ form_row(form.mission) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div id="security" class="tab-pane">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h4>{{ 'consultant.admin.form.header.credentials'|trans }}</h4>
+                                {{ form_row(form.group_id) }}
+                                {{ form_row(form.PersonCredentials) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% if form.create_crh_monitoring is defined %}
+                    <div id="tasks" class="tab-pane">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h4>{{ 'consultant.admin.form.header.tasks'|trans }}</h4>
+                                {{ form_row(form.create_crh_monitoring) }}
+                                {{ form_row(form.create_annual_review) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if form.resignation is defined %}
+                    <div id="resignation" class="tab-pane">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h4>{{ 'consultant.admin.form.header.resignation'|trans }}</h4>
+                                {{ form_widget(form.resignation) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {{ form_rest(form) }}
+                </div>
             </form>
         </div>
     </div>
@@ -21,9 +116,15 @@
                 <i class="icon-ok"></i>
                 <span>{{ 'admin.buttons.save'|trans }}</span>
             </a>
+            {% if consultant.isNew != true %}
+                <a href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}" class="button large">
+                    <i class="icon-tasks"></i>
+                    <span>{{ 'admin.buttons.timeline'|trans }}</span>
+                </a>
+            {% endif %}
             <a href="{{ path('UserBundle_consultant_list') }}" class="button large">
-                <i class="icon-reply"></i>
-                <span>{{ 'admin.buttons.back'|trans }}</span>
+                <i class="icon-th-list"></i>
+                <span>{{ 'admin.buttons.list'|trans }}</span>
             </a>
         </div>
     </div>
