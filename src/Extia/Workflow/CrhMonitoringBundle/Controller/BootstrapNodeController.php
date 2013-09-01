@@ -19,6 +19,14 @@ class BootstrapNodeController extends TypeNodeController
     /**
      * {@inherit_doc}
      */
+    public function getHandler()
+    {
+        return $this->get('crh_monitoring.bootstrap.handler');
+    }
+
+    /**
+     * {@inherit_doc}
+     */
     protected function getTemplates()
     {
         return array(
@@ -40,8 +48,7 @@ class BootstrapNodeController extends TypeNodeController
 
         if ($request->request->has($form->getName())) {
 
-            $handler  = $this->get('crh_monitoring.bootstrap.handler');
-            $response = $handler->handle($form, $request, $task);
+            $response = $this->getHandler()->handle($form, $request, $task);
 
             // we dont use default redirect response : our tasks are asynchronous
             // we redirect previous page with a message instead

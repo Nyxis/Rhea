@@ -202,6 +202,15 @@ class TypeNodeController extends EasyTaskTypeNodeController
     // -----------------------------------------------
 
     /**
+     * has to return task type form handler
+     * @return AbstractNodeHandler
+     */
+    public function getHandler()
+    {
+        throw new \BadMethodCallException('This method has to be defined in children node task classes.');
+    }
+
+    /**
      * has to return templates for node actions
      * @example
      *     return array(

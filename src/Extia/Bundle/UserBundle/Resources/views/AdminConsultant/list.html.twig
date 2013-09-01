@@ -46,8 +46,10 @@
                                 {% include 'ExtiaUserBundle:Consultant:status.html.twig' with {'consultant': consultant} only %}
                             </td>
                             <td>
+                            {% if consultant.currentMission is not empty %}
                                 {{ consultant.currentMission.client.title }}<br/>
                                 {{ consultant.currentMission.label }}
+                            {% endif %}
                             </td>
                             <td>
                                 {{ consultant.contractBeginDate('date_format.ymd'|trans) }}

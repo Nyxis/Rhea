@@ -17,7 +17,7 @@ class MeetingNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request)
+    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
     {
         $nextMeetingTmstp = $task->calculateDate($task->getActivationDate(), '+'.$data['next_meeting'].' months', 'U');
 
@@ -28,9 +28,9 @@ class MeetingNodeHandler extends AbstractNodeHandler
 
         $task->addDocument($data['crh_meeting_doc']);
 
-        $task->save();
+        $task->save($pdo);
 
         // notify next node
-        return $this->notifyNext('appointement', $task, $request);
+        return $this->notifyNext('appointement', $task, $request, $pdo);
     }
 }

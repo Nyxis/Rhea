@@ -19,10 +19,10 @@ class Consultant extends BaseConsultant
      */
     public function getStatus()
     {
-        // $contractEndDate = $this->getContractEndDate();
-        // if (!empty($contractEndDate)) {
-        //     return self::STATUS_RESIGNED;
-        // }
+        $resignationId = $this->getResignationId();
+        if (!empty($resignationId)) {
+            return self::STATUS_RESIGNED;
+        }
 
         $currentMission = $this->getCurrentMission();
 
@@ -45,7 +45,9 @@ class Consultant extends BaseConsultant
      */
     public function getCurrentMission(\Pdo $con = null)
     {
-        return $this->getCurrentMissionOrder($con)->getMission();
+        $currentOrder = $this->getCurrentMissionOrder($con);
+
+        return $currentOrder ? $currentOrder->getMission() : null;
     }
 
     /**

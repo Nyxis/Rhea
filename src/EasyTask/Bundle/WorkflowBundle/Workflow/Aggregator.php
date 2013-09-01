@@ -81,43 +81,73 @@ class Aggregator extends ParameterBag
     }
 
     /**
-     * handle a workflow creation form
+     * boot given workflow
+     * @param  Workflow      $wf
+     * @param  Request       $request
+     * @param  Pdo           $connection
+     * @return Response|null
+     */
+    public function boot(Workflow $wf, Request $request, \Pdo $connection = null)
+    {
+        $isNew = $wf->isNew();
+
+        $wf->save($connection);
+
+        $workflowEvent = new WorkflowEvent($wf, $request, $connection);
+
+        // edit case : nothing more to do
+        if (!$isNew) {
+            $this->eventDispatcher->dispatch(WorkflowEvents::WF_EDIT, $workflowEvent);
+
+            return;
+        }
+
+        $this->eventDispatcher->dispatch(WorkflowEvents::WF_CREATE, $workflowEvent);
+
+        // boot workflow throught type service
+        $return = $this->get($wf->getType())->boot($wf, $request, $connection);
+
+        return $return;
+    }
+
+    /**
+     * handle a workflow creation form and boot it
      * @param  FormInterface $form
      * @param  Request       $request
      * @return Response|null
      */
     public function handle(FormInterface $form, Request $request)
     {
-        $wf    = $form->getData();
-        $isNew = $wf->isNew();
-
         $connection = \Propel::getConnection('default');
         $connection->beginTransaction();
 
         try {
-            $wf->save($connection);
-
-            $workflowEvent = new WorkflowEvent($wf, $request, $connection);
-
-            // edit case : nothing more to do
-            if (!$isNew) {
-                $this->eventDispatcher->dispatch(WorkflowEvents::WF_EDIT, $workflowEvent);
-
-                return;
-            }
-
-            $this->eventDispatcher->dispatch(WorkflowEvents::WF_CREATE, $workflowEvent);
-
-            // boot workflow throught type service
-            $return = $this->get($wf->getType())->boot($wf, $request, $connection);
-
+            $return = $this->boot($form->getData(), $request, $connection);
             $connection->commit();
 
             return $return;
-
         } catch (\Exception $e) {
             $connection->rollback();
             throw $e;
         }
+    }
+
+    /**
+     * creates a workflow for given type
+     * @param  string   $wfTypeName
+     * @return Workflow
+     */
+    public function create($wfTypeName)
+    {
+        if (!$this->has($wfTypeName)) {
+            throw new \InvalidArgumentException(sprintf('Given workflow type is unsupported : "%s". Check your configuration.',
+                $wfTypeName
+            ));
+        }
+
+        $workflow = new Workflow();
+        $workflow->setType($wfTypeName);
+
+        return $workflow;
     }
 }

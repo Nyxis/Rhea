@@ -21,25 +21,12 @@ UserBundle_consultant_timeline:
         _format: html
     requirements:
         id: \d+
-        firstname: \w+
-        lastname: \w+
         _format: html
 
 UserBundle_consultant_edit:
     pattern: /{Id}/{Url}/edit
     defaults:
         _controller: 'ExtiaUserBundle:AdminConsultant:edit'
-        _format: html
-    requirements:
-        id: \d+
-        firstname: \w+
-        lastname: \w+
-        _format: html
-
-UserBundle_consultant_delete:
-    pattern: /{Id}/delete
-    defaults:
-        _controller: 'ExtiaUserBundle:AdminConsultant:delete'
         _format: html
     requirements:
         id: \d+
