@@ -33,17 +33,20 @@ class ConsultantListFiltersType extends AdminType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // display all consultants or juste mine
-        $builder->add('display', 'choice', array(
-            'required' => true,
-            'expanded' => true,
-            'multiple' => false,
-            'label'    => 'consultant.admin.filters.form.display',
-            'choices'  => array(
-                'mine' => 'consultant.admin.filters.mine',
-                'all'  => 'consultant.admin.filters.all'
-            )
-        ));
+        if ($this->isUserAdmin()) { // only admin can choice
+
+            // display all consultants or juste mine
+            $builder->add('display', 'choice', array(
+                'required' => true,
+                'expanded' => true,
+                'multiple' => false,
+                'label'    => 'consultant.admin.filters.form.display',
+                'choices'  => array(
+                    'mine' => 'consultant.admin.filters.mine',
+                    'all'  => 'consultant.admin.filters.all'
+                )
+            ));
+        }
 
         // consultant name
         $builder->add('name', 'text', array(
@@ -76,7 +79,7 @@ class ConsultantListFiltersType extends AdminType
         $this->addInternalForm('crh', array('crh'), $builder);
 
         // client
-        $this->addClientForm($builder);
+        $this->addClientForm('client', $builder);
     }
 
 }

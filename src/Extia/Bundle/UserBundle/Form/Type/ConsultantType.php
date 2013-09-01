@@ -129,7 +129,7 @@ class ConsultantType extends AdminType
                 'mapped'   => false
             ));
 
-            $this->addMissionForm($builder, array(
+            $this->addMissionForm('mission', $builder, array(
                 'required' => false,
                 'label'    => 'consultant.admin.form.mission',
                 'mapped'   => false

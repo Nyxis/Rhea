@@ -81,16 +81,18 @@ class MainMenuBuilder
             'icon-white' => true
         ));
 
-        // recent activity
-        $this->addTbChild($menu, array (
-            'label'      => 'menu.recent_activity',
-            'uri'        => 'ActivityBundle_recent',
-            'current'    => $request->get('_menu') == 'activity',
-            'icon'       => 'rss',
-            'icon-white' => true
-        ));
+        // @2nd milestone
+        // // recent activity
+        // $this->addTbChild($menu, array (
+        //     'label'      => 'menu.recent_activity',
+        //     'uri'        => 'ActivityBundle_recent',
+        //     'current'    => $request->get('_menu') == 'activity',
+        //     'icon'       => 'rss',
+        //     'icon-white' => true
+        // ));
 
         $this->createUserMenu($request, $menu);
+        $this->createMissionMenu($request, $menu);
         $this->createAdminMenu($request, $menu);
 
         return $menu;
@@ -120,17 +122,6 @@ class MainMenuBuilder
             return;
         }
 
-        // internals
-        if ($accessTeam) {
-            $this->addTbChild($menu, array (
-                'label'      => $this->securityContext->isGranted('ROLE_INTERNAL_WRITE', $user) ? 'menu.internals' : 'menu.team',
-                'route'      => 'UserBundle_internal_list',
-                'current'    => $request->get('_menu') == 'team',
-                'icon'       => 'group',
-                'icon-white' => true
-            ));
-        }
-
         // consultants
         if ($accessClts) {
             $this->addTbChild($menu, array (
@@ -138,6 +129,17 @@ class MainMenuBuilder
                 'route'      => 'UserBundle_consultant_list',
                 'current'    => $request->get('_menu') == 'consultant',
                 'icon'       => 'bug',
+                'icon-white' => true
+            ));
+        }
+
+        // internals
+        if ($accessTeam) {
+            $this->addTbChild($menu, array (
+                'label'      => $this->securityContext->isGranted('ROLE_INTERNAL_WRITE', $user) ? 'menu.internals' : 'menu.team',
+                'route'      => 'UserBundle_internal_list',
+                'current'    => $request->get('_menu') == 'team',
+                'icon'       => 'group',
                 'icon-white' => true
             ));
         }
@@ -166,22 +168,6 @@ class MainMenuBuilder
         ));
         $adminMenu->setAttribute('class', sprintf('parent%s', $adminActive ? ' open' : ''));
 
-        // // managers
-        // $this->addTbChild($adminMenu, array (
-        //     'label'      => 'menu.managers',
-        //     'route'      => 'extia_user_manager_list',
-        //     'icon'       => 'eur',
-        //     'icon-white' => true
-        // ));
-
-        // // crh
-        // $this->addTbChild($adminMenu, array (
-        //     'label'      => 'menu.crh',
-        //     'route'      => 'extia_user_crh_list',
-        //     'icon'       => 'group',
-        //     'icon-white' => true
-        // ));
-
         // groups
         $this->addTbChild($adminMenu, array (
             'label'      => 'menu.groups',
@@ -190,7 +176,30 @@ class MainMenuBuilder
             'icon'       => 'check',
             'icon-white' => true
         ));
-
     }
 
+    /**
+     * create mission menu
+     *
+     * @param  Request  $request
+     * @param  MenuItem $menu
+     */
+    public function createMissionMenu(Request $request, MenuItem $menu)
+    {
+        $user = $this->securityContext->getToken()->getUser();
+
+        // no access to mission, no menu element
+        if (!$this->securityContext->isGranted('ROLE_MISSION_READ', $user)) {
+            return;
+        }
+
+        // missions
+        $this->addTbChild($menu, array (
+            'label'      => 'menu.missions',
+            'route'      => 'MissionBundle_mission_admin_list',
+            'current'    => $request->get('_menu') == 'mission',
+            'icon'       => 'eur',
+            'icon-white' => true
+        ));
+    }
 }

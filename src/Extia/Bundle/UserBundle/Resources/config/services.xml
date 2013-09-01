@@ -6,6 +6,11 @@
     <parameters>
         <parameter key="easy_task.user_provider.class">Extia\Bundle\UserBundle\Security\User\UserProvider</parameter>
         <parameter key="easy_task.user_data_voter.class">Extia\Bundle\UserBundle\Security\Authorization\Voter\UserDataVoter</parameter>
+
+        <!-- Mission switch form -->
+        <parameter key="extia_user.form.change_mission_type.class">Extia\Bundle\UserBundle\Form\Type\ChangeMissionType</parameter>
+        <parameter key="extia_user.form.change_mission_handler.class">Extia\Bundle\UserBundle\Form\Handler\ChangeMissionHandler</parameter>
+
     </parameters>
 
     <services>
@@ -15,6 +20,15 @@
         <!-- User voter -->
         <service id="easy_task.user_data_voter" class="%easy_task.user_data_voter.class%">
             <tag name="security.voter"/>
+        </service>
+
+        <!-- Mission switch form -->
+        <service id="extia_user.form.change_mission_type" class="%extia_user.form.change_mission_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="change_mission_form" />
+        </service>
+        <service id="extia_user.form.change_mission_handler" class="%extia_user.form.change_mission_handler.class%">
+
         </service>
 
     </services>

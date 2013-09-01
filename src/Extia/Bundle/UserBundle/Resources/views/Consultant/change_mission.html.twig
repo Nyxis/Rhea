@@ -1,0 +1,66 @@
+{% set missionOrder = consultant.currentMissionOrder %}
+<div id="change_mission" class="black-box modal hide fade">
+    <div class="modal-header tab-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <span>{{ 'consultant.change_mission.header'|trans }}</span>
+    </div>
+    <form action="{{ path('UserBundle_consultant_change_mission', consultant.routing) }}" method="POST" class="form" {{ form_enctype(form) }}>
+        {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+
+        <div class="modal-body separator">
+            <h5>{{ 'consultant.change_mission.current_mission_hook'|trans }}</h5>
+
+            <div class="dtable mission-display">
+                <div class="dtable-cell logo">
+                    {% if missionOrder.mission.client.image is not empty %}
+                        <img src="{{ asset(missionOrder.mission.client.image) }}">
+                    {% else %}
+                        <img src="http://placehold.it/50x50">
+                    {% endif %}
+                </div>
+
+                <h4 class="dtable-cell">
+                    {{ missionOrder.mission.client.title }}<br>
+                    <small>{{ missionOrder.mission.label }}</small>
+                </h4>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <span class="begin">{{ 'consultant.change_mission.begin_date'|trans }}</span>
+                    {{ missionOrder.beginDate('date_format.ymd'|trans) }} -
+                    {{ 'dateinterval_format.year'|transchoice(missionOrder.duration.y, { '%year%': missionOrder.duration.y }) }}
+                    {{ 'dateinterval_format.month'|transchoice(missionOrder.duration.m, { '%month%': missionOrder.duration.m }) }}
+                </div>
+                <div class="span6">
+                    {{ form_row(form.end_date) }}
+                </div>
+            </div>
+        </div>
+        <div class="modal-body separator">
+            <h5>{{ 'consultant.change_mission.next_mission_hook'|trans }}</h5>
+
+            <div class="control-group" id="{{ form.next_intercontract.vars.id }}">
+                <div id="ic-toggler" class="controls">
+                    {{ form_widget(form.next_intercontract) }}
+                </div>
+            </div>
+            <div id="select-mission" class="row-fluid">
+                <div class="span6">
+                    {{ form_row(form.next_mission_id) }}
+                </div>
+                <div class="span6">
+                    {{ form_row(form.next_begin_date) }}
+                </div>
+            </div>
+            {{ form_rest(form) }}
+        </div>
+        <div class="modal-footer">
+            <div class="inner-well">
+                <button type="submit" class="button mini rounded">{{ 'consultant.change_mission.submit'|trans }}</button>
+                <a class="button mini rounded light-gray" data-dismiss="modal">{{ 'modal_close'|trans }}</a>
+            </div>
+        </div>
+    </form>
+</div>
+

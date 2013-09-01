@@ -4,4 +4,60 @@
     <li class="active"><a href="#">{{ 'consultant.admin.breadcrumbs.new'|trans }}</a></li>
 {% endblock %}
 
+{% block nav_tabs %}
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#general">{{ 'consultant.admin.form.tab.general'|trans }}</a></li>
+    <li><a data-toggle="tab" href="#mission">{{ 'consultant.admin.form.tab.mission'|trans }}</a></li>
+    <li><a data-toggle="tab" href="#security">{{ 'consultant.admin.form.tab.security'|trans }}</a></li>
+    <li><a data-toggle="tab" href="#tasks">{{ 'consultant.admin.form.tab.tasks'|trans }}</a></li>
+</ul>
+{% endblock %}
+
 {% block form_header %}{{ 'consultant.admin.new.header'|trans }}{% endblock %}
+
+{% block mission %}
+<div id="mission" class="tab-pane">
+    <div class="row-fluid">
+        <div class="span12">
+            <h4>{{ 'consultant.admin.form.header.mission'|trans }}</h4>
+            {{ form_row(form.begin_at) }}
+
+            <div class="control-group" id="{{ form.on_profile.vars.id }}">
+                <div id="profile-toggler" class="controls">
+                    {{ form_widget(form.on_profile) }}
+                </div>
+            </div>
+            <div id="select-manager" style="display:none;">
+                {{ form_row(form.manager_id) }}
+            </div>
+            <div id="select-mission">
+                <div class="control-group" id="{{ form.mission.vars.id }}">
+                    {{ form_label(form.mission) }}
+                    <div class="controls" data-mission-select="1">
+
+                        {{ form_widget(form.mission) }}
+                        <a class="btn" href="#new_mission" role="button" data-toggle="modal">{{ 'consultant.admin.form.add_mission'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block tasks %}
+<div id="tasks" class="tab-pane">
+    <div class="row-fluid">
+        <div class="span12">
+            <h4>{{ 'consultant.admin.form.header.tasks'|trans }}</h4>
+            {{ form_row(form.create_crh_monitoring) }}
+            {{ form_row(form.create_annual_review) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modal %}
+    {{ parent() }}
+    {{ render(controller('ExtiaMissionBundle:AdminMission:modal')) }}
+{% endblock %}

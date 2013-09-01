@@ -49,6 +49,7 @@ consultant:
         list: Liste
     actions:
         edit_user: Modifier l'utilisateur
+        change_mission: Changement de mission
     details:
         header: Détails
         contact: Contact
@@ -131,6 +132,7 @@ consultant:
             on_profile: Recrutement sur profil
             manager: Manager
             mission: Mission
+            add_mission: Nouvelle mission
             group: Groupe d'accès
             credentials: Droits d'accès
             create_crh_monitoring: Créer un suivi RH
@@ -146,10 +148,29 @@ consultant:
 
     missions:
         header: Missions
+        th_mission: Client
+        th_dates: Dates
+        th_internal: Manager
+        mission_timeline_link: Timeline mission
+        mission_edit_link: Editer la mission
+
     documents:
         header: Documents
     tasks:
         header: Tâches en cours
+
+    change_mission:
+        header: Changement de mission
+        current_mission_hook: Mission actuelle
+        begin_date: A commencé le
+        next_mission_hook: Prochaine mission
+        form:
+            end_date: Date de sortie
+            next_intercontract: En intercontrat
+            next_mission_id: Prochaine mission
+            next_begin_date: Débute le
+        submit: Valider
+
 
 consultants:
     intercontract:

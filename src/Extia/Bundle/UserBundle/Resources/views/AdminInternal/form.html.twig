@@ -5,7 +5,7 @@
         <div class="span12">
             <div class="tabbable box">
                 <div class="tab-header">{% block form_header %}{% endblock %}</div>
-                <form id="internal-form" class="form-horizontal" method="POST" {{ form_enctype(form) }}>
+                <form id="internal-form" class="form-horizontal" method="POST" {{ form_enctype(form) }} autocomplete="off">
                     {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
                     <ul class="nav nav-tabs">

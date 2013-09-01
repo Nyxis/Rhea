@@ -13,6 +13,8 @@
                 'bundles/extiamenu/css/*'
                 'bundles/extiadocument/css/*'
                 'bundles/extianotification/css/*'
+                'bundles/extiamission/css/*'
+                'bundles/extiauser/css/*'
                 filter='cssrewrite'  %}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
@@ -32,6 +34,8 @@
                 '@ExtiaMenuBundle/Resources/public/js/menu.js'
                 '@ExtiaDocumentBundle/Resources/public/js/form.js'
                 '@ExtiaTaskBundle/Resources/public/js/tasks.js'
+                '@ExtiaMissionBundle/Resources/public/js/mission.js'
+                '@ExtiaUserBundle/Resources/public/js/*'
                 %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}

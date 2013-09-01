@@ -324,11 +324,15 @@ Extia\Bundle\MissionBundle\Model\Mission:
         Type: client
         ManagerId: caroline
         ClientId: tf1
+        ContactName: Olivier Hubert
+        ContactEmail: cousin-hubert@tf1.fr
     sfr_kevin:
         Label: Développeur Web
         Type: client
         ManagerId: caroline
         ClientId: sfr
+        ContactName: Emile Louis
+        ContactEmail: prenez-un-cg@sfr.fr
     intercontrat:
         Label: Intercontrat
         Type: ic

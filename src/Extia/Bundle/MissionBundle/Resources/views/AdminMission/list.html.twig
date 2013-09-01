@@ -1,0 +1,118 @@
+{% extends 'ExtiaMissionBundle:AdminMission:layout.html.twig' %}
+
+{% block current_breadcrumb %}
+    <li class="active"><a href="#">{{ 'mission.breadcrumbs.list'|trans }}</a></li>
+{% endblock %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box mission-list">
+                <div class="tab-header">
+                    <i class="icon-th-list"></i>
+                    {{ 'mission.admin.list.header'|trans }}
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <th colspan="2">
+                            <div class="wrap">{{ 'mission.admin.list.th_client'|trans }}</div>
+                            {% include 'ExtiaUserBundle::sorts.html.twig' with { 'field': 'client_name', 'active': sort } only %}
+                        </th>
+                        <th>
+                            <div class="wrap">{{ 'mission.admin.list.th_label'|trans }}</div>
+                            {% include 'ExtiaUserBundle::sorts.html.twig' with { 'field': 'label', 'active': sort } only %}
+                        </th>
+                        <th>
+                            <div class="wrap">{{ 'mission.admin.list.th_manager'|trans }}</div>
+                            {% include 'ExtiaUserBundle::sorts.html.twig' with { 'field': 'manager', 'active': sort } only %}
+                        </th>
+                        <th>
+                            <div class="wrap">{{ 'mission.admin.list.th_nb_consultants'|trans }}</div>
+                            {% include 'ExtiaUserBundle::sorts.html.twig' with { 'field': 'nb_clt', 'active': sort } only %}
+                        </th>
+                        <th>
+                            <div class="wrap">{{ 'mission.admin.list.th_contact'|trans }}</div>
+                            {% include 'ExtiaUserBundle::sorts.html.twig' with { 'field': 'contact', 'active': sort } only %}
+                        </th>
+                        <th>{{ 'mission.admin.list.th_actions'|trans }}</th>
+                    </thead>
+                    <tbody>
+                    {% for mission in missions %}
+                        <tr>
+                            <td class="image">
+                                {% if mission.client.image is not empty %}
+                                    <img src="{{ asset(mission.client.image) }}">
+                                {% else %}
+                                    <img src="http://placehold.it/50x50">
+                                {% endif %}
+                            </td>
+                            <td class="name">
+                                <a href="{{ path('MissionBundle_mission_admin_edit', { 'Id': mission.id }) }}">{{ mission.client.title }}</a>
+                                <br />{% if mission.client.zipCode is not empty %}{{ mission.client.zipCode }} - {% endif %}
+                                {{ mission.client.city }}
+                            </td>
+                            <td>{{ mission.label }}</td>
+                            <td>
+                                {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': mission.manager } only %}
+                            </td>
+                            <td>{{ mission.getNbConsultants() }}</td>
+                            <td>
+                                {% if mission.contactName is not empty %}<span class="contact_name">{{ mission.contactName }}</span>{% endif %}
+                                {% if mission.contactEmail is not empty %}<br /><span class="contact_email">{{ mission.contactEmail }}</span>{% endif %}
+                                {% if mission.contactPhone is not empty %}<br /><span class="contact_phone">{{ mission.contactPhone }}</span>{% endif %}
+                            </td>
+                            <td class="actions">
+                                <div class="btn-group">
+                                    {% if is_granted('ROLE_MISSION_WRITE', app.user) %}
+                                    <a class="button" title="{{ 'mission.admin.list.edit_button'|trans }}"
+                                        href="{{ path('MissionBundle_mission_admin_edit', { 'Id': mission.id }) }}">
+                                        <i class="icon-pencil"></i>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <td colspan="7">{{ knp_pagination_render(missions) }}</td>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid admin-filters">
+    <div class="span12">
+        <div class="box">
+            <div class="tab-header">
+                <i class="icon-search"></i>
+                {{ 'mission.admin.filters.header'|trans }}
+            </div>
+            <div class="padded">
+                <form class="form" method="POST" >
+                    <div class="control-group actions" {{ form_enctype(form) }}>
+                        {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+
+                        {% if form.display is defined %}
+                        <div class="control-group horizontal" id="{{ form.display.vars.id }}">
+                            {{ form_label(form.display) }}
+                            <div class="controls">{{ form_widget(form.display) }}</div>
+                        </div>
+                        {% endif %}
+
+                        {{ form_rest(form) }}
+
+                        <div class=" controls">
+                            <input class="button" type="submit" value="{{ 'admin.filters.form.submit'|trans }}" />
+                            <input class="button" name="reset_filters" type="submit" value="{{ 'admin.filters.form.reset'|trans }}" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

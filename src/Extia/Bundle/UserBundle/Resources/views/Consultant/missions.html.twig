@@ -1,0 +1,74 @@
+{% if missionOrders.isEmpty() == false %}
+<div class="row-fluid consultant-missions">
+    <div class="span12">
+        <div class="box">
+            <div class="tab-header">
+                <i class="icon-eur"></i>
+                {{ 'consultant.missions.header'|trans }}
+            </div>
+            <table class="table table-striped missions-list">
+                <thead>
+                    <th colspan="2">{{ 'consultant.missions.th_mission'|trans }}</th>
+                    <th>{{ 'consultant.missions.th_dates'|trans }}</th>
+                    <th>{{ 'consultant.missions.th_internal'|trans }}</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                {% for missionOrder in missionOrders %}
+                    <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                        <td class="image">
+                            {% if missionOrder.mission.client.image is not empty %}
+                                <img src="{{ asset(missionOrder.mission.client.image) }}">
+                            {% else %}
+                                <img src="http://placehold.it/30x30">
+                            {% endif %}
+                        </td>
+                        <td class="name">
+                            <div class="wrap">
+                                {{ missionOrder.mission.client.title }}<br/>
+                                {{ missionOrder.mission.label }}
+                            </div>
+                        </td>
+                        <td>
+                            {% if missionOrder.duration.invert != 1 %}
+                                {{ 'dateinterval_format.year'|transchoice(missionOrder.duration.y, { '%year%': missionOrder.duration.y }) }}
+                                {{ 'dateinterval_format.month'|transchoice(missionOrder.duration.m, { '%month%': missionOrder.duration.m }) }}
+                                <br />
+                            {% endif %}
+                            {{ missionOrder.beginDate('date_format.ymd'|trans) }}
+                            {% if missionOrder.endDate is not empty %}
+                                - {{ missionOrder.endDate('date_format.ymd'|trans) }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': missionOrder.mission.manager } only %}
+                        </td>
+                        <td class="actions">
+                            <div class="btn-group">
+                                {#
+                                {% if is_granted('ROLE_MISSION_READ', app.user) %}
+                                <a class="button" title="{{ 'consultant.missions.mission_timeline_link'|trans }}"
+                                    href="{{ path('MissionBundle_mission_timeline', clt.routing) }}">
+                                    <i class="icon-tasks"></i>
+                                </a>
+                                {% endif %}
+                                #}
+                                {% if is_granted('ROLE_MISSION_WRITE', app.user) %}
+                                <a class="button" title="{{ 'consultant.missions.mission_edit_link'|trans }}"
+                                    href="{{ path('MissionBundle_mission_admin_edit', { 'Id': missionOrder.mission.id }) }}">
+                                    <i class="icon-pencil"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <td colspan="5">&nbsp;</td>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}

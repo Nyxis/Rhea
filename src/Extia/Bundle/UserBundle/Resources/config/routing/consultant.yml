@@ -31,3 +31,13 @@ UserBundle_consultant_edit:
     requirements:
         id: \d+
         _format: html
+
+UserBundle_consultant_change_mission:
+    pattern: /{Id}/{Url}/change_mission
+    defaults:
+        _controller: 'ExtiaUserBundle:Consultant:changeMission'
+        _format: html
+    requirements:
+        id: \d+
+        _method: POST
+        _format: html
