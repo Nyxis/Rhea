@@ -99,6 +99,9 @@ class MissionHandler
                 return false;
             }
 
+            // only client missions can be created
+            $mission->setType('client');
+
             $mission->save($pdo);
 
             $pdo->commit();
