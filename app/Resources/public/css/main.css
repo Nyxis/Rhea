@@ -107,6 +107,10 @@ a [class^="icon-"], a [class*=" icon-"] {
 .modal-body {
     max-height: 500px;
 }
+img {
+    border: 1px solid lightgrey;
+    border-radius: 3px 3px 3px 3px;
+}
 
 /* ---------------- */
 /* header           */

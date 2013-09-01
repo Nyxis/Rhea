@@ -1,0 +1,5 @@
+/* missions list */
+.consultant-missions .missions-list td.image,
+.consultant-missions .missions-list td.image img {
+    width: 30px;
+}
