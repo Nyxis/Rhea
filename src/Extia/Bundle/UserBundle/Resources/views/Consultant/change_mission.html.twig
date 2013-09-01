@@ -8,9 +8,9 @@
         {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
 
         <div class="modal-body separator">
-            <p class="form_hook">{{ 'consultant.change_mission.current_mission_hook'|trans }}</p>
+            <h5>{{ 'consultant.change_mission.current_mission_hook'|trans }}</h5>
 
-            <div class="dtable">
+            <div class="dtable mission-display">
                 <div class="dtable-cell logo">
                     {% if missionOrder.mission.client.image is not empty %}
                         <img src="{{ asset(missionOrder.mission.client.image) }}">
@@ -23,24 +23,36 @@
                     {{ missionOrder.mission.client.title }}<br>
                     <small>{{ missionOrder.mission.label }}</small>
                 </h4>
-
-                <div class="dtable-cell date">
-                    {{ 'dateinterval_format.year'|transchoice(missionOrder.duration.y, { '%year%': missionOrder.duration.y }) }}
-                    {{ 'dateinterval_format.month'|transchoice(missionOrder.duration.m, { '%month%': missionOrder.duration.m }) }}
-                    <br />
-                    {{ 'consultant.change_mission.begin_date'|trans }} : {{ missionOrder.beginDate('date_format.ymd'|trans) }}
-                </div>
             </div>
 
-            {{ form_row(form.end_date) }}
+            <div class="row-fluid">
+                <div class="span6">
+                    <span class="begin">{{ 'consultant.change_mission.begin_date'|trans }}</span>
+                    {{ missionOrder.beginDate('date_format.ymd'|trans) }} -
+                    {{ 'dateinterval_format.year'|transchoice(missionOrder.duration.y, { '%year%': missionOrder.duration.y }) }}
+                    {{ 'dateinterval_format.month'|transchoice(missionOrder.duration.m, { '%month%': missionOrder.duration.m }) }}
+                </div>
+                <div class="span6">
+                    {{ form_row(form.end_date) }}
+                </div>
+            </div>
         </div>
         <div class="modal-body separator">
-            <p class="form_hook">{{ 'consultant.change_mission.next_mission_hook'|trans }}</p>
+            <h5>{{ 'consultant.change_mission.next_mission_hook'|trans }}</h5>
 
-            {{ form_row(form.next_intercontract) }}
-            {{ form_row(form.next_mission_id) }}
-            {{ form_row(form.next_begin_date) }}
-
+            <div class="control-group" id="{{ form.next_intercontract.vars.id }}">
+                <div id="ic-toggler" class="controls">
+                    {{ form_widget(form.next_intercontract) }}
+                </div>
+            </div>
+            <div id="select-mission" class="row-fluid">
+                <div class="span6">
+                    {{ form_row(form.next_mission_id) }}
+                </div>
+                <div class="span6">
+                    {{ form_row(form.next_begin_date) }}
+                </div>
+            </div>
             {{ form_rest(form) }}
         </div>
         <div class="modal-footer">
