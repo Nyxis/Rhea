@@ -5,91 +5,34 @@
     <li class="active"><a href="#">{{ 'consultant.admin.breadcrumbs.edit'|trans }}</a></li>
 {% endblock %}
 
+{% block nav_tabs %}
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#general">{{ 'consultant.admin.form.tab.general'|trans }}</a></li>
+    <li><a data-toggle="tab" href="#security">{{ 'consultant.admin.form.tab.security'|trans }}</a></li>
+    <li><a data-toggle="tab" href="#resignation">{{ 'consultant.admin.form.tab.resignation'|trans }}</a></li>
+</ul>
+{% endblock %}
+
 {% block form_header %}{{ 'consultant.admin.edit.header'|trans({ '%consultant_name%': consultant.longName }) }}{% endblock %}
 
-{#
-{% block nav_tabs_profile %}
-    <li class="active"><a data-toggle="tab" href="#civility"><i class="icon-globe"></i> {{ 'consultant.admin.edit.civility'|trans }}</a></li>
-    <li><a data-toggle="tab" href="#mission"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.mission'|trans }}</a></li>
-    <li><a data-toggle="tab" href="#file"><i class="icon-hdd"></i> {{ 'consultant.admin.edit.file'|trans }}</a></li>
+{% block resignation %}
+<div id="resignation" class="tab-pane">
+    <div class="row-fluid">
+        <div class="span12">
+            <h4>{{ 'consultant.admin.form.header.resignation'|trans }}</h4>
+            {{ form_widget(form.resignation) }}
+        </div>
+    </div>
+</div>
 {% endblock %}
 
-{% block modal %}
-    {% include 'ExtiaMissionBundle:Mission:modal_new_mission.html.twig' %}
+{% block timeline_link %}
+<a href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}" class="button large">
+    <i class="icon-tasks"></i>
+    <span>{{ 'admin.buttons.timeline'|trans }}</span>
+</a>
 {% endblock %}
 
-{% block main_content %}
-    <div id="civility" class="tab-pane active">
-        <div class="padded">
-            <form id="group-form" class="fill-up" method="post">
-                {{ form_errors(form) }}
-                <div class="row-fluid">
-                    <div class="span2">
-                        {% if gravatar(form.person.email.vars.value, 165) is not null %}
-                            {% set img = gravatar(form.person.email.vars.value, 165) %}
-                        {% else %}
-                            {% set img = asset('/images/defaut-avatar.png') %}
-                        {% endif %}
-                        <img src="{{ img }}" alt="default avatar" title="{{ 'consultant.admin.edit.img.avatar.title'|trans }}" />
-                    </div>
-                    <div class="span10">
-                        <p>
-                            {{ form_label(form.person.firstname, form.person.firstname.vars.id|replace({'_':'.'})) }}
-                            {{ form_errors(form.person.firstname) }}
-                            {{ form_widget(form.person.firstname) }}
-                        </p>
-                        <p>
-                            {{ form_label(form.person.lastname, form.person.lastname.vars.id|replace({'_':'.'})) }}
-                            {{ form_errors(form.person.lastname) }}
-                            {{ form_widget(form.person.lastname) }}
-                        </p>
-                        <p>
-                            {{ form_label(form.person.email, form.person.email.vars.id|replace({'_':'.'})) }}
-                            {{ form_errors(form.person.email) }}
-                            {{ form_widget(form.person.email) }}
-                        </p>
-                    </div>
-                </div>
-                <div class="row-fluid profile-label">
-                    <div class="span12">
-                        <p>
-                            {{ form_label(form.person.telephone, form.person.telephone.vars.id|replace({'_':'.'})) }}
-                            {{ form_errors(form.person.telephone) }}
-                            {{ form_widget(form.person.telephone) }}
-                        </p>
-                        <p>
-                            {{ form_label(form.person.mobile, form.person.mobile.vars.id|replace({'_':'.'})) }}
-                            {{ form_errors(form.person.mobile) }}
-                            {{ form_widget(form.person.mobile) }}
-                        </p>
-                        {#<p>#}
-                            {#{{ form_label(form.manager) }}#}
-                            {#{{ form_errors(form.manager) }}#}
-                            {#{{ form_widget(form.manager) }}#}
-                        {#</p>#}
-                        {#<p>#}
-                            {#{{ form_label(form.rh) }}#}
-                            {#{{ form_errors(form.rh) }}#}
-                            {#{{ form_widget(form.rh) }}#}
-                        {#</p>#}
-{#
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div id="mission" class="tab-pane">
-        <div class="padded">
-            {% render(controller('ExtiaMissionBundle:Mission:list', { 'consultantId': consultant.id })) %}
-        </div>
-    </div>
-    <div id="file" class="tab-pane">
-        <div class="padded">
-            Ici tous les documents sur le suivi du consultant
-        </div>
-    </div>
-{% endblock %}
-#}
 
 {% block stylesheets %}
     {{  parent() }}
@@ -116,25 +59,3 @@
         }
     </style>
 {% endblock %}
-
-{#{% block javascripts %}#}
-    {#{{ parent() }}#}
-    {#<script type="text/javascript">#}
-        {#jQuery(document).ready(function($) {#}
-            {#$('#wf_edit_open').on('click', function(e) {#}
-                {#e.preventDefault();#}
-                {#$('#wf_show').hide();#}
-                {#$('#wf_edit').show();#}
-            {#});#}
-            {#$('#wf_edit_close').on('click', function(e) {#}
-                {#e.preventDefault();#}
-                {#$('#wf_show').show();#}
-                {#$('#wf_edit').hide();#}
-            {#});#}
-            {#$('#wf_submit').on('click', function(e) {#}
-                {#e.preventDefault();#}
-                {#$(this).parents('form').submit();#}
-            {#});#}
-        {#});#}
-    {#</script>#}
-{#{% endblock %}#}

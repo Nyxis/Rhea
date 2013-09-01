@@ -131,6 +131,7 @@ consultant:
             on_profile: Recrutement sur profil
             manager: Manager
             mission: Mission
+            add_mission: Nouvelle mission
             group: Groupe d'accès
             credentials: Droits d'accès
             create_crh_monitoring: Créer un suivi RH

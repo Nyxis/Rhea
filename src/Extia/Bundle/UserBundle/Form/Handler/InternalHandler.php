@@ -107,11 +107,6 @@ class InternalHandler
                 $internal->moveToLastChildOf($parent, $pdo);
             }
 
-            // reinjects credentials into person (cascade save doesnt work with inheritance)
-            $internal->getPerson()->setPersonCredentials(
-                $internal->getPersonCredentials()
-            );
-
             if (!$internal->isNew()) {
                 $resignation = $form->get('resignation')->getData();
                 if (!empty($resignation['resign_internal'])) {
@@ -159,6 +154,13 @@ class InternalHandler
                     }
                 }
             }
+
+            $internal->save($pdo);
+
+            // reinjects credentials into person (cascade save doesnt work with inheritance)
+            $internal->getPerson()->setPersonCredentials(
+                $internal->getPersonCredentials()
+            );
 
             $internal->save($pdo);
 
