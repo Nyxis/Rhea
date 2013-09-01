@@ -49,6 +49,7 @@ consultant:
         list: Liste
     actions:
         edit_user: Modifier l'utilisateur
+        change_mission: Changement de mission
     details:
         header: Détails
         contact: Contact
@@ -147,6 +148,12 @@ consultant:
 
     missions:
         header: Missions
+        th_mission: Client
+        th_dates: Dates
+        th_internal: Manager
+        mission_timeline_link: Timeline mission
+        mission_edit_link: Editer la mission
+
     documents:
         header: Documents
     tasks:

@@ -2,12 +2,12 @@
 
 namespace Extia\Bundle\UserBundle\Controller;
 
-use Extia\Bundle\TaskBundle\Model\TaskQuery;
-
 use Extia\Bundle\UserBundle\Model\Internal;
 use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
+use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 
+use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\DocumentBundle\Model\DocumentQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -92,8 +92,8 @@ class ConsultantController extends Controller
     /**
      * render all intercontract consultants for given user
      *
-     * @param Request                                 $request
-     * @param \Extia\Bundle\UserBundle\Model\Internal $internal
+     * @param Request   $request
+     * @param Internal  $internal
      *
      * @return Response
      */
@@ -121,6 +121,7 @@ class ConsultantController extends Controller
 
     /**
      * displays all document for given consultant
+     *
      * @param  Request    $request
      * @param  Consultant $consultant
      * @return Response
@@ -143,4 +144,38 @@ class ConsultantController extends Controller
             'documents'  => $documentsCollection
         ));
     }
+
+    /**
+     * displays all missions for given consultant
+     *
+     * @param  Request    $request
+     * @param  Consultant $consultant
+     * @return Response
+     */
+    public function missionsAction(Request $request, Consultant $consultant)
+    {
+        $missionOrdersCollection = MissionOrderQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+
+            ->filterByConsultantId($consultant->getId())
+
+            ->orderByBeginDate(\Criteria::DESC)
+
+            // ->usePersonTaskDocumentQuery()
+            //     ->useTaskQuery(null, \Criteria::LEFT_JOIN)
+            //         ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
+            //     ->endUse()
+            // ->endUse()
+
+
+
+            ->find();
+
+        return $this->render('ExtiaUserBundle:Consultant:missions.html.twig', array(
+            'consultant'    => $consultant,
+            'missionOrders' => $missionOrdersCollection
+        ));
+    }
+
+
 }
