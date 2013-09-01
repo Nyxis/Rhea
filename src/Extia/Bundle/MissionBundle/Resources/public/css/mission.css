@@ -1,0 +1,7 @@
+/* admin list */
+.mission-admin .mission-list td.image {
+    width: 50px;
+}
+.mission-admin .mission-list td.image img {
+    width: 50px;
+}

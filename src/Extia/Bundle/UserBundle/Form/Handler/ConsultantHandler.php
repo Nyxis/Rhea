@@ -7,10 +7,6 @@ use Extia\Bundle\UserBundle\Model\PersonTypeQuery;
 use Extia\Bundle\UserBundle\Model\MissionOrder;
 use Extia\Bundle\UserBundle\Model\Resignation;
 
-// use Extia\Bundle\UserBundle\Model\ConsultantQuery;
-
-// use Extia\Bundle\TaskBundle\Model\TaskQuery;
-
 use Extia\Bundle\MissionBundle\Model\MissionQuery;
 use Extia\Bundle\MissionBundle\Model\ClientQuery;
 
@@ -85,7 +81,6 @@ class ConsultantHandler
 
         try {
             if (!empty($image)) {   // image uploading
-
                 try {
                     $extension = $image->guessExtension();
                     if (!in_array($extension, array('jpeg', 'png'))) {

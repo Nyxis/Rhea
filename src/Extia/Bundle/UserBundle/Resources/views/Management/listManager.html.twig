@@ -1,3 +1,0 @@
-{% extends 'ExtiaUserBundle:Management:list.html.twig' %}
-
-{% block 'delete_user' %}<a href="{{ path('extia_user_management_delete_manager'), {'id':user.id } }}" class="btn btn-danger">{{ 'Delete'|trans }}</a>{% endblock %}

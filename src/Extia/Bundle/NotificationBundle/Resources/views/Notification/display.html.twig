@@ -22,7 +22,7 @@
         {% for notif in notifier.all %}
             Notifications.push({
                 "imagePath": 'placeholder',
-                "autoDismiss": 5,
+                "autoDismiss": 10,
                 "text": '{% autoescape false %}{{ notif }}{% endautoescape %}'
             });
         {% endfor %}

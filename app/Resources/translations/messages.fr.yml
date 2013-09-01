@@ -52,6 +52,7 @@ menu:
     groups: Groupes
     team: Mon équipe
     internals: Internes
+    missions: Missions
 
 admin:
     actions:

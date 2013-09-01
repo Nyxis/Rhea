@@ -5,8 +5,12 @@
         <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
         <column name="manager_id" type="INTEGER" required="true" />
         <column name="client_id" type="INTEGER" required="true" />
-        <column name="type" type="VARCHAR" size="20" required="true" />
+        <column name="type" type="VARCHAR" size="20" required="true" />   <!-- @todo : ENUM -->
         <column name="label" type="VARCHAR" size="255" required="true" />
+
+        <column name="contact_name" type="VARCHAR" size="255" required="false" />
+        <column name="contact_email" type="VARCHAR" size="255" required="false" />
+        <column name="contact_phone" type="VARCHAR" size="255" required="false" />
 
         <foreign-key foreignTable="person" phpName="Manager">
             <reference local="manager_id" foreign="id" />
@@ -24,6 +28,7 @@
         <column name="address" type="VARCHAR" size="255" required="false" />
         <column name="zip_code" type="INTEGER" size="5" required="false" />
         <column name="city" type="VARCHAR" size="255" required="false" />
+        <column name="image" type="VARCHAR" size="255" required="false" />
         <behavior name="timestampable" />
         <behavior name="sluggable">
             <parameter name="slug_column" value="slug" />
