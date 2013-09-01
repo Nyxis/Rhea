@@ -71,6 +71,7 @@ class Consultant extends BaseConsultant
                 ->filterByEndDate(null, \Criteria::ISNULL)
                 ->orderByBeginDate(\Criteria::DESC)
                 ->joinWith('Mission')
+                ->joinWith('Mission.Client')
                 ->joinWith('Mission.Manager')
         );
 

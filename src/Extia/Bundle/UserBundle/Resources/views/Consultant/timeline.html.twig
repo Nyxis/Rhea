@@ -84,7 +84,7 @@
                 <i class="icon-edit"></i>
                 <span>{{ 'consultant.actions.edit_user'|trans }}</span>
             </a>
-            <a href="#new_mission" data-toggle="modal" role="button" class="button large">
+            <a href="#change_mission" data-toggle="modal" role="button" class="button large">
                 <i class="icon-refresh"></i>
                 <span>{{ 'consultant.actions.change_mission'|trans }}</span>
             </a>
@@ -111,5 +111,5 @@
 {% endblock %}
 
 {% block modal %}
-    {# {% include 'ExtiaMissionBundle:Mission:modal_new_mission.html.twig' %} #}
+    {{ render(controller('ExtiaUserBundle:Consultant:changeMission', { 'consultant': user })) }}
 {% endblock %}

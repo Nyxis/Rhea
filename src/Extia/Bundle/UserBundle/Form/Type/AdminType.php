@@ -142,16 +142,17 @@ abstract class AdminType extends AbstractType
 
     /**
      * adds a form for an mission
+     * @param string               $fieldName
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function addMissionForm(FormBuilderInterface $builder, array $options = array())
+    public function addMissionForm($fieldName, FormBuilderInterface $builder, array $options = array())
     {
-        $builder->add('mission', 'choice', array_replace_recursive(array(
+        $builder->add($fieldName, 'choice', array_replace_recursive(array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
-            'label'    => 'admin.form.mission',
+            'label'    => 'admin.form.'.$fieldName,
             'choices'  => MissionQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->joinWith('Client')
