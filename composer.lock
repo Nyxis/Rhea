@@ -1495,12 +1495,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ornicar/GravatarBundle.git",
-                "reference": "82c27e766f2af13ffc4db449a1e7489361562fe1"
+                "reference": "83e7f2fbcd700d21d6429ac823c12e55bee30846"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ornicar/GravatarBundle/zipball/82c27e766f2af13ffc4db449a1e7489361562fe1",
-                "reference": "82c27e766f2af13ffc4db449a1e7489361562fe1",
+                "url": "https://api.github.com/repos/ornicar/GravatarBundle/zipball/83e7f2fbcd700d21d6429ac823c12e55bee30846",
+                "reference": "83e7f2fbcd700d21d6429ac823c12e55bee30846",
                 "shasum": ""
             },
             "require": {
@@ -1539,7 +1539,7 @@
                 "templating",
                 "twig"
             ],
-            "time": "2013-03-26 06:23:17"
+            "time": "2013-09-01 18:48:11"
         },
         {
             "name": "phing/phing",
@@ -1647,12 +1647,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/propelorm/Propel.git",
-                "reference": "0e958a5961c10e59a295e5cb5322bd6765a4c22f"
+                "reference": "c47e6318a1b15342c3dcec40591c19b72fbc7c4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/propelorm/Propel/zipball/0e958a5961c10e59a295e5cb5322bd6765a4c22f",
-                "reference": "0e958a5961c10e59a295e5cb5322bd6765a4c22f",
+                "url": "https://api.github.com/repos/propelorm/Propel/zipball/c47e6318a1b15342c3dcec40591c19b72fbc7c4c",
+                "reference": "c47e6318a1b15342c3dcec40591c19b72fbc7c4c",
                 "shasum": ""
             },
             "require": {
@@ -1702,7 +1702,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2013-08-14 22:43:07"
+            "time": "2013-09-01 22:15:39"
         },
         {
             "name": "psr/log",
