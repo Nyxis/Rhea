@@ -79,7 +79,7 @@ class ConsultantListFiltersType extends AdminType
         $this->addInternalForm('crh', array('crh'), $builder);
 
         // client
-        $this->addClientForm($builder);
+        $this->addClientForm('client', $builder);
     }
 
 }

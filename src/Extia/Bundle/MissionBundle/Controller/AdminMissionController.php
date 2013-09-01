@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Form\Form;
@@ -220,8 +221,59 @@ class AdminMissionController extends Controller
         return $this->renderForm(
             $request,
             $mission,
+            'mission_edit_form',
             'ExtiaMissionBundle:AdminMission:edit.html.twig'
         );
+    }
+
+    /**
+     * displays and handles mission creation form within a modal
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function modalAction(Request $request, Mission $mission = null)
+    {
+        if(!$mission instanceof Mission) {
+            $mission = new Mission();
+        }
+
+        return $this->renderForm(
+            $request,
+            $mission,
+            'mission_new_form',
+            'ExtiaMissionBundle:AdminMission:modal.html.twig'
+        );
+    }
+
+    /**
+     * handles mission creation (only supports ajax submit for now)
+     *
+     * @param  Request      $request
+     * @return JsonResponse
+     */
+    public function newAction(Request $request)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            throw new NotFoundHttpException('Mission creation is only supported on ajax requests for now');
+        }
+
+        $mission = new Mission();
+
+        // handles given form
+        $this->renderForm($request, $mission, 'mission_new_form');
+
+        $missionCollection = MissionQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->find();
+
+        $this->get('notifier')->add('success', 'test');
+
+        return new JsonResponse(array(
+            'notifications' => $this->get('notifier')->all(),
+            'current'       => $mission->getId(),
+            'missions'      => $missionCollection->toKeyValue('Id', 'FullLabel')
+        ));
     }
 
     /**
@@ -229,23 +281,27 @@ class AdminMissionController extends Controller
      *
      * @param  Request $request
      * @param  Mission $mission
+     * @param  sting   $formType
      * @param  string  $template
      * @return Response
      */
-    protected function renderForm(Request $request, Mission $mission, $template)
+    protected function renderForm(Request $request, Mission $mission, $formType, $template = null)
     {
         $user = $this->getUser();
         if (!$this->get('security.context')->isGranted('ROLE_MISSION_WRITE', $user)) {
             throw new AccessDeniedHttpException(sprintf('You have any credentials to write missions.'));
         }
 
-        $form = $this->get('form.factory')->create('mission_form', $mission, array());
-
-        if ($request->request->has($form->getName())) {
-            $this->get('extia_mission.form.mission_handler')->handle($form, $request);
+        $form = $this->get('form.factory')->create($formType, $mission, array());
+        if (!$mission->isNew()) {
+            $form->get('client')->setData($mission->getClient());
         }
 
-        return $this->render($template, array(
+        if ($request->request->has($form->getName())) {
+            $success = $this->get('extia_mission.form.mission_handler')->handle($form, $request);
+        }
+
+        return empty($template) ? !empty($success) : $this->render($template, array(
             'mission' => $mission,
             'form'    => $form->createView()
         ));

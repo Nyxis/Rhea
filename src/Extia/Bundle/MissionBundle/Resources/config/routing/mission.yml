@@ -4,10 +4,6 @@ extia_mission_mission_list:
     requirements:
         consultantId: \d+
 
-extia_mission_mission_new:
-    pattern: /new
-    defaults: { _controller: ExtiaMissionBundle:Mission:new }
-
 extia_mission_mission_edit:
     pattern: /edit/{id}
     defaults: { _controller: ExtiaMissionBundle:Mission:edit }
@@ -30,6 +26,15 @@ MissionBundle_mission_admin_list:
         _format: html
     requirements:
         _format: html
+
+MissionBundle_mission_admin_new:
+    pattern: /new.{_format}
+    defaults:
+        _controller: ExtiaMissionBundle:AdminMission:new
+        _format: json
+    requirements:
+        _format: json
+        _method: POST
 
 MissionBundle_mission_admin_edit:
     pattern: /{Id}/edit

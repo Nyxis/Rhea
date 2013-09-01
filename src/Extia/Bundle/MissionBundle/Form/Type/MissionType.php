@@ -12,30 +12,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * form type for mission forms
- *
- * @see Extia/Bundles/MissionBundle/Resources/config/admin.xml
+ * base form type for mission forms
  */
-class MissionType extends AdminType
+abstract class MissionType extends AdminType
 {
-    /**
-     * @see AbstracType::getName()
-     */
-    public function getName()
-    {
-        return 'mission_form';
-    }
-
-    /**
-     * @see AbstracType::setDefaultOptions()
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        return $resolver->setDefaults(array (
-            'data_class' => 'Extia\Bundle\MissionBundle\Model\Mission'
-        ));
-    }
-
     /**
      * @see AbstracType::buildForm()
      */
@@ -69,11 +49,6 @@ class MissionType extends AdminType
         $builder->add('contact_phone', 'text', array(
             'required' => false,
             'label'    => 'mission.admin.form.contact_phone'
-        ));
-
-        $builder->add('client', 'client_form', array(
-            'required' => true,
-            'label'    => false
         ));
     }
 }

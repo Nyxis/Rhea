@@ -1,5 +1,12 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+
+    {# adds mission admin js only for those templates, out of Assetic #}
+    <script type="text/javascript" src="{{ asset('bundles/extiamission/js/admin.js') }}"></script>
+{% endblock %}
+
 {% block body_class 'mission-admin' %}
 
 {% block breadcrumbs %}

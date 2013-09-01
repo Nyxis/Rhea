@@ -122,16 +122,17 @@ abstract class AdminType extends AbstractType
 
     /**
      * adds a form for an client
+     * @param string               $fieldName
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function addClientForm(FormBuilderInterface $builder, array $options = array())
+    public function addClientForm($fieldName, FormBuilderInterface $builder, array $options = array())
     {
-        $builder->add('client', 'choice', array_replace_recursive(array(
+        $builder->add($fieldName, 'choice', array_replace_recursive(array(
             'required' => false,
             'expanded' => false,
             'multiple' => false,
-            'label'    => 'admin.form.client',
+            'label'    => 'admin.form.'.$fieldName,
             'choices'  => ClientQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->find()

@@ -26,6 +26,12 @@ mission:
         edit:
             header: Edition mission
 
+        modal:
+            header: Nouvelle mission
+            or: ou
+            new_client: Créer un nouveau client
+            submit: Créer la mission
+
         filters:
             header: Filtres
             form:
@@ -45,6 +51,7 @@ mission:
             contact_name: Contact
             contact_email: Email
             contact_phone: Téléphone
+            client_id: Sélectionner un client
 
 client:
     admin:

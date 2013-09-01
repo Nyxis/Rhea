@@ -30,13 +30,11 @@
 
             <div class="control-group" id="{{ form.mission.vars.id }}">
                 {{ form_label(form.mission) }}
-                <div class="controls">
+                <div class="controls" data-mission-select="1">
                     {{ form_widget(form.mission) }}
-                    <a class="btn" href="#">{{ 'consultant.admin.form.add_mission'|trans }}</a>
+                    <a class="btn" href="#new_mission" role="button" data-toggle="modal">{{ 'consultant.admin.form.add_mission'|trans }}</a>
                 </div>
             </div>
-
-            {{ form_row(form.mission) }}
         </div>
     </div>
 </div>
@@ -52,4 +50,9 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block modal %}
+    {{ parent() }}
+    {{ render(controller('ExtiaMissionBundle:AdminMission:modal')) }}
 {% endblock %}

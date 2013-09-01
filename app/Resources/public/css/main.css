@@ -101,6 +101,12 @@ a [class^="icon-"], a [class*=" icon-"] {
     display: inline-block;
     text-decoration: inherit;
 }
+.modal {
+    width: 700px;
+}
+.modal-body {
+    max-height: 500px;
+}
 
 /* ---------------- */
 /* header           */

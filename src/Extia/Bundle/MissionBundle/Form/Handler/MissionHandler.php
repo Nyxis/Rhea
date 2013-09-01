@@ -56,9 +56,8 @@ class MissionHandler
         $mission = $form->getData();
 
         try {
-
-            if ($form->get('client')->has('image')) {   // image uploading
-                $image = $form->get('client')->get('image')->getData();
+            // image uploading
+            if ($form->get('client')->has('image') && $image = $form->get('client')->get('image')->getData()) {
                 try {
                     $extension = $image->guessExtension();
                     if (!in_array($extension, array('jpeg', 'png'))) {
@@ -91,9 +90,20 @@ class MissionHandler
                 }
             }
 
+            if ($form->has('client_id') && $clientId = $form->get('client_id')->getData()) {
+                $mission->setClientId($clientId);
+            } elseif ($form->has('client') && $client = $form->get('client')->getData()) {
+                $mission->setClient($client);
+            } else {
+                // notifier warning
+                return false;
+            }
+
+            $mission->save($pdo);
+
             $pdo->commit();
 
-            return $mission->save($pdo);
+            return true;
 
         } catch(\Exception $e) {
             $pdo->rollback();
