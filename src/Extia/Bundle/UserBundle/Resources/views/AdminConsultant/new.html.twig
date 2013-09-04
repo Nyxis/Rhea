@@ -31,12 +31,12 @@
                 {{ form_row(form.manager_id) }}
             </div>
             <div id="select-mission">
-                <div class="control-group" id="{{ form.mission.vars.id }}">
+                <div class="control-group{% if form.mission.vars.errors|length > 0 %} error{% endif %}" id="{{ form.mission.vars.id }}">
                     {{ form_label(form.mission) }}
                     <div class="controls" data-mission-select="1">
-
                         {{ form_widget(form.mission) }}
                         <a class="btn" href="#new_mission" role="button" data-toggle="modal">{{ 'consultant.admin.form.add_mission'|trans }}</a>
+                        {{ form_errors(form.mission) }}
                     </div>
                 </div>
             </div>

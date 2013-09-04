@@ -111,6 +111,11 @@ img {
     border: 1px solid lightgrey;
     border-radius: 3px 3px 3px 3px;
 }
+.control-group.error .help-block,
+.control-group.error .help-inline {
+    font-style: italic;
+    margin-top: 5px;
+}
 
 /* ---------------- */
 /* header           */

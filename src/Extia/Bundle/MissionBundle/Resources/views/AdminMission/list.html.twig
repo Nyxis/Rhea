@@ -94,7 +94,7 @@
             <div class="padded">
                 <form class="form" method="POST" >
                     <div class="control-group actions" {{ form_enctype(form) }}>
-                        {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+                        {% form_theme form '::fields.html.twig' %}
 
                         {% if form.display is defined %}
                         <div class="control-group horizontal" id="{{ form.display.vars.id }}">

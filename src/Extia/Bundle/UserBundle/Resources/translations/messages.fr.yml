@@ -85,6 +85,7 @@ consultant:
 
         notifications:
             filters_error: Les filtres soumis sont invalides.
+            invalid_form: Les champs soumis sont incomplets ou invalides.
             save_success: Le consultant %consultant_name% a bien été sauvegardé.
 
         sidebar:
