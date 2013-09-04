@@ -70,7 +70,7 @@ consultant:
             th_name: Consultant
             th_status: Statut
             th_mission: Mission
-            th_begin_date: Début de contrat
+            th_begin_date: Contrat
             th_internals: Référents
             th_actions: Actions
 

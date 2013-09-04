@@ -36,7 +36,11 @@
                     {% for consultant in consultants %}
                         <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
                             <td class="image">
-                                <img src="{{ consultant.image|default(gravatar(consultant.email, 50)) }}">
+                            {% if consultant.image is not empty %}
+                                <img style="width: 50px; height: 50px;" src="{{ asset(consultant.image) }}">
+                            {% else %}
+                                <img src="{{ gravatar(consultant.email, 50) }}">
+                            {% endif %}
                             </td>
                             <td class="name">
                                 <a href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">{{ consultant.longname }}</a><br/>
@@ -46,8 +50,8 @@
                                 {% include 'ExtiaUserBundle:Consultant:status.html.twig' with {'consultant': consultant} only %}
                             </td>
                             <td>
-                            {% if consultant.currentMission is not empty %}
-                                {{ consultant.currentMission.client.title }}<br/>
+                            {% if consultant.currentMission is not empty and consultant.currentMission.type == 'client' %}
+                                <span class="client">{{ consultant.currentMission.client.title }}</span><br/>
                                 {{ consultant.currentMission.label }}
                             {% endif %}
                             </td>
@@ -59,8 +63,11 @@
                                 <br />
                                 {{ 'dateinterval_format.year'|transchoice(consultant.seniority.y, { '%year%':consultant.seniority.y }) }}
                                 {{ 'dateinterval_format.month'|transchoice(consultant.seniority.m, { '%month%':consultant.seniority.m }) }}
+                                {% if consultant.seniority.y == 0 and consultant.seniority.m == 0 %}
+                                    {{ 'dateinterval_format.day'|transchoice(consultant.seniority.d, { '%day%':consultant.seniority.d }) }}
+                                {% endif %}
                             </td>
-                            <td>
+                            <td class="referers">
                                 {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': consultant.crh } only %}
                                 {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': consultant.manager } only %}
                             </td>
