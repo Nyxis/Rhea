@@ -2,7 +2,6 @@
 
 namespace Extia\Bundle\UserBundle\Controller;
 
-use Extia\Bundle\UserBundle\Model\Internal;
 use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
@@ -90,36 +89,6 @@ class ConsultantController extends Controller
     // --------------------------------------------------------
 
     /**
-     * render all intercontract consultants for given user
-     *
-     * @param Request   $request
-     * @param Internal  $internal
-     *
-     * @return Response
-     */
-    public function intercontractListBoxAction(Request $request, Internal $internal)
-    {
-        $consultantCollection = ConsultantQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-
-            ->useMissionOrderQuery()
-                ->filterByCurrent(true)
-                ->useMissionQuery()
-                    ->filterByType('ic')
-                ->endUse()
-            ->endUse()
-
-            ->filterByInternalReferer($internal)
-
-            ->find();
-
-        return $this->render('ExtiaUserBundle:Consultant:intercontract_list_box.html.twig', array(
-            'internal'    => $internal,
-            'consultants' => $consultantCollection
-        ));
-    }
-
-    /**
      * displays all document for given consultant
      *
      * @param  Request    $request
@@ -197,6 +166,5 @@ class ConsultantController extends Controller
             'form'       => $form->createView()
         ));
     }
-
 
 }
