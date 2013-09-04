@@ -12,7 +12,6 @@ use Extia\Bundle\MissionBundle\Model\MissionQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -88,6 +87,36 @@ class InternalController extends Controller
     }
 
     /**
+     * render all intercontract consultants for given itnernal
+     *
+     * @param Request  $request
+     * @param Internal $internal
+     *
+     * @return Response
+     */
+    public function intercontractsAction(Request $request, Internal $internal)
+    {
+        $consultantCollection = ConsultantQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+
+            ->useMissionOrderQuery()
+                ->filterByCurrent(true)
+                ->useMissionQuery()
+                    ->filterByType('ic')
+                ->endUse()
+            ->endUse()
+
+            ->filterByInternalReferer($internal)
+
+            ->find();
+
+        return $this->render('ExtiaUserBundle:Internal:intercontracts.html.twig', array(
+            'internal'    => $internal,
+            'consultants' => $consultantCollection
+        ));
+    }
+
+    /**
      * list missions for given internal
      *
      * @param  Request  $request
@@ -137,7 +166,7 @@ class InternalController extends Controller
             ->orderByActivationDate()
             ->find();
 
-        return $this->render('ExtiaUserBundle:Internal:team_past_tasks_box.html.twig', array (
+        return $this->render('ExtiaUserBundle:Internal:team_past_tasks.html.twig', array (
             'tasks' => $taskCollection
         ));
     }

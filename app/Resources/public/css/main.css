@@ -67,6 +67,9 @@ body {
 .label.label-info, .badge.badge-info {
     background-color: #3A87AD;
 }
+td .badge+.badge {
+    margin-top: 4px;
+}
 dl {
     margin-bottom: 0px;
 }
@@ -252,10 +255,6 @@ blockquote .button i {
     color: #CCCCCC !important;
 }
 
-
-.box.consultants td .badge+.badge {
-    margin-top: 4px;
-}
 .box.consultants td.name {
     max-width: 20%;
     padding-left: 0px;
