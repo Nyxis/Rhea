@@ -38,6 +38,7 @@ datetime_format:
 dateinterval_format:
     year: "{0} |{1} 1 an|]1, Inf] %year% ans"
     month: "{0} |[1, Inf] %month% mois"
+    day: "{0} |{1} 1 jour|]1, Inf] %day% jours"
 
 Previous: Précédent
 Next: Suivant
