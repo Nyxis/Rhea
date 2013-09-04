@@ -8,41 +8,16 @@ use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\MissionBundle\Model\MissionQuery;
-use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Form handler for internals creation / editing
  * @see Extia/Bundles/UserBundle/Resources/config/admin.xml
  */
-class InternalHandler
+class InternalHandler extends AdminHandler
 {
-    protected $securityContext;
-    protected $notifier;
-    protected $rootDir;
-    protected $logger;
-    protected $debug;
-
-    /**
-     * construct
-     * @param NotifierInterface $notifier
-     * @param string            $rootDir
-     * @param LoggerInterface   $logger
-     * @param bool              $debug
-     */
-    public function __construct(SecurityContextInterface $securityContext, NotifierInterface $notifier, $rootDir, LoggerInterface $logger, $debug)
-    {
-        $this->securityContext = $securityContext;
-        $this->notifier        = $notifier;
-        $this->rootDir         = $rootDir;
-        $this->logger          = $logger;
-        $this->debug           = $debug;
-    }
-
     /**
      * handle method
      * @param  Request $request

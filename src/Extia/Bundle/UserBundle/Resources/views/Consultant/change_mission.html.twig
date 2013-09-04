@@ -5,7 +5,7 @@
         <span>{{ 'consultant.change_mission.header'|trans }}</span>
     </div>
     <form action="{{ path('UserBundle_consultant_change_mission', consultant.routing) }}" method="POST" class="form" {{ form_enctype(form) }}>
-        {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+        {% form_theme form '::fields.html.twig' %}
 
         <div class="modal-body separator">
             <h5>{{ 'consultant.change_mission.current_mission_hook'|trans }}</h5>
@@ -63,4 +63,3 @@
         </div>
     </form>
 </div>
-

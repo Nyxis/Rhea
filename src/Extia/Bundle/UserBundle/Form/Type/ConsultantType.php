@@ -6,6 +6,7 @@ use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Form type for consultant model
@@ -27,7 +28,9 @@ class ConsultantType extends AdminType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         return $resolver->setDefaults(array(
-            'consultant_id' => null
+            'consultant_id'    => null,
+            'data_class'       => 'Extia\Bundle\UserBundle\Model\Consultant',
+            'validation_group' => 'Default'
         ));
     }
 
@@ -47,10 +50,13 @@ class ConsultantType extends AdminType
         ));
 
         $builder->add('birthdate', 'birthday', array(
-            'required' => true,
-            'widget'   => 'text',
-            'format'   => 'dd/MM/yyyy',
-            'label'    => 'consultant.admin.form.birthdate'
+            'required'    => true,
+            'widget'      => 'text',
+            'format'      => 'dd/MM/yyyy',
+            'label'       => 'consultant.admin.form.birthdate',
+            'constraints' => array(
+                new Assert\Date(), new Assert\NotBlank()
+            )
         ));
 
         $builder->add('image', 'file', array(
@@ -75,10 +81,13 @@ class ConsultantType extends AdminType
         ));
 
         $builder->add('contractBeginDate', 'date', array(
-            'required' => true,
-            'widget'   => 'text',
-            'format'   => 'dd/MM/yyyy',
-            'label'    => 'consultant.admin.form.contract_begin'
+            'required'    => true,
+            'widget'      => 'text',
+            'format'      => 'dd/MM/yyyy',
+            'label'       => 'consultant.admin.form.contract_begin',
+            'constraints' => array(
+                new Assert\Date(), new Assert\NotBlank()
+            )
         ));
 
         $builder->add('job', 'text', array(
@@ -110,11 +119,14 @@ class ConsultantType extends AdminType
         // mission
         if (empty($options['consultant_id'])) {
             $builder->add('begin_at', 'date', array(
-                'required' => true,
-                'widget'   => 'text',
-                'format'   => 'dd/MM/yyyy',
-                'label'    => 'consultant.admin.form.begin_at',
-                'mapped'   => false
+                'required'    => true,
+                'widget'      => 'text',
+                'format'      => 'dd/MM/yyyy',
+                'label'       => 'consultant.admin.form.begin_at',
+                'mapped'      => false,
+                'constraints' => array(
+                    new Assert\Date(), new Assert\NotBlank()
+                )
             ));
 
             $builder->add('on_profile', 'checkbox', array(

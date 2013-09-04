@@ -5,7 +5,7 @@
     </div>
 
     <form action="{{ path('TaskBundle_differ') }}" method="POST" class="form-horizontal">
-        {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+        {% form_theme form '::fields.html.twig' %}
 
         {{ form_rest(form) }}
 

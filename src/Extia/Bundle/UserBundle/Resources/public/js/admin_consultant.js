@@ -1,8 +1,8 @@
 jQuery(document).ready(function($) {
 
     // mission select toggle
-    $('#profile-toggler input').on('change', function() {
-        if ($(this).is(':checked')) {
+    var onProfile = function() {
+        if ($('#profile-toggler input').is(':checked')) {
             $('#select-manager').show();
             $('#select-manager').find('label').addClass('required');
             $('#select-manager').find('select').attr('required', 'required');
@@ -20,5 +20,8 @@ jQuery(document).ready(function($) {
             $('#select-manager').find('label').removeClass('required');
             $('#select-manager').find('select').attr('required', null);
         }
-    });
+    };
+
+    $('#profile-toggler input').on('change', onProfile);
+    onProfile();
 });
