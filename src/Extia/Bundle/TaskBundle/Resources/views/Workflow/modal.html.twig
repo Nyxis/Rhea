@@ -10,7 +10,7 @@
     {% endblock %}
     </div>
     <form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node, nodeUrlParams) }}" >
-    {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+    {% form_theme form '::fields.html.twig' %}
     {% block modal_form %}
         {{ form_rest(form) }}
     {% endblock %}

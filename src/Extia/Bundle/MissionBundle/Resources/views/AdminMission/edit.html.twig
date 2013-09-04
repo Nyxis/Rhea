@@ -16,7 +16,7 @@
             <div class="tabbable box">
                 <div class="tab-header">{{ 'mission.admin.edit.header'|trans }} {{ mission.client.title }} - {{ mission.label }}</div>
                 <form id="mission-form" class="padded form-horizontal" method="POST" {{ form_enctype(form) }}>
-                    {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+                    {% form_theme form '::fields.html.twig' %}
                     <div class="row-fluid">
                         <div class="span6">
                             <h4>{{ 'mission.admin.form.header.client'|trans }}</h4>

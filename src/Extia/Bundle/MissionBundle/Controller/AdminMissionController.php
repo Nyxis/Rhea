@@ -64,8 +64,7 @@ class AdminMissionController extends Controller
             $teamIds = $user->getTeamIds();
             if (!empty($teamIds)) {
                 $teamIds->append($user->getId());
-            }
-            else {
+            } else {
                 array_push((array) $teamIds, $user->getId());
             }
 
@@ -89,7 +88,6 @@ class AdminMissionController extends Controller
 
         return $form;
     }
-
 
     /**
      * process sorts from request and session to query, and return all available sorts
@@ -234,7 +232,7 @@ class AdminMissionController extends Controller
      */
     public function modalAction(Request $request, Mission $mission = null)
     {
-        if(!$mission instanceof Mission) {
+        if (!$mission instanceof Mission) {
             $mission = new Mission();
         }
 
@@ -267,7 +265,9 @@ class AdminMissionController extends Controller
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->find();
 
-        $this->get('notifier')->add('success', 'test');
+        $this->get('notifier')->add('success', 'mission.admin.notification.save_success', array(
+            '%mission_name%' => $mission->getFullLabel()
+        ));
 
         return new JsonResponse(array(
             'notifications' => $this->get('notifier')->all(),
@@ -279,10 +279,10 @@ class AdminMissionController extends Controller
     /**
      * displays form for given mission
      *
-     * @param  Request $request
-     * @param  Mission $mission
-     * @param  sting   $formType
-     * @param  string  $template
+     * @param  Request  $request
+     * @param  Mission  $mission
+     * @param  sting    $formType
+     * @param  string   $template
      * @return Response
      */
     protected function renderForm(Request $request, Mission $mission, $formType, $template = null)

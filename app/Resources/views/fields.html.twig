@@ -1,0 +1,13 @@
+{% extends 'MopaBootstrapBundle:Form:fields.html.twig' %}
+
+{% block error_type %}
+{% spaceless %}
+{% if error_type %}
+    {{ error_type }}
+{% elseif form.parent == null %}
+    {{ form.vars.error_type | default('inline') }}
+{% else %}
+    inline
+{% endif %}
+{% endspaceless %}
+{% endblock error_type %}

@@ -5,7 +5,7 @@
     </div>
     <form action="{{ path('MissionBundle_mission_admin_new') }}" method="POST" class="form" {{ form_enctype(form) }}>
         <div class="modal-body separator">
-        {% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}
+        {% form_theme form '::fields.html.twig' %}
             <div class="row-fluid">
                 <div class="span6">
                     <div class="control-group" id="{{ form.client_id.vars.id }}">
@@ -53,4 +53,3 @@
         </div>
     </form>
 </div>
-

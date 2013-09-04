@@ -11,50 +11,68 @@ use Extia\Bundle\MissionBundle\Model\MissionQuery;
 use Extia\Bundle\MissionBundle\Model\ClientQuery;
 
 use Extia\Bundle\TaskBundle\Workflow\Aggregator;
-use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 use EasyTask\Bundle\WorkflowBundle\Model\WorkflowNodeQuery;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Form handler for consultant creation / editing
  * @see Extia/Bundles/UserBundle/Resources/config/admin.xml
  */
-class ConsultantHandler
+class ConsultantHandler extends AdminHandler
 {
-    protected $securityContext;
-    protected $notifier;
     protected $workflows;
-    protected $rootDir;
-    protected $logger;
-    protected $debug;
 
     /**
      * construct
-     * @param NotifierInterface $notifier
-     * @param string            $rootDir
-     * @param LoggerInterface   $logger
-     * @param bool              $debug
+     * @see Extia/Bundles/UserBundle/Resources/config/admin.xml
      */
-    public function __construct(
-        SecurityContextInterface $securityContext,
-        NotifierInterface $notifier,
-        Aggregator $workflows,
-        $rootDir,
-        LoggerInterface $logger,
-        $debug)
+    public function __construct(Aggregator $workflows)
     {
-        $this->securityContext = $securityContext;
-        $this->notifier        = $notifier;
-        $this->workflows       = $workflows;
-        $this->rootDir         = $rootDir;
-        $this->logger          = $logger;
-        $this->debug           = $debug;
+        $this->workflows = $workflows;
+    }
+
+    /**
+     * tests if form is valid
+     *
+     * @param  Form $form
+     * @return bool
+     */
+    public function isValid(Form $form)
+    {
+        $return = true;
+
+        if (!$form->isValid()) {
+            $return = false;
+        }
+
+        // mission use case :
+        //    - have to has on_profile true + manager
+        //    - have to has on_profile false + mission
+
+        if ($form->has('on_profile')) {
+            if ($form->get('on_profile')->getData()) {
+                // valid manager is not empty
+                $errorReport = $this->validator->validateValue(
+                    $form->get('manager_id')->getData(), new Assert\NotBlank()
+                );
+
+                $return = $this->injectsErrors($form->get('manager_id'), $errorReport) < 1 && $return;
+            } else {
+                // valid mission is not empty
+                $errorReport = $this->validator->validateValue(
+                    $form->get('mission')->getData(), new Assert\NotBlank()
+                );
+
+                $return = $this->injectsErrors($form->get('mission'), $errorReport) < 1 && $return;
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -67,7 +85,7 @@ class ConsultantHandler
     {
         $form->submit($request);
 
-        if (!$form->isValid()) {
+        if (!$this->isValid($form)) {
             $this->notifier->add('warning', 'consultant.admin.notifications.invalid_form');
 
             return false;
@@ -121,7 +139,7 @@ class ConsultantHandler
             );
 
             // mission
-            if ($consultant->isNew() && $form->has('on_profile')) {  // replace with form type
+            if ($consultant->isNew() && $form->has('on_profile')) { // replace with form type "mission"
 
                 $missionOrder = new MissionOrder();
                 $missionOrder->setConsultant($consultant);
@@ -132,30 +150,34 @@ class ConsultantHandler
                 if ($onProfile) {
 
                     $managerId = $form->get('manager_id')->getData();
+                    if (empty($managerId)) {
 
-                    // look for manager "on profile mission"
-                    $mission = MissionQuery::create()
-                        ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                        ->filterByType('waiting')
-                        ->filterByManagerId($managerId)
-                        ->filterByClientId(
-                            ClientQuery::create()
-                                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                                ->select('Id')
-                                ->findOneByTitle('Extia')
-                        )
-                        ->findOneOrCreate($pdo)
-                    ;
+                    } else {
+                        // look for manager "on profile mission"
+                        $mission = MissionQuery::create()
+                            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                            ->filterByType('waiting')
+                            ->filterByManagerId($managerId)
+                            ->filterByClientId(
+                                ClientQuery::create()
+                                    ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                                    ->select('Id')
+                                    ->findOneByTitle('Extia')
+                            )
+                            ->findOneOrCreate($pdo)
+                        ;
 
-                    if ($mission->isNew()) {
-                        $mission->setLabel('Recrutement sur profil');
+                        if ($mission->isNew()) {
+                            $mission->setLabel('Recrutement sur profil');
+                        }
                     }
-                }
-                else {
+                } else {
+                    $missionId = $form->get('mission')->getData();
+
                     // retrieve mission
                     $mission = MissionQuery::create()
                         ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                        ->findPk($form->get('mission')->getData(), $pdo);
+                        ->findPk($missionId, $pdo);
 
                     // mission starts more than 2 days after contract conclusion -> create a waiting mission order
                     if (($missionOrder->getBeginDate('U') - $consultant->getContractBeginDate('U')) > 48*3600) {

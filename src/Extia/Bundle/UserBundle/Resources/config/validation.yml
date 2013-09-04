@@ -1,0 +1,16 @@
+Extia\Bundle\UserBundle\Model\Consultant:
+    properties:
+        firstname:
+            - NotBlank: ~
+        lastname:
+            - NotBlank: ~
+        job:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~
+            - Email: ~
+        # contract_begin_date:
+        #     - NotBlank: ~
+        #     - Date: ~
+        crh_id:
+            - NotNull: ~
