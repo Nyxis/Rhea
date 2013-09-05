@@ -73,6 +73,8 @@ consultant:
             th_begin_date: Contrat
             th_internals: Référents
             th_actions: Actions
+            timeline_link: Timeline
+            edit_link: Editer
 
         filters:
             header: Filtres
@@ -216,6 +218,8 @@ internal:
         th_name: Nom
         th_status: Statut
         th_internal: Référents
+        user_timeline_link: Timeline
+        user_edit_link: Editer
     missions:
         header: Missions
         th_client: Client
@@ -235,6 +239,8 @@ internal:
             th_nb_ic: Nb Intercontrats
             th_past_tasks: Tâches retard / total
             th_actions: Actions
+            timeline_link: Timeline
+            edit_link: Editer
         filters:
             header: Filtres
             mine: Mon équipe
