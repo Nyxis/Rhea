@@ -27,8 +27,8 @@
             parent="extia_user.admin.admin_form_type">
             <tag name="form.type" alias="change_mission_form" />
         </service>
-        <service id="extia_user.form.change_mission_handler" class="%extia_user.form.change_mission_handler.class%">
-
+        <service id="extia_user.form.change_mission_handler" class="%extia_user.form.change_mission_handler.class%"
+            parent="extia_user.admin.admin_form_handler">
         </service>
 
     </services>

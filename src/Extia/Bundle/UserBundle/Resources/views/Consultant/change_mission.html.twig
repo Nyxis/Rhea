@@ -1,5 +1,13 @@
+{% if nb_errors > 0 %}
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#change_mission').modal();
+    });
+</script>
+{% endif %}
+
 {% set missionOrder = consultant.currentMissionOrder %}
-<div id="change_mission" class="black-box modal hide fade">
+<div id="change_mission" class="black-box modal fade hide">
     <div class="modal-header tab-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <span>{{ 'consultant.change_mission.header'|trans }}</span>
@@ -28,9 +36,15 @@
             <div class="row-fluid">
                 <div class="span6">
                     <span class="begin">{{ 'consultant.change_mission.begin_date'|trans }}</span>
-                    {{ missionOrder.beginDate('date_format.ymd'|trans) }} -
-                    {{ 'dateinterval_format.year'|transchoice(missionOrder.duration.y, { '%year%': missionOrder.duration.y }) }}
-                    {{ 'dateinterval_format.month'|transchoice(missionOrder.duration.m, { '%month%': missionOrder.duration.m }) }}
+                    {{ missionOrder.beginDate('date_format.ymd'|trans) }}
+                    {% if missionOrder.duration.invert != 1 %}
+                        -
+                        {{ 'dateinterval_format.year'|transchoice(missionOrder.duration.y, { '%year%':missionOrder.duration.y }) }}
+                        {{ 'dateinterval_format.month'|transchoice(missionOrder.duration.m, { '%month%':missionOrder.duration.m }) }}
+                        {% if missionOrder.duration.y == 0 and missionOrder.duration.m == 0 %}
+                            {{ 'dateinterval_format.day'|transchoice(missionOrder.duration.d, { '%day%':missionOrder.duration.d }) }}
+                        {% endif %}
+                    {% endif %}
                 </div>
                 <div class="span6">
                     {{ form_row(form.end_date) }}
@@ -45,9 +59,21 @@
                     {{ form_widget(form.next_intercontract) }}
                 </div>
             </div>
+            <div class="or">
+                {{ 'consultant.change_mission.next_mission_or'|trans }}
+            </div>
             <div id="select-mission" class="row-fluid">
                 <div class="span6">
-                    {{ form_row(form.next_mission_id) }}
+                    <div id="select-mission">
+                        <div class="control-group{% if form.next_mission_id.vars.errors|length > 0 %} error{% endif %}" id="{{ form.next_mission_id.vars.id }}">
+                            {{ form_label(form.next_mission_id) }}
+                            <div class="controls" data-mission-select="1">
+                                {{ form_widget(form.next_mission_id) }}
+                                <a class="btn" href="#new_mission" role="button" data-toggle="modal">{{ 'consultant.admin.form.add_mission'|trans }}</a>
+                                {{ form_errors(form.next_mission_id) }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="span6">
                     {{ form_row(form.next_begin_date) }}
@@ -63,3 +89,4 @@
         </div>
     </form>
 </div>
+{{ render(controller('ExtiaMissionBundle:AdminMission:modal')) }}
