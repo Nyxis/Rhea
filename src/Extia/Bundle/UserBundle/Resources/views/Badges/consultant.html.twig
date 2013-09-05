@@ -14,8 +14,11 @@
         <h4 class="dtable-cell">
             <a href="{{ timeline_path }}">{{ clt.longname }}</a><br />
             <small>
-                {{ clt.job }}
-                {% if clt.status == 'placed' %} - {{ clt.currentMission.label }}{% endif %}
+                {% if clt.status == 'placed' %}
+                    {{ clt.currentMission.fullLabel }}
+                {% else %}
+                    {{ clt.job }}
+                {% endif %}
             </small>
         </h4>
     </div>

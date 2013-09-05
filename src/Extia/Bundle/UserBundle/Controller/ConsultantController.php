@@ -151,19 +151,24 @@ class ConsultantController extends Controller
     {
         $defaultValues = array();
 
-        $form = $this->get('form.factory')->create('change_mission_form', $defaultValues, array());
+        $form    = $this->get('form.factory')->create('change_mission_form', $defaultValues, array());
+        $handler = $this->get('extia_user.form.change_mission_handler');
+
+        $nbErrors = 0 < $handler->injectsErrors($form); // retrieve flash errors for storage
 
         if ($request->request->has($form->getName())) {
-            if ($this->get('extia_user.form.change_mission_handler')->handle($request, $form, $consultant)) {
-                return $this->redirect($this->get('router')->generate(
-                    'UserBundle_consultant_timeline', $consultant->getRouting()
-                ));
-            }
+
+            $handler->handle($request, $form, $consultant);
+
+            return $this->redirect($this->get('router')->generate(
+                'UserBundle_consultant_timeline', $consultant->getRouting()
+            ));
         }
 
         return $this->render('ExtiaUserBundle:Consultant:change_mission.html.twig', array(
             'consultant' => $consultant,
-            'form'       => $form->createView()
+            'form'       => $form->createView(),
+            'nb_errors'  => $nbErrors,
         ));
     }
 

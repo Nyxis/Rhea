@@ -4,50 +4,51 @@ namespace Extia\Bundle\UserBundle\Form\Handler;
 
 use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\UserBundle\Model\MissionOrder;
-
-use Extia\Bundle\MissionBundle\Model\MissionQuery;
-use Extia\Bundle\MissionBundle\Model\ClientQuery;
+use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * consultant mission switching handler
  *
  * @see Extia/Bundles/UserBundle/Resources/config/admin.xml
  */
-class ChangeMissionHandler
+class ChangeMissionHandler extends AdminHandler
 {
     /**
-     * return manager special mission (ic, waiting ...)
+     * tests if form is valid for this handler
      *
-     * @param  int     $managerId
-     * @param  string  $missionType
-     * @return Mission
+     * @param  Form    $form
+     * @return boolean
      */
-    protected function getManagerMission($managerId, $missionType, \Pdo $pdo = null)
+    public function isValid(Form $form)
     {
-        $mission = MissionQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByType($missionType)
-            ->filterByManagerId($managerId)
-            ->filterByClientId(
-                ClientQuery::create()
-                    ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                    ->select('Id')
-                    ->findOneByTitle('Extia')
-            )
-            ->findOneOrCreate($pdo)
-        ;
+        $return = true;
 
-        if ($mission->isNew()) {
-            $mission->setLabel('Intercontrat');
-            $mission->save($pdo);
+        if (!$form->isValid()) {
+            $return = false;
         }
 
-        return $mission;
-    }
+        // any fields required if no ic
+        if (!$form->get('next_intercontract')->getData()) {
 
+            // current end must be greater than next begin
+            $errorReport = $this->validator->validateValue(
+                $form->get('next_begin_date')->getData(), array(
+                    new Assert\NotBlank(), new Assert\GreaterThan(array(
+                        'value'   => $form->get('end_date')->getData(),
+                        'message' => $this->translator->trans('consultant.change_mission.validation.begin_before_end')
+                    ))
+                )
+            );
+
+            $return = $this->storeErrors($form->get('next_begin_date'), $errorReport) < 1 && $return;
+        }
+
+        return $return;
+    }
 
     /**
      * handle method
@@ -60,8 +61,9 @@ class ChangeMissionHandler
     public function handle(Request $request, Form $form, Consultant $consultant)
     {
         $form->submit($request);
-        if (!$form->isValid()) {
-            // notifier
+        if (!$this->isValid($form)) {
+            $this->notifier->add('warning', 'consultant.change_mission.notifications.invalid_form');
+
             return false;
         }
 
@@ -73,28 +75,40 @@ class ChangeMissionHandler
 
         try {
 
-            // close current mission
+            // end current mission
             $currentMissionOrder = $consultant->getCurrentMissionOrder($pdo);
-            $currentMissionOrder->setCurrent(false);
             $currentMissionOrder->setEndDate($currentEndDate);
+            $currentMissionOrder->setCurrent(
+                time() > $currentMissionOrder->getBeginDate('U')
+                && time() < $currentMissionOrder->getEndDate('U')
+            );
+
+            // delete next missions
+            MissionOrderQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->filterByConsultantId($consultant->getId())
+                ->filterByBeginDate(array('min' => $currentMissionOrder->getBeginDate()))
+                ->filterByCurrent(false)
+                ->delete($pdo)
+            ;
+
             $currentMissionOrder->save($pdo);
 
             // open next
             $nextMissionOrder = new MissionOrder();
             $nextMissionOrder->setConsultant($consultant);
-            $nextMissionOrder->setCurrent(true);
 
             if (empty($switchMissionData['next_intercontract'])) {
                 $nextMissionOrder->setBeginDate($switchMissionData['next_begin_date']);
                 $nextMissionOrder->setMissionId($switchMissionData['next_mission_id']);
-            }
-            else {
+            } else {
                 $nextMissionOrder->setBeginDate($currentEndDate->format('U') + 3600*24);
                 $nextMissionOrder->setMission(
                     $this->getManagerMission($consultant->getManagerId(), 'ic', $pdo)
                 );
             }
 
+            $nextMissionOrder->setCurrent(time() > $nextMissionOrder->getBeginDate('U'));
             $nextMissionOrder->save($pdo);
 
             // time between current and next mission -> ic
@@ -106,11 +120,19 @@ class ChangeMissionHandler
                 $icMissionOrder->setMission($icMission);
                 $icMissionOrder->setConsultant($consultant);
                 $icMissionOrder->setBeginDate($currentMissionOrder->getEndDate());
-                $icMissionOrder->setEndDate($nextMissionOrder->getBeginDate());
+                $icMissionOrder->setEndDate($nextMissionOrder->getBeginDate('U') - 3600*24);
+                $icMissionOrder->setCurrent(
+                    time() > $icMissionOrder->getBeginDate('U')
+                    && time() < $icMissionOrder->getEndDate('U')
+                );
                 $icMissionOrder->save($pdo);
             }
 
-            $consultant->setManagerId($nextMissionOrder->getMission()->getManagerId());
+            // updates manager
+            $consultant->setManagerId(
+                $consultant->getCurrentMission($pdo)->getManagerId()
+            );
+
             $consultant->save($pdo);
 
             $pdo->commit();

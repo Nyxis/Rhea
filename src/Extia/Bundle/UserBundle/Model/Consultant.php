@@ -68,7 +68,6 @@ class Consultant extends BaseConsultant
             MissionOrderQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->filterByCurrent(true)
-                ->filterByEndDate(null, \Criteria::ISNULL)
                 ->orderByBeginDate(\Criteria::DESC)
                 ->joinWith('Mission')
                 ->joinWith('Mission.Client')

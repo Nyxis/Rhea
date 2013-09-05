@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                 {% for missionOrder in missionOrders %}
-                    <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                    <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}{% if missionOrder.current == true %} current{% endif %}">
                         <td class="image">
                             {% if missionOrder.mission.client.image is not empty %}
                                 <img src="{{ asset(missionOrder.mission.client.image) }}">
@@ -31,8 +31,11 @@
                         </td>
                         <td>
                             {% if missionOrder.duration.invert != 1 %}
-                                {{ 'dateinterval_format.year'|transchoice(missionOrder.duration.y, { '%year%': missionOrder.duration.y }) }}
-                                {{ 'dateinterval_format.month'|transchoice(missionOrder.duration.m, { '%month%': missionOrder.duration.m }) }}
+                                {{ 'dateinterval_format.year'|transchoice(missionOrder.duration.y, { '%year%':missionOrder.duration.y }) }}
+                                {{ 'dateinterval_format.month'|transchoice(missionOrder.duration.m, { '%month%':missionOrder.duration.m }) }}
+                                {% if missionOrder.duration.y == 0 and missionOrder.duration.m == 0 %}
+                                    {{ 'dateinterval_format.day'|transchoice(missionOrder.duration.d, { '%day%':missionOrder.duration.d }) }}
+                                {% endif %}
                                 <br />
                             {% endif %}
                             {{ missionOrder.beginDate('date_format.ymd'|trans) }}

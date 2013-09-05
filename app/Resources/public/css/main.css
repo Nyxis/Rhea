@@ -67,7 +67,8 @@ body {
 .label.label-info, .badge.badge-info {
     background-color: #3A87AD;
 }
-td .badge+.badge {
+td .badge+.badge,
+td a + a >.badge {
     margin-top: 4px;
 }
 dl {
@@ -110,9 +111,17 @@ a [class^="icon-"], a [class*=" icon-"] {
 .modal-body {
     max-height: 500px;
 }
-img {
+.black-box .separator a.btn {
+    color: #333333;
+    font-weight: normal;
+    text-shadow: none;
+}
+
+
+td img, .box img {
     border: 1px solid lightgrey;
     border-radius: 3px 3px 3px 3px;
+    box-sizing: content-box;
 }
 .control-group.error .help-block,
 .control-group.error .help-inline {

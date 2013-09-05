@@ -37,11 +37,15 @@
             <call method="setRootDir">
                 <argument>%kernel.root_dir%</argument>
             </call>
-            <call method="setSecurityContext">
+            <call method="setSession">
+                <argument type="service" id="session" />
                 <argument type="service" id="security.context" />
             </call>
             <call method="setValidator">
                 <argument type="service" id="validator" />
+            </call>
+            <call method="setTranslator">
+                <argument type="service" id="translator" />
             </call>
         </service>
 

@@ -39,15 +39,18 @@
                         <div class="span4">
                             <h5>{{ 'consultant.details.contract.header'|trans }}</h5>
                             <ul>
-                                <li><i class="icon-signin"></i> {{ 'consultant.details.contract.begin'|trans }} {{ user.contractBeginDate('date_format.ymd'|trans) }}</li>
-
-                                {#
-                                {% if user.contractEndDate is not empty %}
+                                <li>
+                                    <i class="icon-signin"></i>
+                                    {{ 'consultant.details.contract.begin'|trans }}
+                                    {{ user.contractBeginDate('date_format.ymd'|trans) }}
+                                </li>
+                                {% if user.resignation is not empty %}
                                     <li>
-                                        <i class="icon-signout"></i> {{ 'consultant.details.contract.end'|trans }} {{ user.contractEndDate('date_format.ymd'|trans) }}
+                                        <i class="icon-signout"></i>
+                                        {{ 'consultant.details.contract.end'|trans }}
+                                        {{ user.resignation.leaveAt('date_format.ymd'|trans) }}
                                     </li>
                                 {% endif %}
-                                #}
                             </ul>
                         </div>
                         <div class="span4 internals">
@@ -111,5 +114,6 @@
 {% endblock %}
 
 {% block modal %}
+    {{ render(controller('ExtiaTaskBundle:Task:differ', { 'redirect_url': path('UserBundle_consultant_timeline', user.routing) })) }}
     {{ render(controller('ExtiaUserBundle:Consultant:changeMission', { 'consultant': user })) }}
 {% endblock %}

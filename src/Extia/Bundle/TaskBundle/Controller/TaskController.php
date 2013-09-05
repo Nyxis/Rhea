@@ -105,7 +105,7 @@ class TaskController extends Controller
         if ($request->request->has($form->getName())) {
             $this->get('extia.task.form.differ_handler')->handle($form, $request);
 
-            return $this->redirect($request->query->get('_redirect_url',
+            return $this->redirect($request->query->get('redirect_url',
                 $this->get('router')->generate('Rhea_homepage')
             ));
         }
