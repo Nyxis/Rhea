@@ -18,7 +18,7 @@
                             <li><a data-toggle="tab" href="#resignation">{{ 'internal.admin.form.tab.resignation'|trans }}</a></li>
                         {% endif %}
                     </ul>
-                    <div class="tab-content padded">
+                    <div class="tab-content hpadded">
                         <div id="general" class="tab-pane active">
                             <div class="row-fluid">
                                 <div class="span6">
@@ -36,8 +36,23 @@
                                         </div>
 
                                     {% endblock %}
+                                    <h4>{{ 'internal.admin.form.header.contact'|trans }}</h4>
+                                    {% block contact %}
+                                        {{ form_row(form.email) }}
+                                        {{ form_row(form.telephone) }}
+                                        {{ form_row(form.mobile) }}
+                                    {% endblock %}
                                 </div>
                                 <div class="span6">
+                                    {% if form.update_password is defined %}
+                                        <h4>{{ 'internal.admin.form.header.authentication'|trans }}</h4>
+                                        {% block authentication %}
+                                            <div class="control-group" id="{{ form.update_password.vars.id }}">
+                                                <div class="controls">{{ form_widget(form.update_password) }}</div>
+                                            </div>
+                                            {{ form_row(form.password) }}
+                                        {% endblock %}
+                                    {% endif %}
                                     <h4>{{ 'internal.admin.form.header.extia'|trans }}</h4>
                                     {% block extia %}
                                         {{ form_row(form.trigram) }}
@@ -48,27 +63,6 @@
                                         {{ form_row(form.parent) }}
                                     {% endblock %}
                                 </div>
-                            </div>
-                            <div class="row-fluid">
-                                <div class="span6">
-                                    <h4>{{ 'internal.admin.form.header.contact'|trans }}</h4>
-                                    {% block contact %}
-                                        {{ form_row(form.email) }}
-                                        {{ form_row(form.telephone) }}
-                                        {{ form_row(form.mobile) }}
-                                    {% endblock %}
-                                </div>
-                                {% if form.update_password is defined %}
-                                <div class="span6">
-                                    <h4>{{ 'internal.admin.form.header.authentication'|trans }}</h4>
-                                    {% block authentication %}
-                                        <div class="control-group" id="{{ form.update_password.vars.id }}">
-                                            <div class="controls">{{ form_widget(form.update_password) }}</div>
-                                        </div>
-                                        {{ form_row(form.password) }}
-                                    {% endblock %}
-                                </div>
-                                {% endif %}
                             </div>
                         </div>
                         <div id="security" class="tab-pane">
