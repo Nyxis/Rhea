@@ -180,14 +180,14 @@ class AdminMissionController extends Controller
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->join('Manager')
             ->join('Client')
-            ->join('MissionOrder')
+            ->join('MissionOrder', \Criteria::LEFT_JOIN)
 
-            ->withColumn('COUNT(MissionOrder.Id)', 'NbConsultants')
             ->filterByType('client')
 
-            ->useMissionOrderQuery()
-                ->filterByCurrent(true)
-            ->endUse()
+            ->withColumn('COUNT(MissionOrder.Id)', 'NbConsultants')
+            ->condition('current_mission', 'MissionOrder.Current = ?', true)
+            ->condition('no_order', 'MissionOrder.Id IS NULL')
+            ->where(array('current_mission', 'no_order'), 'or')
 
             ->groupBy('Id')
         ;
