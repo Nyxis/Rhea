@@ -73,11 +73,13 @@
                             </td>
                             <td class="actions">
                                 <div class="btn-group">
-                                    <a class="button" href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">
+                                    <a class="button" title="{{ 'consultant.admin.list.timeline_link'|trans }}"
+                                        href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">
                                         <i class="icon-tasks"></i>
                                     </a>
                                     {% if is_granted('ROLE_CONSULTANT_WRITE', user) %}
-                                        <a class="button" href="{{ path('UserBundle_consultant_edit', consultant.routing) }}">
+                                        <a class="button" title="{{ 'consultant.admin.list.timeline_link'|trans }}"
+                                            href="{{ path('UserBundle_consultant_edit', consultant.routing) }}">
                                             <i class="icon-pencil"></i>
                                         </a>
                                     {% endif %}
