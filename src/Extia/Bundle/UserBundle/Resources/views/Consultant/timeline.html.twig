@@ -114,5 +114,6 @@
 {% endblock %}
 
 {% block modal %}
+    {{ render(controller('ExtiaTaskBundle:Task:differ', { 'redirect_url': path('UserBundle_consultant_timeline', user.routing) })) }}
     {{ render(controller('ExtiaUserBundle:Consultant:changeMission', { 'consultant': user })) }}
 {% endblock %}

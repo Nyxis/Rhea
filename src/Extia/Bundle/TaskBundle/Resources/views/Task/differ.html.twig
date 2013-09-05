@@ -4,7 +4,7 @@
         <span>{{ 'task.differ.header'|trans }}</span>
     </div>
 
-    <form action="{{ path('TaskBundle_differ') }}" method="POST" class="form-horizontal">
+    <form action="{{ path('TaskBundle_differ', { 'redirect_url': app.request.attributes.get('redirect_url', null) }) }}" method="POST" class="form-horizontal">
         {% form_theme form '::fields.html.twig' %}
 
         {{ form_rest(form) }}

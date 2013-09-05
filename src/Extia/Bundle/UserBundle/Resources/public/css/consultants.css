@@ -33,3 +33,13 @@
     display: block;
     margin-bottom: 15px;
 }
+
+#change_mission .or {
+    margin: 8px 0;
+}
+
+#change_mission .control-group.error .help-block,
+#change_mission .control-group.error .help-inline {
+    margin-top: 0px;
+    padding-left: 0px;
+}
