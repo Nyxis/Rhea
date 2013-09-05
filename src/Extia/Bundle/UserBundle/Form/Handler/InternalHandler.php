@@ -51,6 +51,9 @@ class InternalHandler extends AdminHandler
             // password updating
             $this->handleInternalPassword($form, $internal);
 
+            // trigram to upper
+            $internal->setTrigram(strtoupper($internal->getTrigram()));
+
             // saving with NestedSet
             if ($internal->isNew()) {
                 $internal->insertAsLastChildOf($parent, $pdo);
