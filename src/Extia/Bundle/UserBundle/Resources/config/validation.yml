@@ -1,27 +1,27 @@
 Extia\Bundle\UserBundle\Model\Consultant:
     properties:
         firstname:
-            - NotBlank: ~
+            - NotBlank: { groups: [consultant] }
         lastname:
-            - NotBlank: ~
+            - NotBlank: { groups: [consultant] }
         job:
-            - NotBlank: ~
+            - NotBlank: { groups: [consultant] }
         email:
-            - NotBlank: ~
-            - Email: ~
+            - NotBlank: { groups: [consultant] }
+            - Email: { groups: [consultant] }
         crh_id:
-            - NotNull: ~
+            - NotNull: { groups: [consultant] }
 
 Extia\Bundle\UserBundle\Model\Internal:
     properties:
         firstname:
-            - NotBlank: ~
+            - NotBlank: { groups: [internal] }
         lastname:
-            - NotBlank: ~
+            - NotBlank: { groups: [internal] }
         job:
-            - NotBlank: ~
+            - NotBlank: { groups: [internal] }
         trigram:
-            - NotBlank: ~
+            - NotBlank: { groups: [internal] }
         email:
-            - NotBlank: ~
-            - Email: ~
+            - NotBlank: { groups: [internal] }
+            - Email: { groups: [internal] }

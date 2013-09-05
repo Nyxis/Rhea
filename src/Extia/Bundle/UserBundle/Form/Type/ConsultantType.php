@@ -30,7 +30,7 @@ class ConsultantType extends AdminType
         return $resolver->setDefaults(array(
             'consultant_id'    => null,
             'data_class'       => 'Extia\Bundle\UserBundle\Model\Consultant',
-            'validation_group' => 'Default'
+            'validation_group' => 'consultant'
         ));
     }
 

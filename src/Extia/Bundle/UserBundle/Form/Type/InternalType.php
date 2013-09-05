@@ -29,7 +29,7 @@ class InternalType extends AdminType
             'internal_id'      => null,
             'with_resign'      => false,
             'data_class'       => 'Extia\Bundle\UserBundle\Model\Internal',
-            'validation_group' => 'Default'
+            'validation_group' => 'internal'
         ));
     }
 

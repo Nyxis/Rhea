@@ -50,6 +50,7 @@ consultant:
     actions:
         edit_user: Modifier l'utilisateur
         change_mission: Changement de mission
+        back_list: Liste des consultants
     details:
         header: Détails
         contact: Contact
@@ -212,7 +213,7 @@ internal:
             internal: Supérieur
     actions:
         edit_user: Editer l'interne
-        back_list: Retour à la liste
+        back_list: Liste des internes
     consultants:
         header: Consultants
         th_name: Nom
