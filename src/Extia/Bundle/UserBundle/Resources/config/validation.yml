@@ -9,8 +9,19 @@ Extia\Bundle\UserBundle\Model\Consultant:
         email:
             - NotBlank: ~
             - Email: ~
-        # contract_begin_date:
-        #     - NotBlank: ~
-        #     - Date: ~
         crh_id:
             - NotNull: ~
+
+Extia\Bundle\UserBundle\Model\Internal:
+    properties:
+        firstname:
+            - NotBlank: ~
+        lastname:
+            - NotBlank: ~
+        job:
+            - NotBlank: ~
+        trigram:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~
+            - Email: ~

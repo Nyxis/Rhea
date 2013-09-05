@@ -4,7 +4,10 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="tabbable box">
-                <div class="tab-header">{% block form_header %}{% endblock %}</div>
+                <div class="tab-header">
+                    <i class="icon-user"></i>
+                    {% block form_header %}{% endblock %}
+                </div>
                 <form id="internal-form" class="form-horizontal" method="POST" {{ form_enctype(form) }} autocomplete="off">
                     {% form_theme form '::fields.html.twig' %}
 
@@ -55,12 +58,17 @@
                                         {{ form_row(form.mobile) }}
                                     {% endblock %}
                                 </div>
+                                {% if form.update_password is defined %}
                                 <div class="span6">
                                     <h4>{{ 'internal.admin.form.header.authentication'|trans }}</h4>
                                     {% block authentication %}
+                                        <div class="control-group" id="{{ form.update_password.vars.id }}">
+                                            <div class="controls">{{ form_widget(form.update_password) }}</div>
+                                        </div>
                                         {{ form_row(form.password) }}
                                     {% endblock %}
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                         <div id="security" class="tab-pane">

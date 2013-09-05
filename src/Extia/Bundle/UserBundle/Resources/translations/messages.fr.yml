@@ -268,6 +268,7 @@ internal:
             telephone: Téléphone
             mobile: Mobile
             password: Mot de passe
+            update_password: Mettre à jour le mot de passe
             confirm_password: Confirmez
             group: Groupe d'accès
             credentials: Droits d'accès personnels

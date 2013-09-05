@@ -2,6 +2,8 @@
 
 namespace Extia\Bundle\UserBundle\Form\Handler;
 
+use Extia\Bundle\UserBundle\Model\Internal;
+
 use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
 
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
@@ -69,6 +71,62 @@ abstract class AdminHandler
     public function setRootDir($rootDir)
     {
         $this->rootDir = realpath($rootDir.'/..');
+    }
+
+    /**
+     * handle password updating for an internal
+     *
+     * @param Form     $form
+     * @param Internal $internal
+     */
+    public function handleInternalPassword(Form $form, Internal $internal)
+    {
+        if (!$form->has('update_password')
+            || !$form->get('update_password')->getData()) {
+            return;
+        }
+
+        $internal->setPassword(sha1($form->get('password')->getData()));
+    }
+
+    /**
+     * handle an image form as an internal image
+     *
+     * @param  Form     $form
+     * @param  Internal $internal
+     * @return string
+     */
+    public function handleInternalImage(Form $form, Internal $internal)
+    {
+        if (!$form->has('image') || !($image = $form->get('image')->getData())) {
+            return;
+        }
+
+        try {
+            $extension = $image->guessExtension();
+
+            if (!in_array($extension, array('jpeg', 'png'))) {
+                $this->notifier->add('warning', 'internal.admin.notifications.invalid_image');
+            } else {
+                $fileName = $internal->getUrl().'.'.$extension;
+                $webPath  = 'images/avatars/';
+                $path     = sprintf('%s/../web/%s', $this->rootDir, $webPath);
+
+                if (!is_dir($path)) {
+                    mkdir($path); // will throw an error if access denied caught below
+                }
+
+                $physicalDoc = $image->move($path, $fileName);
+                $internal->setImage($webPath.$fileName);
+            }
+        } catch (\Exception $e) {
+            if ($this->debug) {
+                throw $e;
+            }
+
+            $this->logger->err($e->getMessage());
+            $this->notifier->add('error', 'internal.admin.notifications.error_image');
+        }
     }
 
     /**
