@@ -4,7 +4,7 @@ namespace Extia\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Form type for internal editing
@@ -26,8 +26,10 @@ class InternalType extends AdminType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'internal_id' => null,
-            'with_resign' => false
+            'internal_id'      => null,
+            'with_resign'      => false,
+            'data_class'       => 'Extia\Bundle\UserBundle\Model\Internal',
+            'validation_group' => 'Default'
         ));
     }
 
@@ -47,9 +49,12 @@ class InternalType extends AdminType
         ));
 
         $builder->add('birthdate', 'date', array(
-            'required' => true,
-            'widget'   => 'text',
-            'label'    => 'internal.admin.form.birthdate'
+            'required'    => true,
+            'widget'      => 'text',
+            'label'       => 'internal.admin.form.birthdate',
+            'constraints' => array(
+                new Assert\Date(), new Assert\NotBlank()
+            )
         ));
 
         $builder->add('image', 'file', array(
@@ -64,10 +69,13 @@ class InternalType extends AdminType
         ));
 
         $builder->add('contractBeginDate', 'date', array(
-            'required' => true,
-            'widget'   => 'text',
-            'format'   => 'dd/MM/yyyy',
-            'label'    => 'consultant.admin.form.contract_begin'
+            'required'    => true,
+            'widget'      => 'text',
+            'format'      => 'dd/MM/yyyy',
+            'label'       => 'consultant.admin.form.contract_begin',
+            'constraints' => array(
+                new Assert\Date(), new Assert\NotBlank()
+            )
         ));
 
         $this->addInternalTypeForm('person_type_id', array('dir', 'ia', 'crh', 'pdg'), $builder, array(
@@ -103,19 +111,28 @@ class InternalType extends AdminType
             'label'    => 'internal.admin.form.mobile'
         ));
 
-        $builder->add('password', 'repeated', array(
-            'type'           => 'password',
-            'options'        => array(
+        if ($this->isUserAdmin()) {
+            $builder->add('update_password', 'checkbox', array(
+                'mapped'   => false,
                 'required' => false,
-                'label'    => false
-            ),
-            'first_options'  => array(
-                'label' => 'internal.admin.form.password'
-            ),
-            'second_options' => array(
-                'label' => 'internal.admin.form.confirm_password'
-            )
-        ));
+                'label'    => 'internal.admin.form.update_password'
+            ));
+
+            $builder->add('password', 'repeated', array(
+                'type'           => 'password',
+                'mapped'         => false,
+                'options'        => array(
+                    'required' => false,
+                    'label'    => false
+                ),
+                'first_options'  => array(
+                    'label' => 'internal.admin.form.password'
+                ),
+                'second_options' => array(
+                    'label' => 'internal.admin.form.confirm_password'
+                )
+            ));
+        }
 
         $this->addGroupForm($builder, array(
             'required' => true,

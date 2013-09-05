@@ -43,42 +43,21 @@ class InternalHandler extends AdminHandler
         }
 
         $internal = $form->getData();
-        $image    = $form->get('image')->getData();
 
         try {
-            if (!empty($image)) {   // image uploading
+            // image
+            $this->handleInternalImage($form, $internal);
 
-                try {
-                    $extension = $image->guessExtension();
-                    if (!in_array($extension, array('jpeg', 'png'))) {
-                        $this->notifier->add('warning', 'internal.admin.notifications.invalid_image');
-                    } else {
-                        $fileName = $internal->getUrl().'.'.$extension;
-                        $webPath  = 'images/avatars/';
-                        $path     = sprintf('%s/../web/%s', $this->rootDir, $webPath);
+            // password updating
+            $this->handleInternalPassword($form, $internal);
 
-                        if (!is_dir($path)) {
-                            mkdir($path); // will throw an error if access denied caught below
-                        }
-
-                        $physicalDoc = $image->move($path, $fileName);
-                        $internal->setImage($webPath.$fileName);
-                    }
-                } catch (\Exception $e) {
-                    if ($this->debug) {
-                        $pdo->rollback();
-                        throw $e;
-                    }
-
-                    $this->logger->err($e->getMessage());
-                    $this->notifier->add('error', 'internal.admin.notifications.error_image');
-                }
-            }
+            // trigram to upper
+            $internal->setTrigram(strtoupper($internal->getTrigram()));
 
             // saving with NestedSet
             if ($internal->isNew()) {
                 $internal->insertAsLastChildOf($parent, $pdo);
-            } else {
+            } elseif (!$internal->isRoot()) {
                 $internal->moveToLastChildOf($parent, $pdo);
             }
 
