@@ -98,33 +98,8 @@ class ConsultantHandler extends AdminHandler
         $image      = $form->get('image')->getData();
 
         try {
-            if (!empty($image)) {   // image uploading
-                try {
-                    $extension = $image->guessExtension();
-                    if (!in_array($extension, array('jpeg', 'png'))) {
-                        $this->notifier->add('warning', 'consultant.admin.notifications.invalid_image');
-                    } else {
-                        $fileName = $consultant->getUrl().'.'.$extension;
-                        $webPath  = 'images/avatars/';
-                        $path     = sprintf('%s/../web/%s', $this->rootDir, $webPath);
-
-                        if (!is_dir($path)) {
-                            mkdir($path); // will throw an error if access denied caught below
-                        }
-
-                        $physicalDoc = $image->move($path, $fileName);
-                        $consultant->setImage($webPath.$fileName);
-                    }
-                } catch (\Exception $e) {
-                    if ($this->debug) {
-                        $pdo->rollback();
-                        throw $e;
-                    }
-
-                    $this->logger->err($e->getMessage());
-                    $this->notifier->add('error', 'consultant.admin.notifications.error_image');
-                }
-            }
+            // image
+            $this->handleInternalImage($form, $consultant);
 
             $crh = InternalQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
