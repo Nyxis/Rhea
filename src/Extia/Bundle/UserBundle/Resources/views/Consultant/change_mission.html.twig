@@ -69,7 +69,9 @@
                             {{ form_label(form.next_mission_id) }}
                             <div class="controls" data-mission-select="1">
                                 {{ form_widget(form.next_mission_id) }}
-                                <a class="btn" href="#new_mission" role="button" data-toggle="modal">{{ 'consultant.admin.form.add_mission'|trans }}</a>
+                                {% if is_granted('ROLE_MISSION_WRITE', app.user) %}
+                                    <a class="btn" href="#new_mission" role="button" data-toggle="modal">{{ 'consultant.admin.form.add_mission'|trans }}</a>
+                                {% endif %}
                                 {{ form_errors(form.next_mission_id) }}
                             </div>
                         </div>
@@ -89,4 +91,6 @@
         </div>
     </form>
 </div>
-{{ render(controller('ExtiaMissionBundle:AdminMission:modal')) }}
+{% if is_granted('ROLE_MISSION_WRITE', app.user) %}
+    {{ render(controller('ExtiaMissionBundle:AdminMission:modal')) }}
+{% endif %}
