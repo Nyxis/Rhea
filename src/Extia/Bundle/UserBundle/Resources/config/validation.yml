@@ -1,4 +1,6 @@
 Extia\Bundle\UserBundle\Model\Consultant:
+    constraints:
+        - Propel\PropelBundle\Validator\Constraints\UniqueObject: { fields: [email] }
     properties:
         firstname:
             - NotBlank: { groups: [consultant] }
@@ -13,6 +15,8 @@ Extia\Bundle\UserBundle\Model\Consultant:
             - NotNull: { groups: [consultant] }
 
 Extia\Bundle\UserBundle\Model\Internal:
+    constraints:
+        - Propel\PropelBundle\Validator\Constraints\UniqueObject: { fields: [email] }
     properties:
         firstname:
             - NotBlank: { groups: [internal] }

@@ -203,6 +203,29 @@ abstract class AdminHandler
     }
 
     /**
+     * catch given form UniqueObject constraint error and inject it to email field, if exists
+     *
+     * @param Form $form
+     */
+    public function catchEmailExistsError(Form $form)
+    {
+        if (!$form->has('email')) {
+            return;
+        }
+
+        $emailFound = false;
+        foreach ($form->getErrors() as $error) {
+            // any other way to identify a form error :-(
+            if (!$emailFound && $error->getMessageTemplate() == 'A {{ object_class }} object already exists with {{ fields }}') {
+                $emailFound = true;
+                $form->get('email')->addError(new FormError(
+                    $this->translator->trans('consultant.admin.validation.email_already_exists')
+                ));
+            }
+        }
+    }
+
+    /**
      * return manager special mission (ic, waiting ...)
      *
      * @param  int     $managerId

@@ -72,6 +72,8 @@ class ConsultantHandler extends AdminHandler
             }
         }
 
+        $this->catchEmailExistsError($form);
+
         return $return;
     }
 

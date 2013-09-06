@@ -37,6 +37,7 @@ class InternalHandler extends AdminHandler
             ->findPk($parentId, $pdo);
 
         if (!$form->isValid() || empty($parent)) {
+            $this->catchEmailExistsError($form);
             $this->notifier->add('warning', 'internal.admin.notifications.invalid_form');
 
             return false;
