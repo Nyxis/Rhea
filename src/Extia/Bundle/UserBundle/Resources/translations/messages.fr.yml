@@ -22,9 +22,12 @@ admin:
     form:
         agency: Agence
         agency_choices:
-            paris_media: Paris - Agence médias
-            paris_energy: Paris - Agence énergie
-            rha: Rhône Alpes
+            tan: Agence TAN
+            nrj: Agence NRJ
+            rha: Agence RHA
+            bch: Agence BCH
+            paca: Agence PACA
+            belgique: Agence BELGIQUE
         resignation_code: Type de démission
         resignation_code_choice:
             resignation: Démission
