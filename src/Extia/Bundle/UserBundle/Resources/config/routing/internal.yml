@@ -3,7 +3,6 @@ UserBundle_internal_list:
     defaults:
         _controller: 'ExtiaUserBundle:AdminInternal:list'
         _format: html
-        page: 1
     requirements:
         _format: html
         page: \d+

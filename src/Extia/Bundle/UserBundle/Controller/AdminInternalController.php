@@ -159,16 +159,16 @@ class AdminInternalController extends Controller
 
         // reset button
         if ($request->request->has('reset_filters')) {
-            $session->set('consultants_list_page', null);
+            $session->set('internals_list_page', null);
         }
 
         $page = $request->query->get('page',
-            $session->get('consultants_list_page')
+            $session->get('internals_list_page')
         );
 
         $page = $page < 1 ? 1 : $page;
 
-        $session->set('consultants_list_page', $page);
+        $session->set('internals_list_page', $page);
 
         return $page;
     }
