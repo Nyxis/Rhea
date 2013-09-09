@@ -106,6 +106,7 @@ class InternalController extends Controller
                 ->endUse()
             ->endUse()
 
+            ->filterByActive()
             ->filterByInternalReferer($internal)
 
             ->find();

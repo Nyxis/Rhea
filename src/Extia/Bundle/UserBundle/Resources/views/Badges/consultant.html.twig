@@ -8,7 +8,11 @@
         {% set timeline_path = path('UserBundle_consultant_timeline', clt.routing) %}
         <div class="dtable-cell gravatar">
             <a href="{{ timeline_path }}">
-                <img src="{{ gravatar(clt.email, gravatar_size|default(50)) }}">
+                {% if clt.image is not empty %}
+                    <img style="width: 50px; height: 50px;" src="{{ asset(clt.image) }}">
+                {% else %}
+                    <img src="{{ gravatar(clt.email, 50) }}">
+                {% endif %}
             </a>
         </div>
         <h4 class="dtable-cell">

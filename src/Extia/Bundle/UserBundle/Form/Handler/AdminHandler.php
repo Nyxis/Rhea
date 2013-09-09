@@ -114,7 +114,12 @@ abstract class AdminHandler
      */
     public function handleInternalImage(Form $form, Internal $internal)
     {
-        if (!$form->has('image') || !($image = $form->get('image')->getData())) {
+        if (!$form->has('image')) {
+            return;
+        }
+
+        $image = $image = $form->get('image')->getData();
+        if (empty($image)) {
             return;
         }
 
@@ -126,10 +131,10 @@ abstract class AdminHandler
             } else {
                 $fileName = $internal->getUrl().'.'.$extension;
                 $webPath  = 'images/avatars/';
-                $path     = sprintf('%s/../web/%s', $this->rootDir, $webPath);
+                $path     = sprintf('%s/web/%s', $this->rootDir, $webPath);
 
                 if (!is_dir($path)) {
-                    mkdir($path); // will throw an error if access denied caught below
+                    @mkdir($path, true); // will throw an error if access denied caught below
                 }
 
                 $physicalDoc = $image->move($path, $fileName);
