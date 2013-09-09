@@ -76,8 +76,7 @@ class InternalCredentialsDataTransformer implements DataTransformerInterface
                 $personCredential->setCredential($credential);
                 $personCredentialCollection->append($personCredential);
             }
-        }
-        else {  // updates mapping
+        } else {  // updates mapping
             foreach ($selectedCredentialsIds as $credentialId) {
                 $personCrendential = PersonCredentialQuery::create()
                     ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))

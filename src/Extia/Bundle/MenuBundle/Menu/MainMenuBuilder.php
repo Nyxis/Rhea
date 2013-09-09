@@ -181,8 +181,8 @@ class MainMenuBuilder
     /**
      * create mission menu
      *
-     * @param  Request  $request
-     * @param  MenuItem $menu
+     * @param Request  $request
+     * @param MenuItem $menu
      */
     public function createMissionMenu(Request $request, MenuItem $menu)
     {

@@ -4,7 +4,6 @@ namespace Extia\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Form type for list filters
@@ -33,20 +32,17 @@ class ConsultantListFiltersType extends AdminType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if ($this->isUserAdmin()) { // only admin can choice
-
-            // display all consultants or juste mine
-            $builder->add('display', 'choice', array(
-                'required' => true,
-                'expanded' => true,
-                'multiple' => false,
-                'label'    => 'consultant.admin.filters.form.display',
-                'choices'  => array(
-                    'mine' => 'consultant.admin.filters.mine',
-                    'all'  => 'consultant.admin.filters.all'
-                )
-            ));
-        }
+        // display all consultants or juste mine
+        $builder->add('display', 'choice', array(
+            'required' => true,
+            'expanded' => true,
+            'multiple' => false,
+            'label'    => 'consultant.admin.filters.form.display',
+            'choices'  => array(
+                'mine' => 'consultant.admin.filters.mine',
+                'all'  => 'consultant.admin.filters.all'
+            )
+        ));
 
         // consultant name
         $builder->add('name', 'text', array(

@@ -266,8 +266,8 @@ class ConsultantHandler extends AdminHandler
                             (int) $task->calculateDate($consultant->getContractBeginDate(), '+1 month', 'U')
                         ),
                         'workflow' => array(
-                            'name'           => 'Auto gen crh monitoring',
-                            'description'    => 'Auto gen crh monitoring'
+                            'name'           => sprintf('%s %s', $this->translator->trans('crh_monitoring'), $consultant->getLongName()),
+                            'description'    => sprintf('%s %s', $this->translator->trans('crh_monitoring'), $consultant->getLongName())
                         )
                     ), $task, $request, $pdo
                 );
@@ -286,8 +286,8 @@ class ConsultantHandler extends AdminHandler
                             (int) $task->calculateDate($consultant->getContractBeginDate(), '+1 year', 'U')
                         ),
                         'workflow' => array(
-                            'name'           => 'Auto gen annual meeting',
-                            'description'    => 'Auto gen annual meeting'
+                            'name'           => sprintf('%s %s', $this->translator->trans('annual_review'), $consultant->getLongName()),
+                            'description'    => sprintf('%s %s', $this->translator->trans('annual_review'), $consultant->getLongName())
                         )
                     ), $task, $request, $pdo
                 );

@@ -120,11 +120,9 @@ class Notifier implements NotifierInterface
             $message = $this->fragmentHandler->render(new ControllerReference(
                 $message, $params
             ));
-        }
-        elseif ($rendering == 'template') {
+        } elseif ($rendering == 'template') {
             $message = $this->templateEngine->render($message, $params);
-        }
-        else {
+        } else {
             $message = $this->translator->trans($message, $params);
         }
 

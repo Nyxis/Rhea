@@ -12,8 +12,8 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
  * Date: 19/08/13
  * Time: 22:53
  */
-class ClientToIdsTransformer implements DataTransformerInterface {
-
+class ClientToIdsTransformer implements DataTransformerInterface
+{
     /**
      * Transforms a value from the original representation to a transformed representation.
      *
@@ -55,6 +55,7 @@ class ClientToIdsTransformer implements DataTransformerInterface {
             $idsArray[] = $client->getId();
         }
         $ids = implode(',', $idsArray);
+
         return $ids;
     }
 
@@ -98,6 +99,7 @@ class ClientToIdsTransformer implements DataTransformerInterface {
         foreach ($idsArray as $id) {
             $clients->append(CompanyQuery::create()->findOneById($id));
         }
+
         return $clients;
     }
 }

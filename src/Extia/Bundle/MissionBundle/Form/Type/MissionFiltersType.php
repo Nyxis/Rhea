@@ -6,7 +6,6 @@ use Extia\Bundle\UserBundle\Form\Type\AdminType;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Form type for mission list filters

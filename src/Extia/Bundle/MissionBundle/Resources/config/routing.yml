@@ -7,5 +7,3 @@ _mission_admin:
     prefix: /missions
     defaults:
         _menu: mission
-
-

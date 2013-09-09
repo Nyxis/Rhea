@@ -4,7 +4,6 @@ namespace Extia\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Form type for consultants mission switching
@@ -63,8 +62,6 @@ class ChangeMissionType extends AdminType
             'format'   => 'dd/MM/yyyy',
             'label'    => 'consultant.change_mission.form.next_begin_date'
         ));
-
-
 
     }
 }

@@ -78,7 +78,6 @@ class MissionHandler
                     // if ($this->debug) {
                         $pdo->rollback();
 
-
                         var_dump($e);
                         die;
 
@@ -108,7 +107,7 @@ class MissionHandler
 
             return true;
 
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $pdo->rollback();
 
             return false;

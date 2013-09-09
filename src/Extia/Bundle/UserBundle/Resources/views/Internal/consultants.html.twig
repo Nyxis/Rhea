@@ -32,7 +32,8 @@
                                 </a>
                                 {% endif %}
                                 {% if is_granted('ROLE_CONSULTANT_WRITE', app.user) %}
-                                <a class="button" title="{{ 'internal.consultants.user_edit_link'|trans }}" href="#">
+                                <a class="button" title="{{ 'internal.consultants.user_edit_link'|trans }}"
+                                    href="{{ path('UserBundle_consultant_edit', clt.routing) }}">
                                     <i class="icon-pencil"></i>
                                 </a>
                                 {% endif %}

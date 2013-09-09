@@ -2,12 +2,6 @@
 
 namespace Extia\Bundle\MissionBundle\Form\Type;
 
-use Extia\Bundle\MissionBundle\Form\Transformer\ClientToIdsTransformer;
-use Extia\Bundle\MissionBundle\Form\Transformer\ManagerToIdsTransformer;
-
-use Extia\Bundle\UserBundle\Form\Type\AdminType;
-
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
