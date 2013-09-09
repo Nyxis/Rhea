@@ -108,12 +108,11 @@ class MainMenuBuilder
     {
         $user    = $this->securityContext->getToken()->getUser();
         $teamIds = $user->getTeamIds();
-        $cltIds  = $user->getConsultantsIds();
 
         $accessTeam = (!empty($teamIds) && $this->securityContext->isGranted('ROLE_INTERNAL_READ', $user))
             || $this->securityContext->isGranted('ROLE_INTERNAL_WRITE', $user) // can create int
         ;
-        $accessClts = (!$cltIds->isEmpty() && $this->securityContext->isGranted('ROLE_CONSULTANT_READ', $user)) // have clt and can read
+        $accessClts = $this->securityContext->isGranted('ROLE_CONSULTANT_READ', $user) // can read
             || $this->securityContext->isGranted('ROLE_CONSULTANT_WRITE', $user) // can create clt
         ;
 
