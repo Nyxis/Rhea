@@ -164,14 +164,27 @@ class Internal extends BaseInternal  implements UserInterface
 
     /**
      * count consultants
+     * doesn't use calculated field, but used for calculate it
+     *
      * @return int
      */
     public function countConsultants()
     {
-        return $this->hasVirtualColumn('nbConsultants') ?
-            $this->getVirtualColumn('nbConsultants') :
-            count($this->getConsultantsIds())
-        ;
+        return count($this->getConsultantsIds());
+    }
+
+    /**
+     * calculates internal nb related consultants
+     *
+     * @return Internal
+     */
+    public function calculateNbConsultants()
+    {
+        $this->setNbConsultants(
+            $this->countConsultants()
+        );
+
+        return $this;
     }
 
     /**

@@ -55,6 +55,9 @@ class AdminMissionController extends Controller
             } else {
                 $this->get('notifier')->add('warning', 'mission.admin.notifications.filters_error');
             }
+
+            // every submitted form : scratch page in session
+            $session->set('missions_list_page', null);
         }
 
         // adds filters to query
@@ -147,11 +150,6 @@ class AdminMissionController extends Controller
     protected function getCurrentPage(Request $request)
     {
         $session = $this->get('session');
-
-        // reset button
-        if ($request->request->has('reset_filters')) {
-            $session->set('missions_list_page', null);
-        }
 
         $page = $request->query->get('page',
             $session->get('missions_list_page')

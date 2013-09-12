@@ -45,7 +45,7 @@ class AdminConsultantController extends Controller
 
         $form->setData($filters);
 
-        // no incomming form
+        // incomming form
         if ($request->request->has($form->getName()) && !$request->request->has('reset_filters')) {
             $form->submit($request);
             if ($form->isValid()) {
@@ -54,6 +54,9 @@ class AdminConsultantController extends Controller
             } else {
                 $this->get('notifier')->add('warning', 'consultant.admin.notifications.filters_error');
             }
+
+            // every submitted form : scratch page in session
+            $session->set('consultants_list_page', null);
         }
 
         // display
@@ -150,11 +153,6 @@ class AdminConsultantController extends Controller
     protected function getCurrentPage(Request $request)
     {
         $session = $this->get('session');
-
-        // reset button
-        if ($request->request->has('reset_filters')) {
-            $session->set('consultants_list_page', null);
-        }
 
         $page = $request->query->get('page',
             $session->get('consultants_list_page')

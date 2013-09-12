@@ -196,8 +196,7 @@ Extia\Bundle\UserBundle\Model\Internal:
         email: pdantin@extia.fr
         firstname: Pauline
         lastname: Dantin
-        trigram: PDA
-        NbIc: 1
+        trigram: PDA        NbIc: 1
         password: <?php echo sha1('pdantin')."\n" ?>
         AgencyId: paris_media
         PersonTypeId: crh
@@ -228,7 +227,6 @@ Extia\Bundle\UserBundle\Model\Internal:
         firstname: Caroline
         lastname: Gautier
         trigram: CGA
-        NbIc: 1
         password: <?php echo sha1('cgautier')."\n" ?>
         AgencyId: paris_media
         PersonTypeId: ia

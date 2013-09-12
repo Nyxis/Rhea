@@ -52,6 +52,8 @@
         <column name="image" type="VARCHAR" size="255" required="false" />
         <column name="birthdate" type="TIMESTAMP" required="true" />
         <column name="contract_begin_date" type="TIMESTAMP" required="true" />
+
+        <column name="nb_consultants" type="INTEGER" required="true" defaultValue="0" />
         <column name="nb_ic" type="INTEGER" required="true" defaultValue="0" />
 
         <column name="agency_id" type="INTEGER" required="false" />

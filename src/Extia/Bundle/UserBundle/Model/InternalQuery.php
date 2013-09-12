@@ -6,43 +6,7 @@ use Extia\Bundle\UserBundle\Model\om\BaseInternalQuery;
 
 class InternalQuery extends BaseInternalQuery
 {
-    private $isCountingConsultants;
     private $isCountingTasks;
-
-    /**
-     * adds count fields for consultants
-     * @return InternalQuery
-     */
-    public function selectCountConsultants()
-    {
-        $this->isCountingConsultants = true;
-
-        return $this
-            ->leftJoin('ConsultantRelatedByCrhId CrhClt')
-            ->leftJoin('ConsultantRelatedByManagerId MngClt')
-
-            ->groupBy('CrhClt.Id')
-            ->groupBy('MngClt.Id')
-
-            // ->withColumn('COUNT(`CrhClt`.`id`)', 'nbByCrh')
-            // ->withColumn('COUNT(`MngClt`.`id`)', 'nbByMng')
-            ->withColumn('COUNT(`MngClt`.`id`) + COUNT(`CrhClt`.`id`)', 'nbConsultants')
-        ;
-    }
-
-    /**
-     * count on related consultants number
-     * @param  string        $dir
-     * @return InternalQuery
-     */
-    public function orderByNbConsultants($dir = \Criteria::ASC)
-    {
-        return $this->_if(empty($this->isCountingConsultants))
-                ->selectCountConsultants()
-            ->_endif()
-            ->orderBy('nbConsultants', $dir)
-        ;
-    }
 
     /**
      * adds count fields for pas tasks

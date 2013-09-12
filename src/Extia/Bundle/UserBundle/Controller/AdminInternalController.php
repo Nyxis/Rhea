@@ -53,6 +53,9 @@ class AdminInternalController extends Controller
             } else {
                 $this->get('notifier')->add('warning', 'internal.admin.notifications.filters_error');
             }
+
+            // every submitted form : scratch page in session
+            $session->set('internal_list_page', null);
         }
 
         // person type
@@ -157,11 +160,6 @@ class AdminInternalController extends Controller
     {
         $session = $this->get('session');
 
-        // reset button
-        if ($request->request->has('reset_filters')) {
-            $session->set('internals_list_page', null);
-        }
-
         $page = $request->query->get('page',
             $session->get('internals_list_page')
         );
@@ -194,7 +192,6 @@ class AdminInternalController extends Controller
             ->joinWith('Person.PersonType')
 
             ->selectCountTasks()
-            ->selectCountConsultants()
 
             ->usePersonTypeQuery()
                 ->filterByCode(array('clt'), \Criteria::NOT_IN)
