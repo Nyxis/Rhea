@@ -46,4 +46,13 @@ jQuery(document).ready(function($) {
         $($(this).data('form')).trigger('submit');
     });
 
+
+    // // autocomplete example - v1.1
+    // $("#mission_client").tokenInput("{{ path('extia_mission_company_ajax_list') }}", {
+    //     minChars: 2,
+    //     tokenLimit: 1,
+    //     zindex: 9999,
+    //     theme: 'rhea'
+    // });
+
 });
