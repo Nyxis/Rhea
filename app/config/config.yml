@@ -245,6 +245,27 @@ easy_task_workflow:
                     route:      { pattern: "/annual_meeting/{workflowId}" }
                     controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\AnnualMeetingNodeController }
 
+        # Mission monitoring
+        mission_monotoring:
+            routes:
+                prefix: /mission_monotoring
+            actions:
+                node:     nodeAction
+                modal:    modalAction
+                notify:   notificationAction
+                timeline: timelineAction
+            nodes:
+                bootstrap:
+                    bootstrap: true
+                    route:      { pattern: "/bootstrap/{workflowId}" }
+                    controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\BootstrapNodeController }
+                appointement:
+                    route:      { pattern: "/appointement/{workflowId}" }
+                    controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\AppointementNodeController }
+                meeting:
+                    route:      { pattern: "/meeting/{workflowId}" }
+                    controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\MeetingNodeController }
+
 knp_paginator:
     page_range: 5
     default_options:
