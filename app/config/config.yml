@@ -246,9 +246,9 @@ easy_task_workflow:
                     controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\AnnualMeetingNodeController }
 
         # Mission monitoring
-        mission_monotoring:
+        mission_monitoring:
             routes:
-                prefix: /mission_monotoring
+                prefix: /mission_monitoring
             actions:
                 node:     nodeAction
                 modal:    modalAction

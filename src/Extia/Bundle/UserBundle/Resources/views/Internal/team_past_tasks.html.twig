@@ -6,19 +6,15 @@
     </div>
     <table class="table table-striped">
         <thead>
-            <th>{{ 'task.team_past_tasks.th_wf_name'|trans }}</th>
+            <th colspan="2">{{ 'task.team_past_tasks.th_wf_name'|trans }}</th>
             <th>{{ 'task.team_past_tasks.th_status'|trans }}</th>
             <th></th>
         </thead>
         <tbody>
         {% for task in tasks %}
             <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
-                <td class="name">
-                    <div class="wrap">
-                        <span class="bolder">{{ task.node.workflow.name }}</span><br />
-                        {{ task.node.workflow.type|trans }}
-                    </div>
-                </td>
+                <td class="image"><img src="{{ asset('images/workflows/' ~ task.node.workflow.type ~ '.jpg') }}"></td>
+                <td class="name"><div class="wrap bolder">{{ task.node.workflow.name }}</div></td>
                 <td class="status">
                     <div class="wrap">
                         <span class="label label-important">
@@ -39,13 +35,11 @@
                     </div>
                 </td>
             </tr>
-            {% if task.comments.count > 0 %}
-                <tr id="comments-{{ task.id }}" class="comments {% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
-                    <td colspan="3">
-                        {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' with { 'task': task } only %}
-                    </td>
-                </tr>
-            {% endif %}
+            <tr id="comments-{{ task.id }}" class="comments {% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                <td colspan="4">
+                    {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' with { 'task': task } only %}
+                </td>
+            </tr>
         {% endfor %}
         </tbody>
         <tfoot>

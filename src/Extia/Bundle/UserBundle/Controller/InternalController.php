@@ -161,8 +161,10 @@ class InternalController extends Controller
             ->joinWithTargettedUser()
             ->joinWithCurrentNodes()
 
-            ->filterByAssignedTo($internal->getTeamIds())
+            ->filterByAssignedTo($internal->getTeamIds()->getData())
             ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
+
+            ->filterByCompletionDate(array('max' => 'now'))
 
             ->orderByActivationDate()
             ->find();

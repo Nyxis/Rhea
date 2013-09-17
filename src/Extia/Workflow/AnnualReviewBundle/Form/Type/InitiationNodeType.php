@@ -34,7 +34,7 @@ class InitiationNodeType extends AbstractNodeType
             'multiple' => false,
             'expanded' => false,
             'choices'  => $this->getConsultantsChoices(),
-            'label'    => 'annual_review_initiation.form.user_target_id'
+            'label'    => 'annual_review.initiation.form.user_target_id'
         ));
 
         $builder->add('next_date', 'date', array(
@@ -42,7 +42,7 @@ class InitiationNodeType extends AbstractNodeType
             'widget'   => 'text',
             'input'    => 'timestamp',
             'format'   => 'dd/MM/yyyy',
-            'label'    => 'annual_review_initiation.form.next_date'
+            'label'    => 'annual_review.initiation.form.next_date'
         ));
     }
 }

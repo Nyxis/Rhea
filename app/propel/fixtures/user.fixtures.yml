@@ -71,6 +71,12 @@ Extia\Bundle\GroupBundle\Model\Credential:
     crh_monitoring_write:
         type: task
         code: workflow_crh_monitoring_write
+    mission_monitoring_read:
+        type: task
+        code: workflow_mission_monitoring_read
+    mission_monitoring_write:
+        type: task
+        code: workflow_mission_monitoring_write
     annual_review_read:
         type: task
         code: workflow_annual_review_read
@@ -119,6 +125,14 @@ Extia\Bundle\GroupBundle\Model\CredentialI18n:
         id: crh_monitoring_write
         locale: fr
         label: ""
+    mission_monitoring_read_fr:
+        id: mission_monitoring_read
+        locale: fr
+        label: ""
+    mission_monitoring_write_fr:
+        id: mission_monitoring_write
+        locale: fr
+        label: ""
     annual_review_read_fr:
         id: annual_review_read
         locale: fr
@@ -158,6 +172,12 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_crh_monitoring_write:
         GroupId: crh
         CredentialId: crh_monitoring_write
+    gp_mission_monitoring_read:
+        GroupId: crh
+        CredentialId: mission_monitoring_read
+    gp_mission_monitoring_write:
+        GroupId: crh
+        CredentialId: mission_monitoring_write
     gp_annual_review_read:
         GroupId: crh
         CredentialId: annual_review_read

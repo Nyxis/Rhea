@@ -25,11 +25,27 @@ class AppointementNodeType extends AbstractNodeType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('contact_name', 'text', array(
+            'required' => true,
+            'label'    => 'mission_monitoring.appointement.contact_name'
+        ));
+
+        $builder->add('contact_email', 'email', array(
+            'required' => false,
+            'label'    => 'mission_monitoring.appointement.contact_email'
+        ));
+
+        $builder->add('contact_tel', 'text', array(
+            'required' => false,
+            'label'    => 'mission_monitoring.appointement.contact_tel'
+        ));
+
         $builder->add('meeting_date', 'datetime', array(
             'required'    => true,
             'date_widget' => 'text',
             'time_widget' => 'text',
-            'input'       => 'timestamp'
+            'input'       => 'timestamp',
+            'label'       => 'mission_monitoring.appointement.meeting_date'
         ));
     }
 }

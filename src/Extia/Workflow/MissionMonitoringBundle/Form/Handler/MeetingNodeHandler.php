@@ -19,14 +19,21 @@ class MeetingNodeHandler extends AbstractNodeHandler
      */
     public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
     {
-        $nextMeetingTmstp = $task->calculateDate($task->getActivationDate(), '+'.$data['next_meeting'].' months', 'U');
+        $nextMeetingTmstp = $task->calculateDate($task->getActivationDate(), '+2 months', 'U');
 
-        $task->data()->set('meeting_date', $task->findNextWorkingDay($nextMeetingTmstp));
+        $task->data()->set('next_meeting_date', $task->findNextWorkingDay($nextMeetingTmstp));
         $task->data()->set('notif_date', $task->findNextWorkingDay(
             (int) $task->calculateDate($nextMeetingTmstp, '-7 days', 'U'))
         );
 
-        $task->addDocument($data['crh_meeting_doc']);
+        $task->addDocument($data['mission_meeting_doc']);
+
+        // reports
+        $report = $data['report'];
+        $report->setTask($task);
+        $report->setMissionOrder(
+            $task->getUserTarget()->getConsultant()->getCurrentMissionOrder()
+        );
 
         $task->save($pdo);
 

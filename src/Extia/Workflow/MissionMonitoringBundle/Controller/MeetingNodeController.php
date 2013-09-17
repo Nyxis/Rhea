@@ -50,6 +50,9 @@ class MeetingNodeController extends TypeNodeController
         $nextTask->defineCompletionDate('+2 day');
 
         $nextTask->data()->set('meeting_date', $prevTask->data()->get('meeting_date'));
+        $nextTask->data()->set('contact_name', $prevTask->data()->get('contact_name'));
+        $nextTask->data()->set('contact_email', $prevTask->data()->get('contact_email'));
+        $nextTask->data()->set('contact_tel', $prevTask->data()->get('contact_tel'));
 
         return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);
     }
@@ -78,10 +81,10 @@ class MeetingNodeController extends TypeNodeController
     {
         $error = '';
         $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
-        $form  = $this->get('form.factory')->create('meeting_form', array(), array(
+        $form  = $this->get('form.factory')->create('mission_meeting_form', array(), array(
             'document_directory'  => $task->getUserTarget()->getUrl(),
             'document_name_model' => $this->get('translator')->trans(
-                'crh_meeting.document.name', array(), 'messages', $this->container->getParameter('locale')
+                'mission_monitoring.meeting.document.name', array(), 'messages', $this->container->getParameter('locale')
             )
         ));
 

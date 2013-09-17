@@ -39,13 +39,16 @@ jQuery(document).ready(function($) {
         $pageSelector.find('a:first-child').trigger('click');
     });
 
-
     // form submit
     $('a[data-form]').on('click', function(e) {
         e.preventDefault();
         $($(this).data('form')).trigger('submit');
     });
 
+    // radio as buttons
+    // $('form .asButtons').each(function(index, elt) {
+
+    // });
 
     // // autocomplete example - v1.1
     // $("#mission_client").tokenInput("{{ path('extia_mission_company_ajax_list') }}", {

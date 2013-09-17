@@ -45,6 +45,7 @@ class AppKernel extends Kernel
 
             // Workflows
             new Extia\Workflow\CrhMonitoringBundle\ExtiaWorkflowCrhMonitoringBundle(),
+            new Extia\Workflow\MissionMonitoringBundle\ExtiaWorkflowMissionMonitoringBundle(),
             new Extia\Workflow\AnnualReviewBundle\ExtiaWorkflowAnnualReviewBundle(),
         );
 

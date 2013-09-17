@@ -49,7 +49,7 @@ class AppointementNodeController extends TypeNodeController
         $nextTask->setActivationDate($prevTask->data()->get('notif_date'));
         $nextTask->defineCompletionDate('+1 day');
 
-        $nextTask->data()->set('meeting_date', $prevTask->data()->get('meeting_date'));
+        $nextTask->data()->set('meeting_date', $prevTask->data()->get('next_meeting_date'));
 
         return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);
     }
@@ -61,8 +61,13 @@ class AppointementNodeController extends TypeNodeController
     {
         $error = '';
         $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
+        $clt   = $task->getUserTarget()->getConsultant();
+
         $form  = $this->get('mission_monitoring.appointement.form')->setData(array(
-            'meeting_date' => $task->data()->get('meeting_date')
+            'meeting_date'  => $task->data()->get('meeting_date'),
+            'contact_name'  => $clt->getCurrentMission()->getContactName(),
+            'contact_email' => $clt->getCurrentMission()->getContactEmail(),
+            'contact_tel'   => $clt->getCurrentMission()->getContactPhone(),
         ));
 
         if ($request->request->has($form->getName())) {

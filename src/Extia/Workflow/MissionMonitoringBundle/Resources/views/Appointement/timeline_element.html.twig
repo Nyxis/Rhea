@@ -1,10 +1,10 @@
 {% extends 'ExtiaTaskBundle:Workflow:timeline_element.html.twig' %}
 
-{% block task_title %}{{ 'crh_appointement.timeline.hook'|trans }}{% endblock %}
+{% block task_title %}{{ 'mission_monitoring.appointement.timeline.hook'|trans }}{% endblock %}
 
 {% block task_data %}
     <p>
-        {{ 'crh_appointement.timeline.meeting_date'|trans }}
-        <span class="data">{{ task.data.get('meeting_date')|date('crh_appointement.timeline.meeting_date_format'|trans) }}</span>.
+        {{ 'mission_monitoring.appointement.timeline.meeting_date'|trans }}
+        <span class="data">{{ task.data.get('meeting_date')|date('mission_monitoring.appointement.timeline.meeting_date_format'|trans) }}</span>.
     </p>
 {% endblock %}

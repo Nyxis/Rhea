@@ -33,13 +33,15 @@ class MeetingNodeType extends AbstractNodeType
                 '3'  => '3 '.$this->translator->trans('month'),
                 '6'  => '6 '.$this->translator->trans('month'),
                 '1'  => '1 '.$this->translator->trans('month')
-            )
+            ),
+            'label'    => 'crh_monitoring.meeting.next_meeting'
         ));
 
         $builder->add(
             $builder->create('crh_meeting_doc', 'document', array(
                     'button_label' => 'crh_meeting.form.doc_label_button',
-                    'required'     => true
+                    'required'     => true,
+                    'label'        => 'crh_monitoring.meeting.crh_meeting_doc'
                 ))
                 ->addModelTransformer($this->createDocumentTransformer($options))
         );

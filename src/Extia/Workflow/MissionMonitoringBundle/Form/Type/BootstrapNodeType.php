@@ -33,14 +33,16 @@ class BootstrapNodeType extends AbstractNodeType
             'required' => true,
             'multiple' => false,
             'expanded' => false,
-            'choices'  => $this->getConsultantsChoices()
+            'choices'  => $this->getConsultantsChoices(),
+            'label'    => 'mission_monitoring.bootstrap.user_target_id'
         ));
 
         $builder->add('next_date', 'date', array(
             'required' => true,
             'widget'   => 'text',
             'input'    => 'timestamp',
-            'format'   => 'dd/MM/yyyy'
+            'format'   => 'dd/MM/yyyy',
+            'label'    => 'mission_monitoring.bootstrap.next_date'
         ));
     }
 }

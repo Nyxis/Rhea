@@ -1,1 +1,7 @@
-{{ 'crh_appointement.notification'|trans({ '%clt%': task.userTarget.longName, '%meeting_date%': task.data.get('meeting_date')|date('d/m') }) }}
+{{
+    'mission_monitoring.appointement.notification'|trans({
+        '%clt%': task.userTarget.longName,
+        '%client%': task.userTarget.consultant.currentMission.client.title,
+        '%meeting_date%': task.data.get('meeting_date')|date('d/m')
+    })
+}}
