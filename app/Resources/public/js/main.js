@@ -46,9 +46,30 @@ jQuery(document).ready(function($) {
     });
 
     // radio as buttons
-    // $('form .asButtons').each(function(index, elt) {
 
-    // });
+    function activateLabel(input) {
+        var id = input.attr('id');
+        input.parent().siblings('label').removeClass('active');
+        input.parent().addClass('active');
+    };
+
+    $('form .asButtons').each(function(index, elt) {
+
+        // build tb btn-group
+        var buttons = $(elt).find('label');
+        var radios  = buttons.find('input');
+
+        radios.hide().on('change', function(){
+            activateLabel($(this));
+        });
+
+        buttons.addClass('btn')
+            .parent().addClass('btn-group');
+
+        $.each(radios.filter(':checked'),function(){
+            activateLabel($(this));
+        });
+    });
 
     // // autocomplete example - v1.1
     // $("#mission_client").tokenInput("{{ path('extia_mission_company_ajax_list') }}", {

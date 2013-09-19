@@ -112,11 +112,15 @@ a [class^="icon-"], a [class*=" icon-"] {
     display: inline-block;
     text-decoration: inherit;
 }
+
 .modal {
-    width: 700px;
+    width: 800px;
+    margin-left: -380px;
+    max-height: 700px;
+    overflow-y: auto;
 }
-.modal-body {
-    max-height: 500px;
+.modal.fade.in {
+    top: 5%;
 }
 .black-box .separator a.btn {
     color: #333333;
@@ -196,22 +200,25 @@ li.no-tasks {
 .task_modal .report .control-group{
     margin-bottom: 10px;
 }
-.task_modal .report label.control-label{
+.task_modal .report .control-group > *{
+    display: table-cell;
+    vertical-align: middle;
+}
+.task_modal .report > label.control-label{
     float: none;
-    width: auto;
-    padding-left: 15px;
+    margin-left: -25px;
+}
+.task_modal .report .control-group label.control-label{
+    width: 160px;
+    padding-left: 0px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
 }
 .task_modal .form-horizontal .report .controls{
-    float: none;
     width: auto;
     margin-top: 5px;
     margin-left: 15px;
-}
-.task_modal .report .asButtons label{
-    display: inline-block;
-}
-.task_modal .report .asButtons label+label {
-    padding-left: 37px;
 }
 
 .comments {
