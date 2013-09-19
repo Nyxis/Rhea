@@ -102,11 +102,10 @@ abstract class AbstractNodeHandler
     /**
      * node handling method
      * @param  array    $data
-     * @param  Request  $request
      * @param  Task     $task
      * @return Response | null
      */
-    abstract public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null);
+    abstract public function resolve(array $data, Task $task, \Pdo $pdo = null);
 
     /**
      * updates task linked workflow if workflow data given

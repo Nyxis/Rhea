@@ -6,7 +6,6 @@ use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
 
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * form handler for bootstrap node
@@ -17,7 +16,7 @@ class BootstrapNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
+    public function resolve(array $data, Task $task, \Pdo $pdo = null)
     {
         $task->setUserTargetId($data['user_target_id']);
 

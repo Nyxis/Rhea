@@ -3,6 +3,11 @@
 namespace Extia\Bundle\UserBundle\Bridge;
 
 use Extia\Bundle\TaskBundle\Workflow\Aggregator;
+use Extia\Bundle\TaskBundle\Workflow\Model\Task;
+
+use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
+
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * abstract bridge to workflows bundle
@@ -12,15 +17,24 @@ use Extia\Bundle\TaskBundle\Workflow\Aggregator;
 abstract class AbstractTaskBridge
 {
     protected $workflows;
+    protected $translator;
 
     /**
      * construct
      * @param Aggregator $workflows
      */
-    public function __construct(Aggregator $workflows)
+    public function __construct(Aggregator $workflows, TranslatorInterface $translator)
     {
-        $this->workflows = $workflows;
+        $this->workflows  = $workflows;
+        $this->translator = $translator;
     }
+
+    /**
+     * has to return bridged workflow name
+     *
+     * @return string
+     */
+    abstract protected function getBridgedWorkflow();
 
     /**
      * Create a task and boot it with given data
@@ -30,31 +44,38 @@ abstract class AbstractTaskBridge
      * @param  Pdo   $pdo
      * @return Task
      */
-    abstract public function createTask(array $taskData);
+    public function createWorkflow(array $taskData = array(), \Pdo $pdo = null)
+    {
+        $workflow = $this->workflows->create(
+            $this->getBridgedWorkflow()
+        );
+
+        $this->workflows->boot(
+            $workflow, $taskData, $pdo
+        );
+
+        return $this->workflows->getCurrentTask($workflow, $pdo);
+    }
 
     /**
-     * resolve current node workflow with given data
+     * resolve given task
      *
-     * @param Workflow $workflow
-     * @param array    $nodeData
-     * @param Request  $request
-     * @param Pdo      $pdo
+     * @param Task  $task
+     * @param array $nodeData
+     * @param Pdo   $pdo
      * @return
      */
-    protected function resolveCurrentNode(Workflow $workflow, array $nodeData, Request $request, \Pdo $pdo = null)
+    protected function resolveNode(Task $task, array $nodeData = array(), \Pdo $pdo = null)
     {
-        $currentTask = $this->workflows->getCurrentTask($workflow, $pdo);
+        if (!$task->getNode()->getCurrent()
+                || $task->getNode()->getCompletedAt() !== null
+                || $task->getNode()->getEnded()
+            ) {
+            throw new \InvlidArgumentException('Cannot resolved as closed or a completed workflow node.');
+        }
 
-                $task->getNode()->getType()->getHandler()->resolve(array(
-                        'user_target_id' => $consultant->getId(),
-                        'next_date'   => $task->findNextWorkingDay(
-                            (int) $task->calculateDate($consultant->getContractBeginDate(), '+1 year', 'U')
-                        ),
-                        'workflow' => array(
-                            'name'           => $this->translator->trans('annual_review.default_name', array('%user_target%' => $consultant->getLongName())),
-                            'description'    => $this->translator->trans('annual_review.default_desc', array('%user_target%' => $consultant->getLongName()))
-                        )
-                    ), $task, $request, $pdo
-                );
+        return $task->getNode()->getType()->getHandler()->resolve(
+            $nodeData, $task, $pdo
+        );
     }
 }

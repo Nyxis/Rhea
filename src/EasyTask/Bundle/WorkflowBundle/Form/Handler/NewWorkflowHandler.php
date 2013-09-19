@@ -40,7 +40,7 @@ class NewWorkflowHandler
         $connection->beginTransaction();
 
         try {
-            $return = $this->aggregator->boot($form->getData(), $connection);
+            $return = $this->aggregator->boot($form->getData(), array(), $connection);
 
             $connection->commit();
 

@@ -79,11 +79,12 @@ class Aggregator extends ParameterBag
 
     /**
      * boot given workflow
-     * @param  Workflow      $wf
+     * @param  Workflow      $wf,
+     * @param  array         $parameters
      * @param  Pdo           $connection
      * @return Response|null
      */
-    public function boot(Workflow $wf, \Pdo $connection = null)
+    public function boot(Workflow $wf, array $parameters = array(), \Pdo $connection = null)
     {
         $isNew = $wf->isNew();
 
@@ -101,7 +102,7 @@ class Aggregator extends ParameterBag
         $this->eventDispatcher->dispatch(WorkflowEvents::WF_CREATE, $workflowEvent);
 
         // boot workflow throught type service
-        $return = $this->get($wf->getType())->boot($wf, array(), $connection);
+        $return = $this->get($wf->getType())->boot($wf, $parameters, $connection);
 
         return $return;
     }

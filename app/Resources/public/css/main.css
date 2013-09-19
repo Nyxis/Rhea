@@ -200,7 +200,7 @@ li.no-tasks {
 .task_modal .report .control-group{
     margin-bottom: 10px;
 }
-.task_modal .report .control-group > *{
+.task_modal .report .control-group > * {
     display: table-cell;
     vertical-align: middle;
 }

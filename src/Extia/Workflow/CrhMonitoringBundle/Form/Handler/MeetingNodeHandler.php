@@ -6,7 +6,6 @@ use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
 
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * form handler for appointement node
@@ -17,7 +16,7 @@ class MeetingNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
+    public function resolve(array $data, Task $task, \Pdo $pdo = null)
     {
         $nextMeetingTmstp = $task->calculateDate($task->getActivationDate(), '+3 months', 'U');
 
