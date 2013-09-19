@@ -41,7 +41,7 @@ crh_monitoring:
         date_format: \l\e d/m
         at: à
         time_format: à H:i
-        notification: Le point RH a été validé pour le consultant %clt%, vous serez notifié pour planifier le rendez vous le %notif_date%.
+        notification: Le point RH a été validé pour le consultant %clt%. Vous serez notifié pour planifier le prochain rendez vous le %notif_date%.
         document:
             name: point_rh
         form:

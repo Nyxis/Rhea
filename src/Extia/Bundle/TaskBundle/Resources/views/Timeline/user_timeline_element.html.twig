@@ -26,8 +26,9 @@
                 {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': task.userAssigned } only %}
             </div>
             {% if extra_data is not defined %}{% set extra_data = true %}{% endif %}
+
             {{  render(controller(task.node.type.action('timeline'), {
-                    'taskId': task.id,
+                    'task': task,
                     'params': {
                         'user_target': user_target|default(false),
                         'extra_data': extra_data

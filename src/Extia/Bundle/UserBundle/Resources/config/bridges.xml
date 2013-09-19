@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="extia_user.bridge.abstract_task.class">Extia\Bundle\UserBundle\Bridge\AbstractTaskBridge</parameter>
+        <parameter key="extia_user.bridge.mission_monitoring.class">Extia\Bundle\UserBundle\Bridge\MissionMonitoringBridge</parameter>
+    </parameters>
+
+    <services>
+        <!-- Abstract definition -->
+        <service id="extia_user.bridge.abstract_task" class="%extia_user.bridge.abstract_task.class%" abstract="true" >
+            <argument type="service" id="workflows" />
+        </service>
+
+        <!-- Mission monitoring bridge -->
+        <service id="extia_user.bridge.mission_monitoring" class="%extia_user.bridge.mission_monitoring.class%"
+            parent="extia_user.bridge.abstract_task" >
+
+        </service>
+
+        <!-- Crh monitoring bridge -->
+
+        <!-- Annual review bridge -->
+
+    </services>
+
+</container>

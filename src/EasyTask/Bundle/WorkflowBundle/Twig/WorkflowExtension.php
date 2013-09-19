@@ -58,7 +58,7 @@ class WorkflowExtension extends \Twig_Extension
 
         return $this->router->generate(
             $nodeType->getRoute(), array_replace_recursive(
-                array('workflowId' => $node->getWorkflowId()), $params
+                array('Id' => $node->getWorkflowId()), $params
             )
         );
     }

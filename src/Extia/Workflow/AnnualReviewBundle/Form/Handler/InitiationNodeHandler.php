@@ -31,6 +31,6 @@ class InitiationNodeHandler extends AbstractNodeHandler
 
         $task->save($pdo);
 
-        return $this->notifyNext('preparing', $task, $request, $pdo);
+        return $this->notifyNext('preparing', $task, array(), $pdo);
     }
 }

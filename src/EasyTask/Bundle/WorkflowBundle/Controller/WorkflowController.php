@@ -34,16 +34,11 @@ class WorkflowController extends Controller
             $wf = new Workflow();
         }
 
-        $form = $this->container->get('form.factory')->create('workflow_form', $wf, array());
+        $form = $this->container->get('form.factory')->create('workflow_creation_form', $wf, array());
 
         if ($request->request->has($form->getName())) {
-            $form->submit($request);
-            if ($form->isValid()) {
-                $response = $this->container->get('workflows')->handle($form, $request);
-
-                if ($response instanceof Response) {
-                    return $response;
-                }
+            if ($response = $this->get('easy_task_workflow.new_workflow_handler')->handle($form, $request)) {
+                return $response;
             }
         }
 

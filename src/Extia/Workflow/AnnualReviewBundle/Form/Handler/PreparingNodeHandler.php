@@ -26,6 +26,6 @@ class PreparingNodeHandler extends AbstractNodeHandler
 
         $task->save($pdo);
 
-        return $this->notifyNext('annual_meeting', $task, $request, $pdo);
+        return $this->notifyNext('annual_meeting', $task, array(), $pdo);
     }
 }

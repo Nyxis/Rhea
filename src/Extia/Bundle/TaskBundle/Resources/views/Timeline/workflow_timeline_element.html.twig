@@ -27,7 +27,7 @@
             </div>
 
             {{  render(controller(task.node.type.action('timeline'), {
-                    'taskId': task.id,
+                    'task': task,
                     'params': {
                         'user_target' : true,
                         'extra_data': true

@@ -4,6 +4,8 @@ namespace Extia\Bundle\TaskBundle\Form\Handler;
 
 use Extia\Bundle\TaskBundle\Model\Task;
 
+use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
+
 use EasyTask\Bundle\WorkflowBundle\Workflow\Aggregator;
 
 use Symfony\Component\Form\Form;
@@ -14,20 +16,18 @@ use Symfony\Component\HttpFoundation\Request;
  */
 abstract class AbstractNodeHandler
 {
-    public $error = '';
-
-    /**
-     * @var Aggregator
-     */
     protected $workfows;
+    protected $notifier;
 
     /**
-     * set workflows list
-     * @param Aggregator $workflows [description]
+     * setup dependencies
+     * @param Aggregator        $workflows
+     * @param NotifierInterface $notifier
      */
-    public function setWorkflows(Aggregator $workflows)
+    public function setup(Aggregator $workflows, NotifierInterface $notifier)
     {
         $this->workflows = $workflows;
+        $this->notifier  = $notifier;
     }
 
     /**
@@ -45,8 +45,42 @@ abstract class AbstractNodeHandler
         }
 
         // updates task with incomming data
-        return $this->resolve(
+        $return = $this->resolve(
             $form->getData(), $task, $request
+        );
+
+        // fire notification if successfull
+        if ($return) {
+            $this->fireTaskNotification($task);
+        }
+
+        return $return;
+    }
+
+    /**
+     * triggers node notification throught node notifyAction on call
+     *
+     * @param  Task                     $task
+     * @throws InvalidArgumentException if task doesnt supports node notification
+     *
+     * @see NotifierInterface
+     */
+    public function fireTaskNotification(Task $task)
+    {
+        $nodeType = $task->getNode()->getType();
+
+        if (!$nodeType->supportsAction('notify')) {
+            throw new \InvalidArgumentException(sprintf('%s@%s task node doesnt supports "notify" action.',
+                $task->getNode()->getName(),
+                $task->getNode()->getWorkflow()->getType()
+            ));
+        }
+
+        $this->notifier->add(
+            'success',
+            $nodeType->getAction('notify'),
+            array('Id' => $task->getId()),
+            'controller'
         );
     }
 
@@ -54,16 +88,15 @@ abstract class AbstractNodeHandler
      * notify task given node name as next node
      * @param  string        $nodeName
      * @param  Task          $task
-     * @param  Request       $request
      * @return Response|null
      */
-    public function notifyNext($nodeName, Task $task, Request $request, \Pdo $pdo = null)
+    public function notifyNext($nodeName, Task $task, array $parameters = array(), \Pdo $pdo = null)
     {
         $workflow = $task->getNode()->getWorkflow();
 
         return $this->workflows
             ->getNode($workflow, $nodeName)
-            ->notify($workflow, $request, $pdo);
+            ->notify($workflow, $parameters, $pdo);
     }
 
     /**

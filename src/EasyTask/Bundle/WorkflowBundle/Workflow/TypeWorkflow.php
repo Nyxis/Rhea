@@ -8,7 +8,6 @@ use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvents;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * basic class for workflow type
@@ -65,11 +64,14 @@ class TypeWorkflow implements TypeWorkflowInterface
     /**
      * @see TypeWorkflowInterface::boot()
      */
-    public function boot(Workflow $workflow, Request $request, \Pdo $connection = null)
+    public function boot(Workflow $workflow, array $parameters = array(), \Pdo $connection = null)
     {
-        $wfEvent = new WorkflowEvent($workflow, $request, $connection);
+        $wfEvent = new WorkflowEvent($workflow, $connection);
         $this->eventDispatcher->dispatch(WorkflowEvents::WF_BOOT, $wfEvent);
 
-        return $this->nodeBag->get($this->bootstrapNode)->notify($workflow, $request, $connection);
+        return $this->nodeBag
+            ->get($this->bootstrapNode)                   // retrieve boot node
+            ->notify($workflow, $parameters, $connection) // notify it
+        ;
     }
 }

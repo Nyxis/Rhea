@@ -7,9 +7,6 @@ use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvent;
 use EasyTask\Bundle\WorkflowBundle\Event\WorkflowEvents;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
@@ -83,17 +80,16 @@ class Aggregator extends ParameterBag
     /**
      * boot given workflow
      * @param  Workflow      $wf
-     * @param  Request       $request
      * @param  Pdo           $connection
      * @return Response|null
      */
-    public function boot(Workflow $wf, Request $request, \Pdo $connection = null)
+    public function boot(Workflow $wf, \Pdo $connection = null)
     {
         $isNew = $wf->isNew();
 
         $wf->save($connection);
 
-        $workflowEvent = new WorkflowEvent($wf, $request, $connection);
+        $workflowEvent = new WorkflowEvent($wf, $connection);
 
         // edit case : nothing more to do
         if (!$isNew) {
@@ -105,31 +101,9 @@ class Aggregator extends ParameterBag
         $this->eventDispatcher->dispatch(WorkflowEvents::WF_CREATE, $workflowEvent);
 
         // boot workflow throught type service
-        $return = $this->get($wf->getType())->boot($wf, $request, $connection);
+        $return = $this->get($wf->getType())->boot($wf, array(), $connection);
 
         return $return;
-    }
-
-    /**
-     * handle a workflow creation form and boot it
-     * @param  FormInterface $form
-     * @param  Request       $request
-     * @return Response|null
-     */
-    public function handle(FormInterface $form, Request $request)
-    {
-        $connection = \Propel::getConnection('default');
-        $connection->beginTransaction();
-
-        try {
-            $return = $this->boot($form->getData(), $request, $connection);
-            $connection->commit();
-
-            return $return;
-        } catch (\Exception $e) {
-            $connection->rollback();
-            throw $e;
-        }
     }
 
     /**

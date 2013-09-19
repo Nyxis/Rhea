@@ -38,6 +38,6 @@ class MeetingNodeHandler extends AbstractNodeHandler
         $task->save($pdo);
 
         // notify next node
-        return $this->notifyNext('appointement', $task, $request, $pdo);
+        return $this->notifyNext('appointement', $task, array(), $pdo);
     }
 }

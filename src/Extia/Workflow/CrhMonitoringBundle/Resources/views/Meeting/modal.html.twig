@@ -26,13 +26,6 @@
             </div>
         </div>
 
-        <div class="control-group field" id="{{ form.next_meeting.vars.id }}_control_group">
-            <label class="control-label required" for="{{ form.next_meeting.vars.id }}">{{ 'crh_monitoring.meeting.next_meeting'|trans }}</label>
-            <div class="controls" id="{{ form.next_meeting.vars.id }}">
-                {{ form_widget(form.next_meeting) }}
-            </div>
-        </div>
-
         {{ form_rest(form) }}
     </div>
 {% endblock %}

@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * form type for workflows
  * @see EasyTask/Bundle/WorkflowBundle/Resources/config/forms.xml
  */
-class WorkflowType extends AbstractType
+class NewWorkflowType extends AbstractType
 {
     protected $aggregator;
 
@@ -27,7 +27,7 @@ class WorkflowType extends AbstractType
 
     public function getName()
     {
-        return 'workflow_form';
+        return 'workflow_creation_form';
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
