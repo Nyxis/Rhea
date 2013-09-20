@@ -2,7 +2,7 @@
 
 namespace Extia\Bundle\UserBundle\Bridge;
 
-use Extia\Bundle\UserBundle\Consultant;
+use Extia\Bundle\UserBundle\Model\Consultant;
 
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 
@@ -32,7 +32,7 @@ class MissionMonitoringBridge extends AbstractTaskBridge
         $currentTask = $this->createWorkflow(array(), $pdo);
 
         // bootstrap task
-        return $this->resolveNode($task, array(
+        return $this->resolveNode($currentTask, array(
 
                 // workflow data
                 'workflow' => array(
@@ -48,8 +48,9 @@ class MissionMonitoringBridge extends AbstractTaskBridge
 
                 // bootstrap data
                 'user_target_id' => $consultant->getId(),
-                'next_date'      => $task->findNextWorkingDay(
-                    (int) $task->calculateDate($consultant->getCurrentMissionOrder()->getBeginDate(), '+7 days', 'U')
+                'assigned_to'    => $consultant->getCurrentMission()->getManagerId(),
+                'next_date'      => $currentTask->findNextWorkingDay(
+                    (int) $currentTask->calculateDate($consultant->getCurrentMissionOrder()->getBeginDate(), '+7 days', 'U')
                 )
             ),
             $pdo
@@ -67,8 +68,6 @@ class MissionMonitoringBridge extends AbstractTaskBridge
     {
         $tasks = TaskQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Node')
-            ->joinWith('Node.Workflow')
 
             ->useNodeQuery()
                 ->filterByCurrent(true)
@@ -76,7 +75,10 @@ class MissionMonitoringBridge extends AbstractTaskBridge
                     ->filterByType($this->getBridgedWorkflow())
                 ->endUse()
             ->endUse()
-            ->filterByTargetUserId($consultant->getId())
+            ->filterByUserTargetId($consultant->getId())
+
+            ->joinWith('Node')
+            ->joinWith('Node.Workflow')
 
             ->find($pdo)
         ;

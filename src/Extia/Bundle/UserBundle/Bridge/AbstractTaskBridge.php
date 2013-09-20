@@ -2,8 +2,8 @@
 
 namespace Extia\Bundle\UserBundle\Bridge;
 
+use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Workflow\Aggregator;
-use Extia\Bundle\TaskBundle\Workflow\Model\Task;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 

@@ -129,13 +129,17 @@ class TypeNodeController extends Controller implements TypeNodeControllerInterfa
     }
 
     /**
-     * renders response, by default redirects on next node
+     * renders response, by default redirects on next node if web context, true otherwise
      *
-     * @param  WorkflowNode  $node new node
-     * @return Response|null
+     * @param  WorkflowNode       $node new node
+     * @return Response|true|null
      */
     protected function renderNotify(WorkflowNode $node, array $parameters = array())
     {
+        if (!$this->container->isScopeActive('request')) {
+            return true;
+        }
+
         if (empty($this->routeNode)) {
             throw new \RuntimeException(sprintf('Without define "route" config on "%s" node, we cannot know where redirect on.
                 You have to define your own notify(), or endNotify() method into a custom controller using "class" key;

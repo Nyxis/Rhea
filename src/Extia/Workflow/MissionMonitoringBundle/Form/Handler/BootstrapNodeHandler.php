@@ -29,6 +29,11 @@ class BootstrapNodeHandler extends AbstractNodeHandler
             (int) $task->calculateDate($data['next_date'], '-7 days', 'U')
         ));
 
+        // assignation
+        if (!empty($data['assigned_to'])) {
+            $task->setAssignedTo($data['assigned_to']);
+        }
+
         // updates workflow fields
         $this->updateWorkflow($data, $task, $pdo);
 

@@ -19,4 +19,24 @@ class Mission extends BaseMission
             $this->getLabel()
         );
     }
+
+    /**
+     * tests if mission is in client office
+     * @return boolean
+     */
+    public function isExternal()
+    {
+        return 'client' == $this->getType();
+    }
+
+    /**
+     * tests if mission is intercontract (and on profile without mission)
+     * @return boolean
+     */
+    public function isIntercontract()
+    {
+        return 'ic' == $this->getType()
+            || 'waiting' == $this->getType()
+        ;
+    }
 }

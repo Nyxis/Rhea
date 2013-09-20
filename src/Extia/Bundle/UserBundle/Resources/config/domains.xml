@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <!-- Mission Order domain -->
+        <parameter key="extia_user.domain.mission_order.class">Extia\Bundle\UserBundle\Domain\MissionOrderDomain</parameter>
+
+    </parameters>
+
+    <services>
+        <!-- Mission Order domain -->
+        <service id="extia_user.domain.mission_order" class="%extia_user.domain.mission_order.class%">
+            <argument type="service" id="extia_user.bridge.mission_monitoring" />
+        </service>
+
+    </services>
+
+</container>

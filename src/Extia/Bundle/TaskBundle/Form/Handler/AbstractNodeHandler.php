@@ -46,7 +46,7 @@ abstract class AbstractNodeHandler
 
         // updates task with incomming data
         $return = $this->resolve(
-            $form->getData(), $task, $request
+            $form->getData(), $task
         );
 
         // fire notification if successfull

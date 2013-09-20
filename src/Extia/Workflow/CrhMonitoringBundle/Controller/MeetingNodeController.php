@@ -78,7 +78,7 @@ class MeetingNodeController extends TypeNodeController
         $options = array(
             'document_directory'  => $task->getUserTarget()->getUrl(),
             'document_name_model' => $this->get('translator')->trans(
-                'crh_meeting.document.name', array(), 'messages', $this->container->getParameter('locale')
+                'crh_monitoring.meeting.document.name', array(), 'messages', $this->container->getParameter('locale')
             )
         );
 
