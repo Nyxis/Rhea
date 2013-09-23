@@ -29,7 +29,8 @@ class MissionMonitoringBridge extends AbstractTaskBridge
      */
     public function createMonitoring(Consultant $consultant, \Pdo $pdo = null)
     {
-        $currentTask = $this->createWorkflow(array(), $pdo);
+        $currentTask  = $this->createWorkflow(array(), $pdo);
+        $missionOrder = $consultant->getCurrentMissionOrder($pdo);
 
         // bootstrap task
         return $this->resolveNode($currentTask, array(
@@ -38,19 +39,19 @@ class MissionMonitoringBridge extends AbstractTaskBridge
                 'workflow' => array(
                     'name' => $this->translator->trans('mission_monitoring.default_name', array(
                         '%user_target%' => $consultant->getLongName(),
-                        '%mission%'     => $consultant->getCurrentMission()->getClient()->getTitle()
+                        '%mission%'     => $missionOrder->getMission()->getClient()->getTitle()
                     )),
                     'description' => $this->translator->trans('mission_monitoring.default_desc', array(
                         '%user_target%' => $consultant->getLongName(),
-                        '%mission%'     => $consultant->getCurrentMission()->getClient()->getTitle()
+                        '%mission%'     => $missionOrder->getMission()->getClient()->getTitle()
                     ))
                 ),
 
                 // bootstrap data
                 'user_target_id' => $consultant->getId(),
-                'assigned_to'    => $consultant->getCurrentMission()->getManagerId(),
+                'assigned_to'    => $missionOrder->getMission()->getManagerId(),
                 'next_date'      => $currentTask->findNextWorkingDay(
-                    (int) $currentTask->calculateDate($consultant->getCurrentMissionOrder()->getBeginDate(), '+7 days', 'U')
+                    (int) $currentTask->calculateDate($missionOrder->getBeginDate(), '+7 days', 'U')
                 )
             ),
             $pdo

@@ -2,8 +2,10 @@
 
 namespace Extia\Bundle\UserBundle\Domain;
 
+use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\UserBundle\Model\MissionOrder;
 use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
+
 use Extia\Bundle\UserBundle\Bridge\MissionMonitoringBridge;
 
 use \DateTime;
@@ -54,6 +56,8 @@ class MissionOrderDomain
         $pdo->beginTransaction();
 
         try {
+            $expiringData = clone $date;
+
             // retrieve expiring missions
             $expiringMissionOrders = MissionOrderQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -61,7 +65,7 @@ class MissionOrderDomain
                 ->joinWith('Mission')
                 ->joinWith('Mission.Manager')
 
-                ->filterByEndDate(array('max' => '-1 day'))
+                ->filterByEndDate(array('max' => $expiringData->sub(date_interval_create_from_date_string('1 day'))))
                 ->filterByCurrent(true)
 
                 ->find($pdo)
@@ -80,7 +84,7 @@ class MissionOrderDomain
                 ->joinWith('Mission')
                 ->joinWith('Mission.Manager')
 
-                ->filterByBeginDate(strtotime(date('Y-m-d')))
+                ->filterByBeginDate($date)
                 ->filterByCurrent(false)
 
                 ->find($pdo)

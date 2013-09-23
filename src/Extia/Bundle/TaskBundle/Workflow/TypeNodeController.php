@@ -58,6 +58,7 @@ class TypeNodeController extends EasyTaskTypeNodeController
                 ->findOneByWorkflowNodeId($node->getPrevId(), $connection);
 
             $workflowCreatedBy = $prevTask->getWorkflowCreatedBy();
+
         } else {
             // workflow creator is always current if this node is first
             $user = $this->getUser(); // but can be null
@@ -65,7 +66,7 @@ class TypeNodeController extends EasyTaskTypeNodeController
         }
 
         $nextTask->setWorkflowCreatedBy($workflowCreatedBy);
-        $nextTask->setAssignedTo($workflowCreatedBy);
+        $nextTask->setAssignedTo(empty($prevTask) ? $workflowCreatedBy : $prevTask->getAssignedTo());
 
         // launch hook
         $this->onTaskCreation($nextTask, $prevTask, $parameters, $connection);

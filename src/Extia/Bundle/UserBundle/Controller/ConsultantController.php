@@ -73,6 +73,8 @@ class ConsultantController extends Controller
 
             ->orderByActivationDate(\Criteria::DESC)
             ->useNodeQuery()
+                ->filterByPrevId(null, \Criteria::ISNOTNULL) // exclude bootstrap
+                ->filterByEnded(false)                       // exclude last task (not handled)
                 ->orderByCurrent(\Criteria::DESC)
             ->endUse()
 
