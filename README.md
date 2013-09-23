@@ -23,3 +23,10 @@ php app/console cache:warmup
 # assets compilation
 php app/console assetic:dump --force
 ```
+
+Dossiers à vérifier :
+```
+# avec droits d'écriture pour le user applicatif
+data/ 
+web/images/avatars/
+```
