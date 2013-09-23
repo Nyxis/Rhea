@@ -2,7 +2,7 @@
 
 {% block modal_body %}
     {% set clt = task.userTarget %}
-    <p class="form_hook">{{ 'annual_review_annual_meeting.form.hook'|trans }}</p>
+    <p class="form_hook">{{ 'annual_review.annual_meeting.form.hook'|trans }}</p>
     {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'with_contact': true, 'clt': clt.consultant } only %}
 {% endblock %}
 

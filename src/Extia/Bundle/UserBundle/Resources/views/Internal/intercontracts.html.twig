@@ -14,7 +14,7 @@
         <tbody>
         {% for clt in consultants %}
             <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
-                <td><img src="{{ gravatar(clt.email, 30) }}"></td>
+                <td class="image"><img src="{{ gravatar(clt.email, 30) }}"></td>
                 <td class="name"><div class="wrap">{{ clt.longname }}</div></td>
                 <td>{{ clt.currentMissionOrder.beginDate('date_format.ymd'|trans) }}</td>
                 <td>

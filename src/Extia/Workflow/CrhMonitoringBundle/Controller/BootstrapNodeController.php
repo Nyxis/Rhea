@@ -8,7 +8,6 @@ use Extia\Bundle\TaskBundle\Workflow\TypeNodeController;
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * bootstrap workflow node controller
@@ -40,30 +39,20 @@ class BootstrapNodeController extends TypeNodeController
     /**
      * {@inherit_doc}
      */
-    protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle::node.html.twig')
+    protected function executeNode(Request $request, Task $task, $template)
     {
-        $error = '';
-        $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
-        $form  = $this->get('crh_monitoring.bootstrap.form');
+        $form = $this->get('annual_review.initiation.form');
 
-        if ($request->request->has($form->getName())) {
-
-            $response = $this->getHandler()->handle($form, $request, $task);
-
-            // we dont use default redirect response : our tasks are asynchronous
-            // we redirect previous page with a message instead
-            if (!empty($response)) {
-                return $this->redirectWithNodeNotification('success', $task, 'Rhea_homepage');
-            }
-
-            $error = $handler->error;
+        if ($request->request->has($form->getName())                    // submited form
+            && $this->getHandler()->handle($form, $request, $task)      // successful handled
+            ) {
+            return $this->redirectOrDefault('Rhea_homepage');
         }
 
-        return $this->render($template, array(
-            'error'    => $error,
-            'task'     => $task,
+        return $this->render($template, $this->addTaskParams($task, array(
             'type_dir' => 'Bootstrap',
+            'task'     => $task,
             'form'     => $form->createView()
-        ));
+        )));
     }
 }

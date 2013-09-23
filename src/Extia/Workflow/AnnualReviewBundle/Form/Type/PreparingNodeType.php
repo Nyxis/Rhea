@@ -27,8 +27,8 @@ class PreparingNodeType extends AbstractNodeType
     {
         $builder->add(
             $builder->create('annual_review_doc', 'document', array(
-                    'label'        => 'annual_review_preparing.form.document',
-                    'button_label' => 'annual_review_preparing.form.doc_label_button',
+                    'label'        => 'annual_review.preparing.form.document',
+                    'button_label' => 'annual_review.preparing.form.doc_label_button',
                     'required'     => true
                 ))
                 ->addModelTransformer($this->createDocumentTransformer($options))
@@ -39,7 +39,7 @@ class PreparingNodeType extends AbstractNodeType
             'multiple' => false,
             'expanded' => false,
             'choices'  => $this->getManagersChoices(),
-            'label'    => 'annual_review_preparing.form.manager_id'
+            'label'    => 'annual_review.preparing.form.manager_id'
         ));
 
         $builder->add('meeting_date', 'datetime', array(
@@ -47,7 +47,7 @@ class PreparingNodeType extends AbstractNodeType
             'date_widget' => 'text',
             'time_widget' => 'text',
             'input'       => 'timestamp',
-            'label'       => 'annual_review_preparing.form.meeting_date'
+            'label'       => 'annual_review.preparing.form.meeting_date'
         ));
     }
 }

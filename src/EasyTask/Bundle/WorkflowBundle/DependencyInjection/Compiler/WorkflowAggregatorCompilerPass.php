@@ -4,6 +4,7 @@ namespace EasyTask\Bundle\WorkflowBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\Routing\Route;
 
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
@@ -41,7 +42,7 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
             }
             // dynamic definition creation from default one
             else {
-                $wfServiceId = 'easy_task.type_workflow.'.$wfName;
+                $wfServiceId = 'easy_task.workflow.'.$wfName;
                 $wfService   = clone $container->getDefinition('easy_task.type_workflow');
 
                 $wfService->setClass(
@@ -77,7 +78,7 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
                 // dynamic definition creation from default one
                 else {
                     $nodeController   = clone $container->getDefinition('easy_task.type_node');
-                    $nodeControllerId = 'easy_task.type_node.'.$nodeName;
+                    $nodeControllerId = 'easy_task.workflow.'.$wfName.'.node.'.$nodeName;
 
                     if (!empty($nodeControllerConfig['class'])) {
                         $nodeController->setClass($nodeControllerConfig['class']);
@@ -103,7 +104,12 @@ class WorkflowAggregatorCompilerPass implements CompilerPassInterface
 
                 // routing
                 $nodeRouteConfig = array_replace_recursive(
-                    array('name' => sprintf('easy_task_%s_%s', $wfName, $nodeName)),
+                    array(
+                        'name' => sprintf('EasyTaskWorkflow_%s_%s',
+                            Container::camelize($wfName),
+                            Container::camelize($nodeName)
+                        )
+                    ),
                     $nodeConfig['route']
                 );
 

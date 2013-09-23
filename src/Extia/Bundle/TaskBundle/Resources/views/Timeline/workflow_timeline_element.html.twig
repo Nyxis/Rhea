@@ -8,8 +8,8 @@
     <div class="tab-header">
         <div class="pull-left">
             <i class="icon-tasks"></i>
-            {{ refDate|date('date_format.md'|trans) }} -
-            {{ task.node.name|trans }}
+            {{ refDate|date('date_format.md'|trans) }}
+            {{ (task.node.workflow.type ~ '.label')|trans }}
         </div>
         <div class="pull-right">
         {% if task.isCompleted is empty %}
@@ -27,7 +27,7 @@
             </div>
 
             {{  render(controller(task.node.type.action('timeline'), {
-                    'taskId': task.id,
+                    'task': task,
                     'params': {
                         'user_target' : true,
                         'extra_data': true

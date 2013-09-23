@@ -1,0 +1,69 @@
+{% extends 'ExtiaTaskBundle:Workflow:modal.html.twig' %}
+
+{% block modal_body %}
+    {% set clt = task.userTarget %}
+    <p class="form_hook">
+        {{ 'mission_monitoring.meeting.hook'|trans }} {{ clt.longName }},
+        {% if task.isPlanedToday %}
+            {{ 'mission_monitoring.meeting.today'|trans }}
+        {% elseif task.isPlanedTomorrow %}
+            {{ 'mission_monitoring.meeting.tomorrow'|trans }}
+        {% else %}
+            {{ task.activationDate(('mission_monitoring.meeting.date_format'|trans)) }}
+        {% endif %}
+        {{ 'mission_monitoring.meeting.at'|trans }}
+        {{ task.data.get('meeting_date')|date('H:i') }}
+    </p>
+    {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'with_contact': true, 'clt': clt.consultant } only %}
+{% endblock %}
+
+{% block modal_form %}
+    <div class="separator">
+        {%
+            include 'ExtiaWorkflowMissionMonitoringBundle::client.html.twig' with {
+                'client':  task.userTarget.consultant.currentMission.client,
+                'contact': {
+                    'name' : task.data.get('contact_name'),
+                    'email': task.data.get('contact_email'),
+                    'tel'  : task.data.get('contact_tel')
+                }
+            } only
+        %}
+        <div class="control-group field" id="{{ form.mission_meeting_doc.vars.id }}_control_group">
+            <label class="control-label required" for="{{ form.mission_meeting_doc.vars.id }}">{{ 'mission_monitoring.meeting.form.doc_label'|trans }}</label>
+            <div class="controls" id="{{ form.mission_meeting_doc.vars.id }}">
+                {{ form_widget(form.mission_meeting_doc) }}
+            </div>
+        </div>
+
+        <div class="report">
+            <label class="control-label">{{ 'mission_monitoring.meeting.report.title'|trans }}</label>
+            <div class="control-group field">
+                {{ form_label(form.report.admin_rating) }}
+                <div class="asButtons controls">
+                    {{ form_widget(form.report.admin_rating) }}
+                </div>
+            </div>
+            <div class="control-group field">
+                {{ form_label(form.report.global_rating) }}
+                <div class="asButtons controls">
+                    {{ form_widget(form.report.global_rating) }}
+                </div>
+            </div>
+            <div class="control-group field">
+                {{ form_label(form.report.reactivity_rating) }}
+                <div class="asButtons controls">
+                    {{ form_widget(form.report.reactivity_rating) }}
+                </div>
+            </div>
+            <div class="control-group field">
+                {{ form_label(form.report.expertise_rating) }}
+                <div class="asButtons controls">
+                    {{ form_widget(form.report.expertise_rating) }}
+                </div>
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+    </div>
+{% endblock %}

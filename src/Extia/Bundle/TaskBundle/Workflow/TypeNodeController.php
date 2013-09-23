@@ -12,7 +12,6 @@ use EasyTask\Bundle\WorkflowBundle\Model\WorkflowNode;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Extia Type Node base class
@@ -25,12 +24,12 @@ class TypeNodeController extends EasyTaskTypeNodeController
     /**
      * hook method to allow to custom task before saving
      *
-     * @param Request $request
-     * @param Task    $nextTask
-     * @param Task    $prevTask   (optionnal previous task)
-     * @param Pdo     $connection optionnal database connection used to create nodes
+     * @param Task  $nextTask
+     * @param Task  $prevTask   (optionnal previous task)
+     * @param array $parameters optionnal parameters given to notify
+     * @param Pdo   $connection optionnal database connection used to create nodes
      */
-    protected function onTaskCreation(Request $request, Task $nextTask, Task $prevTask = null, \Pdo $connection = null) { }
+    protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null) { }
 
     /**
      * hook method called after changing an active node task activation date
@@ -46,7 +45,7 @@ class TypeNodeController extends EasyTaskTypeNodeController
      *
      * override to create Extia task in same time
      */
-    protected function endNotify(WorkflowNode $node, Request $request, \Pdo $connection = null)
+    protected function endNotify(WorkflowNode $node, array $parameters = array(), \Pdo $connection = null)
     {
         $prevTask = null;
 
@@ -59,40 +58,50 @@ class TypeNodeController extends EasyTaskTypeNodeController
                 ->findOneByWorkflowNodeId($node->getPrevId(), $connection);
 
             $workflowCreatedBy = $prevTask->getWorkflowCreatedBy();
+
         } else {
             // workflow creator is always current if this node is first
-            $workflowCreatedBy = $this->getUser()->getUsername();
+            $user = $this->getUser(); // but can be null
+            $workflowCreatedBy = empty($user) ? null : $user->getUsername();
         }
 
         $nextTask->setWorkflowCreatedBy($workflowCreatedBy);
-        $nextTask->setAssignedTo($workflowCreatedBy);
+        $nextTask->setAssignedTo(empty($prevTask) ? $workflowCreatedBy : $prevTask->getAssignedTo());
 
         // launch hook
-        $this->onTaskCreation($request, $nextTask, $prevTask, $connection);
+        $this->onTaskCreation($nextTask, $prevTask, $parameters, $connection);
 
         $nextTask->save($connection);
 
-        return parent::endNotify($node, $request, $connection);
+        return parent::endNotify($node, $parameters, $connection);
     }
 
     /**
-     * find requested task by it's id
-     * @param  int                   $taskId
+     * find current task for given workflow
+     *
+     * @param  Workflow                 $workflow
+     * @param  \Pdo                     $pdo
      * @return Task
-     * @throws NotFoundHttpException if task not found
+     * @throws InvalidArgumentException if task not found
      */
-    public function findTask($taskId)
+    public function findCurrentTask(Workflow $workflow, \Pdo $pdo = null)
     {
         $task = TaskQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->joinWith('Node')
             ->joinWith('Node.Workflow')
-            ->joinWith('UserTarget')
-            ->findPk($taskId);
+            ->joinWith('UserTarget', \Criteria::LEFT_JOIN)
+
+            ->useNodeQuery()
+                ->filterByCurrent(true)
+                ->filterByWorkflow($workflow)
+            ->endUse()
+
+            ->findOne($pdo);
 
         if (empty($task)) {
-            throw new \InvalidArgumentException(sprintf('Any task found for given id. "%s" given',
-                $taskId
+            throw new \InvalidArgumentException(sprintf('Any active task found for workflow "%s".',
+                $workflow->getName()
             ));
         }
 
@@ -100,74 +109,14 @@ class TypeNodeController extends EasyTaskTypeNodeController
     }
 
     /**
-     * returns task and node for given id
-     * @param  int                   $workflowId
-     * @param  Task                  $task       optionnal task, if given stored and returned
-     * @param  Pdo                   $con        db connection
-     * @return Task
-     * @throws NotFoundHttpException If workflow not found
+     * redirect on _redirect_url request query param or on given url
+     *
+     * @param  string           $route
+     * @param  array            $params
+     * @return RedirectResponse
      */
-    public function findCurrentTaskByWorkflowId($workflowId, Task $task = null, \Pdo $con = null)
+    public function redirectOrDefault($route, $params = array())
     {
-        if (empty($workflowId) && empty($task)) {
-            throw new \InvalidArgumentException(sprintf('Not enough parameter given to %s() method, you have to provide at least a workflowId or an instanciate Task',
-                __METHOD__
-            ));
-        }
-
-        if ($task instanceof Task) {
-            $this->currentTask = $task;
-        } else {
-            $this->findWorkflowNode($workflowId, $con);
-        }
-
-        return $this->currentTask;
-    }
-
-    /**
-     * overriden to loads task in same time
-     * {@inherited_doc}
-     */
-    public function findWorkflowNode($workflowId, \Pdo $con = null)
-    {
-        $this->currentTask = TaskQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->useNodeQuery()
-                ->filterByName($this->name)
-                ->filterByWorkflowId($workflowId)
-                ->filterByCurrent(true)
-            ->endUse()
-            ->joinWith('Node')
-            ->joinWith('Node.Workflow')
-            ->findOne($con);
-
-        if (empty($this->currentTask)) {
-            throw new NotFoundHttpException(sprintf('Any active %s workflow node found for given workflow id (%s given)', $this->name, $workflowId));
-        }
-
-        return $this->currentTask->getNode();
-    }
-
-    /**
-     * redirect on given route, with a task notification using session flashbag system
-     * @param  string   $level  notification level (error, info, warning, success)
-     * @param  Task     $task   current task
-     * @param  string   $route
-     * @param  array    $params optionnal route params
-     * @return Response
-     */
-    public function redirectWithNodeNotification($level, Task $task, $route, $params = array())
-    {
-        $nodeType = $task->getNode()->getType();
-        if ($nodeType->supportsAction('notify')) {
-            $this->get('notifier')->add(
-                $level,
-                $nodeType->getAction('notify'),
-                array('taskId' => $task->getId()),
-                'controller'
-            );
-        }
-
         return $this->redirect(
             $this->get('request')->query->get('_redirect_url',
                 $this->get('router')->generate($route, $params)
@@ -176,11 +125,12 @@ class TypeNodeController extends EasyTaskTypeNodeController
     }
 
     /**
-     * override rendering params to auto injects params
+     * waypoint to adds parameters to all node templates
      *
-     * {@inherit_doc}
+     * @param  array $parameters
+     * @return array
      */
-    public function render($view, array $parameters = array(), Response $response = null)
+    public function addTaskParams(Task $task, array $parameters = array())
     {
         $extraParameters = array(
             'nodeUrlParams' => array()
@@ -193,9 +143,8 @@ class TypeNodeController extends EasyTaskTypeNodeController
             );
         }
 
-        return parent::render($view, array_replace_recursive($extraParameters, $parameters), $response);
+        return array_replace_recursive($extraParameters, $parameters);
     }
-
 
     // -----------------------------------------------
     // Mutualized tasks actions (override for custom)
@@ -227,19 +176,17 @@ class TypeNodeController extends EasyTaskTypeNodeController
     /**
      * has to return execute given node task, and return a response
      * @param  Request  $request
-     * @param  int      $workflowId
      * @param  Task     $task
      * @param  string   $template
      * @return Response
-     * @return array
      */
-    protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = '')
+    protected function executeNode(Request $request, Task $task, $template)
     {
         throw new \BadMethodCallException('This method has to be defined in children node task classes.');
     }
 
     /**
-     * return template for given typeis modal, node, timeline....
+     * return template for given type is modal, node, timeline....
      * @param  string $type
      * @return string
      */
@@ -256,53 +203,53 @@ class TypeNodeController extends EasyTaskTypeNodeController
      * node action - execution of current node
      *
      * @param  Request  $request
-     * @param  int      $workflowId
-     * @param  Task     $task
+     * @param  Workflow $workflow
      * @return Response
      */
-    public function nodeAction(Request $request, $workflowId = null, Task $task = null)
+    public function nodeAction(Request $request, Workflow $workflow)
     {
-        return $this->executeNode($request, $workflowId, $task, $this->getTemplate('node'));
+        return $this->executeNode($request, $this->findCurrentTask($workflow), $this->getTemplate('node'));
     }
 
     /**
      * modal action - execution of current node and renderer as a modal
      *
      * @param  Request  $request
-     * @param  int      $workflowId
-     * @param  Task     $task
+     * @param  Workflow $workflow
      * @return Response
      */
-    public function modalAction(Request $request, $workflowId = null, Task $task = null)
+    public function modalAction(Request $request, Workflow $workflow)
     {
-        return $this->executeNode($request, $workflowId, $task, $this->getTemplate('modal'));
+        return $this->executeNode($request, $this->findCurrentTask($workflow), $this->getTemplate('modal'));
     }
 
     /**
      * notification action - renders state of this node for notification
      *
      * @param  Request  $request
-     * @param  int      $workflowId
+     * @param  Workflow $workflow
      * @return Response
      */
-    public function notificationAction(Request $request, $taskId)
+    public function notificationAction(Request $request, Task $task)
     {
-        return $this->render($this->getTemplate('notification'), array(
-            'task' => $this->findTask($taskId)
-        ));
+        return $this->render(
+            $this->getTemplate('notification'),
+            $this->addTaskParams($task, array('task' => $task))
+        );
     }
 
     /**
      * timeline action - renders state of this node as timeline
      *
      * @param  Request  $request
-     * @param  int      $taskId
+     * @param  Workflow $workflow
      * @return Response
      */
-    public function timelineAction(Request $request, $taskId, $params = array())
+    public function timelineAction(Request $request, Task $task)
     {
-        return $this->render($this->getTemplate('timeline_element'),
-            array_replace_recursive($params, array('task' => $this->findTask($taskId)))
+        return $this->render(
+            $this->getTemplate('timeline_element'),
+            $this->addTaskParams($task, array('task' => $task))
         );
     }
 }

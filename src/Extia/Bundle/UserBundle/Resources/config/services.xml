@@ -29,6 +29,7 @@
         </service>
         <service id="extia_user.form.change_mission_handler" class="%extia_user.form.change_mission_handler.class%"
             parent="extia_user.admin.admin_form_handler">
+            <argument type="service" id="extia_user.domain.mission_order" />
         </service>
 
     </services>

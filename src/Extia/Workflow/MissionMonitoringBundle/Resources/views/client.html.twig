@@ -1,0 +1,24 @@
+<div class="client">
+    {% if contact is defined %}
+    <div class="pull-right">
+        <ul>
+            <li><i class="icon-user"></i> {{ contact.name }}</li>
+            {% if contact.email %}<li><i class="icon-comment-alt"></i> {{ contact.email }}</li>{% endif %}
+            {% if contact.tel %}<li><i class="icon-phone"></i> {{ contact.tel }}</li>{% endif %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="dtable">
+        <div class="dtable-cell">
+            {% if client.image is not empty %}
+                <img src="{{ asset(client.image) }}">
+            {% else %}
+                <img src="http://placehold.it/50x50">
+            {% endif %}
+        </div>
+        <h4 class="dtable-cell">
+            {{ client.title }}<br />
+            <small>{{ client.zipcode }} {{ client.city }}</small>
+        </h4>
+    </div>
+</div>

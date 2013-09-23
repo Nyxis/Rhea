@@ -4,11 +4,12 @@
             <img src="{{ asset('images/workflows/' ~ task.node.workflow.type ~ '.jpg') }}">
         </div>
         <div class="dtable-cell">
+            {% set params = app.request.attributes.get('params', {}) %}
             <h4>
                 {% block task_title %}
-                    {{ (task.node.workflow.type ~ '_' ~ task.node.name ~ '.timeline.hook')|trans }}
+                    {{ (task.node.workflow.type ~ '.' ~ task.node.name ~ '.timeline.hook')|trans }}
                 {% endblock %}<br />
-                {% if task.userTarget is not empty and user_target|default(false) == true %}
+                {% if task.userTarget is not empty and params.user_target|default(false) == true %}
                     {% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.userTarget } only %}
                 {% else %}
                     <p>&nbsp;</p>
@@ -17,7 +18,7 @@
         </div>
     </div>
     <div class="clearfix">
-    {% if task.isCompleted == true and extra_data is defined and extra_data is not empty %}
+    {% if task.isCompleted == true and user_target.extra_data is defined and user_target.extra_data is not empty %}
         {% block task_data %}{% endblock %}
     {% endif %}
     </div>

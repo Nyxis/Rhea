@@ -16,11 +16,12 @@
 .notif_content .text {
     text-align: left;
     padding-right: 20px;
+    font-size: 1.5em;
 }
 .notif_content p{
     margin: 0px;
 }
 .notif_content .notif-head{
     font-weight: bold;
-    font-size: 1.1em;
+    padding-bottom: 10px;
 }
