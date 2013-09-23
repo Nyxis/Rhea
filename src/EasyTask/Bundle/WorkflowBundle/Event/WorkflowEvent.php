@@ -3,7 +3,6 @@
 namespace EasyTask\Bundle\WorkflowBundle\Event;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -12,19 +11,16 @@ use Symfony\Component\EventDispatcher\Event;
 class WorkflowEvent extends Event
 {
     protected $workflow;
-    protected $request;
     protected $connection;
 
     /**
      * construct
      * @param Workflow $workflow   current workflow
-     * @param Request  $request    current request
      * @param Pdo      $connection optionnal database connection
      */
-    public function __construct(Workflow $workflow, Request $request, \Pdo $connection = null)
+    public function __construct(Workflow $workflow, \Pdo $connection = null)
     {
         $this->workflow   = $workflow;
-        $this->request    = $request;
         $this->connection = $connection;
     }
 
@@ -35,15 +31,6 @@ class WorkflowEvent extends Event
     public function getWorkflow()
     {
         return $this->workflow;
-    }
-
-    /**
-     * return event request
-     * @return Request
-     */
-    public function getRequest()
-    {
-        return $this->request;
     }
 
     /**

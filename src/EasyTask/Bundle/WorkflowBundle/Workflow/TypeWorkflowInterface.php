@@ -4,8 +4,6 @@ namespace EasyTask\Bundle\WorkflowBundle\Workflow;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
-use Symfony\Component\HttpFoundation\Request;
-
 /**
  * interface to implement into all workflows type classes
  */
@@ -40,8 +38,8 @@ interface TypeWorkflowInterface
     /**
      * boot method for given Workflow
      * @param Workflow $workflow
-     * @param Request  $request
+     * @param array    $parameters optionnal list of parameters to give to first node notification
      * @param Pdo      $connection optionnal database connection used for transaction
      */
-    public function boot(Workflow $workflow, Request $request, \Pdo $connection = null);
+    public function boot(Workflow $workflow, array $parameters = array(), \Pdo $connection = null);
 }

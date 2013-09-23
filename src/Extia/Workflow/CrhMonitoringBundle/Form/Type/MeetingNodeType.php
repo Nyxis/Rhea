@@ -25,21 +25,11 @@ class MeetingNodeType extends AbstractNodeType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('next_meeting', 'choice', array(
-            'required' => true,
-            'multiple' => false,
-            'expanded' => false,
-            'choices'  => array(
-                '3'  => '3 '.$this->translator->trans('month'),
-                '6'  => '6 '.$this->translator->trans('month'),
-                '1'  => '1 '.$this->translator->trans('month')
-            )
-        ));
-
         $builder->add(
             $builder->create('crh_meeting_doc', 'document', array(
-                    'button_label' => 'crh_meeting.form.doc_label_button',
-                    'required'     => true
+                    'required'     => true,
+                    'button_label' => 'crh_monitoring.meeting.form.doc_label_button',
+                    'label'        => 'crh_monitoring.meeting.crh_meeting_doc'
                 ))
                 ->addModelTransformer($this->createDocumentTransformer($options))
         );

@@ -256,7 +256,7 @@ class ConsultantHandler extends AdminHandler
             if ($form->has('create_crh_monitoring') && true == $form->get('create_crh_monitoring')->getData()) {
                 $wfCrh = $this->workflows->create('crh_monitoring');
 
-                $this->workflows->boot($wfCrh, $request, $pdo);  // first step
+                $this->workflows->boot($wfCrh, array(), $pdo);  // first step
 
                 // second step : resolve like an user posted a form
                 $task = $this->workflows->getCurrentTask($wfCrh, $pdo);
@@ -266,8 +266,8 @@ class ConsultantHandler extends AdminHandler
                             (int) $task->calculateDate($consultant->getContractBeginDate(), '+1 month', 'U')
                         ),
                         'workflow' => array(
-                            'name'           => sprintf('%s %s', $this->translator->trans('crh_monitoring'), $consultant->getLongName()),
-                            'description'    => sprintf('%s %s', $this->translator->trans('crh_monitoring'), $consultant->getLongName())
+                            'name'           => $this->translator->trans('crh_monitoring.default_name', array('%user_target%' => $consultant->getLongName())),
+                            'description'    => $this->translator->trans('crh_monitoring.default_desc', array('%user_target%' => $consultant->getLongName()))
                         )
                     ), $task, $request, $pdo
                 );
@@ -276,7 +276,7 @@ class ConsultantHandler extends AdminHandler
             if ($form->has('create_annual_review') && true == $form->get('create_annual_review')->getData()) {
                 $wfAnnualReview = $this->workflows->create('annual_review');
 
-                $this->workflows->boot($wfAnnualReview, $request, $pdo);  // first step
+                $this->workflows->boot($wfAnnualReview, array(), $pdo);  // first step
 
                 // second step : resolve like an user posted a form
                 $task = $this->workflows->getCurrentTask($wfAnnualReview, $pdo);
@@ -286,8 +286,8 @@ class ConsultantHandler extends AdminHandler
                             (int) $task->calculateDate($consultant->getContractBeginDate(), '+1 year', 'U')
                         ),
                         'workflow' => array(
-                            'name'           => sprintf('%s %s', $this->translator->trans('annual_review'), $consultant->getLongName()),
-                            'description'    => sprintf('%s %s', $this->translator->trans('annual_review'), $consultant->getLongName())
+                            'name'           => $this->translator->trans('annual_review.default_name', array('%user_target%' => $consultant->getLongName())),
+                            'description'    => $this->translator->trans('annual_review.default_desc', array('%user_target%' => $consultant->getLongName()))
                         )
                     ), $task, $request, $pdo
                 );

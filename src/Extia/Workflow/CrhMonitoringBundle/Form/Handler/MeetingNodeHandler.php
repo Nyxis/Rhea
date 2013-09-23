@@ -6,7 +6,6 @@ use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
 
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * form handler for appointement node
@@ -17,11 +16,11 @@ class MeetingNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
+    public function resolve(array $data, Task $task, \Pdo $pdo = null)
     {
-        $nextMeetingTmstp = $task->calculateDate($task->getActivationDate(), '+'.$data['next_meeting'].' months', 'U');
+        $nextMeetingTmstp = $task->calculateDate($task->getActivationDate(), '+3 months', 'U');
 
-        $task->data()->set('meeting_date', $task->findNextWorkingDay($nextMeetingTmstp));
+        $task->data()->set('next_meeting_date', $task->findNextWorkingDay($nextMeetingTmstp));
         $task->data()->set('notif_date', $task->findNextWorkingDay(
             (int) $task->calculateDate($nextMeetingTmstp, '-7 days', 'U'))
         );
@@ -31,6 +30,6 @@ class MeetingNodeHandler extends AbstractNodeHandler
         $task->save($pdo);
 
         // notify next node
-        return $this->notifyNext('appointement', $task, $request, $pdo);
+        return $this->notifyNext('appointement', $task, array(), $pdo);
     }
 }

@@ -59,9 +59,12 @@ class Aggregator extends BaseAggregator
     {
         $workflows = $this->getAllowed('write');
 
-        return empty($workflows) ? array() : array_combine(
-            array_keys($workflows), array_keys($workflows)
-        );
+        $choices = array();
+        foreach (array_keys($workflows) as $workflow) {
+            $choices[$workflow] = $workflow.'.label';
+        }
+
+        return $choices;
     }
 
     /**

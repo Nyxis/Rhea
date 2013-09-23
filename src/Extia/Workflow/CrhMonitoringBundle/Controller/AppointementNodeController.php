@@ -8,7 +8,6 @@ use Extia\Bundle\TaskBundle\Workflow\TypeNodeController;
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * appointement workflow node controller
@@ -42,47 +41,37 @@ class AppointementNodeController extends TypeNodeController
      *
      * {@inherit_doc}
      */
-    protected function onTaskCreation(Request $request, Task $nextTask, Task $prevTask = null, \Pdo $connection = null)
+    protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
     {
         $nextTask->setUserTargetId($prevTask->getUserTargetId());
 
         $nextTask->setActivationDate($prevTask->data()->get('notif_date'));
         $nextTask->defineCompletionDate('+1 day');
 
-        $nextTask->data()->set('meeting_date', $prevTask->data()->get('meeting_date'));
+        $nextTask->data()->set('meeting_date', $prevTask->data()->get('next_meeting_date'));
 
-        return parent::onTaskCreation($request, $nextTask, $prevTask, $connection);
+        return parent::onTaskCreation($nextTask, $prevTask, $parameters, $connection);
     }
 
     /**
      * {@inherit_doc}
      */
-    protected function executeNode(Request $request, $workflowId = null, Task $task = null, $template = 'ExtiaWorkflowCrhMonitoringBundle::node.html.twig')
+    protected function executeNode(Request $request, Task $task, $template)
     {
-        $error = '';
-        $task  = $this->findCurrentTaskByWorkflowId($workflowId, $task);
         $form  = $this->get('crh_monitoring.appointement.form')->setData(array(
             'meeting_date' => $task->data()->get('meeting_date')
         ));
 
-        if ($request->request->has($form->getName())) {
-
-            $response = $this->getHandler()->handle($form, $request, $task);
-
-            // we dont use default redirect response : our tasks are asynchronous
-            // we redirect previous page with a message instead
-            if (!empty($response)) {
-                return $this->redirectWithNodeNotification('success', $task, 'Rhea_homepage');
-            }
-
-            $error = $handler->error;
+        if ($request->request->has($form->getName())                    // submited form
+            && $this->getHandler()->handle($form, $request, $task)      // successful handled
+            ) {
+            return $this->redirectOrDefault('Rhea_homepage');
         }
 
-        return $this->render($template, array(
-            'error'    => $error,
-            'task'     => $task,
+        return $this->render($template, $this->addTaskParams($task, array(
             'type_dir' => 'Appointement',
+            'task'     => $task,
             'form'     => $form->createView()
-        ));
+        )));
     }
 }

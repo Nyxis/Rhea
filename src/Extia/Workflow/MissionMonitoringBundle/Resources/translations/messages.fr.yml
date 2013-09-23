@@ -1,0 +1,71 @@
+mission_monitoring:
+    label: Suivi de mission
+    default_name: %user_target% - %mission%
+    default_desc: Suivi de la mission %mission% pour %user_target%
+
+    credential:
+        read: Voir les points de mission
+        write: Créer et réaliser des points de mission
+
+    bootstrap:
+        label: Initialisation
+
+        hook: Veuillez remplir les informations nécessaires à l'initialisation du suivi :
+        notification: Le suivi de mission a bien été initialisé pour le consultant %clt%. Vous serez notifié pour planifier le rendez vous à %client% le %notif_date%.
+        timeline:
+            hook: Initialisation suivi de mission
+            next_meeting: Point prévu aux alentours du
+            notified_at: Prise de date le
+
+        user_target_id: Consultant
+        next_date: Date théorique du prochain point
+
+    appointement:
+        label: Prise de rendez vous
+
+        meeting_date: Rendez-vous convenu le
+        contact_name: Avec
+        contact_email: Email
+        contact_tel: Téléphone
+
+        hook: Planification du point de mission de
+        notification: Point de mission enregistré pour le consultant %clt%, le %meeting_date% chez %client%.
+        timeline:
+            hook: Prise de date pour le point de mission
+            meeting_date: Point planifié le
+            meeting_date_format: d/m/Y à H:i
+
+    meeting:
+        label: Point de mission
+
+        hook: Point de mission avec
+        today: aujourd'hui
+        tomorrow: demain
+        date_format: \l\e d/m
+        time_format: \à H:i
+        at: à
+        notification: Le point de mission a été validé pour le consultant %clt%, vous serez notifié pour planifier le rendez vous le %notif_date%.
+        document:
+            name: suivi_mission
+        form:
+            doc_label: Compte rendu du point de mission
+            doc_label_button: Télécharger le compte-rendu
+
+        report:
+            title: Indicateurs
+            admin_rating: Gestion administrative
+            global_rating: Prestation globale
+            reactivity_rating: Réactivité
+            expertise_rating: Expertise
+            choices:
+                sup: Supérieur
+                complient: Conforme
+                part_complient: Partiellement conforme
+                uncomplient: Non conforme
+                unapplicable: Non applicable
+
+        timeline:
+            hook: Point de mission
+            meeting_at: Rendez-vous
+            next_meeting: Prochain point prévu aux alentours du
+            notified_at: Prise de date le

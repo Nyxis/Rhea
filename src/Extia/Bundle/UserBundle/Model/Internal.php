@@ -139,11 +139,12 @@ class Internal extends BaseInternal  implements UserInterface
      */
     public function getTeamIds()
     {
-        return $this->getDescendants(
+        return $this->getBranch(
             InternalQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->select(array('Id'))
-                ->filterByDescendantClass(null, \Criteria::ISNULL)
+                ->filterById($this->getId(), \Criteria::NOT_EQUAL)
+                ->filterByDescendantClass(null, \Criteria::ISNULL) // only internals
         );
     }
 

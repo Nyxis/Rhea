@@ -3,15 +3,16 @@
 {% block modal_body %}
     {% set clt = task.userTarget %}
     <p class="form_hook">
-        {{ 'crh_meeting.hook'|trans }} {{ clt.longName }},
+        {{ 'crh_monitoring.meeting.hook'|trans }} {{ clt.longName }},
         {% if task.isPlanedToday %}
-            {{ 'crh_meeting.today'|trans }}
+            {{ 'crh_monitoring.meeting.today'|trans }}
         {% elseif task.isPlanedTomorrow %}
-            {{ 'crh_meeting.tomorrow'|trans }}
+            {{ 'crh_monitoring.meeting.tomorrow'|trans }}
         {% else %}
-            {{ task.activationDate(('crh_meeting.date_format'|trans)) }}
+            {{ task.activationDate(('crh_monitoring.meeting.date_format'|trans)) }}
         {% endif %}
-        {{ task.activationDate(('crh_meeting.time_format'|trans)) }}
+        {{ 'crh_monitoring.meeting.at'|trans }}
+        {{ task.data.get('meeting_date')|date('H:i') }}
     </p>
     {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'with_contact': true, 'clt': clt.consultant } only %}
 {% endblock %}
@@ -19,16 +20,9 @@
 {% block modal_form %}
     <div class="separator">
         <div class="control-group field" id="{{ form.crh_meeting_doc.vars.id }}_control_group">
-            <label class="control-label required" for="{{ form.crh_meeting_doc.vars.id }}">{{ 'crh_meeting.form.doc_label'|trans }}</label>
+            <label class="control-label required" for="{{ form.crh_meeting_doc.vars.id }}">{{ 'crh_monitoring.meeting.form.doc_label'|trans }}</label>
             <div class="controls" id="{{ form.crh_meeting_doc.vars.id }}">
                 {{ form_widget(form.crh_meeting_doc) }}
-            </div>
-        </div>
-
-        <div class="control-group field" id="{{ form.next_meeting.vars.id }}_control_group">
-            <label class="control-label required" for="{{ form.next_meeting.vars.id }}">{{ 'crh_meeting.next_meeting'|trans }}</label>
-            <div class="controls" id="{{ form.next_meeting.vars.id }}">
-                {{ form_widget(form.next_meeting) }}
             </div>
         </div>
 

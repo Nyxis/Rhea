@@ -29,7 +29,8 @@ class AppointementNodeType extends AbstractNodeType
             'required'    => true,
             'date_widget' => 'text',
             'time_widget' => 'text',
-            'input'       => 'timestamp'
+            'input'       => 'timestamp',
+            'label'       => 'crh_monitoring.appointement.meeting_date'
         ));
     }
 }

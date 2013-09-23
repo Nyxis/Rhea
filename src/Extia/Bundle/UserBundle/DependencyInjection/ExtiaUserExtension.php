@@ -24,6 +24,8 @@ class ExtiaUserExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('bridges.xml');
+        $loader->load('domains.xml');
         $loader->load('admin.xml');
     }
 }

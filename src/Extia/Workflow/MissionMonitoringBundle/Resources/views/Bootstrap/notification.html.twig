@@ -1,0 +1,7 @@
+{{
+    'mission_monitoring.bootstrap.notification'|trans({
+        '%clt%': task.userTarget.longName,
+        '%client%': task.userTarget.consultant.currentMission.client.title,
+        '%notif_date%': task.data.get('notif_date')|date('d/m')
+    })
+}}

@@ -58,21 +58,25 @@ class Consultant extends BaseConsultant
      */
     public function getCurrentMissionOrder(\Pdo $con = null)
     {
-        if ($this->currentMissionOrder !== false) {
+        if ($this->currentMissionOrder !== false && $this->currentMissionOrder->getCurrent()) {
             return $this->currentMissionOrder;
         }
 
         $this->currentMissionOrder = null;
 
-        $missionsOrders = $this->getMissionOrders(
-            MissionOrderQuery::create()
-                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                ->filterByCurrent(true)
-                ->orderByBeginDate(\Criteria::DESC)
-                ->joinWith('Mission')
-                ->joinWith('Mission.Client')
-                ->joinWith('Mission.Manager')
-        );
+        $missionsOrders = MissionOrderQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+
+            ->filterByCurrent(true)
+            ->filterByConsultant($this)
+
+            ->joinWith('Mission')
+            ->joinWith('Mission.Client')
+            ->joinWith('Mission.Manager')
+
+            ->orderByBeginDate(\Criteria::DESC)
+            ->find($con)
+        ;
 
         if (!$missionsOrders->isEmpty()) { // no more selects
             $this->currentMissionOrder = $missionsOrders->getFirst();

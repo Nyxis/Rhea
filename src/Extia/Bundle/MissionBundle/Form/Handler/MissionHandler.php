@@ -75,16 +75,13 @@ class MissionHandler
                         $mission->getClient()->setImage($webPath.$fileName);
                     }
                 } catch (\Exception $e) {
-                    // if ($this->debug) {
-                        $pdo->rollback();
-
-                        var_dump($e);
-                        die;
+                    $pdo->rollback();
+                    if ($this->debug) {
 
                         throw $e;
-                    // }
+                    }
 
-                    // $this->logger->err($e->getMessage());
+                    $this->logger->err($e->getMessage());
                     // $this->notifier->add('error', 'consultant.admin.notifications.error_image');
                 }
             }

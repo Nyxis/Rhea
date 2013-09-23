@@ -1,16 +1,16 @@
 {% extends 'ExtiaTaskBundle:Workflow:timeline_element.html.twig' %}
 
 {% block task_title %}
-    {{ 'crh_meeting.timeline.hook'|trans }} - {{ task.data.get('meeting_date')|date('H:i') }}
+    {{ 'crh_monitoring.meeting.timeline.hook'|trans }} - {{ task.data.get('meeting_date')|date('H:i') }}
 {% endblock %}
 
 {% block task_data %}
     <p>
-        {{ 'crh_meeting.timeline.meeting_at'|trans }}
-        <span class="data">{{ task.activationDate(('crh_meeting.date_format'|trans ~ ' ' ~ 'crh_meeting.time_format'|trans)) }}</span>.
+        {{ 'crh_monitoring.meeting.timeline.meeting_at'|trans }}
+        <span class="data">{{ task.data.get('meeting_date')|date('crh_monitoring.meeting.date_format'|trans ~ ' ' ~ 'crh_monitoring.meeting.time_format'|trans) }}</span>.
     </p>
     {% if task.isCompleted == true %}
-        <p>{{ 'crh_meeting.timeline.next_meeting'|trans }} <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.</p>
-        <p>{{ 'crh_meeting.timeline.notified_at'|trans }} <span class="data">{{ task.data.get('notif_date')|date('date_format.ymd'|trans) }}</span>.</p>
+        <p>{{ 'crh_monitoring.meeting.timeline.next_meeting'|trans }} <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.</p>
+        <p>{{ 'crh_monitoring.meeting.timeline.notified_at'|trans }} <span class="data">{{ task.data.get('notif_date')|date('date_format.ymd'|trans) }}</span>.</p>
     {% endif %}
 {% endblock %}

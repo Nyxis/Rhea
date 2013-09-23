@@ -47,7 +47,7 @@ class TaskCredentialsWarmer implements CacheWarmerInterface
 
                 foreach ($this->managedLocales as $locale) {
                     $credential->getTranslation($locale)
-                        ->setLabel($this->translator->trans(sprintf('%s_credential.%s',
+                        ->setLabel($this->translator->trans(sprintf('%s.credential.%s',
                             $wfName, $taskAccess
                         )));
                 }

@@ -6,6 +6,8 @@ use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\UserBundle\Model\MissionOrder;
 use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 
+use Extia\Bundle\UserBundle\Domain\MissionOrderDomain;
+
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,6 +19,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ChangeMissionHandler extends AdminHandler
 {
+    protected $missionOrderDomain;
+
+    /**
+     * construct
+     * @param MissionOrderDomain $missionOrderDomain [description]
+     */
+    public function __construct(MissionOrderDomain $missionOrderDomain)
+    {
+        $this->missionOrderDomain = $missionOrderDomain;
+    }
+
     /**
      * tests if form is valid for this handler
      *
@@ -78,10 +91,6 @@ class ChangeMissionHandler extends AdminHandler
             // end current mission
             $currentMissionOrder = $consultant->getCurrentMissionOrder($pdo);
             $currentMissionOrder->setEndDate($currentEndDate);
-            $currentMissionOrder->setCurrent(
-                time() > $currentMissionOrder->getBeginDate('U')
-                && time() < $currentMissionOrder->getEndDate('U')
-            );
 
             // delete next missions
             MissionOrderQuery::create()
@@ -108,11 +117,10 @@ class ChangeMissionHandler extends AdminHandler
                 );
             }
 
-            $nextMissionOrder->setCurrent(time() > $nextMissionOrder->getBeginDate('U'));
             $nextMissionOrder->save($pdo);
 
             // time between current and next mission -> ic
-            if (($nextMissionOrder->getBeginDate('U') - $currentMissionOrder->getEndDate('U')) > 48*3600) {
+            if (($nextMissionOrder->getBeginDate('U') - $currentMissionOrder->getEndDate('U')) > 72*3600) {
 
                 $icMission = $this->getManagerMission($consultant->getManagerId(), 'ic', $pdo);
 
@@ -121,19 +129,20 @@ class ChangeMissionHandler extends AdminHandler
                 $icMissionOrder->setConsultant($consultant);
                 $icMissionOrder->setBeginDate($currentMissionOrder->getEndDate());
                 $icMissionOrder->setEndDate($nextMissionOrder->getBeginDate('U') - 3600*24);
-                $icMissionOrder->setCurrent(
-                    time() > $icMissionOrder->getBeginDate('U')
-                    && time() < $icMissionOrder->getEndDate('U')
-                );
                 $icMissionOrder->save($pdo);
+
+                $nextMissionOrder = $icMissionOrder;
             }
 
-            // updates manager
-            $consultant->setManagerId(
-                $consultant->getCurrentMission($pdo)->getManagerId()
-            );
+            // triggers mission switching if next mission begins today
+            if ($nextMissionOrder->getBeginDate('Y-m-d') == date('Y-m-d')) {
 
-            $consultant->save($pdo);
+                // close current
+                $this->missionOrderDomain->close($currentMissionOrder, $pdo);
+
+                // make next current
+                $this->missionOrderDomain->start($nextMissionOrder, $pdo);
+            }
 
             $pdo->commit();
 

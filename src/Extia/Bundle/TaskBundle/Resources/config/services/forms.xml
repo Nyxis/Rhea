@@ -27,8 +27,9 @@
         </service>
 
         <service id="extia.node.abstract_handler" class="%extia.node.abstract_handler.class%" abstract="true">
-            <call method="setWorkflows">
+            <call method="setup">
                 <argument type="service" id="workflows" />
+                <argument type="service" id="notifier" />
             </call>
         </service>
 

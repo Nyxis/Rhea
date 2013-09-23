@@ -34,7 +34,14 @@ body {
     white-space: normal;
 }
 .breadcrumb li.active a, .breadcrumb li.active a:hover {
-    background: -moz-linear-gradient(center top , #ECECEC, #C5C5C5) repeat scroll 0 0 / 100% auto #C5C5C5;
+    background: #c5c5c5;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi…pZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ececec), color-stop(100%, #c5c5c5));
+    background-image: -webkit-linear-gradient(top, #ececec, #c5c5c5);
+    background-image: -moz-linear-gradient(top, #ececec, #c5c5c5);
+    background-image: -o-linear-gradient(top, #ececec, #c5c5c5);
+    background-image: linear-gradient(top, #ececec, #c5c5c5);
     color: #35353C;
     text-shadow: 0 1px 1px rgba(248, 248, 248, 0.5);
 }
@@ -105,11 +112,15 @@ a [class^="icon-"], a [class*=" icon-"] {
     display: inline-block;
     text-decoration: inherit;
 }
+
 .modal {
-    width: 700px;
+    width: 800px;
+    margin-left: -380px;
+    max-height: 700px;
+    overflow-y: auto;
 }
-.modal-body {
-    max-height: 500px;
+.modal.fade.in {
+    top: 5%;
 }
 .black-box .separator a.btn {
     color: #333333;
@@ -158,6 +169,58 @@ li.no-tasks {
     line-height: 20px;
     padding: 20px;
 }
+.task_modal .form-horizontal label.control-label{
+    text-align: left;
+    padding-left: 25px;
+}
+.task_modal .form-horizontal .dtable {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.task_modal .form-horizontal .dtable-cell + .dtable-cell {
+    vertical-align: middle;
+}
+.task_modal .form-horizontal .span6 label.control-label{
+    width: 115px;
+    text-align: left;
+    padding-left: 25px;
+}
+.task_modal .form-horizontal .span6 div.controls {
+    margin-left: 125px;
+}
+.task_modal .client {
+    font-size: 14px;
+    font-weight: normal;
+    padding-right: 20px;
+}
+
+.task_modal .report {
+    margin-left: 25px;
+}
+.task_modal .report .control-group{
+    margin-bottom: 10px;
+}
+.task_modal .report .control-group > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+.task_modal .report > label.control-label{
+    float: none;
+    margin-left: -25px;
+}
+.task_modal .report .control-group label.control-label{
+    width: 160px;
+    padding-left: 0px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+}
+.task_modal .form-horizontal .report .controls{
+    width: auto;
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
 .comments {
     display: none;
     padding-bottom: 10px;
@@ -251,17 +314,12 @@ blockquote .button i {
 .clt-badge, .int-badge {
     margin-top: 20px;
 }
+.clt-badge .dtable-cell, .int-badge .dtable-cell {
+    vertical-align: middle;
+}
 .box-body .clt-badge,
 .box-body .int-badge {
     margin-top: 0px;
-}
-.clt-badge a,
-.int-badge a {
-    color: inherit;
-}
-.clt-badge h4 a:hover,
-.int-badge h4 a:hover {
-    color: #005580 !important;
 }
 .black-box .clt-badge h4 a:hover,
 .black-box .int-badge h4 a:hover, {
@@ -269,8 +327,6 @@ blockquote .button i {
 }
 
 .box.consultants td.name {
-    max-width: 20%;
-    padding-left: 0px;
     font-weight: bold;
 }
 .box.consultants .table td .wrap {
@@ -308,7 +364,6 @@ blockquote .button i {
 .timeline_scrubber ul li a {
     padding-left: 20px;
 }
-
 
 .task_timeline .date-separator {
     color: #F1F1F1;
@@ -393,12 +448,21 @@ blockquote .button i {
     color: lightgrey;
 }
 
-.team-past-tasks .table td.name .wrap {
-    max-width: 220px;
-    min-width: 180px;
+.sidebar .table td.image {
+    padding-right: 0px;
+    text-align: left;
+    width: 30px;
+    box-sizing: content-box;
 }
-.team-past-tasks .table td.status .wrap {
-    max-width: 125px;
+.team-past-tasks .table td.image img {
+    width: 32px;
+}
+.team-past-tasks .table td.name {
+    width: 30%;
+}
+.team-past-tasks .table td.status .wrap > * {
+    display: inline-block;
+    margin-top: 3px;
 }
 .team-past-tasks .table td.status span+span {
     margin-top: 4px;

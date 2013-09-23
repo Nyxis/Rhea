@@ -6,7 +6,6 @@ use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
 
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * form handler for preparing node
@@ -17,7 +16,7 @@ class AnnualMeetingNodeHandler extends AbstractNodeHandler
     /**
      * {@inherit_doc}
      */
-    public function resolve(array $data, Task $task, Request $request, \Pdo $pdo = null)
+    public function resolve(array $data, Task $task, \Pdo $pdo = null)
     {
         $task->addDocument($data['annual_review_doc']);
 
@@ -33,6 +32,6 @@ class AnnualMeetingNodeHandler extends AbstractNodeHandler
 
         $task->save($pdo);
 
-        return $this->notifyNext('preparing', $task, $request, $pdo);
+        return $this->notifyNext('preparing', $task, array(), $pdo);
     }
 }

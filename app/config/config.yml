@@ -197,7 +197,7 @@ extia_group:
 
 # Document bundle
 extia_document:
-    upload_directory:   "%kernel.root_dir%/../data/"
+    upload_directory:   "%kernel.root_dir%/../data"
     allowed_extensions: [ 'pdf', 'doc', 'xls', 'ppt' ]
 
 # Easy task
@@ -215,13 +215,13 @@ easy_task_workflow:
             nodes:
                 bootstrap:
                     bootstrap: true
-                    route:      { pattern: "/bootstrap/{workflowId}" }
+                    route:      { pattern: "/{Id}/bootstrap" }
                     controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController }
                 appointement:
-                    route:      { pattern: "/appointement/{workflowId}" }
+                    route:      { pattern: "/{Id}/appointement" }
                     controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController }
                 meeting:
-                    route:      { pattern: "/meeting/{workflowId}" }
+                    route:      { pattern: "/{Id}/meeting" }
                     controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController }
 
         # Annual repport
@@ -236,14 +236,35 @@ easy_task_workflow:
             nodes:
                 initiation:
                     bootstrap: true
-                    route:      { pattern: "/initiation/{workflowId}" }
+                    route:      { pattern: "/{Id}/initiation" }
                     controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\InitiationNodeController }
                 preparing:
-                    route:      { pattern: "/preparing/{workflowId}" }
+                    route:      { pattern: "/{Id}/preparing" }
                     controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\PreparingNodeController }
                 annual_meeting:
-                    route:      { pattern: "/annual_meeting/{workflowId}" }
+                    route:      { pattern: "/{Id}/annual_meeting" }
                     controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\AnnualMeetingNodeController }
+
+        # Mission monitoring
+        mission_monitoring:
+            routes:
+                prefix: /mission_monitoring
+            actions:
+                node:     nodeAction
+                modal:    modalAction
+                notify:   notificationAction
+                timeline: timelineAction
+            nodes:
+                bootstrap:
+                    bootstrap: true
+                    route:      { pattern: "/{Id}/bootstrap" }
+                    controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\BootstrapNodeController }
+                appointement:
+                    route:      { pattern: "/{Id}/appointement" }
+                    controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\AppointementNodeController }
+                meeting:
+                    route:      { pattern: "/{Id}/meeting" }
+                    controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\MeetingNodeController }
 
 knp_paginator:
     page_range: 5
