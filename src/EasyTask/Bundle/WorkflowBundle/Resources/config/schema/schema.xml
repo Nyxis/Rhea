@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="default" namespace="EasyTask\Bundle\WorkflowBundle\Model">
+
+    <table name="workflow">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
+        <column name="type" type="VARCHAR" required="true" description="type of the task" />
+        <column name="name" type="VARCHAR" required="true" description="name" />
+        <column name="description" type="LONGVARCHAR" required="false" description="description" />
+        <behavior name="timestampable" />
+        <index>
+            <index-column name="type"/>
+        </index>
+    </table>
+
+    <table name="workflow_node">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
+        <column name="workflow_id" type="INTEGER" required="true" description="workflow fk" />
+        <column name="name" type="VARCHAR"  required="true" description="current state name" />
+        <column name="prev_id" type="VARCHAR"  required="false" description="prev state" />
+        <column name="next_id" type="VARCHAR"  required="false" description="next state" />
+        <column name="current" type="BOOLEAN" required="true" />
+        <column name="ended" type="BOOLEAN" required="false" default="false" />
+        <column name="completed_at" type="TIMESTAMP" required="false" description="date on node has been completed" />
+
+        <foreign-key foreignTable="workflow" skipSql="true">
+            <reference local="workflow_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="workflow_node" skipSql="true" phpName="PreviousNode">
+            <reference local="prev_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="workflow_node" skipSql="true" phpName="NextNode">
+            <reference local="next_id" foreign="id"/>
+        </foreign-key>
+
+        <behavior name="timestampable" />
+    </table>
+
+</database>

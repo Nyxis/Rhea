@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="default" namespace="Extia\Bundle\DocumentBundle\Model">
+
+    <!-- Documents table -->
+    <table name="document">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="name" type="VARCHAR" size="255" required="true" />
+        <column name="type" type="VARCHAR" size="255" required="true" />
+        <column name="path" type="VARCHAR" size="255" required="true" />
+
+        <behavior name="timestampable" />
+    </table>
+
+</database>

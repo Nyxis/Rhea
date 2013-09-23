@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block body_class %}group-admin{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="#"><i class="icon-cogs"></i> {{ 'menu.admin'|trans }}</a></li>
+        <li><a href="{{ path('GroupBundle_list') }}"><i class="icon-check"></i> {{ 'menu.groups'|trans }}</a></li>
+        {% block current_breadcrumb %}{% endblock %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    {% block content_top %}{% endblock content_top %}
+    <div class="row-fluid">
+        <div class="span9">
+            {% block main %}{% endblock main %}
+        </div>
+        <div class="span3">
+            {% block sidebar %}{% endblock sidebar %}
+        </div>
+    </div>
+{% endblock content %}

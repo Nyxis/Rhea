@@ -1,0 +1,126 @@
+{
+    "name": "extia/rhea",
+    "license": "MIT",
+    "description": "Human ressources management system",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.3.*",
+        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "twig/extensions": "1.0.*",
+        "symfony/assetic-bundle": "2.3.*",
+        "symfony/swiftmailer-bundle": "2.3.*",
+        "symfony/monolog-bundle": "2.3.*",
+        "sensio/distribution-bundle": "2.3.*",
+        "sensio/framework-extra-bundle": "2.3.*",
+        "sensio/generator-bundle": "2.3.*",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "propel/propel-bundle": "1.2.x",
+        "glorpen/propel-bundle": "1.2.*",
+
+        "leafo/lessphp": "dev-master",
+        "leafo/scssphp-compass": "dev-master",
+
+        "knplabs/knp-menu-bundle": "dev-master",
+        "knplabs/knp-paginator-bundle": "dev-master",
+
+        "twbs/bootstrap": "2.3.2",
+        "fortawesome/font-awesome": "*",
+        "mopa/bootstrap-bundle": "2.3.x-dev",
+        "extia/backend-tb-theme": "*",
+
+        "jquery/jquery": "1.10.*",
+        "jquery/tokeninput": "*",
+        "jquery/file-input": "*",
+        "jquery/form": "*",
+
+        "ornicar/gravatar-bundle": "dev-master"
+    },
+    "repositories": {
+        "glorpen/propel-bundle": {
+            "type": "vcs",
+            "url": "https://github.com/glorpen/GlorpenPropelBundle.git"
+        },
+        "extia/backend-tb-theme" : {
+            "type": "vcs",
+            "url": "https://github.com/extia/BackendBootstrapTheme.git"
+        },
+        "jquery/jquery": {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "1.10.2",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-1.10.2.js",
+                    "type": "file"
+                }
+            }
+        },
+        "jquery/file-input": {
+            "type": "package",
+            "package": {
+                "name": "jquery/file-input",
+                "version": "dev-master",
+                "dist": {
+                    "url": "http://gregpike.net/demos/bootstrap-file-input/bootstrap.file-input.js",
+                    "type": "file"
+                }
+            }
+        },
+        "jquery/form": {
+            "type": "package",
+            "package": {
+                "name": "jquery/form",
+                "version": "dev-master",
+                "dist": {
+                    "url": "http://malsup.github.io/min/jquery.form.min.js",
+                    "type": "file"
+                }
+            }
+        },
+        "jquery/tokeninput": {
+            "type": "package",
+            "package": {
+                "name": "jquery/tokeninput",
+                "version": "dev-master",
+                "dist": {
+                    "url": "https://github.com/loopj/jquery-tokeninput/zipball/master",
+                    "type": "zip"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "symlink",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "2.3-dev"
+        }
+    }
+}

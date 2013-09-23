@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="extia_group.form.group_type">Extia\Bundle\GroupBundle\Form\Type\GroupType</parameter>
+        <parameter key="extia_group.form.credentials_type">Extia\Bundle\GroupBundle\Form\Type\CredentialsType</parameter>
+
+        <parameter key="extia_group.form.group_handler">Extia\Bundle\GroupBundle\Form\Handler\GroupHandler</parameter>
+    </parameters>
+
+    <services>
+
+        <!-- Form -->
+        <service id="extia_group.form.group" class="Symfony\Component\Form\Form" factory-service="form.factory" factory-method="create">
+            <argument type="service" id="extia_group.form.group_type" />
+        </service>
+
+        <!-- Form Types -->
+        <service id="extia_group.form.group_type" class="%extia_group.form.group_type%">
+            <tag name="form.type" alias="group_form" />
+        </service>
+
+        <service id="extia_group.form.credentials_type" class="%extia_group.form.credentials_type%">
+            <tag name="form.type" alias="credentials_form" />
+        </service>
+
+        <!-- Form Handler -->
+        <service id="extia_group.form.group_handler" class="%extia_group.form.group_handler%">
+            <argument type="service" id="notifier" />
+            <argument type="service" id="logger" />
+            <argument>%kernel.debug%</argument>
+        </service>
+
+    </services>
+
+</container>

@@ -1,0 +1,7 @@
+{% if task.pastDays > 0 and task.isCompleted == true %}
+<p class="task_completion_info">
+    <span class="label label-info">
+        <i class="icon-info"></i> {{ 'task.handle_retard_of'|transchoice(task.pastDays, {'%retard%' : task.pastDays}) }}
+    </span>
+</p>
+{% endif %}

@@ -1,0 +1,31 @@
+{% extends 'ExtiaTaskBundle:Workflow:modal.html.twig' %}
+
+{% block modal_body %}
+    {% set clt = task.userTarget %}
+    <p class="form_hook">
+        {{ 'crh_monitoring.meeting.hook'|trans }} {{ clt.longName }},
+        {% if task.isPlanedToday %}
+            {{ 'crh_monitoring.meeting.today'|trans }}
+        {% elseif task.isPlanedTomorrow %}
+            {{ 'crh_monitoring.meeting.tomorrow'|trans }}
+        {% else %}
+            {{ task.activationDate(('crh_monitoring.meeting.date_format'|trans)) }}
+        {% endif %}
+        {{ 'crh_monitoring.meeting.at'|trans }}
+        {{ task.data.get('meeting_date')|date('H:i') }}
+    </p>
+    {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'with_contact': true, 'clt': clt.consultant } only %}
+{% endblock %}
+
+{% block modal_form %}
+    <div class="separator">
+        <div class="control-group field" id="{{ form.crh_meeting_doc.vars.id }}_control_group">
+            <label class="control-label required" for="{{ form.crh_meeting_doc.vars.id }}">{{ 'crh_monitoring.meeting.form.doc_label'|trans }}</label>
+            <div class="controls" id="{{ form.crh_meeting_doc.vars.id }}">
+                {{ form_widget(form.crh_meeting_doc) }}
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+    </div>
+{% endblock %}

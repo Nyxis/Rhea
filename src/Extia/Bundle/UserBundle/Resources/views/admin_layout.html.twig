@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        {% block inactive_breadcrumb %}
+            <li><a href="{{ path('UserBundle_consultant_list') }}"><i class="icon-bug"></i> {{ 'menu.consultants'|trans }}</a></li>
+        {% endblock %}
+        {% block current_breadcrumb %}{% endblock %}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    {% block content_top %}{% endblock content_top %}
+    <div class="row-fluid">
+        <div class="span9">
+            {% block main %}{% endblock main %}
+        </div>
+        <div class="span3">
+            {% block sidebar %}{% endblock sidebar %}
+        </div>
+    </div>
+{% endblock content %}

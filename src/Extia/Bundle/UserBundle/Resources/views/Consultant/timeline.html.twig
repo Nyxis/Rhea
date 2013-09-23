@@ -1,0 +1,123 @@
+{% extends 'ExtiaUserBundle::team_layout.html.twig' %}
+
+{% block inactive_breadcrumb %}
+    <li><a href="{{ path('UserBundle_consultant_list') }}"><i class="icon-bug"></i> {{ 'menu.consultants'|trans }}</a></li>
+    <li><a href="#">{{ user.longname }}</a></li>
+{% endblock %}
+{% block current_breadcrumb %}
+    <li class="active"><a href="#">{{ 'consultant.breadcrumbs.timeline'|trans }}</a></li>
+{% endblock %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box user-details consultant">
+                <div class="tab-header">
+                    <i class="icon-reorder"></i>
+                    {{ 'consultant.details.header'|trans }}
+                    {% if user.group is not empty %}{{ user.group.label|lower }}{% endif %}
+                </div>
+                <div class="box-body">
+                    <div class="clearfix">
+                        <div class="pull-left clt-header">
+                            {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'clt': user.consultant } only %}
+                        </div>
+                        <div class="pull-right status">
+                            {% include 'ExtiaUserBundle:Consultant:status.html.twig' with { 'consultant': user.consultant } only %}
+                        </div>
+                    </div>
+
+                    <div class="row-fluid data">
+                        <div class="span4 contacts">
+                            <h5>{{ 'consultant.details.contact'|trans }}</h5>
+                            <ul>
+                                <li><i class="icon-comment-alt"></i> {{ user.email }}</li>
+                                {% if user.telephone %}<li><i class="icon-phone"></i> {{ user.telephone }}</li>{% endif %}
+                                {% if user.mobile %}<li><i class="icon-mobile-phone"></i> {{ user.mobile }}</li>{% endif %}
+                            </ul>
+                        </div>
+                        <div class="span4">
+                            <h5>{{ 'consultant.details.contract.header'|trans }}</h5>
+                            <ul>
+                                <li>
+                                    <i class="icon-signin"></i>
+                                    {{ 'consultant.details.contract.begin'|trans }}
+                                    {{ user.contractBeginDate('date_format.ymd'|trans) }}
+                                </li>
+                                {% if user.resignation is not empty %}
+                                    <li>
+                                        <i class="icon-signout"></i>
+                                        {{ 'consultant.details.contract.end'|trans }}
+                                        {{ user.resignation.leaveAt('date_format.ymd'|trans) }}
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="span4 internals">
+                            <h5>{{ 'consultant.details.internals.header'|trans }}</h5>
+                            <dl class="dl-horizontal">
+                                <dt>{{ 'consultant.details.internals.crh'|trans }}</dt>
+                                <dd>{% include 'ExtiaUserBundle:Badges:internal_small.html.twig' with { 'int': user.crh } only %}</dd>
+                                <dt>{{ 'consultant.details.internals.manager'|trans }}</dt>
+                                <dd>{% include 'ExtiaUserBundle:Badges:internal_small.html.twig' with { 'int': user.manager } only %}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            {{  render(controller('ExtiaTaskBundle:Timeline:tasksTimeline', {
+                    'task_collection': tasks,
+                    'element_template': 'user_timeline_element.html.twig',
+                    '_task_redirect_url': app.request.server.get('REQUEST_URI')
+                }))
+            }}
+        </div>
+    </div>
+{% endblock main %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="big-button-bar">
+            <a href="{{ path('UserBundle_consultant_edit', user.routing) }}" class="button large">
+                <i class="icon-edit"></i>
+                <span>{{ 'consultant.actions.edit_user'|trans }}</span>
+            </a>
+            <a href="#change_mission" data-toggle="modal" role="button" class="button large">
+                <i class="icon-refresh"></i>
+                <span>{{ 'consultant.actions.change_mission'|trans }}</span>
+            </a>
+            <a href="{{ path('UserBundle_consultant_list') }}" class="button large">
+                <i class="icon-th-list"></i>
+                <span>{{ 'consultant.actions.back_list'|trans }}</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% render(controller('ExtiaUserBundle:Consultant:missions', { 'consultant': user })) %}
+{% render(controller('ExtiaUserBundle:Consultant:documents', { 'consultant': user })) %}
+{# <div class="row-fluid">
+    <div class="span12">
+        <div class="box">
+            <div class="tab-header">
+                <i class="icon-tasks"></i>
+                {{ 'consultant.tasks.header'|trans }}
+            </div>
+            <div class="box-body">
+                <ul>
+                    <li>Tache 1</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> #}
+{% endblock %}
+
+{% block modal %}
+    {{ render(controller('ExtiaTaskBundle:Task:differ', { 'redirect_url': path('UserBundle_consultant_timeline', user.routing) })) }}
+    {{ render(controller('ExtiaUserBundle:Consultant:changeMission', { 'consultant': user })) }}
+{% endblock %}

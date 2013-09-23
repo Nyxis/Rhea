@@ -1,0 +1,26 @@
+<div class="task_modal {{ task.node.workflow.type }}_{{ task.node.name }}">
+    <div class="modal-header tab-header">
+    {% block modal_header %}
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <span>{{ (task.node.workflow.type ~ '.label')|trans }} - {{ (task.node.workflow.type ~ '.' ~ task.node.name ~ '.label')|trans }}</span>
+    {% endblock %}
+    </div>
+    <div class="modal-body separator task-data">
+    {% block modal_body %}
+    {% endblock %}
+    </div>
+    <form class="form-horizontal" {{ form_enctype(form) }} method="POST" action="{{ node_link(task.node, nodeUrlParams) }}" >
+    {% form_theme form '::fields.html.twig' %}
+    {% block modal_form %}
+        {{ form_rest(form) }}
+    {% endblock %}
+    {% block modal_footer %}
+        <div class="modal-footer">
+            <div class="inner-well">
+                <button type="submit" class="button mini rounded">{{ 'task_submit'|trans }}</button>
+                <a class="button mini rounded light-gray" data-dismiss="modal">{{ 'modal_close'|trans }}</a>
+            </div>
+        </div>
+    {% endblock %}
+    </form>
+</div>

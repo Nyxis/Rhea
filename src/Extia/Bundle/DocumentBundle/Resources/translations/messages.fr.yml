@@ -1,0 +1,13 @@
+document:
+    form:
+        button_label: Sélectionnez un fichier
+    link:
+        download: Télécharger
+        upload: Mettre à jour
+    upload:
+        notification:
+            success: Votre fichier a bien été enregistré.
+            error: Une erreur est survenue lors de la gestion du fichier.
+            invalid_form: Le fichier transmis est incorrect, ou votre session a expiré.
+            error_too_large: Le fichier transmis est trop volumineux.
+            error_unsupported: Ce type de fichier n'est pas autorisé.

@@ -1,0 +1,88 @@
+{% extends 'ExtiaUserBundle:AdminConsultant:layout.html.twig' %}
+
+{% block main %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="tabbable box">
+            <div class="tab-header">
+                <i class="icon-bug"></i>
+                {% block form_header %}{% endblock %}
+            </div>
+            <form id="consultant-form" class="form-horizontal" method="POST" {{ form_enctype(form) }} autocomplete="off">
+                {% form_theme form '::fields.html.twig' %}
+
+                {% block nav_tabs %}
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#general">{{ 'consultant.admin.form.tab.general'|trans }}</a></li>
+                    <li><a data-toggle="tab" href="#security">{{ 'consultant.admin.form.tab.security'|trans }}</a></li>
+                </ul>
+                {% endblock %}
+                <div class="tab-content hpadded">
+                    <div id="general" class="tab-pane active">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <h4>{{ 'consultant.admin.form.header.civility'|trans }}</h4>
+                                {{ form_row(form.lastname) }}
+                                {{ form_row(form.firstname) }}
+                                {{ form_row(form.birthdate) }}
+
+                                <div class=" control-group" id="{{ form.image.vars.id }}">
+                                    {{ form_label(form.image) }}
+                                    <div class=" controls">
+                                        {{ form_widget(form.image, { 'attr': { 'title': 'internal.admin.form.image_button'|trans, 'data-document': true } }) }}
+                                    </div>
+                                </div>
+
+                                <h4>{{ 'consultant.admin.form.header.contact'|trans }}</h4>
+                                {{ form_row(form.email) }}
+                                {{ form_row(form.telephone) }}
+                                {{ form_row(form.mobile) }}
+                            </div>
+                            <div class="span6">
+                                <h4>{{ 'consultant.admin.form.header.contract'|trans }}</h4>
+                                {{ form_row(form.contractBeginDate) }}
+                                {{ form_row(form.job) }}
+                                {{ form_row(form.agency_id) }}
+                                {{ form_row(form.crh_id) }}
+                                {{ form_row(form.coopted_by_id) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% block mission '' %}
+                    <div id="security" class="tab-pane">
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <h4>{{ 'consultant.admin.form.header.credentials'|trans }}</h4>
+                                {{ form_row(form.group_id) }}
+                                {{ form_row(form.PersonCredentials) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% block tasks '' %}
+                    {% block resignation '' %}
+
+                    {{ form_rest(form) }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="big-button-bar">
+            <a href="#" class="button large" data-form="#consultant-form">
+                <i class="icon-ok"></i>
+                <span>{{ 'admin.buttons.save'|trans }}</span>
+            </a>
+            {% block timeline_link '' %}
+            <a href="{{ path('UserBundle_consultant_list') }}" class="button large">
+                <i class="icon-th-list"></i>
+                <span>{{ 'admin.buttons.list'|trans }}</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

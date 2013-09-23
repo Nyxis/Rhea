@@ -1,0 +1,125 @@
+{% extends 'ExtiaUserBundle:AdminInternal:layout.html.twig' %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="tabbable box">
+                <div class="tab-header">
+                    <i class="icon-user"></i>
+                    {% block form_header %}{% endblock %}
+                </div>
+                <form id="internal-form" class="form-horizontal" method="POST" {{ form_enctype(form) }} autocomplete="off">
+                    {% form_theme form '::fields.html.twig' %}
+
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#general">{{ 'internal.admin.form.tab.general'|trans }}</a></li>
+                        <li><a data-toggle="tab" href="#security">{{ 'internal.admin.form.tab.security'|trans }}</a></li>
+                        {% if form.resignation is defined %}
+                            <li><a data-toggle="tab" href="#resignation">{{ 'internal.admin.form.tab.resignation'|trans }}</a></li>
+                        {% endif %}
+                    </ul>
+                    <div class="tab-content hpadded">
+                        <div id="general" class="tab-pane active">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <h4>{{ 'internal.admin.form.header.civility'|trans }}</h4>
+                                    {% block civility %}
+                                        {{ form_row(form.lastname) }}
+                                        {{ form_row(form.firstname) }}
+                                        {{ form_row(form.birthdate) }}
+
+                                        <div class=" control-group" id="{{ form.image.vars.id }}">
+                                            {{ form_label(form.image) }}
+                                            <div class=" controls">
+                                                {{ form_widget(form.image, { 'attr': { 'title': 'internal.admin.form.image_button'|trans, 'data-document': true } }) }}
+                                            </div>
+                                        </div>
+
+                                    {% endblock %}
+                                    <h4>{{ 'internal.admin.form.header.contact'|trans }}</h4>
+                                    {% block contact %}
+                                        {{ form_row(form.email) }}
+                                        {{ form_row(form.telephone) }}
+                                        {{ form_row(form.mobile) }}
+                                    {% endblock %}
+                                </div>
+                                <div class="span6">
+                                    {% if form.update_password is defined %}
+                                        <h4>{{ 'internal.admin.form.header.authentication'|trans }}</h4>
+                                        {% block authentication %}
+                                            <div class="control-group" id="{{ form.update_password.vars.id }}">
+                                                <div class="controls">{{ form_widget(form.update_password) }}</div>
+                                            </div>
+                                            {{ form_row(form.password) }}
+                                        {% endblock %}
+                                    {% endif %}
+                                    <h4>{{ 'internal.admin.form.header.extia'|trans }}</h4>
+                                    {% block extia %}
+                                        {{ form_row(form.trigram) }}
+                                        {{ form_row(form.contractBeginDate) }}
+                                        {{ form_row(form.person_type_id) }}
+                                        {{ form_row(form.job) }}
+                                        {{ form_row(form.agency_id) }}
+                                        {{ form_row(form.parent) }}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                        <div id="security" class="tab-pane">
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <h4>{{ 'internal.admin.form.header.credentials'|trans }}</h4>
+                                    {% block credentials %}
+                                        {{ form_row(form.group_id) }}
+                                        {{ form_row(form.PersonCredentials) }}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                        {% if form.resignation is defined %}
+                        <div id="resignation" class="tab-pane">
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <h4>{{ 'internal.admin.form.header.resignation'|trans }}</h4>
+                                    {% block resignation %}
+                                        <div class="control-group" id="{{ form.resignation.resign_internal.vars.id }}">
+                                            <div class="controls">
+                                                {{ form_widget(form.resignation.resign_internal) }}
+                                            </div>
+                                        </div>
+                                        {{ form_rest(form.resignation) }}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {{ form_rest(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="big-button-bar">
+            <a href="#" class="button large" data-form="#internal-form">
+                <i class="icon-ok"></i>
+                <span>{{ 'admin.buttons.save'|trans }}</span>
+            </a>
+            {% if internal.isNew != true %}
+                <a href="{{ path('UserBundle_internal_timeline', internal.routing) }}" class="button large">
+                    <i class="icon-tasks"></i>
+                    <span>{{ 'admin.buttons.timeline'|trans }}</span>
+                </a>
+            {% endif %}
+            <a href="{{ path('UserBundle_internal_list') }}" class="button large">
+                <i class="icon-th-list"></i>
+                <span>{{ 'admin.buttons.list'|trans }}</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

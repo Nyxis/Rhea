@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="default" namespace="Extia\Bundle\MissionBundle\Model">
+
+    <table name="mission">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="manager_id" type="INTEGER" required="true" />
+        <column name="client_id" type="INTEGER" required="true" />
+        <column name="type" type="VARCHAR" size="20" required="true" />   <!-- @todo : ENUM -->
+        <column name="label" type="VARCHAR" size="255" required="true" />
+
+        <column name="contact_name" type="VARCHAR" size="255" required="false" />
+        <column name="contact_email" type="VARCHAR" size="255" required="false" />
+        <column name="contact_phone" type="VARCHAR" size="255" required="false" />
+
+        <foreign-key foreignTable="person" phpName="Manager">
+            <reference local="manager_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="client">
+            <reference local="client_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="client">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="title" type="VARCHAR" size="80" required="true" />
+        <column name="description" type="VARCHAR" size="255" required="false" />
+        <column name="address" type="VARCHAR" size="255" required="false" />
+        <column name="zip_code" type="INTEGER" size="5" required="false" />
+        <column name="city" type="VARCHAR" size="255" required="false" />
+        <column name="image" type="VARCHAR" size="255" required="false" />
+        <behavior name="timestampable" />
+        <behavior name="sluggable">
+            <parameter name="slug_column" value="slug" />
+            <parameter name="slug_pattern" value="{title}" />
+            <parameter name="replace_pattern" value="/[^\w\/]+/u" />
+            <parameter name="replacement" value="-" />
+            <parameter name="separator" value="/" />
+            <parameter name="scope_column" value="" />
+        </behavior>
+    </table>
+</database>

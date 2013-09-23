@@ -1,0 +1,55 @@
+<div id="new_mission" class="black-box modal hide fade">
+    <div class="modal-header tab-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <span>{{ 'mission.admin.modal.header'|trans }}</span>
+    </div>
+    <form action="{{ path('MissionBundle_mission_admin_new') }}" method="POST" class="form" {{ form_enctype(form) }}>
+        <div class="modal-body separator">
+        {% form_theme form '::fields.html.twig' %}
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group" id="{{ form.client_id.vars.id }}">
+                        {{ form_label(form.client_id) }}
+                        <div class="controls">
+                            {{ form_widget(form.client_id) }}
+                        </div>
+                    </div>
+                    {{ form_row(form.label) }}
+                    {{ form_row(form.manager_id) }}
+                    {{ form_row(form.contact_name) }}
+                    {{ form_row(form.contact_email) }}
+                    {{ form_row(form.contact_phone) }}
+                </div>
+                <div class="span6">
+                    <div id="modal_new_client_display" class="control-group">
+                        <label for="">{{ 'mission.admin.modal.or'|trans }}</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" value="0">
+                                {{ 'mission.admin.modal.new_client'|trans }}
+                            </label>
+                        </div>
+                    </div>
+                    <div id="new_client_form" style="display:none;">
+                        {{ form_row(form.client.title) }}
+                        {{ form_row(form.client.zipCode) }}
+                        {{ form_row(form.client.city) }}
+                        <div class="control-group" id="{{ form.client.image.vars.id }}">
+                            {{ form_label(form.client.image) }}
+                            <div class="controls">
+                                {{ form_widget(form.client.image, { 'attr': { 'title': 'client.admin.form.image_button'|trans, 'data-document': true } }) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+        </div>
+        <div class="modal-footer">
+            <div class="inner-well">
+                <button type="submit" class="button mini rounded">{{ 'mission.admin.modal.submit'|trans }}</button>
+                <a class="button mini rounded light-gray" data-dismiss="modal">{{ 'modal_close'|trans }}</a>
+            </div>
+        </div>
+    </form>
+</div>

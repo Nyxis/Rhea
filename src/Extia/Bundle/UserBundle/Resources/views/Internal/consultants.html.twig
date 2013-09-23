@@ -1,0 +1,52 @@
+{% if consultants.isEmpty() == false %}
+<div class="row-fluid internal-consultants">
+    <div class="span12">
+        <div class="box">
+            <div class="tab-header">
+                <i class="icon-bug"></i>
+                {{ 'internal.consultants.header'|trans }}
+            </div>
+            <table class="table table-striped consultants-list" data-pager="1">
+                <thead>
+                    <th colspan="2">{{ 'internal.consultants.th_name'|trans }}</th>
+                    <th>{{ 'internal.consultants.th_status'|trans }}</th>
+                    <th>{{ 'internal.consultants.th_internal'|trans }}</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                {% for clt in consultants %}
+                    <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                        <td><img src="{{ gravatar(clt.email, 30) }}"></td>
+                        <td class="name"><div class="wrap">{{ clt.longname }}</div></td>
+                        <td><span class="label">{{ ('user_status.' ~ clt.status)|trans }}</span></td>
+                        <td>
+                            {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': clt.crh } only %}
+                            {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': clt.manager } only %}
+                        </td>
+                        <td class="actions">
+                            <div class="btn-group">
+                                {% if is_granted('ROLE_CONSULTANT_READ', app.user) %}
+                                <a class="button" title="{{ 'internal.consultants.user_timeline_link'|trans }}"
+                                    href="{{ path('UserBundle_consultant_timeline', clt.routing) }}">
+                                    <i class="icon-tasks"></i>
+                                </a>
+                                {% endif %}
+                                {% if is_granted('ROLE_CONSULTANT_WRITE', app.user) %}
+                                <a class="button" title="{{ 'internal.consultants.user_edit_link'|trans }}"
+                                    href="{{ path('UserBundle_consultant_edit', clt.routing) }}">
+                                    <i class="icon-pencil"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <td colspan="5">{% include '::pagination.html.twig' %}</td>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}

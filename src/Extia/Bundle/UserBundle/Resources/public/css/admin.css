@@ -1,0 +1,39 @@
+/* -------------------------------- */
+/* lists                            */
+/* -------------------------------- */
+
+td span.client {
+    font-weight: bold;
+}
+td.referers {
+    width: 100px;
+}
+
+/* -------------------------------- */
+/* admin filters                    */
+/* -------------------------------- */
+
+.admin-filters select {
+    width: 206px;
+}
+
+/* -------------------------------- */
+/* admin form                       */
+/* -------------------------------- */
+
+body[class*="admin"] .form-horizontal h4 {
+    color: #666666;
+    margin-right: 35px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #666666;
+}
+body[class*="admin"] .form-horizontal div + h4 {
+    margin-top: 30px;
+}
+body[class*="admin"] .form-horizontal .control-label {
+    text-align: left;
+    width: 100px;
+}
+body[class*="admin"] .form-horizontal .controls {
+    margin-left: 120px;
+}

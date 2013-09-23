@@ -1,0 +1,67 @@
+{% extends 'ExtiaMissionBundle:AdminMission:layout.html.twig' %}
+
+{% block inactive_breadcrumb %}
+    {{ parent() }}
+    <li><a href="#">{{ mission.client.title }}</a></li>
+    <li><a href="#">{{ mission.label }}</a></li>
+{% endblock %}
+
+{% block current_breadcrumb %}
+    <li class="active"><a href="#">{{ 'mission.breadcrumbs.edit'|trans }}</a></li>
+{% endblock %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="tabbable box">
+                <div class="tab-header">{{ 'mission.admin.edit.header'|trans }} {{ mission.client.title }} - {{ mission.label }}</div>
+                <form id="mission-form" class="padded form-horizontal" method="POST" {{ form_enctype(form) }}>
+                    {% form_theme form '::fields.html.twig' %}
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <h4>{{ 'mission.admin.form.header.client'|trans }}</h4>
+
+                            {{ form_row(form.client.title) }}
+                            {{ form_row(form.client.zipCode) }}
+                            {{ form_row(form.client.city) }}
+
+                            <div class=" control-group" id="{{ form.client.image.vars.id }}">
+                                {{ form_label(form.client.image) }}
+                                <div class=" controls">
+                                    {{ form_widget(form.client.image, { 'attr': { 'title': 'client.admin.form.image_button'|trans, 'data-document': true } }) }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="span6">
+                            <h4>{{ 'mission.admin.form.header.mission'|trans }}</h4>
+                            {{ form_row(form.label) }}
+                            {{ form_row(form.manager_id) }}
+                            {{ form_row(form.contact_name) }}
+                            {{ form_row(form.contact_email) }}
+                            {{ form_row(form.contact_phone) }}
+                        </div>
+                    </div>
+                    {{ form_rest(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="big-button-bar">
+            <a href="#" class="button large" data-form="#mission-form">
+                <i class="icon-ok"></i>
+                <span>{{ 'admin.buttons.save'|trans }}</span>
+            </a>
+            <a href="{{ path('MissionBundle_mission_admin_list') }}" class="button large">
+                <i class="icon-th-list"></i>
+                <span>{{ 'admin.buttons.list'|trans }}</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

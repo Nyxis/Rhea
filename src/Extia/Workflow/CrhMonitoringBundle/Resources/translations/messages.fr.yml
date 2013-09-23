@@ -1,0 +1,56 @@
+crh_monitoring:
+    label: Suivi RH
+    default_name: Suivi RH %user_target%
+    default_desc: Suivi RH de %user_target%
+
+    credential:
+        read: Voir les suivis RH
+        write: Créer et réaliser des suivis RH
+
+    bootstrap:
+        label: Initialisation
+
+        hook: Veuillez remplir les informations nécessaires à l'initialisation du suivi :
+        notification: Le suivi RH a bien été initialisé pour le consultant %clt%. Vous serez notifié pour planifier le rendez vous le %notif_date%.
+        timeline:
+            hook: Initialisation suivi consultant
+            next_meeting: Point prévu aux alentours du
+            notified_at: Prise de date le
+
+        user_target_id: Consultant
+        next_date: Date théorique du prochain point
+
+    appointement:
+        label: Prise de rendez vous
+
+        meeting_date: Rendez-vous convenu le
+        hook: Planification du point RH de
+        notification: Point RH enregistré pour le consultant %clt%, le %meeting_date%.
+        timeline:
+            hook: Prise de date pour le point RH
+            meeting_date: Point prévu planifié le
+            meeting_date_format: d/m/Y à H:i
+
+    meeting:
+        label: Point RH
+
+        next_meeting: Prochain rendez-vous prévu dans
+        hook: Point RH avec
+        today: aujourd'hui
+        tomorrow: demain
+        date_format: \l\e d/m
+        at: à
+        time_format: à H:i
+        notification: Le point RH a été validé pour le consultant %clt%. Vous serez notifié pour planifier le prochain rendez vous le %notif_date%.
+        document:
+            name: point_rh
+        form:
+            doc_label: Compte rendu du point RH
+            doc_label_button: Télécharger le compte-rendu
+        timeline:
+            hook: Point RH
+            meeting_at: Rendez-vous
+            next_meeting: Prochain point prévu aux alentours du
+            notified_at: Prise de date le
+
+        next_meeting: Prochain rendez vous dans

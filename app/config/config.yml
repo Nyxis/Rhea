@@ -1,0 +1,277 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: @GlorpenPropelBundle/Resources/config/config.yml }
+
+services:
+    twig.extension.text:
+       class: Twig_Extensions_Extension_Text
+       tags:
+           - { name: twig.extension }
+
+framework:
+    #esi: ~
+    translator: { fallback: %locale% }
+    secret: %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale: "%locale%"
+    trusted_proxies: ~
+    trusted_hosts: []
+    session:
+        name: rhea_session
+        cookie_lifetime: 1800
+    fragments: ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    form:
+        resources:
+            - 'ExtiaDocumentBundle:Form:theme.html.twig'
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [ ]
+    filters:
+        cssrewrite: ~
+        scssphp:
+            compass: true
+            apply_to: "\.scss$"
+        lessphp:
+            apply_to: "\.less$"
+    assets:
+        # basic css compilation
+        compiled_css:
+            output: css/compiled.css
+            inputs:
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less
+                - %kernel.root_dir%/../vendor/fortawesome/font-awesome/css/font-awesome.css
+
+                # backend theme
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/mixin_helpers.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/navs_mixins.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/layout.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/form_elements.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/base.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/typography.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/widgets/login.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/breadcrumbs.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/modals.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/fixes.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/buttons.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/badges.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/navs.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/tables.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/animations.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/notifications.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/responsive-max1024.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/responsive-max768.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/responsive-max480.css
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/stylesheets/prettify.css
+
+                - %kernel.root_dir%/../app/Resources/public/css/token-input-rhea.less
+
+        # all js compilation
+        compiled_js:
+            output: js/compiled.js
+            inputs:
+                # jquery
+                - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
+                - %kernel.root_dir%/../vendor/jquery/file-input/bootstrap.file-input.js
+                - %kernel.root_dir%/../vendor/jquery/form/jquery.form.min.js
+                - %kernel.root_dir%/../vendor/jquery/tokeninput/src/jquery.tokeninput.js
+
+                # underscore (to remove asap)
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/javascripts/underscore.js
+
+                # bootstrap
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-transition.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-alert.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-button.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-carousel.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-collapse.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-dropdown.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-modal.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-tooltip.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-popover.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-scrollspy.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-tab.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-typeahead.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-affix.js
+
+                # backend theme
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/javascripts/template.js
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/javascripts/notification.js
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/javascripts/notifications.js
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/javascripts/login.js
+                - %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/javascripts/prettify.js
+
+        # tree js (error pages)
+        threejs:
+            output: js/three.js
+            inputs: [ %kernel.root_dir%/../vendor/extia/backend-tb-theme/build/javascripts/three.js ]
+
+        # font awesome
+        font_awesome_eot:
+            output: font/fontawesome-webfont.eot
+            inputs: [ %kernel.root_dir%/../vendor/fortawesome/font-awesome/font/fontawesome-webfont.eot ]
+        font_awesome_svg:
+            output: font/fontawesome-webfont.svg
+            inputs: [ %kernel.root_dir%/../vendor/fortawesome/font-awesome/font/fontawesome-webfont.svg ]
+        font_awesome_ttf:
+            output: font/fontawesome-webfont.ttf
+            inputs: [ %kernel.root_dir%/../vendor/fortawesome/font-awesome/font/fontawesome-webfont.ttf ]
+        font_awesome_woff:
+            output: font/fontawesome-webfont.woff
+            inputs: [ %kernel.root_dir%/../vendor/fortawesome/font-awesome/font/fontawesome-webfont.woff ]
+        font_awesome_otf:
+            output: font/fontawesome-webfont.eot
+            inputs: [ %kernel.root_dir%/../vendor/fortawesome/font-awesome/font/FontAwesome.otf ]
+
+
+
+# Propel configuration
+propel:
+    build_properties:
+        propel.useDateTimeClass: true
+        propel.dateTimeClass: DateTime
+        propel.defaultTimeStampFormat: null
+        propel.defaultTimeFormat: null
+        propel.defaultDateFormat: null
+
+        propel.mysql.tableType: InnoDB
+
+        propel.builder.pluralizer.class: builder.util.StandardEnglishPluralizer
+
+    # db connections
+    dbal:
+        default_connection:           default
+        connections:
+            default:
+                driver:               %database_driver%
+                user:                 %database_user%
+                password:             %database_password%
+                dsn:                  %database_driver%:host=%database_host%;dbname=%database_name%;charset=UTF8
+                options:              {}
+                attributes:           {}
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    spool:     { type: memory }
+
+# Gravatar bundle
+ornicar_gravatar:
+    rating: g
+    size: 20
+    default: monsterid
+
+# Knp menu
+knp_menu:
+    twig:
+        template: ExtiaMenuBundle:Menu:theme.html.twig
+
+# Mopa
+mopa_bootstrap:
+    form:
+        render_optional_text: false
+
+# Group bundle
+extia_group:
+    managed_locales: %managed_locales%
+
+# Document bundle
+extia_document:
+    upload_directory:   "%kernel.root_dir%/../data"
+    allowed_extensions: [ 'pdf', 'doc', 'xls', 'ppt' ]
+
+# Easy task
+easy_task_workflow:
+    workflows:
+        # Crh Monitoring
+        crh_monitoring:
+            routes:
+                prefix: /crh_monitoring
+            actions:
+                node:     nodeAction
+                modal:    modalAction
+                notify:   notificationAction
+                timeline: timelineAction
+            nodes:
+                bootstrap:
+                    bootstrap: true
+                    route:      { pattern: "/{Id}/bootstrap" }
+                    controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\BootstrapNodeController }
+                appointement:
+                    route:      { pattern: "/{Id}/appointement" }
+                    controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\AppointementNodeController }
+                meeting:
+                    route:      { pattern: "/{Id}/meeting" }
+                    controller: { class:   Extia\Workflow\CrhMonitoringBundle\Controller\MeetingNodeController }
+
+        # Annual repport
+        annual_review:
+            routes:
+                prefix: /annual_review
+            actions:
+                node:     nodeAction
+                modal:    modalAction
+                notify:   notificationAction
+                timeline: timelineAction
+            nodes:
+                initiation:
+                    bootstrap: true
+                    route:      { pattern: "/{Id}/initiation" }
+                    controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\InitiationNodeController }
+                preparing:
+                    route:      { pattern: "/{Id}/preparing" }
+                    controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\PreparingNodeController }
+                annual_meeting:
+                    route:      { pattern: "/{Id}/annual_meeting" }
+                    controller: { class:   Extia\Workflow\AnnualReviewBundle\Controller\AnnualMeetingNodeController }
+
+        # Mission monitoring
+        mission_monitoring:
+            routes:
+                prefix: /mission_monitoring
+            actions:
+                node:     nodeAction
+                modal:    modalAction
+                notify:   notificationAction
+                timeline: timelineAction
+            nodes:
+                bootstrap:
+                    bootstrap: true
+                    route:      { pattern: "/{Id}/bootstrap" }
+                    controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\BootstrapNodeController }
+                appointement:
+                    route:      { pattern: "/{Id}/appointement" }
+                    controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\AppointementNodeController }
+                meeting:
+                    route:      { pattern: "/{Id}/meeting" }
+                    controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\MeetingNodeController }
+
+knp_paginator:
+    page_range: 5
+    default_options:
+        page_name: page
+        sort_field_name: _sort
+        sort_direction_name: _direction
+        distinct: true
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig

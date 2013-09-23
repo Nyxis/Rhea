@@ -1,0 +1,86 @@
+mail: email
+telephone: téléphone
+mobile: mobile
+
+year: année
+month: mois
+day: jour
+
+months:
+    1: Janvier
+    2: Février
+    3: Mars
+    4: Avril
+    5: Mai
+    6: Juin
+    7: Juillet
+    8: Août
+    9: Septembre
+    10: Octobre
+    11: Novembre
+    12: Décembre
+days:
+    1: Lundi
+    2: Mardi
+    3: Mercredi
+    4: Jeudi
+    5: Vendredi
+    6: Samedi
+    7: Dimanche
+
+date_format:
+    ymd: 'd/m/Y'
+    md: 'd/m'
+datetime_format:
+    ymdhis: 'd/m/Y H:i:s'
+    ymdhi: 'd/m/Y H:i'
+    mdhi: 'd/m H:i'
+dateinterval_format:
+    year: "{0} |{1} 1 an|]1, Inf] %year% ans"
+    month: "{0} |[1, Inf] %month% mois"
+    day: "{0} |{1} 1 jour|]1, Inf] %day% jours"
+
+Previous: Précédent
+Next: Suivant
+
+menu:
+    dashboard: Organiseur
+    recent_activity: Activité récente
+    consultants: Consultants
+    managers: Managers
+    crh: CRH
+    admin: Administration
+    groups: Groupes
+    team: Mon équipe
+    internals: Internes
+    missions: Missions
+
+admin:
+    actions:
+        edit: Editer
+        delete: Supprimer
+    buttons:
+        save: Enregistrer
+        back: Retour
+        list: Liste
+        timeline: Timeline
+
+ajax_loading: Chargement
+logout_link: Déconnexion
+modal_close: Fermer
+
+http_errors:
+    500:
+        title: Erreur 500
+        message: Une erreur technique est survenue dans le traitement de votre requête. Veuillez nous excuser, et re-essayer plus tard.
+    404:
+        title: Erreur 404
+        message: La page demandée n'existe pas, avez vous entré la bonne adresse ?
+    403:
+        title: Erreur 403
+        message: Vous n'êtes pa autorisé à accéder à cette page. Vérifiez avec l'administrateur si votre niveau d'accès est suffisant.
+
+form:
+    submit: Sauvegarder
+    cancel: Annuler
+    close: Fermer

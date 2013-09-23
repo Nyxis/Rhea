@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="default" namespace="EasyTask\Bundle\LogBundle\Model\Log">
+
+    <!-- <behavior name="i18n">
+        <parameter name="i18n_columns" value="title"/>
+        <parameter name="default_locale" value="fr" />
+    </behavior>
+    <unique>
+        <unique-column name="tag"/>
+        <unique-column name="universe_id"/>
+    </unique>
+    <foreign-key foreignTable="universe" skipSql="true">
+        <reference local="universe_id" foreign="id"/>
+    </foreign-key> -->
+
+    <table name="log">
+        <vendor type="mysql">
+           <parameter name="Engine" value="MYISAM"/>
+        </vendor>
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
+        <column name="code" type="VARCHAR"  required="true" description="simply code for log type" />
+        <column name="message" type="LONGVARCHAR"  required="true" description="html string for message" />
+        <column name="tags" type="LONGVARCHAR"  required="true" description="tags for logs, for easy retrieving" />
+        <column name="date" type="TIMESTAMP"  required="true" />
+    </table>
+
+</database>

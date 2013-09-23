@@ -1,0 +1,9 @@
+{% if is_granted('ROLE_INTERNAL_READ', app.user) %}
+<a href="{{ path('UserBundle_internal_timeline', internal.routing) }}" >
+{% endif %}
+<span class="badge badge-user">
+    <i class="icon-user"></i> {{ internal.longname }}
+</span>
+{% if is_granted('ROLE_INTERNAL_READ', app.user) %}
+</a>
+{% endif %}

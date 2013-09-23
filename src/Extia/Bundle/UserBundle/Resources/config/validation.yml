@@ -1,0 +1,31 @@
+Extia\Bundle\UserBundle\Model\Consultant:
+    constraints:
+        - Propel\PropelBundle\Validator\Constraints\UniqueObject: { fields: [email] }
+    properties:
+        firstname:
+            - NotBlank: { groups: [consultant] }
+        lastname:
+            - NotBlank: { groups: [consultant] }
+        job:
+            - NotBlank: { groups: [consultant] }
+        email:
+            - NotBlank: { groups: [consultant] }
+            - Email: { groups: [consultant] }
+        crh_id:
+            - NotNull: { groups: [consultant] }
+
+Extia\Bundle\UserBundle\Model\Internal:
+    constraints:
+        - Propel\PropelBundle\Validator\Constraints\UniqueObject: { fields: [email] }
+    properties:
+        firstname:
+            - NotBlank: { groups: [internal] }
+        lastname:
+            - NotBlank: { groups: [internal] }
+        job:
+            - NotBlank: { groups: [internal] }
+        trigram:
+            - NotBlank: { groups: [internal] }
+        email:
+            - NotBlank: { groups: [internal] }
+            - Email: { groups: [internal] }

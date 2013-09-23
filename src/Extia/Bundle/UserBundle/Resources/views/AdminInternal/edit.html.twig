@@ -1,0 +1,11 @@
+{% extends 'ExtiaUserBundle:AdminInternal:form.html.twig' %}
+
+{% block inactive_breadcrumb %}
+    {{ parent() }}
+    <li><a href="{{ path('UserBundle_internal_timeline', internal.routing) }}">{{ internal.longName }}</a></li>
+{% endblock %}
+{% block current_breadcrumb %}
+    <li class="active"><a href="#">{{ 'internal.admin.breadcrumbs.edit'|trans }}</a></li>
+{% endblock %}
+
+{% block form_header %}{{ 'internal.admin.edit.header'|trans({ '%internal_name%': internal.longName }) }}{% endblock %}

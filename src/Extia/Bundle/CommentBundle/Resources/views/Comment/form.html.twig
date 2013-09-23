@@ -1,0 +1,10 @@
+<form method="post" {{ form_enctype(form) }} action="{{ path('CommentBundle_create_comment', { 'task_id': task.id }) }}">
+    <div>
+        {{ form_widget(form.text) }}
+        {{ form_rest(form) }}
+    </div>
+    <div class="btn-group">
+        <button type="submit" class="button"><i class="icon-ok"></i> {{ 'comment.form.submit'|trans }}</button>
+        <button class="button" data-form-comment-close ><i class="icon-remove"></i> {{ 'comment.form.close'|trans }}</button>
+    </div>
+</form>

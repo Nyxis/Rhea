@@ -1,0 +1,27 @@
+.notif_content {
+    width: 100%;
+}
+.notif_content > div {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 15px;
+}
+.notif_content .picto {
+    min-width: 50px;
+    max-width: 50px;
+    font-size: 30px;
+    text-align: center;
+    padding-right: 0px;
+}
+.notif_content .text {
+    text-align: left;
+    padding-right: 20px;
+    font-size: 1.5em;
+}
+.notif_content p{
+    margin: 0px;
+}
+.notif_content .notif-head{
+    font-weight: bold;
+    padding-bottom: 10px;
+}

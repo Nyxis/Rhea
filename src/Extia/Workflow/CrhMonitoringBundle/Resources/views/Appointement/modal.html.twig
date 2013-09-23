@@ -1,0 +1,21 @@
+{% extends 'ExtiaTaskBundle:Workflow:modal.html.twig' %}
+
+{% block modal_body %}
+    {% set clt = task.userTarget %}
+    <p class="form_hook">{{ 'crh_monitoring.appointement.hook'|trans }} {{ clt.longName }}</p>
+    {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'with_contact': true, 'clt': clt.consultant } only %}
+{% endblock %}
+
+{% block modal_form %}
+    <div class="separator">
+
+        <div class="control-group field" id="{{ form.meeting_date.vars.id }}_control_group">
+            <label class="control-label required" for="{{ form.meeting_date.vars.id }}">{{ 'crh_monitoring.appointement.meeting_date'|trans }}</label>
+            <div class="controls" id="{{ form.meeting_date.vars.id }}">
+                {{ form_widget(form.meeting_date) }}
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+    </div>
+{% endblock %}

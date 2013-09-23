@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="easy_task.workflows_container.class">Extia\Bundle\TaskBundle\Workflow\Aggregator</parameter>
+        <parameter key="extia.task.credentials_warmer.class">Extia\Bundle\TaskBundle\CacheWarmer\TaskCredentialsWarmer</parameter>
+        <parameter key="extia.task.security_voter.class">Extia\Bundle\TaskBundle\Security\Authorization\Voter\TaskVoter</parameter>
+    </parameters>
+
+    <services>
+
+        <!-- Credentials warmer -->
+        <service id="extia.task.credentials_warmer" class="%extia.task.credentials_warmer.class%">
+            <tag name="kernel.cache_warmer" />
+            <argument type="service" id="workflows" />
+            <argument type="service" id="translator" />
+            <argument>%managed_locales%</argument>
+        </service>
+
+        <!-- Task Voter -->
+        <service id="extia.task.security_voter" class="%extia.task.security_voter.class%">
+            <tag name="security.voter" />
+        </service>
+
+        <!-- Aggregator -->
+        <service id="easy_task.workflows_container" class="%easy_task.workflows_container.class%" >
+            <argument type="service" id="event_dispatcher" />
+            <call method="setup">
+                <argument type="service" id="security.context" />
+                <argument type="service" id="extia.task.security_voter" />
+            </call>
+        </service>
+
+    </services>
+
+</container>
