@@ -1,0 +1,43 @@
+UserBundle_consultant_list:
+    pattern: /
+    defaults:
+        _controller: 'ExtiaUserBundle:AdminConsultant:list'
+        _format: html
+    requirements:
+        _format: html
+
+UserBundle_consultant_new:
+    pattern: /new
+    defaults:
+        _controller: 'ExtiaUserBundle:AdminConsultant:new'
+        _format: html
+    requirements:
+        _format: html
+
+UserBundle_consultant_timeline:
+    pattern: /{Id}/{Url}/timeline
+    defaults:
+        _controller: 'ExtiaUserBundle:Consultant:timeline'
+        _format: html
+    requirements:
+        id: \d+
+        _format: html
+
+UserBundle_consultant_edit:
+    pattern: /{Id}/{Url}/edit
+    defaults:
+        _controller: 'ExtiaUserBundle:AdminConsultant:edit'
+        _format: html
+    requirements:
+        id: \d+
+        _format: html
+
+UserBundle_consultant_change_mission:
+    pattern: /{Id}/{Url}/change_mission
+    defaults:
+        _controller: 'ExtiaUserBundle:Consultant:changeMission'
+        _format: html
+    requirements:
+        id: \d+
+        _method: POST
+        _format: html

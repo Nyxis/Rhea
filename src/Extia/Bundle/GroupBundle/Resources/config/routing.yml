@@ -1,0 +1,27 @@
+GroupBundle_list:
+    pattern: /
+    defaults:
+        _controller: 'ExtiaGroupBundle:Admin:list'
+        _format: html
+
+GroupBundle_new:
+    pattern: /new
+    defaults:
+        _controller: 'ExtiaGroupBundle:Admin:new'
+        _format: html
+
+GroupBundle_edit:
+    pattern: "/{Id}/edit"
+    defaults:
+        _controller: 'ExtiaGroupBundle:Admin:edit'
+        _format: html
+    requirements:
+        Id: \d+
+
+GroupBundle_delete:
+    pattern: "/{Id}/delete"
+    defaults:
+        _controller: 'ExtiaGroupBundle:Admin:delete'
+        _format: html
+    requirements:
+        Id: \d+

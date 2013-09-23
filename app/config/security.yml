@@ -1,0 +1,47 @@
+security:
+
+    hide_user_not_found:  false
+
+    encoders:
+        Extia\Bundle\UserBundle\Model\Internal:
+            algorithm:   sha1
+            iterations: 1
+            encode_as_base64: false
+
+    role_hierarchy:
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN:
+            - ROLE_CONSULTANT_WRITE
+            - ROLE_CONSULTANT_READ
+            - ROLE_INTERNAL_WRITE
+            - ROLE_INTERNAL_READ
+            - ROLE_MISSION_WRITE
+            - ROLE_MISSION_READ
+
+    providers:
+        extia:
+            id: easy_task.user_provider
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  login$
+            security: false
+
+        secured_area:
+            pattern:    ^/
+            form_login:
+                provider:   extia
+                check_path: UserBundle_login_check
+                login_path: UserBundle_login
+            logout:
+                path:   UserBundle_logout
+                target: UserBundle_login
+
+    access_control:
+        - { path: login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: admin/, roles: ROLE_ADMIN }
+        - { path: ^/, roles: [ROLE_AUTHENTICATION] }

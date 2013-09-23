@@ -1,0 +1,45 @@
+/* missions list */
+.consultant-missions .missions-list td.image,
+.consultant-missions .missions-list td.image img {
+    width: 30px;
+}
+
+/* change mission modal */
+#change_mission {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+#change_mission h5 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    padding-bottom: 3px;
+    border-bottom: 1px white solid;
+}
+
+#change_mission .mission-display {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+#change_mission .mission-display .logo,
+#change_mission .mission-display .logo img {
+    width: 50px;
+    padding-left: 0px;
+}
+
+#change_mission .begin {
+    display: block;
+    margin-bottom: 15px;
+}
+
+#change_mission .or {
+    margin: 8px 0;
+}
+
+#change_mission .control-group.error .help-block,
+#change_mission .control-group.error .help-inline {
+    margin-top: 0px;
+    padding-left: 0px;
+}

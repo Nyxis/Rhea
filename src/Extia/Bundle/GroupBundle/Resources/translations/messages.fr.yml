@@ -1,0 +1,23 @@
+group:
+    admin:
+        breadcrumbs:
+            list: Liste
+            new: Nouveau
+            edit: Edition
+        notification:
+            validation_warning: Certains champs sont incorrect, impossible de sauvegarder le groupe.
+            save_success: Le groupe %group_label% a bien été sauvegardé.
+            save_error: Une erreur est survenue lors de la sauvegarde du groupe.
+            delete_error: Une erreur est survenue lors de la suppression du groupe %group_label%.
+            delete_success: Le groupe %group_label% a bien été supprimé.
+        sidebar:
+            button_new_group: Nouveau groupe
+        list:
+            header: Liste des groupes d'utilisateurs
+            th_group: Groupe
+            th_actions: Actions
+            credential: "[0, 1] niveau d'accès|]1,Inf] niveaux d'accès"
+        new:
+            header: Nouveau groupe
+        edit:
+            header: Edition du groupe %group_label%

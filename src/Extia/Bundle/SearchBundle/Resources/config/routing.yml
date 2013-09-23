@@ -1,0 +1,7 @@
+SearchBundle_search:
+    pattern: /
+    defaults:
+        _controller: 'ExtiaSearchBundle:Search:query'
+        _format: json|html
+    requirements:
+        q: \w+

@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<body class="login">
+    <div class="container">
+        <div class="login-wrapper" style="margin-top: 120px">
+            <div style="text-align: center">
+                <h1 class="logo-icon" style="font-size: 75px;">
+                    <i class="icon-group"></i> Rhea
+                </h1>
+                <br><br>
+            </div>
+
+            <div id="login-manager">
+                <div id="login" class="login-wrapper animated">
+                    <form action="{{ path('UserBundle_login_check') }}" method="POST" >
+                        {% if error %}
+                        <div class="alert alert-error">
+                            <a class="close" data-dismiss="alert" href="#">×</a>{{ error.message }}
+                        </div>
+                        {% endif %}
+                        <div class="input-group">
+                            <input type="text" id="_username" class="input-transparent" name="_username" placeholder="{{ 'username_label'|trans }}">
+                            <input type="password" id="_password" class="input-transparent" name="_password" placeholder="{{ 'password_label'|trans }}">
+                        </div>
+                        <button id="login-submit" type="submit" class="login-button">{{ 'login_button'|trans }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

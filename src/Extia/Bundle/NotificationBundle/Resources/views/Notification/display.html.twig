@@ -1,0 +1,30 @@
+<script type="text/html" id="template-notification">
+    <div class="notification animated fadeInLeftMiddle fast{{ '{{ item.itemClass }}' }}">
+        {{ '{{ item.text }}' }}
+        <i class="icon-remove-sign hide"></i>
+    </div>
+</script>
+<script type="text/html" id="template-notifications">
+    <div class="container">
+        <div class="row" id="notifications-wrapper">
+            <div id="notifications" class="span12 notifications animated">
+                <div id="dismiss-all" class="dismiss-all button">Dismiss all</div>
+                <div id="content">
+                    <div id="notes"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        {% for notif in notifier.all %}
+            Notifications.push({
+                "imagePath": 'placeholder',
+                "autoDismiss": 10,
+                "text": '{% autoescape false %}{{ notif }}{% endautoescape %}'
+            });
+        {% endfor %}
+    });
+</script>

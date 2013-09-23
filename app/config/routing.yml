@@ -1,0 +1,16 @@
+# ---------------------------------------
+# localized routes
+# ---------------------------------------
+localized_routing:
+    resource: "routing.localized.yml"
+    prefix:   /{_locale}/
+
+# ---------------------------------------
+# Others
+# ---------------------------------------
+home_redirection:
+    pattern:  /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /%locale%
+        permanent: true

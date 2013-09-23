@@ -1,0 +1,307 @@
+username_label: Email
+password_label: Mot de passe
+login_button: Connexion
+cancel_button: Annuler
+save_button: Enregistrer
+add_button: Ajouter
+
+user_status:
+    active: actif
+    placed: en mission
+    ic: en intercontrat
+    resigned: a démissioné
+    recruited: embauche directe
+
+person_type:
+    crh: Crh
+    dir: Directeur d'agence
+    ia: Manager
+    pdg: P. Directeur Gal
+
+admin:
+    form:
+        agency: Agence
+        agency_choices:
+            tan: Agence TAN
+            nrj: Agence NRJ
+            rha: Agence RHA
+            bch: Agence BCH
+            paca: Agence PACA
+            belgique: Agence BELGIQUE
+        resignation_code: Type de démission
+        resignation_code_choice:
+            resignation: Démission
+            end_test: Fin de PE
+            end_contract: Fin de contrat
+            end_training: Fin de stage
+            leaving: Abandon de poste
+        manager: Manager
+        crh: Crh
+        client: Client
+        internal_type: Poste
+        parent: Dans l'équipe de
+        sup_id: Dans l'équipe de
+    filters:
+        form:
+            submit: Filtrer la liste
+            reset: Réinitialiser
+
+consultant:
+    breadcrumbs:
+        timeline: Timeline
+        list: Liste
+    actions:
+        edit_user: Modifier l'utilisateur
+        change_mission: Changement de mission
+        back_list: Liste des consultants
+    details:
+        header: Détails
+        contact: Contact
+        contract:
+            header: Contrat
+            begin: arrivé le
+            end: parti le
+        internals:
+            header: Référents
+            crh: Crh
+            manager: Manager
+    admin:
+        breadcrumbs:
+            edit: Edition
+            new: Nouveau
+        list:
+            header: Consultants
+            th_name: Consultant
+            th_status: Statut
+            th_mission: Mission
+            th_begin_date: Contrat
+            th_internals: Référents
+            th_actions: Actions
+            timeline_link: Timeline
+            edit_link: Editer
+
+        validation:
+            email_already_exists: Un consultant ou un interne est déjà enregistré avec cet email.
+
+        filters:
+            header: Filtres
+            mine: Mes consultants
+            all: Tous les consultants
+            form:
+                display: Afficher
+                name: Nom
+                status: Statut
+
+        notifications:
+            filters_error: Les filtres soumis sont invalides.
+            invalid_form: Les champs soumis sont incomplets ou invalides.
+            save_success: Le consultant %consultant_name% a bien été sauvegardé.
+
+        sidebar:
+            button_new_consultant: Nouveau consultant
+
+        edit:
+            header: Edition du consultant %consultant_name%
+            mission: Liste des missions
+            civility: Civilité
+            file: Documents
+            img:
+                avatar:
+                    title:
+        new:
+            header: Nouveau consultant
+
+        form:
+            tab:
+                general: Info générales
+                mission: Mission
+                security: Droits d'accès
+                tasks: Tâches
+                resignation: Démission
+            header:
+                civility: Etat civil
+                contact: Contacts
+                contract: Contrat
+                mission: Première mission
+                credentials: Droits d'accès
+                tasks: Initier des tâches
+                resignation: Démission
+            lastname: Nom
+            firstname: Prénom
+            birthdate: Date de naissance
+            image: Photo
+            email: Email
+            telephone: Téléphone
+            mobile: Mobile
+            contract_begin: Date d'entrée
+            job: Poste
+            agency: Agence
+            crh: Crh
+            coopted_by: Coopté par
+            begin_at: Débute le
+            on_profile: Recrutement sur profil
+            manager: Manager
+            mission: Mission
+            add_mission: Nouvelle mission
+            group: Groupe d'accès
+            credentials: Droits d'accès
+            create_crh_monitoring: Créer un suivi RH
+            create_annual_review: Créer le bilan annuel
+            resign_consultant: Démissionner le consultant
+            resign_leave_at: Date de départ
+            resign_type: Type de démission
+            resign_reason: Commentaires
+            resign_options: Options
+            resign_options_choices:
+                close_tasks: Fermer les tâches du consultant (suivi RH, etc...)
+                end_mission: Mettre fin à la mission
+
+    missions:
+        header: Missions
+        th_mission: Client
+        th_dates: Dates
+        th_internal: Manager
+        mission_timeline_link: Timeline mission
+        mission_edit_link: Editer la mission
+
+    documents:
+        header: Documents
+    tasks:
+        header: Tâches en cours
+
+    change_mission:
+        header: Changement de mission
+        current_mission_hook: Mission actuelle
+        begin_date: A commencé le
+        next_mission_hook: Prochaine mission
+        next_mission_or: Ou
+        notifications:
+            invalid_form: Le formulaire de changement de mission contient des erreurs.
+        form:
+            end_date: Date de sortie
+            next_intercontract: Intercontrat
+            next_mission_id: Prochaine mission
+            next_begin_date: Débute le
+        validation:
+            begin_before_end: La prochaine mission ne peut commencer avant la fin de la mission actuelle
+        submit: Valider
+
+
+consultants:
+    intercontract:
+        box:
+            header: Mes consultants en intercontrat
+            th_name: Consultant
+            th_date_begin: Depuis le
+            th_internal: Référents
+            user_timeline_link: Timeline consultant
+            user_edit_link: Editer le consultant
+
+task:
+    team_past_tasks:
+        header: Taches en retard de mon équipe
+        th_wf_name: Tâche
+        th_status: Statut
+        retard_of: "{1} un jour|]1,Inf] %retard% jours"
+        details_link: Détails de la tâche
+        comment_link: Commentaires
+
+# Internals
+internal:
+    breadcrumbs:
+        dashboard: Organiseur
+        list: Liste
+    details:
+        header: Détails
+        contact: Contact
+        referer:
+            header: Référents
+            internal: Supérieur
+    actions:
+        edit_user: Editer l'interne
+        back_list: Liste des internes
+    consultants:
+        header: Consultants
+        th_name: Nom
+        th_status: Statut
+        th_internal: Référents
+        user_timeline_link: Timeline
+        user_edit_link: Editer
+    missions:
+        header: Missions
+        th_client: Client
+        th_mission: Libellé de mission
+        td_consultants: "{0} aucun consultants|{1} 1 consultant|]1, Inf] %nb% consultants"
+    admin:
+        breadcrumbs:
+            edit: Edition
+            new: Nouveau
+        sidebar:
+            button_new: Nouvel interne
+        list:
+            header: Liste des internes
+            th_name: Interne
+            th_internal_type: Poste
+            th_nb_clt: Nb Consultants
+            th_nb_ic: Nb Intercontrats
+            th_past_tasks: Tâches retard / total
+            th_actions: Actions
+            timeline_link: Timeline
+            edit_link: Editer
+        validation:
+            email_already_exists: Un consultant ou un interne est déjà enregistré avec cet email.
+        filters:
+            header: Filtres
+            mine: Mon équipe
+            all: Tous les internes
+            form:
+                display: Afficher
+                name: Nom
+                with_past_tasks: A des tâches en retard
+                with_ic: A des intercontrats
+        notifications:
+            invalid_form: Le formulaire contient des erreurs.
+            invalid_image: Le format de l'image est incorrect, png ou jpg seulement.
+            error_image: Une erreur s'est produite lors du téléchargement de l'image
+            save_success: L'interne %internal_name% a bien été enregistré
+            error: Une erreur s'est produite à l'enregistrement de l'interne.
+        form:
+            tab:
+                general: Info générales
+                security: Droits d'accès
+                resignation: Démission
+            header:
+                civility: Etat civil
+                extia: Extia
+                contact: Contact
+                authentication: Authentification
+                credentials: Droits d'accès
+                resignation: Démission
+            lastname: Nom
+            firstname: Prénom
+            image: Photo
+            image_button: Sélectionner
+            birthdate: Date de naissance
+            trigram: Trigramme
+            job: Mission
+            email: Email
+            telephone: Téléphone
+            mobile: Mobile
+            password: Mot de passe
+            update_password: Mettre à jour le mot de passe
+            confirm_password: Confirmez
+            group: Groupe d'accès
+            credentials: Droits d'accès personnels
+            resign_internal: Démissionner l'interne
+            resign_leave_at: Date de départ
+            resign_type: Type de démission
+            resign_reason: Commentaire
+            resign_assign_all_to: Réassigner les tâches, consultants et missions à
+
+        new:
+            header: Nouvel interne
+
+        edit:
+            header: Edition de l'interne %internal_name%
+            civility: Civilité
+            file: Documents

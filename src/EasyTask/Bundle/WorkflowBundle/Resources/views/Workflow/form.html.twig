@@ -1,0 +1,18 @@
+{% if workflow.new %}
+    {% set submit_url = path('WorkflowBundle_new_workflow') %}
+{% else %}
+    {% set submit_url = path('WorkflowBundle_edit_workflow', { 'workflow_id': workflow.id }) %}
+{% endif %}
+
+<form action="{{ submit_url }}" class="form-horizontal" method="post" {{ form_enctype(form) }}>
+    {{ form_rest(form) }}
+
+    <div class="modal-body separator">
+    </div>
+    <div class="modal-footer">
+        <div class="inner-well">
+            <button type="submit" class="button mini rounded">{{ 'workflow_submit'|trans }}</button>
+            <a class="button mini rounded light-gray" data-dismiss="modal">{{ 'workflow_cancel'|trans }}</a>
+        </div>
+    </div>
+</form>

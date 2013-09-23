@@ -1,0 +1,5 @@
+CommentBundle_create_comment:
+    pattern: /create/{task_id}
+    defaults:
+        _controller: ExtiaCommentBundle:Comment:form
+        _format: html

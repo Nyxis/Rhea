@@ -1,0 +1,5 @@
+{% if task.node.type.supportsAction('modal') %}
+    <div id="task_{{ task.id }}" class="black-box modal hide fade">
+        {{ render(controller(task.node.type.action('modal'), { 'workflow' : task.node.workflow, '_task_redirect_url': app.request.get('_task_redirect_url') })) }}
+    </div>
+{% endif %}

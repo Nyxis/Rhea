@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database defaultIdMethod="native" name="default" namespace="Extia\Workflow\MissionMonitoringBundle\Model">
+
+    <table name="mission_order_report">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+        <column name="mission_order_id" type="INTEGER" required="true" />
+        <column name="task_id" type="INTEGER" required="true" />
+
+        <column name="admin_rating" type="INTEGER" required="true" defaultValue="0" />
+        <column name="global_rating" type="INTEGER" required="true" defaultValue="0" />
+        <column name="reactivity_rating" type="INTEGER" required="true" defaultValue="0" />
+        <column name="expertise_rating" type="INTEGER" required="true" defaultValue="0" />
+
+        <behavior name="timestampable" />
+
+        <foreign-key foreignTable="mission_order" onDelete="cascade" onUpdate="cascade">
+            <reference local="mission_order_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="task" onDelete="cascade" onUpdate="cascade">
+            <reference local="task_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+</database>

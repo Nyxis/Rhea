@@ -1,0 +1,24 @@
+TaskBundle_workflow_history:
+    pattern: /{workflow_id}/history
+    defaults:
+        _controller: ExtiaTaskBundle:Task:workflowHistory
+        _format: html
+    requirements:
+        workflow_id: \d+
+
+TaskBundle_differ:
+    pattern: /differ
+    defaults:
+        _controller: ExtiaTaskBundle:Task:differ
+        _format: html
+    requirements:
+        _method: post
+
+WorkflowBundle_edit_workflow:
+    pattern: /{workflow_id}/edit
+    defaults:
+        _controller: ExtiaTaskBundle:Task:workflowEdit
+        _format: html
+    requirements:
+        workflow_id: \d+
+        _method: post

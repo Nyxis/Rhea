@@ -1,0 +1,9 @@
+_mission_company:
+    resource: "routing/company.yml"
+    prefix: /company
+
+_mission_admin:
+    resource: "routing/mission.yml"
+    prefix: /missions
+    defaults:
+        _menu: mission

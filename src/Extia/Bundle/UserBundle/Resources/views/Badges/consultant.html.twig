@@ -1,0 +1,29 @@
+<div class="clt-badge">
+    {% if with_contact|default(false) is not empty %}
+        <div class="pull-right clt_contact">
+            {% include 'ExtiaUserBundle:Badges:consultant_contact.html.twig' %}
+        </div>
+    {% endif %}
+    <div class="dtable">
+        {% set timeline_path = path('UserBundle_consultant_timeline', clt.routing) %}
+        <div class="dtable-cell gravatar">
+            <a href="{{ timeline_path }}">
+                {% if clt.image is not empty %}
+                    <img style="width: 50px; height: 50px;" src="{{ asset(clt.image) }}">
+                {% else %}
+                    <img src="{{ gravatar(clt.email, 50) }}">
+                {% endif %}
+            </a>
+        </div>
+        <h4 class="dtable-cell">
+            <a href="{{ timeline_path }}">{{ clt.longname }}</a><br />
+            <small>
+                {% if clt.status == 'placed' %}
+                    {{ clt.currentMission.fullLabel }}
+                {% else %}
+                    {{ clt.job }}
+                {% endif %}
+            </small>
+        </h4>
+    </div>
+</div>

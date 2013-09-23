@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <!-- Missions -->
+        <parameter key="extia_mission.form.mission_filters_type.class">Extia\Bundle\MissionBundle\Form\Type\MissionFiltersType</parameter>
+        <parameter key="extia_mission.form.mission_edit_type.class">Extia\Bundle\MissionBundle\Form\Type\MissionEditType</parameter>
+        <parameter key="extia_mission.form.mission_new_type.class">Extia\Bundle\MissionBundle\Form\Type\MissionNewType</parameter>
+        <parameter key="extia_mission.form.mission_handler.class">Extia\Bundle\MissionBundle\Form\Handler\MissionHandler</parameter>
+
+        <!-- Clients -->
+        <parameter key="extia_mission.form.client_type.class">Extia\Bundle\MissionBundle\Form\Type\ClientType</parameter>
+    </parameters>
+
+    <services>
+        <!-- Mission filters -->
+        <service id="extia_mission.form.mission_filters" class="Symfony\Component\Form\Form"
+            factory-service="form.factory" factory-method="create" >
+            <argument type="service" id="extia_mission.form.mission_filters_type" />
+        </service>
+        <service id="extia_mission.form.mission_filters_type" class="%extia_mission.form.mission_filters_type.class%"
+            parent="extia_user.admin.admin_form_type" >
+        </service>
+
+        <!-- Mission -->
+        <service id="extia_mission.form.mission_edit_type" class="%extia_mission.form.mission_edit_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="mission_edit_form" />
+        </service>
+        <service id="extia_mission.form.mission_new_type" class="%extia_mission.form.mission_new_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="mission_new_form" />
+        </service>
+        <service id="extia_mission.form.mission_handler" class="%extia_mission.form.mission_handler.class%">
+            <argument type="service" id="notifier" />
+            <argument>%kernel.root_dir%</argument>
+            <argument type="service" id="logger" />
+            <argument>%kernel.debug%</argument>
+        </service>
+
+
+        <!-- Client -->
+        <service id="extia_mission.form.client_type" class="%extia_mission.form.client_type.class%">
+            <tag name="form.type" alias="client_form" />
+        </service>
+    </services>
+</container>

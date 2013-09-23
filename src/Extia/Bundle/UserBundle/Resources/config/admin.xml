@@ -1,0 +1,100 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="extia_user.admin.admin_form_type.class">Extia\Bundle\UserBundle\Form\Type\AdminType</parameter>
+        <parameter key="extia_user.admin.admin_form_handler.class">Extia\Bundle\UserBundle\Form\Handler\AdminHandler</parameter>
+
+        <!-- Internal -->
+        <parameter key="extia_user.admin.internal_filters_form_type.class">Extia\Bundle\UserBundle\Form\Type\InternalListFiltersType</parameter>
+        <parameter key="extia_user.admin.internal_form_type.class">Extia\Bundle\UserBundle\Form\Type\InternalType</parameter>
+        <parameter key="extia_user.admin.internal_resignation_form_type.class">Extia\Bundle\UserBundle\Form\Type\InternalResignationType</parameter>
+        <parameter key="extia_user.admin.internal_form_handler.class">Extia\Bundle\UserBundle\Form\Handler\InternalHandler</parameter>
+
+        <!-- Consultant -->
+        <parameter key="extia_user.admin.consultant_filters_form_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantListFiltersType</parameter>
+        <parameter key="extia_user.admin.consultant_form_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantType</parameter>
+        <parameter key="extia_user.admin.consultant_resignation_form_type.class">Extia\Bundle\UserBundle\Form\Type\ConsultantResignationType</parameter>
+        <parameter key="extia_user.admin.consultant_form_handler.class">Extia\Bundle\UserBundle\Form\Handler\ConsultantHandler</parameter>
+    </parameters>
+
+    <services>
+
+        <!-- Admin form -->
+        <service id="extia_user.admin.admin_form_type" class="%extia_user.admin.admin_form_type.class%" abstract="true">
+            <argument type="service" id="security.context" />
+        </service>
+        <service id="extia_user.admin.admin_form_handler" class="%extia_user.admin.admin_form_handler.class%" abstract="true">
+            <call method="setLogger">
+                <argument type="service" id="logger" />
+                <argument>%kernel.debug%</argument>
+            </call>
+            <call method="setNotifier">
+                <argument type="service" id="notifier" />
+            </call>
+            <call method="setRootDir">
+                <argument>%kernel.root_dir%</argument>
+            </call>
+            <call method="setSession">
+                <argument type="service" id="session" />
+                <argument type="service" id="security.context" />
+            </call>
+            <call method="setValidator">
+                <argument type="service" id="validator" />
+            </call>
+            <call method="setTranslator">
+                <argument type="service" id="translator" />
+            </call>
+        </service>
+
+
+        <!-- Internals list filters -->
+        <service id="extia_user.admin.internal_filters_form" class="Symfony\Component\Form\Form"
+            factory-service="form.factory" factory-method="create" >
+            <argument type="service" id="extia_user.admin.internal_filters_form_type" />
+        </service>
+        <service id="extia_user.admin.internal_filters_form_type" class="%extia_user.admin.internal_filters_form_type.class%" parent="extia_user.admin.admin_form_type">
+        </service>
+
+        <!-- Internal form -->
+        <service id="extia_user.admin.internal_form_type" class="%extia_user.admin.internal_form_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="internal_form" />
+        </service>
+        <service id="extia_user.admin.internal_resignation_form_type" class="%extia_user.admin.internal_resignation_form_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="internal_resignation" />
+        </service>
+        <service id="extia_user.admin.internal_form_handler" class="%extia_user.admin.internal_form_handler.class%"
+            parent="extia_user.admin.admin_form_handler">
+        </service>
+
+
+        <!-- Consultants list filters -->
+        <service id="extia_user.admin.consultant_filters_form" class="Symfony\Component\Form\Form"
+            factory-service="form.factory" factory-method="create" >
+            <argument type="service" id="extia_user.admin.consultant_filters_form_type" />
+        </service>
+        <service id="extia_user.admin.consultant_filters_form_type" class="%extia_user.admin.consultant_filters_form_type.class%" parent="extia_user.admin.admin_form_type">
+        </service>
+
+        <!-- Consultant form -->
+        <service id="extia_user.admin.consultant_form_type" class="%extia_user.admin.consultant_form_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="consultant_form" />
+        </service>
+        <service id="extia_user.admin.consultant_resignation_form_type" class="%extia_user.admin.consultant_resignation_form_type.class%"
+            parent="extia_user.admin.admin_form_type">
+            <tag name="form.type" alias="consultant_resignation" />
+        </service>
+        <service id="extia_user.admin.consultant_form_handler" class="%extia_user.admin.consultant_form_handler.class%"
+            parent="extia_user.admin.admin_form_handler">
+            <argument type="service" id="workflows" />
+        </service>
+
+
+    </services>
+
+</container>

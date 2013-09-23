@@ -1,0 +1,144 @@
+{% extends 'ExtiaUserBundle::admin_layout.html.twig' %}
+
+{% block body_class %}user-admin{% endblock %}
+
+{% block current_breadcrumb %}
+    <li class="active"><a href="#">{{ 'consultant.breadcrumbs.list'|trans }}</a></li>
+{% endblock %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box">
+                <div class="tab-header">
+                    <i class="icon-th-list"></i>
+                    {{ 'consultant.admin.list.header'|trans }}
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <th colspan="2">
+                            <div class="wrap">{{ 'consultant.admin.list.th_name'|trans }}</div>
+                            {% include 'ExtiaUserBundle::sorts.html.twig' with { 'field': 'name', 'active': sort } only %}
+                        </th>
+                        <th>{{ 'consultant.admin.list.th_status'|trans }}</th>
+                        <th>
+                            <div class="wrap">{{ 'consultant.admin.list.th_mission'|trans }}</div>
+                            {% include 'ExtiaUserBundle::sorts.html.twig' with { 'field': 'mission', 'active': sort } only %}
+                        </th>
+                        <th>
+                            <div class="wrap">{{ 'consultant.admin.list.th_begin_date'|trans }}</div>
+                            {% include 'ExtiaUserBundle::sorts.html.twig' with { 'field': 'entry_date', 'active': sort } only %}
+                        </th>
+                        <th>{{ 'consultant.admin.list.th_internals'|trans }}</th>
+                        <th>{{ 'consultant.admin.list.th_actions'|trans }}</th>
+                    </thead>
+                    <tbody>
+                    {% for consultant in consultants %}
+                        <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                            <td class="image">
+                            {% if consultant.image is not empty %}
+                                <img style="width: 50px; height: 50px;" src="{{ asset(consultant.image) }}">
+                            {% else %}
+                                <img src="{{ gravatar(consultant.email, 50) }}">
+                            {% endif %}
+                            </td>
+                            <td class="name">
+                                <a href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">{{ consultant.longname }}</a><br/>
+                                {{ consultant.job }}
+                            </td>
+                            <td>
+                                {% include 'ExtiaUserBundle:Consultant:status.html.twig' with {'consultant': consultant} only %}
+                            </td>
+                            <td>
+                            {% if consultant.currentMission is not empty and consultant.currentMission.type == 'client' %}
+                                <span class="client">{{ consultant.currentMission.client.title }}</span><br/>
+                                {{ consultant.currentMission.label }}
+                            {% endif %}
+                            </td>
+                            <td>
+                                {{ consultant.contractBeginDate('date_format.ymd'|trans) }}
+                                {% if consultant.isActive != true %}
+                                    - {{ consultant.resignation.leaveAt('date_format.ymd'|trans) }}
+                                {% endif %}
+                                <br />
+                                {{ 'dateinterval_format.year'|transchoice(consultant.seniority.y, { '%year%':consultant.seniority.y }) }}
+                                {{ 'dateinterval_format.month'|transchoice(consultant.seniority.m, { '%month%':consultant.seniority.m }) }}
+                                {% if consultant.seniority.y == 0 and consultant.seniority.m == 0 %}
+                                    {{ 'dateinterval_format.day'|transchoice(consultant.seniority.d, { '%day%':consultant.seniority.d }) }}
+                                {% endif %}
+                            </td>
+                            <td class="referers">
+                                {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': consultant.crh } only %}
+                                {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': consultant.manager } only %}
+                            </td>
+                            <td class="actions">
+                                <div class="btn-group">
+                                    <a class="button" title="{{ 'consultant.admin.list.timeline_link'|trans }}"
+                                        href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}">
+                                        <i class="icon-tasks"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_CONSULTANT_WRITE', user) %}
+                                        <a class="button" title="{{ 'consultant.admin.list.timeline_link'|trans }}"
+                                            href="{{ path('UserBundle_consultant_edit', consultant.routing) }}">
+                                            <i class="icon-pencil"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <td colspan="7">{{ knp_pagination_render(consultants) }}</td>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="row-fluid">
+    <div class="span12">
+        {% if is_granted('ROLE_CONSULTANT_WRITE', user) %}
+        <div class="big-button-bar">
+            <a href="{{ path('UserBundle_consultant_new') }}" class="button large">
+                <i class="icon-plus"></i>
+                <span>{{ 'consultant.admin.sidebar.button_new_consultant'|trans }}</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="row-fluid admin-filters">
+    <div class="span12">
+        <div class="box">
+            <div class="tab-header">
+                <i class="icon-search"></i>
+                {{ 'consultant.admin.filters.header'|trans }}
+            </div>
+            <div class="padded">
+                <form class="form" method="POST" {{ form_enctype(form) }}>
+                    {% form_theme form '::fields.html.twig' %}
+
+                    {% if form.display is defined %}
+                    <div class="control-group horizontal" id="{{ form.display.vars.id }}">
+                        {{ form_label(form.display) }}
+                        <div class="controls">{{ form_widget(form.display) }}</div>
+                    </div>
+                    {% endif %}
+
+                    {{ form_rest(form) }}
+
+                    <div class="control-group actions">
+                        <div class=" controls">
+                            <input class="button" type="submit" value="{{ 'admin.filters.form.submit'|trans }}" />
+                            <input class="button" name="reset_filters" type="submit" value="{{ 'admin.filters.form.reset'|trans }}" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% if int is defined and int is not empty %}
+<a class="user" href="{{ path('UserBundle_internal_timeline', int.routing) }}">
+    <img src="{{ gravatar(int.email, gravatar_size|default(18)) }}">
+    {{ int.longname }}
+</a>
+{% endif %}

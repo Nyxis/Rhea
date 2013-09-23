@@ -1,0 +1,143 @@
+/* Example tokeninput style #1: Token vertical list*/
+ul.token-input-list-rhea {
+    overflow: hidden;
+    height: 32px;
+    width: 100%;
+    cursor: text;
+    z-index: 999;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    list-style-type: none;
+}
+
+ul.token-input-list-rhea li {
+    list-style-type: none;
+}
+
+ul.token-input-list-rhea li input {
+    border: 0;
+    width: 100%;
+    margin: 0;
+    background-color: white;
+}
+
+ul.token-input-list-rhea li input:focus {
+    box-shadow: none;
+}
+
+li.token-input-token-rhea {
+    overflow: hidden;
+    margin: 5px;
+
+    font-weight: bold;
+    display: block;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background-color: #e4e4e4;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f4f4f4', endColorstr='#eeeeee', GradientType=0);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
+    background-image: -webkit-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-image: -moz-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-image: -o-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    -webkit-box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    color: #333;
+    border: 1px solid #aaaaaa;
+    line-height: 13px;
+    padding: 3px 20px 3px 5px;
+    position: relative;
+    cursor: default;
+}
+
+li.token-input-token-rhea > p {
+    float: left;
+    padding: 0;
+    margin: 0;
+    width: 80%;
+    color: #333333;
+    cursor: default;
+    line-height: 13px;
+}
+
+li.token-input-token-rhea span {
+    float: right;
+    color: #777;
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    right: 3px;
+    top: 1px;
+    width: 12px;
+    font-size: 18px;
+}
+
+li.token-input-selected-token-rhea {
+    background-color: #08844e;
+    color: #fff;
+}
+
+li.token-input-selected-token-rhea span {
+    color: #bbb;
+}
+
+div.token-input-dropdown-rhea {
+    position: absolute;
+    background-color: #fff;
+    overflow: hidden;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    cursor: default;
+    z-index: 1;
+}
+
+div.token-input-dropdown-rhea p {
+    margin: 0;
+    padding: 5px;
+    font-weight: bold;
+    color: #777;
+}
+
+div.token-input-dropdown-rhea ul {
+    margin: 0;
+    padding: 0;
+}
+
+div.token-input-dropdown-rhea ul li {
+    background-color: #fff;
+    padding: 3px;
+    list-style-type: none;
+}
+
+div.token-input-dropdown-rhea ul li.token-input-dropdown-item-rhea {
+    background-color: #fafafa;
+}
+
+div.token-input-dropdown-rhea ul li.token-input-dropdown-item2-rhea {
+    background-color: #fff;
+}
+
+div.token-input-dropdown-rhea ul li em {
+    font-weight: bold;
+    font-style: normal;
+}
+
+div.token-input-dropdown-rhea ul li.token-input-selected-dropdown-item-rhea {
+    background-color: #3875d7;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3875d7', endColorstr='#2a62bc', GradientType=0);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));
+    background-image: -webkit-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+    background-image: -moz-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+    background-image: -o-linear-gradient(top, #3875d7 20%, #2a62bc 90%);
+    background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);
+    color: #fff;
+}

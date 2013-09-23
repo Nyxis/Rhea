@@ -1,0 +1,61 @@
+{% extends 'ExtiaUserBundle:AdminConsultant:form.html.twig' %}
+
+{% block current_breadcrumb %}
+    <li><a href="#">{{ consultant.longName }}</a></li>
+    <li class="active"><a href="#">{{ 'consultant.admin.breadcrumbs.edit'|trans }}</a></li>
+{% endblock %}
+
+{% block nav_tabs %}
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#general">{{ 'consultant.admin.form.tab.general'|trans }}</a></li>
+    <li><a data-toggle="tab" href="#security">{{ 'consultant.admin.form.tab.security'|trans }}</a></li>
+    <li><a data-toggle="tab" href="#resignation">{{ 'consultant.admin.form.tab.resignation'|trans }}</a></li>
+</ul>
+{% endblock %}
+
+{% block form_header %}{{ 'consultant.admin.edit.header'|trans({ '%consultant_name%': consultant.longName }) }}{% endblock %}
+
+{% block resignation %}
+<div id="resignation" class="tab-pane">
+    <div class="row-fluid">
+        <div class="span12">
+            <h4>{{ 'consultant.admin.form.header.resignation'|trans }}</h4>
+            {{ form_widget(form.resignation) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block timeline_link %}
+<a href="{{ path('UserBundle_consultant_timeline', consultant.routing) }}" class="button large">
+    <i class="icon-tasks"></i>
+    <span>{{ 'admin.buttons.timeline'|trans }}</span>
+</a>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{  parent() }}
+    <style>
+        .fill-up label {
+            display: inline;
+        }
+
+        .fill-up p, .fill-up .span12>div, .fill-up div.control-group {
+            padding-left: 140px;
+            width: 100%;
+            float: left;
+        }
+
+        .fill-up p label, .fill-up .span12>div>label, .fill-up div.control-group>label {
+            float: left;
+            margin-left: -140px;
+            text-align: right;
+            width: 130px;
+        }
+
+        .fill-up .profile-label  {
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}

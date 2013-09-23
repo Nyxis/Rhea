@@ -1,0 +1,9 @@
+UserBundle_login:
+    pattern: /login
+    defaults: { _controller: ExtiaUserBundle:Login:login }
+
+UserBundle_login_check:
+    pattern: /login_check
+
+UserBundle_logout:
+    pattern: /logout

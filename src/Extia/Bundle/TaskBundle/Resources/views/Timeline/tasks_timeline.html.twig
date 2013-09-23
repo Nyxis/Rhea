@@ -1,0 +1,44 @@
+<div class="row-fluid">
+    <div class="span10">
+        <div class="row-fluid">
+            <div class="span12 task_timeline">
+                {% for year, months in tasks %}
+                    <div id="timeline_year_{{ year }}">
+                        <div class="date-separator header">{{ year }}</div>
+                    {% for month, tasks in months %}
+                        <div id="timeline_month_{{ month }}">
+                            <div class="date-separator month-separator">{{ ('months.' ~ month)|trans }}</div>
+                        {% for task in tasks %}
+                            {% include 'ExtiaTaskBundle:Timeline:' ~ element_template with { 'task': task } only %}
+                            {% if task.node.current is not empty %}
+                                {% include 'ExtiaTaskBundle:Task:task_modal.html.twig'
+                                    with { 'task': task, '_task_redirect_url': app.request.get('_task_redirect_url') } only
+                                %}
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+        <div>
+            <ul class="timeline_scrubber">
+                {% for year, months in tasks %}
+                    <li class="menu_year">
+                        <a href="#timeline_year_{{ year }}">{{ 'year'|trans|capitalize }} {{ year }}</a>
+                        <ul>
+                        {% for month, tasks in months %}
+                            <li class="menu_month">
+                                <a href="#timeline_month_{{ month }}">{{ ('months.' ~ month)|trans }}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

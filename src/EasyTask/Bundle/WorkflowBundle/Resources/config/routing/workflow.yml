@@ -1,0 +1,13 @@
+WorkflowBundle_new_workflow:
+    pattern: "/new"
+    defaults:
+        _controller: EasyTaskWorkflowBundle:Workflow:form
+        _format: html
+
+WorkflowBundle_edit_workflow:
+    pattern: "/{workflow_id}/edit"
+    defaults:
+        _controller: EasyTaskWorkflowBundle:Workflow:form
+        _format: html
+    requirements:
+        workflow_id: \d+

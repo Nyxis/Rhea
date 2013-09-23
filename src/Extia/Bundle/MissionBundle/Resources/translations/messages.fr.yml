@@ -1,0 +1,77 @@
+mission:
+    # Form
+    label: Titre
+    manager: Manager
+    client: Société
+    type: Type
+
+    breadcrumbs:
+        list: Liste
+        edit: Edition
+
+    admin:
+        notification:
+            save_success: La mission "%mission_name%" a été enregistré
+
+        list:
+            header: Liste des missions
+            th_client: Client
+            th_label: Libellé
+            th_manager: Manager
+            th_nb_consultants: Nb de consultants
+            th_contact: Contact
+            th_actions: Actions
+            edit_button: Editer la mission
+
+        edit:
+            header: Edition mission
+
+        modal:
+            header: Nouvelle mission
+            or: ou
+            new_client: Créer un nouveau client
+            submit: Créer la mission
+
+        filters:
+            header: Filtres
+            form:
+                display: Afficher
+                mine: mes missions
+                all: toutes les missions
+                client_name: Nom client
+                mission_label: Libellé mission
+                manager: Missions de
+
+        form:
+            header:
+                client: Client
+                mission: Ordre de mission
+            label: Libellé
+            manager: Manager
+            contact_name: Contact
+            contact_email: Email
+            contact_phone: Téléphone
+            client_id: Sélectionner un client
+
+client:
+    admin:
+        form:
+            name: Nom
+            zipcode: Code postal
+            city: Ville
+            image: Logo
+            image_button: Télécharger le logo
+
+company:
+    admin:
+        notification:
+            save_success: La société "%company_name%" a été enregistré
+
+
+# form
+company:
+    title: Raison social
+    description: Description
+    address: Adresse
+    zipCode: Code Postal
+    city: Ville

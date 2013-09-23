@@ -1,0 +1,219 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1560" measuredH="1024" mockupW="1369" mockupH="1024">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="191" y="0" w="1360" h="1024" measuredW="450" measuredH="400" zOrder="0" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text>A%20Web%20Page%0Ahttp%3A//</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="191" y="72" w="1360" h="47" measuredW="100" measuredH="70" zOrder="1" locked="true" isInGroup="-1"/>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Canvas" x="191" y="116" w="255" h="881" measuredW="100" measuredH="70" zOrder="2" locked="true" isInGroup="-1"/>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Image" x="206" y="131" w="49" h="45" measuredW="77" measuredH="79" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="263" y="131" w="-1" h="-1" measuredW="105" measuredH="26" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>18</size>
+        <text>Nom%20Pr%E9nom</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="261" y="155" w="-1" h="-1" measuredW="116" measuredH="22" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>14</size>
+        <text>Fonction%20/%20mission</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Canvas" x="446" y="118" w="1105" h="84" measuredW="100" measuredH="70" zOrder="6" locked="true" isInGroup="-1"/>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::SearchBox" x="461" y="164" w="1075" h="-1" measuredW="120" measuredH="25" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>search</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::BreadCrumbs" x="461" y="132" w="-1" h="-1" measuredW="118" measuredH="24" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Consultants%2C%20Liste</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::List" x="191" y="189" w="255" h="492" measuredW="100" measuredH="252" zOrder="9" locked="true" isInGroup="-1">
+      <controlProperties>
+        <rowHeight>41</rowHeight>
+        <selectedIndex>3</selectedIndex>
+        <size>16</size>
+        <text>Organiseur%0AActivit%E9%20r%E9cente%0AMon%20%E9quipe%0AConsultants%0AMissions%0AAdministration</text>
+      </controlProperties>
+    </control>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::FieldSet" x="461" y="215" w="765" h="581" measuredW="200" measuredH="170" zOrder="10" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text>Liste%20des%20consultants</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::MultilineButton" x="1249" y="222" w="91" h="83" measuredW="93" measuredH="66" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cr%E9er%20un%0Aconsultant</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::FieldSet" x="1250" y="319" w="273" h="440" measuredW="200" measuredH="170" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Recherche</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::ButtonBar" x="1260" y="352" w="252" h="27" measuredW="252" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>-1</selectedIndex>
+        <text>Mes%20consultants%2C%20ts%20les%20consultants</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::TextInput" x="1371" y="403" w="141" h="-1" measuredW="79" measuredH="26" zOrder="14" locked="false" isInGroup="-1"/>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::Label" x="1264" y="406" w="-1" h="-1" measuredW="27" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nom</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Label" x="1266" y="540" w="-1" h="-1" measuredW="53" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Manager</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::Label" x="1266" y="586" w="-1" h="-1" measuredW="22" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Crh</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::Label" x="1266" y="630" w="-1" h="-1" measuredW="35" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Client</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::ComboBox" x="1371" y="630" w="-1" h="-1" measuredW="92" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nom%20client</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::ComboBox" x="1371" y="538" w="141" h="-1" measuredW="131" measuredH="24" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Trigramme%20-%20Nom</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::ComboBox" x="1371" y="584" w="141" h="-1" measuredW="131" measuredH="24" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Trigramme%20-%20Nom</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::Label" x="1266" y="450" w="-1" h="-1" measuredW="37" measuredH="21" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Statut</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::ComboBox" x="1371" y="448" w="141" h="-1" measuredW="58" measuredH="24" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>closed</state>
+        <text>Actif%0AInterco%0AEn%20mission%0AEmbauche%20directe%0AInactif</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Button" x="1266" y="706" w="-1" h="-1" measuredW="57" measuredH="27" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Filtrer</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Button" x="1340" y="706" w="-1" h="-1" measuredW="126" measuredH="27" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Annuler%20le%20filtrage</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::DataGrid" x="461" y="249" w="765" h="488" measuredW="390" measuredH="53" zOrder="26" locked="true" isInGroup="-1">
+      <controlProperties>
+        <text>Nom%20%5E%2C%20Mission%20%5Ev%2C%20Date%20d%27entr%E9e%20%5Ev%2C%20R%E9f%E9rents%2C%20Actions%0AClt1%2C%20Client%201%5CrMission%201%2C%20xx%20/%20xx%20/%20xxx%5Cr%20x%20ans%20x%20mois%2C%20crh_1%5Crmng_1%2C%20timeline%20-%20edit</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::ButtonBar" x="1018" y="753" w="-1" h="-1" measuredW="194" measuredH="27" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>-1</selectedIndex>
+        <text>%3C%2C%201%2C%202%2C%20...%2C%205%2C%20%3E</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::StickyNote" x="756" y="139" w="174" h="75" measuredW="109" measuredH="123" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Champs%20de%20tris%0A%28persistent%20en%20session%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Arrow" x="677" y="189" w="91" h="63" measuredW="150" measuredH="100" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <curvature>1</curvature>
+        <direction>bottom</direction>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::StickyNote" x="949" y="352" w="196" h="87" measuredW="109" measuredH="123" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Si%20filtre%20sur%20%22inactif%22%2C%0Aon%20affiche%20la%20date%20de%20sortie%0Aen%20plus%20dans%20la%20liste</text>
+      </controlProperties>
+    </control>
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::Arrow" x="1132" y="418" w="128" h="36" measuredW="150" measuredH="100" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <curvature>1</curvature>
+        <direction>top</direction>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::StickyNote" x="768" y="751" w="203" h="90" measuredW="109" measuredH="123" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Pagination%0A%28persiste%20en%20session%20tant%20que%20les%20filtres%20ne%20changent%20pas%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Arrow" x="914" y="759" w="104" h="32" measuredW="150" measuredH="100" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::StickyNote" x="1031" y="612" w="173" h="80" measuredW="109" measuredH="123" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Filtres%0A%28persistent%20en%20session%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Arrow" x="1180" y="681" w="102" h="25" measuredW="150" measuredH="100" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::Arrow" x="1356" y="733" w="47" h="108" measuredW="150" measuredH="100" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <curvature>-1</curvature>
+        <direction>top</direction>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::StickyNote" x="1389" y="801" w="171" h="80" measuredW="109" measuredH="123" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Annule%20tous%20les%20filtres%0A+%20tris%20+%20pagination</text>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::Label" x="1266" y="495" w="-1" h="-1" measuredW="46" measuredH="21" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Agence</text>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::ComboBox" x="1371" y="493" w="141" h="-1" measuredW="107" measuredH="24" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Paris%20Energie</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::StickyNote" x="971" y="450" w="153" h="80" measuredW="109" measuredH="123" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Par%20d%E9faut%20celle%20de%20l%27utilisateur%20actif</text>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Arrow" x="1108" y="502" w="152" h="10" measuredW="150" measuredH="100" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
