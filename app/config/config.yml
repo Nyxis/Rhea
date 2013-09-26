@@ -266,6 +266,27 @@ easy_task_workflow:
                     route:      { pattern: "/{Id}/meeting" }
                     controller: { class:   Extia\Workflow\MissionMonitoringBundle\Controller\MeetingNodeController }
 
+        # Lunches
+        # lunch:
+        #     routes:
+        #         prefix: /lunch
+        #     actions:
+        #         node:     nodeAction
+        #         modal:    modalAction
+        #         notify:   notificationAction
+        #         timeline: timelineAction
+        #     nodes:
+        #         bootstrap:
+        #             bootstrap: true
+        #             route:      { pattern: "/{Id}/bootstrap" }
+        #             controller: { class:   Extia\Workflow\LunchBundle\Controller\BootstrapNodeController }
+        #         appointement:
+        #             route:      { pattern: "/{Id}/appointement" }
+        #             controller: { class:   Extia\Workflow\LunchBundle\Controller\AppointementNodeController }
+        #         meeting:
+        #             route:      { pattern: "/{Id}/lunch" }
+        #             controller: { class:   Extia\Workflow\LunchBundle\Controller\LunchNodeController }
+
 knp_paginator:
     page_range: 5
     default_options:
