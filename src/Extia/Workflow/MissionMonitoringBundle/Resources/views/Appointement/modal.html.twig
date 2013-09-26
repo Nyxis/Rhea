@@ -1,7 +1,7 @@
 {% extends 'ExtiaTaskBundle:Workflow:modal.html.twig' %}
 
 {% block modal_body %}
-    {% set clt = task.userTarget %}
+    {% set clt = task.target('consultant') %}
     <p class="form_hook">{{ 'mission_monitoring.appointement.hook'|trans }} {{ clt.longName }}</p>
     {% include 'ExtiaUserBundle:Badges:consultant.html.twig' with { 'with_contact': true, 'clt': clt.consultant } only %}
 {% endblock %}
@@ -10,7 +10,7 @@
     <div class="separator">
         {%
             include 'ExtiaWorkflowMissionMonitoringBundle::client.html.twig' with {
-                'client':  task.userTarget.consultant.currentMission.client,
+                'client':  task.target('consultant').consultant.currentMission.client,
             } only
         %}
         <div class="row-fluid">

@@ -4,7 +4,10 @@ namespace Extia\Bundle\UserBundle\Model;
 
 use Extia\Bundle\UserBundle\Model\om\BaseConsultantQuery;
 
-class ConsultantQuery extends BaseConsultantQuery
+use Extia\Bundle\TaskBundle\Model\Task;
+use Extia\Bundle\TaskBundle\Workflow\TaskTargetQueryInterface;
+
+class ConsultantQuery extends BaseConsultantQuery implements TaskTargetQueryInterface
 {
     /**
      * filters query on consultant status
@@ -66,14 +69,25 @@ class ConsultantQuery extends BaseConsultantQuery
      */
     public function orderByCurrentMission($dir = \Criteria::ASC)
     {
-        return $this->useMissionOrderQuery()
+        return $this
+            ->useMissionOrderQuery()
                 ->filterByCurrent(true)
                 ->useMissionQuery()
                     ->useClientQuery()
                         ->orderByTitle($dir)
                     ->endUse()
                 ->endUse()
-            ->endUse();
+            ->endUse()
+        ;
+    }
+
+    /**
+     * @see TargetTaskQueryInterface::filterForTasks
+     */
+    public function filterForTasks()
+    {
+        // will be use for joinWith statements on task loading
+        return $this;
     }
 
 }

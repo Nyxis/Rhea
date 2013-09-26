@@ -1,7 +1,7 @@
 {% extends 'ExtiaTaskBundle:Workflow:modal.html.twig' %}
 
 {% block modal_body %}
-    {% set clt = task.userTarget %}
+    {% set clt = task.target('consultant') %}
     <p class="form_hook">
         {{ 'crh_monitoring.meeting.hook'|trans }} {{ clt.longName }},
         {% if task.isPlanedToday %}

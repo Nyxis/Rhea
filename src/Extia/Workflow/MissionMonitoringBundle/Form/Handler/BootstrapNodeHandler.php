@@ -18,7 +18,7 @@ class BootstrapNodeHandler extends AbstractNodeHandler
      */
     public function resolve(array $data, Task $task, \Pdo $pdo = null)
     {
-        $task->setUserTargetId($data['user_target_id']);
+        $task->addTarget($this->loadConsultant($data['user_target_id']), $pdo);
 
         $task->setActivationDate(strtotime(date('Y-m-d')));
         $task->defineCompletionDate('+1 day');

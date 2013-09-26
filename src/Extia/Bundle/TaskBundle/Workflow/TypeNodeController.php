@@ -90,7 +90,6 @@ class TypeNodeController extends EasyTaskTypeNodeController
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->joinWith('Node')
             ->joinWith('Node.Workflow')
-            ->joinWith('UserTarget', \Criteria::LEFT_JOIN)
 
             ->useNodeQuery()
                 ->filterByCurrent(true)

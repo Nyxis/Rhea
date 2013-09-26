@@ -43,7 +43,7 @@ class MeetingNodeController extends TypeNodeController
      */
     protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
     {
-        $nextTask->setUserTargetId($prevTask->getUserTargetId());
+        $nextTask->migrateTargets($prevTask);
 
         $nextTask->setActivationDate(strtotime(date('Y-m-d', $prevTask->data()->get('meeting_date'))));
         $nextTask->defineCompletionDate('+2 day');
@@ -76,7 +76,7 @@ class MeetingNodeController extends TypeNodeController
     protected function executeNode(Request $request, Task $task, $template)
     {
         $options = array(
-            'document_directory'  => $task->getUserTarget()->getUrl(),
+            'document_directory'  => $task->getTarget('consultant')->getUrl(),
             'document_name_model' => $this->get('translator')->trans(
                 'crh_monitoring.meeting.document.name', array(), 'messages', $this->container->getParameter('locale')
             )

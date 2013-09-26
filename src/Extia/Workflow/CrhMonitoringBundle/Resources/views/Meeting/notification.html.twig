@@ -1,1 +1,1 @@
-{{ 'crh_monitoring.meeting.notification'|trans({ '%clt%': task.userTarget.longName, '%notif_date%': task.data.get('notif_date')|date('d/m') }) }}
+{{ 'crh_monitoring.meeting.notification'|trans({ '%clt%': task.target('consultant').longName, '%notif_date%': task.data.get('notif_date')|date('d/m') }) }}

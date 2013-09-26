@@ -76,7 +76,7 @@ class MissionMonitoringBridge extends AbstractTaskBridge
                     ->filterByType($this->getBridgedWorkflow())
                 ->endUse()
             ->endUse()
-            ->filterByUserTargetId($consultant->getId())
+            ->filterByTarget($consultant)
 
             ->joinWith('Node')
             ->joinWith('Node.Workflow')

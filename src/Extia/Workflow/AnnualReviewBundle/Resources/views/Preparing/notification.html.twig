@@ -1,5 +1,5 @@
 {{ 'annual_review.preparing.notification'|trans({
-        '%clt%': task.userTarget.longName,
+        '%clt%': task.target('consultant').longName,
         '%notif_date%': task.data.get('notif_date')|date('date_format.md'|trans)
     })
 }}

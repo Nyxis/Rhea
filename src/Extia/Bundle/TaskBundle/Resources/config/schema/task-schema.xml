@@ -25,12 +25,21 @@
         <column name="activation_date" type="TIMESTAMP" required="false" description="date on task is activated" />
         <column name="completion_date" type="TIMESTAMP" required="false" description="date on task have to be completed" />
 
-        <column name="user_target_id" type="INTEGER" required="false" description="user whos concerned by the task" />
-        <foreign-key foreignTable="person" onDelete="setnull" onUpdate="cascade" phpName="UserTarget">
-            <reference local="user_target_id" foreign="id" />
+        <column name="data" type="LONGVARCHAR" required="false" description="json extra data for task" />
+
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="task_target">
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" description="id, primary key" />
+
+        <column name="task_id" type="INTEGER" required="true" />
+        <foreign-key foreignTable="task" onDelete="cascade" onUpdate="cascade">
+            <reference local="task_id" foreign="id" />
         </foreign-key>
 
-        <column name="data" type="LONGVARCHAR" required="false" description="json extra data for task" />
+        <column name="target_model" type="VARCHAR" required="true" size="255" description="related target model" />
+        <column name="target_id" type="INTEGER" required="true" description="related target id" />
 
         <behavior name="timestampable" />
     </table>

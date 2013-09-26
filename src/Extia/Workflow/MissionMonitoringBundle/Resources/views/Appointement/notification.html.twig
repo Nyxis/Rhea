@@ -1,7 +1,7 @@
 {{
     'mission_monitoring.appointement.notification'|trans({
-        '%clt%': task.userTarget.longName,
-        '%client%': task.userTarget.consultant.currentMission.client.title,
+        '%clt%': task.target('consultant').longName,
+        '%client%': task.target('consultant').consultant.currentMission.client.title,
         '%meeting_date%': task.data.get('meeting_date')|date('d/m')
     })
 }}

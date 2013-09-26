@@ -43,7 +43,7 @@ class PreparingNodeController extends TypeNodeController
      */
     protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
     {
-        $nextTask->setUserTargetId($prevTask->getUserTargetId());
+        $nextTask->migrateTargets($prevTask);
 
         // re assign to crh if we can
         if ($prevTask->data()->has('crh_id')) {
@@ -75,12 +75,12 @@ class PreparingNodeController extends TypeNodeController
     protected function executeNode(Request $request, Task $task, $template)
     {
         $data = array(   // default values
-            'manager_id'   => $task->getUserTarget()->getConsultant()->getManager()->getId(),
+            'manager_id'   => $task->getTarget('consultant')->getManager()->getId(),
             'meeting_date' => $task->data()->get('meeting_date')
         );
 
         $options = array(  // form options
-            'document_directory'  => $task->getUserTarget()->getUrl(),
+            'document_directory'  => $task->getTarget('consultant')->getUrl(),
             'document_name_model' => $this->get('translator')->trans(
                 'annual_review_preparing.document.name', array(), 'messages', $this->container->getParameter('locale')
             )

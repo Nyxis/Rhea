@@ -43,7 +43,7 @@ class AnnualMeetingNodeController extends TypeNodeController
      */
     protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
     {
-        $nextTask->setUserTargetId($prevTask->getUserTargetId());
+        $nextTask->migrateTargets($prevTask);
 
         $nextTask->data()->set('crh_id', $prevTask->getAssignedTo());
         $nextTask->setAssignedTo($prevTask->data()->get('manager_id'));
@@ -79,7 +79,7 @@ class AnnualMeetingNodeController extends TypeNodeController
     protected function executeNode(Request $request, Task $task, $template)
     {
         $options = array(  // form options
-            'document_directory'  => $task->getUserTarget()->getUrl(),
+            'document_directory'  => $task->getTarget('consultant')->getUrl(),
             'document_name_model' => $this->get('translator')->trans(
                 'annual_review_annual_meeting.document.name', array(), 'messages', $this->container->getParameter('locale')
             )

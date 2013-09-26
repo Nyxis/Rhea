@@ -31,7 +31,7 @@ class MeetingNodeHandler extends AbstractNodeHandler
         $report = $data['report'];
         $report->setTask($task);
         $report->setMissionOrder(
-            $task->getUserTarget()->getConsultant()->getCurrentMissionOrder()
+            $task->getTarget('consultant')->getCurrentMissionOrder()
         );
 
         $task->save($pdo);

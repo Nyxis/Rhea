@@ -21,8 +21,8 @@ class AnnualMeetingNodeHandler extends AbstractNodeHandler
         $task->addDocument($data['annual_review_doc']);
 
         $yearActivation = $task->getActivationDate('Y');
-        $monthContract  = $task->getUserTarget()->getInternal()->getContractBeginDate('m');
-        $dayContract    = $task->getUserTarget()->getInternal()->getContractBeginDate('d');
+        $monthContract  = $task->getTarget('consultant')->getContractBeginDate('m');
+        $dayContract    = $task->getTarget('consultant')->getContractBeginDate('d');
 
         $nextTimestamp = mktime(0, 0, 0, $monthContract, $dayContract, $yearActivation);
 

@@ -43,7 +43,7 @@ class AppointementNodeController extends TypeNodeController
      */
     protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
     {
-        $nextTask->setUserTargetId($prevTask->getUserTargetId());
+        $nextTask->migrateTargets($prevTask);
 
         $nextTask->setActivationDate($prevTask->data()->get('notif_date'));
         $nextTask->defineCompletionDate('+1 day');

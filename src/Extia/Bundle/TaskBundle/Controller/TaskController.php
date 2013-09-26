@@ -43,7 +43,7 @@ class TaskController extends Controller
 
             ->joinWithAll()
 
-            ->find();
+            ->findWithTargets();
 
         if ($tasks->isEmpty()) {
             throw new NotFoundHttpException(sprintf('Any tasks found for given workflow id : "%s"',

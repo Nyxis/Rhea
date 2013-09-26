@@ -3,8 +3,10 @@
 namespace Extia\Bundle\TaskBundle\Model;
 
 use Extia\Bundle\TaskBundle\Model\om\BaseTask;
+use Extia\Bundle\TaskBundle\Workflow\TaskTargetInterface;
 
 use Extia\Bundle\UserBundle\Model\PersonTaskDocument;
+
 use Extia\Bundle\DocumentBundle\Model\Document;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -139,10 +141,12 @@ class Task extends BaseTask
      */
     public function addDocument(Document $document)
     {
-        $personTaskDocument = new PersonTaskDocument();
-        $personTaskDocument->setPersonId($this->getUserTargetId());
-        $personTaskDocument->setDocument($document);
-        $personTaskDocument->setTask($this);
+        foreach ($this->getTargetedPersons() as $person) {
+            $personTaskDocument = new PersonTaskDocument();
+            $personTaskDocument->setPerson($person);
+            $personTaskDocument->setDocument($document);
+            $personTaskDocument->setTask($this);
+        }
 
         return $this;
     }
@@ -204,6 +208,125 @@ class Task extends BaseTask
         return $diffSeconds >= 3600*24 && $diffSeconds <= 3600*48;
     }
 
+    // ---------------------------------------------------------
+    // Proxy to targets
+    // ---------------------------------------------------------
+
+    protected $targets = array();
+
+    /**
+     * loads task targets
+     *
+     * @param  Pdo   $pdo opt pdo connection
+     * @return array
+     */
+    protected function loadTargets(\Pdo $pdo = null)
+    {
+        if (!empty($this->targets) && empty($pdo)) {
+            return $this->targets;
+        }
+
+        $this->targets = array();
+        foreach ($this->getTaskTargets() as $taskTarget) {
+            $this->targets[] = $taskTarget->getTarget($pdo);
+        }
+
+        return $this->targets;
+    }
+
+    /**
+     * retrieve all persons targeted by this task
+     *
+     * @param  string $model filter to only return targets of given model
+     * @param  Pdo    $pdo   opt pdo connection
+     * @return array
+     */
+    public function getTargets($model = null, \Pdo $pdo = null)
+    {
+        $targets = $this->loadTargets($pdo);
+
+        if (empty($model)) {
+            return $targets;
+        }
+
+        return array_filter($targets, function(TaskTargetInterface $target) use ($model) {
+            return $target->getModel() == $model;
+        });
+    }
+
+    /**
+     * defines task targets
+     * @param array $targets
+     */
+    public function setTargets($targets)
+    {
+        $this->targets = $targets;
+
+        return $this;
+    }
+
+    /**
+     * retrive first target for this task
+     *
+     * @param  string              $model
+     * @param  Pdo                 $pdo   pdo connection
+     * @return TaskTargetInterface
+     */
+    public function getTarget($model, \Pdo $pdo = null)
+    {
+        $targets = $this->getTargets($model, $pdo);
+
+        return empty($targets) ? $targets : array_shift($targets);
+    }
+
+    /**
+     * adds a new task target for this task
+     * @param  TaskTargetInterface $taskTarget object to target
+     * @return Task
+     */
+    public function addTarget(TaskTargetInterface $targetObject)
+    {
+        $taskTarget = new TaskTarget();
+        $taskTarget->setTargetModel(get_class($targetObject));
+        $taskTarget->setTargetId($targetObject->getPrimaryKey());
+        $taskTarget->setTask($this);
+
+        $this->targets[] = $targetObject;
+
+        return $this;
+    }
+
+    /**
+     * adds a new task target for this task
+     * @param  TaskTargetInterface $taskTarget object to target
+     * @return Task
+     */
+    public function removeTarget(TaskTargetInterface $targetObject)
+    {
+        foreach ($this->getTarget as $key => $target) {
+            if (get_class($targetObject) == get_class($target) && $targetObject->getPrimaryKey() == $target->getPrimaryKey()) {
+                unset($this->targets[$key]);
+                break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * migrate given task target to this one
+     *
+     * @param  Task $task task to migrate
+     * @return Task this task
+     */
+    public function migrateTargets(Task $task)
+    {
+        foreach ($task->getTaskTargets() as $taskTarget) {
+            $this->addTaskTarget(
+                $taskTarget->copy()
+            );
+        }
+    }
 
     // ---------------------------------------------------------
     // Temporal tools
