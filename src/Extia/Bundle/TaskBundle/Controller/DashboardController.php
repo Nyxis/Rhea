@@ -30,14 +30,13 @@ class DashboardController extends Controller
         $tasks = TaskQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->joinWith('Comment', \Criteria::LEFT_JOIN)
-            ->joinWithTargettedUser()
             ->joinWithCurrentNodes()
 
             ->filterByAssignedTo($userId)
             ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('write')))
 
             ->orderByActivationDate()
-            ->find()
+            ->findWithTargets()
             ->getData();
 
         $page--;

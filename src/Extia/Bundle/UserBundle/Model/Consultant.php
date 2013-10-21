@@ -4,7 +4,9 @@ namespace Extia\Bundle\UserBundle\Model;
 
 use Extia\Bundle\UserBundle\Model\om\BaseConsultant;
 
-class Consultant extends BaseConsultant
+use Extia\Bundle\TaskBundle\Workflow\TaskTargetInterface;
+
+class Consultant extends BaseConsultant implements TaskTargetInterface
 {
     protected $currentMissionOrder = false;
 
@@ -83,6 +85,14 @@ class Consultant extends BaseConsultant
         }
 
         return $this->currentMissionOrder;
+    }
+
+    /**
+     * @see TaskTargetInterface::getModel()
+     */
+    public function getModel()
+    {
+        return 'consultant';
     }
 
     // --------------------------------------------------

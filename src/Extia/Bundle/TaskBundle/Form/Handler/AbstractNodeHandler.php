@@ -4,6 +4,7 @@ namespace Extia\Bundle\TaskBundle\Form\Handler;
 
 use Extia\Bundle\TaskBundle\Model\Task;
 
+use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
 
 use EasyTask\Bundle\WorkflowBundle\Workflow\Aggregator;
@@ -129,5 +130,24 @@ abstract class AbstractNodeHandler
         }
 
         $workflow->save($con);
+    }
+
+    /**
+     * load consultant from it's id
+     * @param  int        $pk
+     * @return Consultant
+     */
+    protected function loadConsultant($pk, \Pdo $pdo = null)
+    {
+        $consultant = ConsultantQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->findPk($pk, $pdo)
+        ;
+
+        if (empty($consultant)) {
+            throw new \RuntimeException('Selected consultant doesnt exists for given id : '.$pk);
+        }
+
+        return $consultant;
     }
 }

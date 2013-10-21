@@ -43,7 +43,7 @@ class AppointementNodeController extends TypeNodeController
      */
     protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
     {
-        $nextTask->setUserTargetId($prevTask->getUserTargetId());
+        $nextTask->migrateTargets($prevTask);
 
         $nextTask->setActivationDate($prevTask->data()->get('notif_date'));
         $nextTask->defineCompletionDate('+1 day');
@@ -58,7 +58,7 @@ class AppointementNodeController extends TypeNodeController
      */
     protected function executeNode(Request $request, Task $task, $template)
     {
-        $clt  = $task->getUserTarget()->getConsultant();
+        $clt  = $task->getTarget('consultant');
 
         $form = $this->get('mission_monitoring.appointement.form')->setData(array(
             'meeting_date'  => $task->data()->get('meeting_date'),

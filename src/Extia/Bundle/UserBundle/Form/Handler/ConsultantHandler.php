@@ -228,7 +228,7 @@ class ConsultantHandler extends AdminHandler
                             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                             ->filterByCurrent(true)
                             ->useTaskQuery()
-                                ->filterByUserTargetId($consultant->getId())
+                                ->filterByTarget($consultant)
                             ->endUse()
                             ->find($pdo);
 

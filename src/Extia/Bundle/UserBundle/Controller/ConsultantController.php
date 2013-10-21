@@ -67,7 +67,7 @@ class ConsultantController extends Controller
             ->joinWithAll()
             ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
 
-            ->filterByUserTargetId($user->getId())
+            ->filterByTarget($user)
             ->_or()
             ->filterByAssignedTo($user->getId())
 
@@ -78,7 +78,7 @@ class ConsultantController extends Controller
                 ->orderByCurrent(\Criteria::DESC)
             ->endUse()
 
-            ->find();
+            ->findWithTargets();
 
         return $this->render('ExtiaUserBundle:Consultant:timeline.html.twig', array(
             'user'  => $user,
