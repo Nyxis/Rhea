@@ -2,6 +2,7 @@
 .bundle/
 .buildpath
 .project
+.idea
 .settings
 *.sublime-*
 
