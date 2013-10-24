@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  * bootstrap workflow node controller
  * @see Extia\Bundle\TaskBundle\Workflow\TypeNodeController
  */
-class LunchController extends TypeNodeController
+class LunchNodeController extends TypeNodeController
 {
     /**
      * {@inherit_doc}
