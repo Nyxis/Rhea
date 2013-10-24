@@ -5,6 +5,7 @@
 .idea
 .settings
 *.sublime-*
+.idea/*
 
 # Symfony directories
 bin/*
