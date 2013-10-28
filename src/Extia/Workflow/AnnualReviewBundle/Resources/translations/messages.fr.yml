@@ -1,5 +1,7 @@
-annual_review: 
+annual_review:
     label: Bilan annuel
+    default_name: Bilan annuel %user_target%
+    default_desc: Bilan annuel de %user_target%
 
     credential:
         read: Voir les bilans annuels
