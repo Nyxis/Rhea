@@ -2,7 +2,10 @@
 
 namespace Extia\Bundle\UserBundle\Bridge;
 
+use Extia\Bundle\UserBundle\Model\Consultant;
+
 use Extia\Bundle\TaskBundle\Model\Task;
+use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\TaskBundle\Workflow\Aggregator;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
@@ -77,5 +80,41 @@ abstract class AbstractTaskBridge
         return $task->getNode()->getType()->getHandler()->resolve(
             $nodeData, $task, $pdo
         );
+    }
+
+    /**
+     * close all mission monitoring for given consultant
+     *
+     * @param  Consultant $consultant
+     * @param  \Pdo       $pdo
+     * @return int        number of closed workflows
+     */
+    public function closeMonitorings(Consultant $consultant, \Pdo $pdo = null)
+    {
+        $tasks = TaskQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+
+            ->useNodeQuery()
+                ->filterByCurrent(true)
+                ->useWorkflowQuery()
+                    ->filterByType($this->getBridgedWorkflow())
+                ->endUse()
+            ->endUse()
+            ->filterByTarget($consultant)
+
+            ->joinWith('Node')
+            ->joinWith('Node.Workflow')
+
+            ->find($pdo)
+        ;
+
+        foreach ($tasks as $task) {
+            $node = $task->getNode();
+            $node->setEnded(true);
+            $node->setCurrent(false);
+            $node->save($pdo);
+        }
+
+        return $tasks->count();
     }
 }

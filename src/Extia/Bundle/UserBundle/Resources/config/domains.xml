@@ -6,6 +6,7 @@
     <parameters>
         <!-- Mission Order domain -->
         <parameter key="extia_user.domain.mission_order.class">Extia\Bundle\UserBundle\Domain\MissionOrderDomain</parameter>
+        <parameter key="extia_user.domain.consultant.class">Extia\Bundle\UserBundle\Domain\ConsultantDomain</parameter>
 
     </parameters>
 
@@ -13,6 +14,12 @@
         <!-- Mission Order domain -->
         <service id="extia_user.domain.mission_order" class="%extia_user.domain.mission_order.class%">
             <argument type="service" id="extia_user.bridge.mission_monitoring" />
+        </service>
+
+        <!-- Consultant domain -->
+        <service id="extia_user.domain.consultant" class="%extia_user.domain.consultant.class%">
+            <argument type="service" id="extia_user.bridge.crh_monitoring" />
+            <argument type="service" id="extia_user.bridge.annual_review" />
         </service>
 
     </services>
