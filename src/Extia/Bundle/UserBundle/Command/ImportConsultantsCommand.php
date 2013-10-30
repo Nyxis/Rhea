@@ -10,6 +10,9 @@ use Extia\Bundle\UserBundle\Model\PersonQuery;
 use Extia\Bundle\UserBundle\Model\PersonTypeQuery;
 
 use Extia\Bundle\GroupBundle\Model\GroupQuery;
+use Extia\Bundle\MissionBundle\Model\ClientQuery;
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
+use Extia\Bundle\MissionBundle\Model\MissionOrderQuery;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
@@ -154,7 +157,68 @@ class ImportConsultantsCommand extends ContainerAwareCommand
             // tmp manager
             $consultant->setManager($tmpManager);
 
+            // missions and orders
+            foreach ($consultantData['missions'] as $mission) {
+
+                $client = ClientQuery::create()
+                    ->filterByTitle($mission['client_name'])
+                    ->findOneOrCreate()
+                ;
+
+                if ($client->isNew()) {
+                    $client->save();
+
+                    $output->writeln(sprintf('> %s',
+                        $client->getTitle()
+                    ));
+                }
+
+                $manager = InternalQuery::create()
+                    ->filterByTrigram($mission['manager_trigram'])
+                    ->findOne()
+                ;
+
+                if (empty($manager)) {
+                    die;
+                }
+
+                $missionName = sprintf('%s - %s',
+                    $client->getSlug(), $mission['manager_trigram']
+                );
+                $email = sprintf('contact@%s.com',
+                    $client->getSlug()
+                );
+
+                // create mission if not exists
+                $mission = MissionQuery::create()
+                    ->filterByLabel($missionName)
+                    ->filterByContactEmail($email)
+                    ->filterByClientId($client->getId())
+                    ->filterByManagerId($manager->getId())
+                    ->findOneOrCreate()
+                ;
+
+                if ($mission->isNew()) {
+                    $mission->save();
+
+                    $output->writeln(sprintf('>> %s (%s) - %s',
+                        $mission->getLabel(),
+                        $mission->getContactEmail(),
+                        $manager->getEmail()
+                    ));
+                }
+
+                // create mission order on mission
+
+
+            }
+
             $consultant->save();
+
+            // resync mission_orders through domain
+            $this->getContainer()->get('extia_user.domain.mission_order')->synchronize(
+                new \DateTime(), $consultant
+            );
 
             $output->writeln(sprintf('%s %s %s',
                 $consultant->getFirstname(),
@@ -162,21 +226,6 @@ class ImportConsultantsCommand extends ContainerAwareCommand
                 $consultant->getEmail()
             ));
         }
-
-        // create missions and orders
-        foreach ($consultantList as $consultantData) {
-            $consultant = ConsultantQuery::create()
-                ->findOneByEmail($consultantData['email'])
-            ;
-
-            // missions and orders
-            foreach ($consultantData['missions'] as $mission) {
-                var_dump($mission);
-            }
-        }
-
-
-
     }
 }
 

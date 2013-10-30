@@ -39,11 +39,11 @@ class ConsultantDomain
         }
 
         $consultant->setPersonTypeId(
-                PersonTypeQuery::create()
-                    ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                    ->select('Id')
-                    ->findOneByCode('clt')
-            );
+            PersonTypeQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->select('Id')
+                ->findOneByCode('clt')
+        );
     }
 
     /**

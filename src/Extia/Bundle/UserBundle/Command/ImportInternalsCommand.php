@@ -78,6 +78,15 @@ class ImportInternalsCommand extends ContainerAwareCommand
         }
         fclose($handle);
 
+        // "hard" trigram
+        $hardTrigrams = array(
+            'edegand@extia.fr'    => 'EDE',
+            'edeschamps@extia.fr' => 'EMD',
+            'adupessey@extia.fr'  => 'AND',
+            'adupuy@extia.fr'     => 'ADU',
+            'mdefromont@extia'    => 'MDF'
+        );
+
         // all person type
         $personTypes = PersonTypeQuery::create()
             ->filterByCode(array('pdg', 'ia', 'crh'))
@@ -120,10 +129,14 @@ class ImportInternalsCommand extends ContainerAwareCommand
                 \DateTime::createFromFormat('d/m/y', $internalData['contract_begin_date'])
             );
 
-            $internal->setTrigram(strtoupper(sprintf('%s%s',
-                substr($internalData['firstname'], 0, 1),
-                substr($internalData['lastname'], 0, 2)
-            )));
+            $internal->setTrigram(
+                isset($hardTrigrams[$internalData['email']]) ?
+                    $hardTrigrams[$internalData['email']] :
+                    strtoupper(sprintf('%s%s',
+                        substr($internalData['firstname'], 0, 1),
+                        substr($internalData['lastname'], 0, 2)
+                    ))
+            );
 
             if ((int) substr($internalData['phone'], 1, 2) >= 6) {
                 $internal->setMobile($internalData['phone']);
