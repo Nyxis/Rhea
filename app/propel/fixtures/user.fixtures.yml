@@ -75,6 +75,12 @@ Extia\Bundle\GroupBundle\Model\Credential:
     annual_review_write:
         type: task
         code: workflow_annual_review_write
+    lunch_read:
+        type: task
+        code: workflow_lunch_read
+    lunch_write:
+        type: task
+        code: workflow_lunch_write
 
 Extia\Bundle\GroupBundle\Model\CredentialI18n:
     admin_fr:
@@ -131,6 +137,14 @@ Extia\Bundle\GroupBundle\Model\CredentialI18n:
         label: ""
     annual_review_write_fr:
         id: annual_review_write
+        locale: fr
+        label: ""
+    lunch_read_fr:
+        id: lunch_read
+        locale: fr
+        label: ""
+    lunch_write_fr:
+        id: lunch_write
         locale: fr
         label: ""
 
