@@ -194,6 +194,12 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_annual_review_write:
         GroupId: crh
         CredentialId: annual_review_write
+    gp_lunch_read:
+       GroupId: crh
+       CredentialId: lunch_read
+    gp_lunch_write:
+        GroupId: crh
+        CredentialId: lunch_write
     gp_manager_auth:
         GroupId: manager
         CredentialId: authentication
@@ -251,6 +257,12 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_pdg_annual_review_write:
         GroupId: pdg
         CredentialId: annual_review_write
+    gp_pdg_lunch_read:
+       GroupId: pdg
+       CredentialId: lunch_read
+    gp_pdg_lunch_write:
+        GroupId: pdg
+        CredentialId: lunch_write
     gp_da_admin:
         GroupId: da
         CredentialId: admin
@@ -293,3 +305,9 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_da_annual_review_write:
         GroupId: da
         CredentialId: annual_review_write
+    gp_da_lunch_read:
+       GroupId: da
+       CredentialId: lunch_read
+    gp_da_lunch_write:
+        GroupId: da
+        CredentialId: lunch_write
