@@ -1,2 +1,27 @@
 lunch:
     label: Déjeuner consultant
+    default_name: Déjeuner consultant %user_target%
+    default_desc: Déjeuner consultant de %user_target%
+
+    credential:
+        read: Voir les déjeuners consultant
+        write: Créer et réaliser des déjeuners consultant
+
+    bootstrap:
+        label: Initialisation
+
+        hook: Veuillez remplir les informations nécessaires à l'initialisation du déjeuner :
+        notification: Le déjeuner a bien été initialisé pour le consultant %clt%. Vous serez notifié pour planifier le déjeuner le %notif_date%.
+        timeline:
+            hook: Initialisation déjeuner consultant
+            next_meeting: Déjeuner prévu aux alentours du
+            notified_at: Prise de date le
+
+        mission_target_id: Mission
+        next_date: Date théorique du prochain déjeuner
+
+    appointement:
+        label: Prise de rendez vous
+
+    meeting:
+        label: Déjeuner consultant
