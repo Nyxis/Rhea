@@ -2,7 +2,9 @@
 
 namespace Extia\Workflow\LunchBundle\Form\Handler;
 
+use Extia\Bundle\TaskBundle\Model\om\BaseTaskTargetQuery;
 use Extia\Bundle\TaskBundle\Model\Task;
+use Extia\Bundle\TaskBundle\Model\TaskTarget;
 use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
 
 use Symfony\Component\Form\Form;
@@ -18,8 +20,6 @@ class BootstrapNodeHandler extends AbstractNodeHandler
      */
     public function resolve(array $data, Task $task, \Pdo $pdo = null)
     {
-        $task->setUserTargetId($data['mission_target_id']);
-
         $task->setActivationDate(strtotime(date('Y-m-d')));
         $task->defineCompletionDate('+1 day');
 
@@ -31,6 +31,10 @@ class BootstrapNodeHandler extends AbstractNodeHandler
 
         // updates workflow fields
         $this->updateWorkflow($data, $task, $pdo);
+
+        // Insert of task targets
+        $task->addTarget($this->loadMission($data['mission_target_id'], $pdo));
+
 
         $task->save($pdo);
 

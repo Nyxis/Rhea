@@ -34,7 +34,7 @@ class BootstrapNodeType extends AbstractNodeType
             'multiple' => false,
             'expanded' => false,
             'choices'  => $this->getMissionsChoices(),
-            'label'    => 'lunch.bootstrap.user_target_id'
+            'label'    => 'lunch.bootstrap.mission_target_id'
         ));
 
         $builder->add('next_date', 'date', array(
@@ -42,7 +42,7 @@ class BootstrapNodeType extends AbstractNodeType
             'widget'   => 'text',
             'input'    => 'timestamp',
             'format'   => 'dd/MM/yyyy',
-            'label'    => 'crh_monitoring.bootstrap.next_date'
+            'label'    => 'lunch.bootstrap.next_date'
         ));
     }
 }
