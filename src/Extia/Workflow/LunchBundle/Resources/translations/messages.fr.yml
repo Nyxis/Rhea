@@ -11,7 +11,7 @@ lunch:
         label: Initialisation
 
         hook: Veuillez remplir les informations nécessaires à l'initialisation du déjeuner :
-        notification: Le déjeuner a bien été initialisé pour le consultant %clt%. Vous serez notifié pour planifier le déjeuner le %notif_date%.
+        notification: Le déjeuner a bien été initialisé pour la mission %mission%. Vous serez notifié pour planifier le déjeuner le %notif_date%.
         timeline:
             hook: Initialisation déjeuner consultant
             next_meeting: Déjeuner prévu aux alentours du
@@ -22,6 +22,14 @@ lunch:
 
     appointement:
         label: Prise de rendez vous
+
+        meeting_date: Déjeuner convenu le
+        hook: Planification du déjeuner le
+        notification: Déjeuner enregistré pour la mission %mission%, le %meeting_date%.
+        timeline:
+            hook: Prise de date pour le déjeuner
+            meeting_date: Déjeuner prévu planifié le
+            meeting_date_format: d/m/Y à H:i
 
     meeting:
         label: Déjeuner consultant
