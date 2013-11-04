@@ -7,6 +7,7 @@ use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Tools\TemporalTools;
 
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
 use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
 
 use EasyTask\Bundle\WorkflowBundle\Workflow\Aggregator;

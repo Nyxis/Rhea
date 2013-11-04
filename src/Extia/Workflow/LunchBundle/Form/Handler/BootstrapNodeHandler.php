@@ -8,6 +8,7 @@ use Extia\Bundle\TaskBundle\Model\TaskTarget;
 use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
 
 use Symfony\Component\Form\Form;
+use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 
 /**
  * form handler for bootstrap node
@@ -24,7 +25,7 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         $task->defineCompletionDate('+1 day');
 
         // activate before given date for pre-notification
-        $task->data()->set('next_lunch_date', $data['next_date']);
+        $task->data()->set('next_meeting_date', $data['next_date']);
         $task->data()->set('notif_date',
             (int) $task->calculateDate($data['next_date'], '-7 days', 'U')
         );
@@ -32,10 +33,17 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         // updates workflow fields
         $this->updateWorkflow($data, $task, $pdo);
 
+        $consultants = MissionOrderQuery::create()
+            ->filterByMissionId($data['mission_target_id'])
+            ->select('ConsultantId')
+            ->find();
+
         // Insert of task targets
         $task->addTarget($this->loadMission($data['mission_target_id'], $pdo));
-
-
+        foreach ($consultants as $consultant_id)
+        {
+            $task->addTarget($this->loadConsultant($consultant_id, $pdo));
+        }
         $task->save($pdo);
 
         // notify next node

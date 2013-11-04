@@ -6,8 +6,9 @@ use Extia\Bundle\MissionBundle\Model\om\BaseMission;
 
 use Extia\Bundle\UserBundle\Model\Person;
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
+use Extia\Bundle\TaskBundle\Workflow\TaskTargetInterface;
 
-class Mission extends BaseMission
+class Mission extends BaseMission implements TaskTargetInterface
 {
     /**
      * returns mission full label
@@ -98,5 +99,13 @@ class Mission extends BaseMission
             $consultant->setManagerId($newManager->getId());
             $consultant->save($con);
         }
+    }
+
+    /**
+     * @see TaskTargetInterface::getModel()
+     */
+    public function getModel()
+    {
+        return 'mission';
     }
 }

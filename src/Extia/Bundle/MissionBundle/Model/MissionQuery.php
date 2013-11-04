@@ -3,8 +3,9 @@
 namespace Extia\Bundle\MissionBundle\Model;
 
 use Extia\Bundle\MissionBundle\Model\om\BaseMissionQuery;
+use Extia\Bundle\TaskBundle\Workflow\TaskTargetQueryInterface;
 
-class MissionQuery extends BaseMissionQuery
+class MissionQuery extends BaseMissionQuery implements TaskTargetQueryInterface
 {
     /**
      * order on related client name column
@@ -51,5 +52,14 @@ class MissionQuery extends BaseMissionQuery
     public function orderByContact($dir = \Criteria::ASC)
     {
         return $this->orderByContactName($dir);
+    }
+
+    /**
+     * @see TargetTaskQueryInterface::filterForTasks
+     */
+    public function filterForTasks()
+    {
+        // will be use for joinWith statements on task loading
+        return $this;
     }
 }
