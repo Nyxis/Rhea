@@ -37,6 +37,23 @@ class AppointementNodeController extends TypeNodeController
     }
 
     /**
+     * use hook method to adds prev task data into new
+     *
+     * {@inherit_doc}
+     */
+    protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
+    {
+        $nextTask->migrateTargets($prevTask);
+
+        $nextTask->setActivationDate($prevTask->data()->get('notif_date'));
+        $nextTask->defineCompletionDate('+1 day');
+
+        $nextTask->data()->set('meeting_date', $prevTask->data()->get('next_meeting_date'));
+
+        return parent::onTaskCreation($nextTask, $prevTask, $parameters, $connection);
+    }
+
+    /**
      * {@inherit_doc}
      */
     protected function executeNode(Request $request, Task $task, $template)
