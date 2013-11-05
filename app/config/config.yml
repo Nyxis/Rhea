@@ -283,7 +283,7 @@ easy_task_workflow:
                  appointement:
                      route:      { pattern: "/{Id}/appointement" }
                      controller: { class:   Extia\Workflow\LunchBundle\Controller\AppointementNodeController }
-                 meeting:
+                 lunch:
                      route:      { pattern: "/{Id}/lunch" }
                      controller: { class:   Extia\Workflow\LunchBundle\Controller\LunchNodeController }
 

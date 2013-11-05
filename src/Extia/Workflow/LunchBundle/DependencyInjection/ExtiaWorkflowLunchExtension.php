@@ -25,6 +25,6 @@ class ExtiaWorkflowLunchExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/workflows'));
         $loader->load('bootstrap.xml');
         $loader->load('appointement.xml');
-//         $loader->load('lunch.xml');
+        $loader->load('lunch.xml');
     }
 }
