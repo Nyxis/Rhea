@@ -64,13 +64,24 @@ class AgencyTaskController extends Controller
         ));
     }
 
-    public function agencyPastTasksAction(Request $request, Internal $internal)
+    public function agencyPastTasksAction(Request $request, $internalAgencyId)
     {
 
-        return $this->render('ExtiaAgencyBundle:Dashboard:agency_infos.html.twig', array(
-            'internals' => $internalCollection,
-            'consultants' => $consultantCollection,
-            'nbInMission' => $nbInMission
+        $taskCollection = TaskQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->joinWith('Comment', \Criteria::LEFT_JOIN)
+            ->joinWithCurrentNodes()
+
+            ->filterByAssignedTo($this->getAgencyIdsAction($internalAgencyId)->getData())
+            ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
+
+            ->filterByCompletionDate(array('max' => 'now'))
+
+            ->orderByActivationDate()
+            ->findWithTargets();
+
+        return $this->render('ExtiaAgencyBundle:Dashboard:agency_past_tasks.html.twig', array (
+
         ));
 
     }
