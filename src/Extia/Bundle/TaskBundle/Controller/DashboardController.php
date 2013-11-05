@@ -55,7 +55,7 @@ class DashboardController extends Controller
      */
     public function userDashboardAction(Request $request, $page = 1)
     {
-        if ($this->getUser()->getJob() == "Directeur d'agence")
+        if ($this->getUser()->getPersonTypeId() == 2)
         {
             return $this->render('ExtiaTaskBundle:Dashboard:da_dashboard.html.twig', array(
                 'user'  => $this->getUser()
