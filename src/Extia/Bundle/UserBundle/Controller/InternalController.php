@@ -111,7 +111,7 @@ class InternalController extends Controller
 
             ->find();
 
-        return $this->render('ExtiaUserBundle:Internal:intercontracts.html.twig', array(
+        return $this->render('ExtiaUserBundle:Internal:internals.html.twig', array(
             'internal'    => $internal,
             'consultants' => $consultantCollection
         ));
