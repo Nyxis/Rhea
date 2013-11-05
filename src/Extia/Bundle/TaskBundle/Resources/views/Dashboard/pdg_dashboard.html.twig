@@ -1,0 +1,23 @@
+{% extends 'ExtiaTaskBundle::task_layout.html.twig' %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <fieldset>
+                <legend>Synthèse de l'entreprise</legend>
+            </fieldset>
+            {% render(controller('ExtiaCEOBundle:CEO:CompanyInformations')) %}
+
+        </div>
+    </div>
+{% endblock main %}
+
+{% block sidebar %}
+    {{ parent() }}
+    <div class="row-fluid">
+        <div class="span12">
+            {#{% render(controller('ExtiaAgencyBundle:AgencyTask:agencyPastTasks', { 'internalAgencyId': app.user.AgencyId })) %}#}
+            <pre>{{ app.user }}</pre>
+        </div>
+    </div>
+{% endblock %}

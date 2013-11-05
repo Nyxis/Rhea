@@ -61,6 +61,12 @@ class DashboardController extends Controller
                 'user'  => $this->getUser()
              ));
         }
+        elseif($this->getUser()->getPersonTypeId() == 1)
+        {
+            return $this->render('ExtiaTaskBundle:Dashboard:pdg_dashboard.html.twig', array(
+                'user'  => $this->getUser()
+            ));
+        }
         else
         {
             return $this->render('ExtiaTaskBundle:Dashboard:user_dashboard.html.twig', array(
