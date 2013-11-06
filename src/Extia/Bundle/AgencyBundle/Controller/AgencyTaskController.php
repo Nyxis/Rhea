@@ -2,12 +2,14 @@
 
 namespace Extia\Bundle\AgencyBundle\Controller;
 
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowNode;
 use Extia\Bundle\UserBundle\Model\MissionOrder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Extia\Bundle\UserBundle\Model\Internal;
 use Extia\Bundle\TaskBundle\Model\Task;
 
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
+use EasyTask\Bundle\WorkflowBundle\Model\WorkflowNodeQuery;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
@@ -67,21 +69,18 @@ class AgencyTaskController extends Controller
     public function agencyPastTasksAction(Request $request, $internalAgencyId)
     {
 
-        $taskCollection = TaskQuery::create()
+        $taskCollection = WorkflowNodeQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Comment', \Criteria::LEFT_JOIN)
-            ->joinWithCurrentNodes()
+            ->joinWith('Task', \Criteria::LEFT_JOIN)
+            ->useTaskQuery()
+                ->filterByAssignedTo($this->getAgencyIdsAction($internalAgencyId)->getData())
+            ->endUse()
+            ->filterByCurrent(1)
 
-            ->filterByAssignedTo($this->getAgencyIdsAction($internalAgencyId)->getData())
-            ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
-
-            ->filterByCompletionDate(array('max' => 'now'))
-
-            ->orderByActivationDate()
-            ->findWithTargets();
+            ->find();
 
         return $this->render('ExtiaAgencyBundle:Dashboard:agency_past_tasks.html.twig', array (
-
+            'tasks' => $taskCollection
         ));
 
     }

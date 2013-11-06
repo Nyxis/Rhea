@@ -1,7 +1,26 @@
-<pre>
-    Nombre d'internes: {{ internals|length }}
-
-    Nombre de consultants: {{ consultants|length }}
-    En mission: {{ nbInMission }}
-    En intercontrat: {{ consultants|length - nbInMission }}
-</pre>
+<div class="box team-past-tasks">
+    <div class="tab-header">
+        <i class="icon-tasks"></i>
+        Agence: {{ app.user.Agency.Code }}
+    </div>
+    <table class="table table-striped">
+        <tbody>
+            <tr class="odd">
+                <td class="name">Nombre d'internes: </td>
+                <td class="name"><div class="wrap bolder">{{ internals|length }}</div></td>
+            </tr>
+            <tr class="even">
+                <td class="name">Nombre de consultants: </td>
+                <td class="name"><div class="wrap bolder">{{ consultants|length }}</div></td>
+            </tr>
+            <tr class="odd">
+                <td class="name">En mission: </td>
+                <td class="name"><div class="wrap bolder">{{ nbInMission }}</div></td>
+            </tr>
+            <tr class="even">
+                <td class="name">En intercontrat: </td>
+                <td class="name"><div class="wrap bolder">{{ consultants|length - nbInMission }}</div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
