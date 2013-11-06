@@ -4,6 +4,7 @@ namespace Extia\Workflow\LunchBundle\Controller;
 
 use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Workflow\TypeNodeController;
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
@@ -34,6 +35,32 @@ class LunchNodeController extends TypeNodeController
             'notification'     => 'ExtiaWorkflowLunchBundle:Lunch:notification.html.twig',
             'timeline_element' => 'ExtiaWorkflowLunchBundle:Lunch:timeline_element.html.twig'
         );
+    }
+
+    /**
+     * use hook method to adds prev task data into new
+     *
+     * {@inherit_doc}
+     */
+    protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
+    {
+        $taskTargets = $prevTask->getTaskTargets();
+        $mission = MissionQuery::create()->findOneById($taskTargets->getFirst()->getTargetId());
+        $consultants = $mission->getConsultants();
+
+        // Insert of task targets
+        $nextTask->addTarget($mission);
+        foreach ($consultants as $consultant)
+        {
+            $nextTask->addTarget($consultant);
+        }
+
+        $nextTask->setActivationDate($prevTask->data()->get('meeting_date'));
+        $nextTask->defineCompletionDate('+1 day');
+
+        $nextTask->data()->set('meeting_date', $prevTask->data()->get('meeting_date'));
+
+        return parent::onTaskCreation($nextTask, $prevTask, $parameters, $connection);
     }
 
     /**

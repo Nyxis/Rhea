@@ -1,9 +1,20 @@
 {% extends 'ExtiaTaskBundle:Workflow:modal.html.twig' %}
 
 {% block modal_body %}
-
+    <p class="form_hook">{{ 'lunch.lunch.hook'|trans }} {{ task.target('mission').fullLabel }}</p>
 {% endblock %}
 
 {% block modal_form %}
 
+    {{ form_rest(form) }}
+
+    <div class="separator"></div>
+{% endblock %}
+{% block modal_footer %}
+    <div class="modal-footer">
+        <div class="inner-well">
+            <button type="submit" class="button mini rounded">{{ 'lunch.lunch.task_submit'|trans }}</button>
+            <a class="button mini rounded light-gray" data-dismiss="modal">{{ 'modal_close'|trans }}</a>
+        </div>
+    </div>
 {% endblock %}
