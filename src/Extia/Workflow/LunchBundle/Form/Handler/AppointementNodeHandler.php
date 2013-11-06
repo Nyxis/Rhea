@@ -21,6 +21,8 @@ class AppointementNodeHandler extends AbstractNodeHandler
         // activate before given date for pre-notification
         $task->data()->set('meeting_date', $task->findNextWorkingDay($data['meeting_date']));
 
+        $task->data()->set('meeting_place', $data['meeting_place']);
+
         $task->save($pdo);
 
         // notify next node

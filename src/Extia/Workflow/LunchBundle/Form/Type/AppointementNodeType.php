@@ -25,12 +25,17 @@ class AppointementNodeType extends AbstractNodeType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('meeting_place', 'text', array(
+            'required'    => true,
+            'label'       => 'lunch.appointement.meeting_place'
+        ));
+
         $builder->add('meeting_date', 'datetime', array(
             'required'    => true,
             'date_widget' => 'text',
             'time_widget' => 'text',
             'input'       => 'timestamp',
-            'label'       => 'LunchBundle.appointement.lunch_date'
+            'label'       => 'lunch.appointement.meeting_date'
         ));
     }
 }

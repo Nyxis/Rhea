@@ -4,6 +4,7 @@ namespace Extia\Workflow\LunchBundle\Controller;
 
 use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Workflow\TypeNodeController;
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
@@ -43,7 +44,16 @@ class AppointementNodeController extends TypeNodeController
      */
     protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
     {
-        $nextTask->migrateTargets($prevTask);
+        $taskTargets = $prevTask->getTaskTargets();
+        $mission = MissionQuery::create()->findOneById($taskTargets->getFirst()->getTargetId());
+        $consultants = $mission->getConsultants();
+
+        // Insert of task targets
+        $nextTask->addTarget($mission);
+        foreach ($consultants as $consultant)
+        {
+            $nextTask->addTarget($consultant);
+        }
 
         $nextTask->setActivationDate($prevTask->data()->get('notif_date'));
         $nextTask->defineCompletionDate('+1 day');
