@@ -141,7 +141,7 @@ class Task extends BaseTask
      */
     public function addDocument(Document $document)
     {
-        foreach ($this->getTargetedPersons() as $person) {
+        foreach ($this->getTargets('Person') as $person) {
             $personTaskDocument = new PersonTaskDocument();
             $personTaskDocument->setPerson($person);
             $personTaskDocument->setDocument($document);
@@ -297,7 +297,7 @@ class Task extends BaseTask
     }
 
     /**
-     * adds a new task target for this task
+     * remove a task target for this task
      * @param  TaskTargetInterface $taskTarget object to target
      * @return Task
      */
