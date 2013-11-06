@@ -5,6 +5,7 @@ namespace Extia\Bundle\MissionBundle\Model;
 use Extia\Bundle\MissionBundle\Model\om\BaseMission;
 
 use Extia\Bundle\UserBundle\Model\Person;
+use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 use Extia\Bundle\TaskBundle\Workflow\TaskTargetInterface;
 
@@ -99,6 +100,35 @@ class Mission extends BaseMission implements TaskTargetInterface
             $consultant->setManagerId($newManager->getId());
             $consultant->save($con);
         }
+    }
+
+    /**
+     * Get consultants ids of current mission
+     *
+     * @return Array
+     */
+    public function getConsultantsId()
+    {
+        $consultantsId = MissionOrderQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->filterByMissionId($this->id)
+            ->select('ConsultantId')
+            ->find();
+
+        return $consultantsId;
+    }
+
+    /**
+     * Get consultants of current mission
+     *
+     * @return Array
+     */
+    public function getConsultants()
+    {
+        $consultantsId = $this->getConsultantsId()->toArray();
+        $consultants = ConsultantQuery::create()->findPKs($consultantsId);
+
+        return $consultants;
     }
 
     /**

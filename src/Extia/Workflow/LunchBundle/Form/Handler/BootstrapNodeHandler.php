@@ -8,7 +8,7 @@ use Extia\Bundle\TaskBundle\Model\TaskTarget;
 use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
 
 use Symfony\Component\Form\Form;
-use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
 
 /**
  * form handler for bootstrap node
@@ -21,9 +21,6 @@ class BootstrapNodeHandler extends AbstractNodeHandler
      */
     public function resolve(array $data, Task $task, \Pdo $pdo = null)
     {
-        $task->setActivationDate(strtotime(date('Y-m-d')));
-        $task->defineCompletionDate('+1 day');
-
         // activate before given date for pre-notification
         $task->data()->set('next_meeting_date', $data['next_date']);
         $task->data()->set('notif_date',
@@ -33,16 +30,15 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         // updates workflow fields
         $this->updateWorkflow($data, $task, $pdo);
 
-        $consultants = MissionOrderQuery::create()
-            ->filterByMissionId($data['mission_target_id'])
-            ->select('ConsultantId')
-            ->find();
+        // load consultants of targeted mission
+        $mission = MissionQuery::create()->findOneById($data['mission_target_id']);
+        $consultantsId = $mission->getConsultantsId();
 
         // Insert of task targets
-        $task->addTarget($this->loadMission($data['mission_target_id'], $pdo));
-        foreach ($consultants as $consultant_id)
+        $task->addTarget($mission);
+        foreach ($consultantsId as $consultantId)
         {
-            $task->addTarget($this->loadConsultant($consultant_id, $pdo));
+            $task->addTarget($this->loadConsultant($consultantId, $pdo));
         }
         $task->save($pdo);
 
