@@ -7,17 +7,20 @@
                 <legend>Synthèse de l'entreprise</legend>
             </fieldset>
             {% render(controller('ExtiaCEOBundle:CEO:CompanyInformations')) %}
-
         </div>
     </div>
 {% endblock main %}
 
 {% block sidebar %}
     {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
     <div class="row-fluid">
-        <div class="span12">
-            {#{% render(controller('ExtiaAgencyBundle:AgencyTask:agencyPastTasks', { 'internalAgencyId': app.user.AgencyId })) %}#}
-            <pre>{{ app.user }}</pre>
-        </div>
+    <div class="span6">
+        {% render(controller('ExtiaCEOBundle:CEO:getManagerWithLateTasks')) %}
     </div>
+    <div class="span6"></div>
+</div>
 {% endblock %}

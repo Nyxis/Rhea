@@ -1,0 +1,27 @@
+<div class="box">
+    <div class="tab-header">
+        <i class="icon-th-list"></i>
+        Managers
+    </div>
+    <table>
+        {% for manager in managers %}
+            <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                <td class="image">
+                    {% if manager.image is not empty %}
+                        <img style="width: 50px; height: 50px;" src="{{ asset(manager.image) }}">
+                    {% else %}
+                        <img src="{{ gravatar(manager.email, 50) }}">
+                    {% endif %}
+                </td>
+                <td class="name">
+                    <a href="{{ path('UserBundle_internal_timeline', manager.routing) }}">{{ manager.longname }}</a><br/>
+                    {{ manager.job }}
+                </td>
+                <td>
+                    {{ manager.countActiveTasks }}<br>
+                    {{ attribute(lastTasks, manager.id).lateTasksRelatedByAssignedTo|length / manager.countActiveTasks * 100 }} % / {{ attribute(lastTasks, manager.id).cumulateTime }} jours cumulés de retard
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
