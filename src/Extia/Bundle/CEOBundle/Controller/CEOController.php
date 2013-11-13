@@ -93,11 +93,17 @@ class CEOController extends Controller
         return $slowestAgency;
     }
 
-    public function getManagerWithLateTasksAction(Request $request)
+    public function getInternalWithLateTasksAction(Request $request, $internalType)
     {
-        $managers = PersonQuery::create()
+        if($internalType == 3) {
+            $label = "CRH";
+        } else {
+            $label = "Managers";
+        }
+
+        $internals = PersonQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByPersonTypeId(4)
+            ->filterByPersonTypeId($internalType)
             ->useTaskRelatedByAssignedToQuery()
                 ->filterByCompletionDate(array('max' => 'now'))
                 ->useNodeQuery()
@@ -109,38 +115,39 @@ class CEOController extends Controller
 
             ->find()->toArray();
 
-        usort($managers, array($this, "orderByLateTasks"));
+        usort($internals, array($this, "orderByLateTasks"));
 
-        $managersLateTasks = array();
+        $internalsLateTasks = array();
 
-        $managers_ = array();
+        $internals_ = array();
 
-        foreach($managers as $key => $manager)
+        foreach($internals as $key => $internal)
         {
-            $managersLateTasks[$manager['Id']]['lateTasksRelatedByAssignedTo'] = $managers[$key]['TasksRelatedByAssignedTo'];
-            $managersLateTasks[$manager['Id']]['cumulateTime'] = 0;
+            $internalsLateTasks[$internal['Id']]['lateTasksRelatedByAssignedTo'] = $internals[$key]['TasksRelatedByAssignedTo'];
+            $internalsLateTasks[$internal['Id']]['cumulateTime'] = 0;
             $new_manager = InternalQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                ->filterById($manager['Id'])
+                ->filterById($internal['Id'])
                 ->innerJoin('Person')
                 ->findOne();
-            $managers_[] = $new_manager;
+            $internals_[] = $new_manager;
         }
 
         unset($managers);
 
         $now = new \DateTime();
 
-        foreach($managersLateTasks as $idManager => $value) {
+        foreach($internalsLateTasks as $idManager => $value) {
             foreach ($value['lateTasksRelatedByAssignedTo'] as $task) {
-                $managersLateTasks[$idManager]['cumulateTime'] += $now->diff($task['CompletionDate'])->days;
+                $internalsLateTasks[$idManager]['cumulateTime'] += $now->diff($task['CompletionDate'])->days;
             }
         }
 
 
-        return $this->render('ExtiaCEOBundle:CEO:managers_late.html.twig', array(
-            'managers' => $managers_,
-            'lastTasks' => $managersLateTasks,
+        return $this->render('ExtiaCEOBundle:CEO:internals_late.html.twig', array(
+            'internals' => $internals_,
+            'lastTasks' => $internalsLateTasks,
+            'label' => $label
         ));
     }
 

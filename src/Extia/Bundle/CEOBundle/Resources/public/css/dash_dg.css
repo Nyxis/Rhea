@@ -22,3 +22,12 @@ p.subData {
     margin-left: 15px;
 }
 
+.dashboard-summaries table {
+    width: 100%;
+}
+.internalInfos td {
+   width: 50%;
+}
+.internalInfos tr {
+   margin-top: 6px;
+}
