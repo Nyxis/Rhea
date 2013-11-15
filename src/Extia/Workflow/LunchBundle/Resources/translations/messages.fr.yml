@@ -35,7 +35,7 @@ lunch:
     lunch:
         label: Déjeuner consultant
         next_meeting: Prochain déjeuner prévu dans
-        hook: Veuillez confirmer le déjeuner a eu lieu pour la mission
+        hook: Veuillez confirmer que le déjeuner a eu lieu pour la mission
         task_submit: Confirmer
         today: aujourd'hui
         tomorrow: demain

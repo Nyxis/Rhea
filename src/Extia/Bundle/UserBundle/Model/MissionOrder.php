@@ -5,7 +5,7 @@ namespace Extia\Bundle\UserBundle\Model;
 use Extia\Bundle\UserBundle\Model\om\BaseMissionOrder;
 use Extia\Bundle\TaskBundle\Workflow\TaskTargetInterface;
 
-class MissionOrder extends BaseMissionOrder  implements TaskTargetInterface
+class MissionOrder extends BaseMissionOrder
 {
     /**
      * calculate and returns date interval between now and mission begin date
@@ -21,14 +21,6 @@ class MissionOrder extends BaseMissionOrder  implements TaskTargetInterface
         $ref   = empty($end) ? new \DateTime() : $end;
 
         return $begin->diff($ref);
-    }
-
-    /**
-     * @see TaskTargetInterface::getModel()
-     */
-    public function getModel()
-    {
-        return 'mission_order';
     }
 
 }
