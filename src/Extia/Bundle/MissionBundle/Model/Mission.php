@@ -103,30 +103,18 @@ class Mission extends BaseMission implements TaskTargetInterface
     }
 
     /**
-     * Get consultants ids of current mission
-     *
-     * @return Array
-     */
-    public function getConsultantsId()
-    {
-        $consultantsId = MissionOrderQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByMissionId($this->id)
-            ->select('ConsultantId')
-            ->find();
-
-        return $consultantsId;
-    }
-
-    /**
      * Get consultants of current mission
      *
      * @return Array
      */
     public function getConsultants()
     {
-        $consultantsId = $this->getConsultantsId()->toArray();
-        $consultants = ConsultantQuery::create()->findPKs($consultantsId);
+        $consultants = ConsultantQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->useMissionOrderQuery()
+                ->filterByMissionId($this->id)
+            ->endUse()
+            ->find();
 
         return $consultants;
     }
