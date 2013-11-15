@@ -355,6 +355,7 @@ class Task extends BaseTask
 
     /**
      * calculate a date with period
+     *
      * @param  DateTime|string $date
      * @param  string          $period period
      * @param  string          $format optionnal output format for datetime object
@@ -369,47 +370,5 @@ class Task extends BaseTask
         $newDate = $date->add(\DateInterval::createFromDateString($period));
 
         return $output ? $newDate->format($output) : $newDate;
-    }
-
-    /**
-     * find next working day
-     * @param  timestamp $timestamp
-     * @return timestamp
-     */
-    public function findNextWorkingDay($timestamp)
-    {
-        $workingDays = range(1,5);
-        $offDays     = range(6,7);
-
-        while (in_array(date('N', $timestamp), $offDays)) {
-            $timestamp += 3600*24;
-        }
-
-        return $timestamp;
-    }
-
-    /**
-     * adds $nbMonths to given date
-     * @param  timestamp $date
-     * @param  int       $nbMonths
-     * @return timestamp
-     */
-    public function addMonths($date, $nbMonths)
-    {
-        $dateMonth  = date('n', $date);
-
-        // adds select month / year
-        $nextDateMonth = $dateMonth + $nbMonths;
-
-        $nextDateYear  = $nextDateMonth > 12 ? date('Y', $date) + floor($nextDateMonth/12) : date('Y', $date);
-        $nextDateMonth = $nextDateMonth > 12 ? $nextDateMonth % 12 : $nextDateMonth;
-
-        // recreate date
-        $nextDateTmstp = mktime(
-            0, 0, 0, // on midnight
-            $nextDateMonth, date('j', $date), $nextDateYear
-        );
-
-        return $nextDateTmstp;
     }
 }
