@@ -48,8 +48,8 @@ class AppointementNodeController extends TypeNodeController
         $taskTargets = $prevTask->getTaskTargets();
 
         // We recalculate lunch targets
-        $mission = $lunchTaskDomain->getLunchTargetedMission($taskTargets);
-        $nextTask = $lunchTaskDomain->calculateLunchTargets($mission, $nextTask);
+        $mission = $lunchTaskDomain->getLunchTargetedMission($taskTargets, $connection);
+        $nextTask = $lunchTaskDomain->calculateLunchTargets($mission, $nextTask, $connection);
 
         $nextTask->setActivationDate($prevTask->data()->get('notif_date'));
         $nextTask->defineCompletionDate('+1 day');

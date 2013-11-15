@@ -40,7 +40,7 @@ class BootstrapNodeHandler extends AbstractNodeHandler
 
         // calculate task targets
         $mission = MissionQuery::create()->findOneById($data['mission_target_id']);
-        $task = $this->lunchTaskDomain->calculateLunchTargets($mission, $task);
+        $task = $this->lunchTaskDomain->calculateLunchTargets($mission, $task, $pdo);
         $task->save($pdo);
 
         // notify next node

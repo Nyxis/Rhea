@@ -5,6 +5,7 @@ namespace Extia\Workflow\LunchBundle\Domain;
 use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\MissionBundle\Model\Mission;
 use Extia\Bundle\MissionBundle\Model\MissionQuery;
+use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 
 /**
  * LunchTask domain, repository of lunch task logic
@@ -20,7 +21,7 @@ class LunchTaskDomain {
      * @param PropelObjectCollection $taskTargets
      * @return Mission
      */
-    public function getLunchTargetedMission(\PropelObjectCollection $taskTargets)
+    public function getLunchTargetedMission(\PropelObjectCollection $taskTargets, \Pdo $pdo = null)
     {
         $mission = MissionQuery::create();
         $missionClass = $mission->getModelName();
@@ -32,7 +33,9 @@ class LunchTaskDomain {
                 $missionTargetId = $taskTarget->getTargetId();
             }
         }
-        $mission = $mission->findOneById($missionTargetId);
+        $mission = $mission
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->findOneById($missionTargetId, $pdo);
 
         return $mission;
     }
@@ -44,9 +47,14 @@ class LunchTaskDomain {
      * @param Task $task
      * @return Task
      */
-    public function calculateLunchTargets(Mission $mission, Task $task)
+    public function calculateLunchTargets(Mission $mission, Task $task, \Pdo $pdo = null)
     {
-        $consultants = $mission->getConsultants();
+        $consultants = ConsultantQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->useMissionOrderQuery()
+                ->filterByMission($mission)
+            ->endUse()
+            ->find($pdo);
 
         // Insert of task targets
         $task->addTarget($mission);

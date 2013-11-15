@@ -44,11 +44,12 @@ class LunchNodeController extends TypeNodeController
      */
     protected function onTaskCreation(Task $nextTask, Task $prevTask = null, array $parameters = array(), \Pdo $connection = null)
     {
+        $lunchTaskDomain = $this->get('lunch.domain.lunch_task');
         $taskTargets = $prevTask->getTaskTargets();
 
         // We recalculate lunch targets
-        $mission = $lunchTaskDomain->getLunchTargetedMission($taskTargets);
-        $nextTask = $lunchTaskDomain->calculateLunchTargets($mission, $nextTask);
+        $mission = $lunchTaskDomain->getLunchTargetedMission($taskTargets, $connection);
+        $nextTask = $lunchTaskDomain->calculateLunchTargets($mission, $nextTask, $connection);
 
         $nextTask->setActivationDate($prevTask->data()->get('meeting_date'));
         $nextTask->defineCompletionDate('+1 day');
