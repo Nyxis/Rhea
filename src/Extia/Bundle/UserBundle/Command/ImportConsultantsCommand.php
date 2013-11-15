@@ -8,11 +8,13 @@ use Extia\Bundle\UserBundle\Model\Internal;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Extia\Bundle\UserBundle\Model\PersonQuery;
 use Extia\Bundle\UserBundle\Model\PersonTypeQuery;
+use Extia\Bundle\UserBundle\Model\MissionOrder;
+use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 
+use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\GroupBundle\Model\GroupQuery;
 use Extia\Bundle\MissionBundle\Model\ClientQuery;
 use Extia\Bundle\MissionBundle\Model\MissionQuery;
-use Extia\Bundle\MissionBundle\Model\MissionOrderQuery;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
@@ -65,25 +67,25 @@ class ImportConsultantsCommand extends ContainerAwareCommand
         $firstLine = fgetcsv($handle);
         while ($data = fgetcsv($handle)) {
             $indexedData = array(
-                'period'              => $data[0],
-                'lastname'            => $data[1],
-                'firstname'           => $data[2],
-                'fullname'            => $data[3],
-                'birthdate'           => $data[4],
-                'email'               => $data[5],
-                'mobile'              => $data[6],
-                'contract_begin_date' => $data[7],
-                'adp'                 => $data[8],
-                'crh_lastname'        => $data[9],
-                'crh_firstname'       => $data[10],
-                'contract_type'       => $data[11],
-                'mission_id'          => $data[12],
-                'client_name'         => $data[13],
-                'manager_trigram'     => $data[14],
-                'manager_lastname'    => $data[15],
-                'manager_firstname'   => $data[16],
-                'debut_mission'       => $data[17],
-                'fin_mission'         => $data[18]
+                'period'              => trim($data[0]),
+                'lastname'            => trim($data[1]),
+                'firstname'           => trim($data[2]),
+                'fullname'            => trim($data[3]),
+                'birthdate'           => trim($data[4]),
+                'email'               => trim($data[5]),
+                'mobile'              => trim($data[6]),
+                'contract_begin_date' => trim($data[7]),
+                'adp'                 => trim($data[8]),
+                'crh_lastname'        => trim($data[9]),
+                'crh_firstname'       => trim($data[10]),
+                'contract_type'       => trim($data[11]),
+                'mission_id'          => trim($data[12]),
+                'client_name'         => trim($data[13]),
+                'manager_trigram'     => trim($data[14]),
+                'manager_lastname'    => trim($data[15]),
+                'manager_firstname'   => trim($data[16]),
+                'debut_mission'       => trim($data[17]),
+                'fin_mission'         => trim($data[18])
             );
 
             if (empty($indexedData['email']) || $indexedData['email'] == '#N/A') {
@@ -139,29 +141,30 @@ class ImportConsultantsCommand extends ContainerAwareCommand
             $consultant->setLastname(ucfirst(strtolower($consultantData['lastname'])));
             $consultant->setEmail($consultantData['email']);
             $consultant->setMobile($consultantData['mobile']);
-
             $consultant->setBirthdate(
-                \DateTime::createFromFormat('d/m/y', $consultantData['birthdate'])
+                \DateTime::createFromFormat('n/d/Y', $consultantData['birthdate'])
             );
             $consultant->setContractBeginDate(
-                \DateTime::createFromFormat('d/m/y', $consultantData['contract_begin_date'])
+                \DateTime::createFromFormat('n/d/Y', $consultantData['contract_begin_date'])
             );
 
             // find crh
             $consultant->setCrh(InternalQuery::create()
-                ->filterByFirstname($consultantData['crh_firstname'])
-                ->filterByLastname($consultantData['crh_lastname'])
+                ->filterByFirstname(ucfirst(strtolower($consultantData['crh_firstname'])))
+                ->filterByLastname(ucfirst(strtolower($consultantData['crh_lastname'])))
                 ->findOne()
             );
 
             // tmp manager
             $consultant->setManager($tmpManager);
 
+            $consultant->save();
+
             // missions and orders
-            foreach ($consultantData['missions'] as $mission) {
+            foreach ($consultantData['missions'] as $missionData) {
 
                 $client = ClientQuery::create()
-                    ->filterByTitle($mission['client_name'])
+                    ->filterByTitle($missionData['client_name'])
                     ->findOneOrCreate()
                 ;
 
@@ -174,16 +177,17 @@ class ImportConsultantsCommand extends ContainerAwareCommand
                 }
 
                 $manager = InternalQuery::create()
-                    ->filterByTrigram($mission['manager_trigram'])
+                    ->filterByTrigram($missionData['manager_trigram'])
                     ->findOne()
                 ;
 
                 if (empty($manager)) {
+                    var_dump($missionData);
                     die;
                 }
 
                 $missionName = sprintf('%s - %s',
-                    $client->getSlug(), $mission['manager_trigram']
+                    $client->getSlug(), $missionData['manager_trigram']
                 );
                 $email = sprintf('contact@%s.com',
                     $client->getSlug()
@@ -209,23 +213,39 @@ class ImportConsultantsCommand extends ContainerAwareCommand
                 }
 
                 // create mission order on mission
+                $missionOrder = new MissionOrder();
+                $missionOrder->setMission($mission);
+                $missionOrder->setConsultant($consultant);
 
+                $missionOrder->setBeginDate(
+                    \DateTime::createFromFormat('d/m/y', $missionData['debut_mission'])
+                );
+                $missionOrder->setEndDate(
+                    \DateTime::createFromFormat('d/m/y', $missionData['fin_mission'])
+                );
 
+                $missionOrder->save();
             }
-
-            $consultant->save();
 
             // resync mission_orders through domain
             $this->getContainer()->get('extia_user.domain.mission_order')->synchronize(
                 new \DateTime(), $consultant
             );
 
-            $output->writeln(sprintf('%s %s %s',
-                $consultant->getFirstname(),
-                $consultant->getLastName(),
-                $consultant->getEmail()
+            $output->writeln(sprintf('%s - %s',
+                $consultant->getSlug(),
+                $consultant->getContractBeginDate('d/m/Y')
             ));
         }
+
+        $reports = array(
+            'clts'           => ConsultantQuery::create()->count(),
+            'tasks'          => TaskQuery::create()->count(),
+            'missions'       => MissionQuery::create()->count(),
+            'mission_orders' => MissionOrderQuery::create()->count(),
+        );
+
+        var_dump($reports);
     }
 }
 

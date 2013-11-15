@@ -23,7 +23,7 @@ class CrhMonitoringBridge extends AbstractTaskBridge
      * creates and init mission monitoring for given consultant
      *
      * @param Consultant $consultant
-     * @param string     $nextDate   next meeting date (US format) - optionnal
+     * @param int        $nextDate   next meeting date (timestamp) - optionnal
      * @param \Pdo       $pdo
      */
     public function createMonitoring(Consultant $consultant, $nextDate = null, \Pdo $pdo = null)
@@ -47,8 +47,8 @@ class CrhMonitoringBridge extends AbstractTaskBridge
                 'user_target_id' => $consultant->getId(),
                 'assigned_to'    => $consultant->getCrh($pdo),
                 'next_date'      => $currentTask->findNextWorkingDay(empty($nextDate) ?
-                        (int) $currentTask->calculateDate($consultant->getContractBeginDate(), '+1 month', 'U') :
-                        $nextDate
+                    (int) $currentTask->calculateDate($consultant->getContractBeginDate(), '+1 month', 'U') :
+                    $nextDate
                 )
             ),
             $pdo

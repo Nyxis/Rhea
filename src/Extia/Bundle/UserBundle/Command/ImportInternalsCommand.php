@@ -59,15 +59,15 @@ class ImportInternalsCommand extends ContainerAwareCommand
         $firstLine = fgetcsv($handle);
         while ($data = fgetcsv($handle)) {
             $data = array(
-                'lastname'            => $data[0],
-                'firstname'           => $data[1],
-                'fullname'            => $data[2],
-                'birthdate'           => $data[3],
-                'email'               => $data[4],
-                'phone'               => $data[5],
-                'contract_begin_date' => $data[6],
-                'parent'              => $data[7],
-                'type'                => $data[8],
+                'lastname'            => trim($data[0]),
+                'firstname'           => trim($data[1]),
+                'fullname'            => trim($data[2]),
+                'birthdate'           => trim($data[3]),
+                'email'               => trim($data[4]),
+                'phone'               => trim($data[5]),
+                'contract_begin_date' => trim($data[6]),
+                'parent'              => trim($data[7]),
+                'type'                => trim($data[8]),
             );
 
             if (!in_array($data['type'], array('COMMERCIAL', 'DIRECTION', 'RESSOURCES HUMAINES'))) {
@@ -84,7 +84,8 @@ class ImportInternalsCommand extends ContainerAwareCommand
             'edeschamps@extia.fr' => 'EMD',
             'adupessey@extia.fr'  => 'AND',
             'adupuy@extia.fr'     => 'ADU',
-            'mdefromont@extia'    => 'MDF'
+            'mdefromont@extia.fr' => 'MDF',
+            'asadellah@extia.fr'  => 'AIS'
         );
 
         // all person type
