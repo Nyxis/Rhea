@@ -6,9 +6,9 @@ use Extia\Bundle\TaskBundle\Model\om\BaseTaskTargetQuery;
 use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Model\TaskTarget;
 use Extia\Bundle\TaskBundle\Form\Handler\AbstractNodeHandler;
-
 use Symfony\Component\Form\Form;
 use Extia\Bundle\MissionBundle\Model\MissionQuery;
+use Extia\Workflow\LunchBundle\Domain\LunchTaskDomain;
 
 /**
  * form handler for bootstrap node
@@ -16,6 +16,14 @@ use Extia\Bundle\MissionBundle\Model\MissionQuery;
  */
 class BootstrapNodeHandler extends AbstractNodeHandler
 {
+
+    protected $lunchTaskDomain;
+
+    public function __construct(LunchTaskDomain $lunchTaskDomain)
+    {
+        $this->lunchTaskDomain = $lunchTaskDomain;
+    }
+
     /**
      * {@inherit_doc}
      */
@@ -30,16 +38,9 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         // updates workflow fields
         $this->updateWorkflow($data, $task, $pdo);
 
-        // load consultants of targeted mission
+        // calculate task targets
         $mission = MissionQuery::create()->findOneById($data['mission_target_id']);
-        $consultantsId = $mission->getConsultantsId();
-
-        // Insert of task targets
-        $task->addTarget($mission);
-        foreach ($consultantsId as $consultantId)
-        {
-            $task->addTarget($this->loadConsultant($consultantId, $pdo));
-        }
+        $task = $this->lunchTaskDomain->calculateLunchTargets($mission, $task);
         $task->save($pdo);
 
         // notify next node

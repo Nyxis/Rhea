@@ -22,7 +22,7 @@ class LunchNodeHandler extends AbstractNodeHandler
 
         $task->data()->set('next_meeting_date', $task->findNextWorkingDay($nextLunchTmstp));
         $task->data()->set('notif_date', $task->findNextWorkingDay(
-                (int) $task->calculateDate($nextLunchTmstp, '-7 days', 'U'))
+            (int) $task->calculateDate($nextLunchTmstp, '-7 days', 'U'))
         );
 
         $task->save($pdo);

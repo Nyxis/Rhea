@@ -25,8 +25,6 @@ class LunchNodeType extends AbstractNodeType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('confirmation', 'hidden', array(
-            'required' => true
-        ));
+
     }
 }
