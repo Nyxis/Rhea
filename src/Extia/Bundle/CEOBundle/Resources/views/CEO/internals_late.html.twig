@@ -1,7 +1,7 @@
 <div class="box dashboard-summaries">
     <div class="tab-header">
         <i class="icon-th-list"></i>
-        {{ label }}
+        {{ ('dashboard.pdg.internals.labels.' ~ codeType)|trans }}
     </div>
     <table>
         {% for internal in internals %}

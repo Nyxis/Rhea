@@ -8,6 +8,7 @@ use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 use Extia\Bundle\UserBundle\Model\Internal;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Extia\Bundle\UserBundle\Model\PersonQuery;
+use Extia\Bundle\UserBundle\Model\PersonTypeQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -93,17 +94,39 @@ class CEOController extends Controller
         return $slowestAgency;
     }
 
-    public function getInternalWithLateTasksAction(Request $request, $internalType)
+    public function CrhWithLateTasksAction(Request $request)
     {
-        if($internalType == 3) {
-            $label = "CRH";
-        } else {
-            $label = "Managers";
-        }
+        $codeType = 'crh';
 
+        $internalsAndTasks = $this->InternalWithLateTasks($codeType);
+
+        return $this->render('ExtiaCEOBundle:CEO:internals_late.html.twig', array(
+            'internals' => $internalsAndTasks['internals'],
+            'lastTasks' => $internalsAndTasks['internalsLateTasks'],
+            'codeType' => $codeType
+        ));
+    }
+
+    public function ManagerWithLateTasksAction(Request $request)
+    {
+        $codeType = 'ia';
+
+        $internalsAndTasks = $this->InternalWithLateTasks($codeType);
+
+        return $this->render('ExtiaCEOBundle:CEO:internals_late.html.twig', array(
+            'internals' => $internalsAndTasks['internals'],
+            'lastTasks' => $internalsAndTasks['internalsLateTasks'],
+            'codeType' => $codeType
+        ));
+    }
+
+    public function InternalWithLateTasks($internalTypeCode)
+    {
         $internals = PersonQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByPersonTypeId($internalType)
+            ->usePersonTypeQuery()
+                ->filterByCode($internalTypeCode)
+            ->endUse()
             ->useTaskRelatedByAssignedToQuery()
                 ->filterByCompletionDate(array('max' => 'now'))
                 ->useNodeQuery()
@@ -112,7 +135,6 @@ class CEOController extends Controller
                 ->endUse()
             ->endUse()
             ->joinwithTaskRelatedByAssignedTo()
-
             ->find()->toArray();
 
         usort($internals, array($this, "orderByLateTasks"));
@@ -143,12 +165,7 @@ class CEOController extends Controller
             }
         }
 
-
-        return $this->render('ExtiaCEOBundle:CEO:internals_late.html.twig', array(
-            'internals' => $internals_,
-            'lastTasks' => $internalsLateTasks,
-            'label' => $label
-        ));
+        return array('internals' => $internals_, 'internalsLateTasks' => $internalsLateTasks);
     }
 
 

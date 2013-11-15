@@ -55,24 +55,28 @@ class DashboardController extends Controller
      */
     public function userDashboardAction(Request $request, $page = 1)
     {
-        if ($this->getUser()->getPersonTypeId() == 2)
+        $codeType = $this->getUser()->getPersonType()->getCode();
+        if ($codeType == 'dir')
         {
             return $this->render('ExtiaTaskBundle:Dashboard:da_dashboard.html.twig', array(
                 'user'  => $this->getUser()
              ));
         }
-        elseif($this->getUser()->getPersonTypeId() == 1)
+        elseif($codeType == 'pdg')
         {
             return $this->render('ExtiaTaskBundle:Dashboard:pdg_dashboard.html.twig', array(
                 'user'  => $this->getUser()
             ));
         }
-        else
-        {
+
             return $this->render('ExtiaTaskBundle:Dashboard:user_dashboard.html.twig', array(
                 'user'  => $this->getUser()
             ));
-        }
+
+
+
+
+
     }
 
     /**

@@ -19,10 +19,10 @@
     {{ parent() }}
     <div class="row-fluid">
     <div class="span6">
-        {% render(controller('ExtiaCEOBundle:CEO:getInternalWithLateTasks', { 'internalType': 4 })) %}  {# Managers #}
+        {% render(controller('ExtiaCEOBundle:CEO:ManagerWithLateTasks')) %}  {# Managers #}
     </div>
     <div class="span6">
-        {% render(controller('ExtiaCEOBundle:CEO:getInternalWithLateTasks', { 'internalType': 3 })) %}  {# Crh #}
+        {% render(controller('ExtiaCEOBundle:CEO:CrhWithLateTasks')) %}  {# Crh #}
     </div>
 </div>
 {% endblock %}
