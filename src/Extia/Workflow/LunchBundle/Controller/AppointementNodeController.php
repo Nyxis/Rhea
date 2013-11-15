@@ -48,6 +48,7 @@ class AppointementNodeController extends TypeNodeController
         $taskTargets = $prevTask->getTaskTargets();
 
         // We recalculate lunch targets
+
         $mission = $lunchTaskDomain->getLunchTargetedMission($taskTargets, $connection);
         $nextTask = $lunchTaskDomain->calculateLunchTargets($mission, $nextTask, $connection);
 
