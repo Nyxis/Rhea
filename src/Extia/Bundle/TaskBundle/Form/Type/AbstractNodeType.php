@@ -101,14 +101,16 @@ abstract class AbstractNodeType extends AbstractType
     }
 
     /**
-     * construct a choice list for all missions
+     * construct a choice list for all missions order by client title
      * @return array
      */
     protected function getMissionsChoices()
     {
         $missions = MissionQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->orderByCreatedAt('DESC')
+            ->useClientQuery()
+                ->orderByTitle()
+            ->endUse()
             ->find();
 
         return $missions->toKeyValue('Id', 'FullLabel');
