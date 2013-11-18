@@ -18,11 +18,18 @@ class MeetingNodeHandler extends AbstractNodeHandler
      */
     public function resolve(array $data, Task $task, \Pdo $pdo = null)
     {
-        $nextMeetingTmstp = $task->calculateDate($task->getActivationDate(), '+2 months', 'U');
+        $nextMeeting = $this->temporalTools->changeDate(
+            $task->getActivationDate(), '+2 months'
+        );
 
-        $task->data()->set('next_meeting_date', $task->findNextWorkingDay($nextMeetingTmstp));
+        $task->data()->set('next_meeting_date',
+            $this->temporalTools->findNextWorkingDay($nextMeeting)
+        );
+
         $task->data()->set('notif_date', $task->findNextWorkingDay(
-            (int) $task->calculateDate($nextMeetingTmstp, '-7 days', 'U'))
+            $this->temporalTools->findNextWorkingDay(
+                $this->temporalTools->changeDate($nextMeeting, '-7 days')
+            )
         );
 
         $task->addDocument($data['mission_meeting_doc']);

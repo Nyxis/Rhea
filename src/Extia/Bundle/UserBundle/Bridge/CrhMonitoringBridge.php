@@ -46,10 +46,9 @@ class CrhMonitoringBridge extends AbstractTaskBridge
                 // bootstrap data
                 'user_target_id' => $consultant->getId(),
                 'assigned_to'    => $consultant->getCrh($pdo),
-                'next_date'      => $currentTask->findNextWorkingDay(empty($nextDate) ?
-                    (int) $currentTask->calculateDate($consultant->getContractBeginDate(), '+1 month', 'U') :
+                'next_date'      => empty($nextDate) ?
+                    $this->temporalTools->changeDate($consultant->getContractBeginDate(), '+1 month') :
                     $nextDate
-                )
             ),
             $pdo
         );

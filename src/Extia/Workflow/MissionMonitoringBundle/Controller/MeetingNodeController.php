@@ -45,8 +45,12 @@ class MeetingNodeController extends TypeNodeController
     {
         $nextTask->migrateTargets($prevTask);
 
-        $nextTask->setActivationDate(strtotime(date('Y-m-d', $prevTask->data()->get('meeting_date'))));
-        $nextTask->defineCompletionDate('+2 day');
+        // activation
+        $this->get('extia_task.domain.task')->activateTaskOn(
+            $nextTask,
+            date('Y-m-d', $prevTask->data()->get('meeting_date')),
+            '+2 days'
+        );
 
         $nextTask->data()->set('meeting_date', $prevTask->data()->get('meeting_date'));
         $nextTask->data()->set('contact_name', $prevTask->data()->get('contact_name'));
@@ -61,7 +65,9 @@ class MeetingNodeController extends TypeNodeController
      */
     public function onTaskDiffering(Task $task)
     {
-        $task->defineCompletionDate('+2 days');
+        $this->get('extia_task.domain.task')->activateTaskFor(
+            $task, '+2 days'
+        );
 
         // recalculate meeting date
         $oldDate = $task->data()->get('meeting_date');

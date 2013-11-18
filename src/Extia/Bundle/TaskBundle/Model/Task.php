@@ -327,48 +327,4 @@ class Task extends BaseTask
             );
         }
     }
-
-    // ---------------------------------------------------------
-    // Temporal tools
-    // ---------------------------------------------------------
-
-    /**
-     * alias to setCompletionDate to use with period from activation date
-     *
-     * @param string $period
-     */
-    public function defineCompletionDate($period)
-    {
-        $activationDate = strtotime($this->getActivationDate('Y-m-d'));
-        if (empty($activationDate)) {
-            return $this;
-        }
-
-        $this->setCompletionDate(
-            $this->findNextWorkingDay(
-                $this->calculateDate($activationDate, $period, 'U')
-            )
-        );
-
-        return $this;
-    }
-
-    /**
-     * calculate a date with period
-     *
-     * @param  DateTime|string $date
-     * @param  string          $period period
-     * @param  string          $format optionnal output format for datetime object
-     * @return DateTime
-     */
-    public function calculateDate($date, $period, $output = null)
-    {
-        if (is_numeric($date)) {
-            $date = \DateTime::createFromFormat('U', $date);
-        }
-
-        $newDate = $date->add(\DateInterval::createFromDateString($period));
-
-        return $output ? $newDate->format($output) : $newDate;
-    }
 }

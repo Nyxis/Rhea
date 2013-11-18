@@ -21,7 +21,9 @@ class PreparingNodeHandler extends AbstractNodeHandler
         $task->addDocument($data['annual_review_doc']);
 
         $task->data()->set('manager_id', $data['manager_id']);
-        $task->data()->set('meeting_date', $task->findNextWorkingDay($data['meeting_date']));
+        $task->data()->set('meeting_date',
+            $this->temporalTools->findNextWorkingDay($data['meeting_date'])
+        );
 
         $task->save($pdo);
 

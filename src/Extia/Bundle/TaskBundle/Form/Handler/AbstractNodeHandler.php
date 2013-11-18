@@ -2,7 +2,9 @@
 
 namespace Extia\Bundle\TaskBundle\Form\Handler;
 
+use Extia\Bundle\TaskBundle\Domain\TaskDomain;
 use Extia\Bundle\TaskBundle\Model\Task;
+use Extia\Bundle\TaskBundle\Tools\TemporalTools;
 
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
@@ -19,16 +21,21 @@ abstract class AbstractNodeHandler
 {
     protected $workfows;
     protected $notifier;
+    protected $taskDomain;
+    protected $temporalTools;
 
     /**
      * setup dependencies
      * @param Aggregator        $workflows
+     * @param TaskDomain        $taskDomain
      * @param NotifierInterface $notifier
      */
-    public function setup(Aggregator $workflows, NotifierInterface $notifier)
+    public function setup(Aggregator $workflows, TaskDomain $taskDomain, NotifierInterface $notifier, TemporalTools $temporalTools)
     {
-        $this->workflows = $workflows;
-        $this->notifier  = $notifier;
+        $this->workflows     = $workflows;
+        $this->taskDomain    = $taskDomain;
+        $this->notifier      = $notifier;
+        $this->temporalTools = $temporalTools;
     }
 
     /**

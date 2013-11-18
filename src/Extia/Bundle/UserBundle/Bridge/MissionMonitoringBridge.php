@@ -48,9 +48,7 @@ class MissionMonitoringBridge extends AbstractTaskBridge
                 // bootstrap data
                 'user_target_id' => $consultant->getId(),
                 'assigned_to'    => $missionOrder->getMission()->getManagerId(),
-                'next_date'      => $currentTask->findNextWorkingDay(
-                    (int) $currentTask->calculateDate($missionOrder->getBeginDate(), '+7 days', 'U')
-                )
+                'next_date'      => $this->temporalTools->changeDate($missionOrder->getBeginDate(), '+7 days')
             ),
             $pdo
         );

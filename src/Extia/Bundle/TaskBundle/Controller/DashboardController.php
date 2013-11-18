@@ -103,6 +103,8 @@ class DashboardController extends Controller
             return 'waiting';
         }
 
+        $temporalTool = $this->get('extia_task.tools.temporal');
+
         $activationTmsp = intval($activationDate->format('U'));
         $completionTmsp = intval($task->getCompletionDate('U'));
         $today          = strtotime(date('Y-m-d'));
@@ -111,7 +113,7 @@ class DashboardController extends Controller
             return 'past';
         }
 
-        $tomorrow = $task->calculateDate($today, '+1 day', 'U');
+        $tomorrow = $temporalTool->changeDate($today, '+1 day', 'U');
         if ($activationTmsp >= $today && $activationTmsp < $tomorrow) {
             return 'today';
         }
@@ -120,7 +122,7 @@ class DashboardController extends Controller
             return 'waiting';
         }
 
-        $nextInWeek = $task->calculateDate($today, '+2 days', 'U');
+        $nextInWeek = $temporalTool->changeDate($today, '+2 days', 'U');
         if ($activationTmsp >= $tomorrow && $activationTmsp < $nextInWeek) {
             return 'tomorrow';
         }
@@ -133,15 +135,15 @@ class DashboardController extends Controller
             return 'week';
         }
 
-        if ($activationTmsp >= $nextWeek && $activationTmsp < $task->calculateDate($nextWeek, '+7 days', 'U')) {
+        if ($activationTmsp >= $nextWeek && $activationTmsp < $temporalTool->changeDate($nextWeek, '+7 days', 'U')) {
             return 'next_week';
         }
 
         // search for next month
         $thisMonth = strtotime(date('Y-m-1'));
-        $nextMonth = $task->calculateDate($thisMonth, '+1 month', 'U');
+        $nextMonth = $temporalTool->changeDate($thisMonth, '+1 month', 'U');
 
-        if ($activationDate >= $nextMonth && $activationTmsp < $task->calculateDate($nextMonth, '+1 month', 'U')) {
+        if ($activationDate >= $nextMonth && $activationTmsp < $temporalTool->changeDate($nextMonth, '+1 month', 'U')) {
             return 'next_month';
         }
 

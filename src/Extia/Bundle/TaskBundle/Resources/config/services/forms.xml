@@ -29,7 +29,9 @@
         <service id="extia.node.abstract_handler" class="%extia.node.abstract_handler.class%" abstract="true">
             <call method="setup">
                 <argument type="service" id="workflows" />
+                <argument type="service" id="extia_task.domain.task" />
                 <argument type="service" id="notifier" />
+                <argument type="service" id="extia_task.tools.temporal" />
             </call>
         </service>
 

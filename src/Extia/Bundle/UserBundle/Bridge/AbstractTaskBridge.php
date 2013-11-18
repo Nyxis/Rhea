@@ -20,16 +20,18 @@ use Symfony\Component\Translation\TranslatorInterface;
 abstract class AbstractTaskBridge
 {
     protected $workflows;
+    protected $temporalTools;
     protected $translator;
 
     /**
      * construct
      * @param Aggregator $workflows
      */
-    public function __construct(Aggregator $workflows, TranslatorInterface $translator)
+    public function __construct(Aggregator $workflows, TemporalTools $temporalTools, TranslatorInterface $translator)
     {
-        $this->workflows  = $workflows;
-        $this->translator = $translator;
+        $this->workflows     = $workflows;
+        $this->temporalTools = $temporalTools;
+        $this->translator    = $translator;
     }
 
     /**
