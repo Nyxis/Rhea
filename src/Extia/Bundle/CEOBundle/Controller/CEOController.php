@@ -142,20 +142,22 @@ class CEOController extends Controller
         $internalsLateTasks = array();
 
         $internals_ = array();
+        $internalsIds = array();
 
         foreach($internals as $key => $internal)
         {
             $internalsLateTasks[$internal['Id']]['lateTasksRelatedByAssignedTo'] = $internals[$key]['TasksRelatedByAssignedTo'];
             $internalsLateTasks[$internal['Id']]['cumulateTime'] = 0;
-            $new_manager = InternalQuery::create()
-                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                ->filterById($internal['Id'])
-                ->innerJoin('Person')
-                ->findOne();
-            $internals_[] = $new_manager;
+            $internalsIds[] = $internal['Id'];
         }
 
-        unset($managers);
+        unset($internals);
+
+        $internals_ = InternalQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->filterById($internalsIds)
+                ->innerJoin('Person')
+                ->find();
 
         $now = new \DateTime();
 
