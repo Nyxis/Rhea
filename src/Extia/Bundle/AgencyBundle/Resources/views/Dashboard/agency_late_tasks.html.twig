@@ -13,7 +13,7 @@
             {% for task in tasks %}
                 <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
                     <td class="image"><img src="{{ asset('images/workflows/' ~ task.node.workflow.type ~ '.jpg') }}"></td>
-                    <td class="name"><div class="wrap bolder">{{ task.node.workflow.name }}</div></td>
+                    <td class="name"><div class="wrap bolder">{{ task.node.workflow.name }} ({{ task.node.name }})</div></td>
                     <td class="status">
                         <div class="wrap">
                         <span class="label label-important">

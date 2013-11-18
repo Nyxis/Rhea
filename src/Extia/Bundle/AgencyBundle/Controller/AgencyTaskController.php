@@ -75,7 +75,7 @@ class AgencyTaskController extends Controller
             ->useTaskQuery()
                 ->filterByAssignedTo($this->getAgencyIdsAction($internalAgencyId)->getData())
             ->endUse()
-            ->filterByCurrent(1)
+            ->filterByCompletedAt(NULL, \Criteria::ISNOTNULL)
 
             ->find();
 
