@@ -52,6 +52,7 @@ class LunchTaskDomain {
         $consultants = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->useMissionOrderQuery()
+                ->filterByCurrent(true)
                 ->filterByMission($mission)
             ->endUse()
             ->find($pdo);

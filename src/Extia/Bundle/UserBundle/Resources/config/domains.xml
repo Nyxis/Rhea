@@ -8,12 +8,21 @@
         <parameter key="extia_user.domain.mission_order.class">Extia\Bundle\UserBundle\Domain\MissionOrderDomain</parameter>
         <parameter key="extia_user.domain.consultant.class">Extia\Bundle\UserBundle\Domain\ConsultantDomain</parameter>
 
+        <!-- Lunch Task domain -->
+        <parameter key="extia_user.domain.lunch_task.class">Extia\Bundle\UserBundle\Domain\LunchTaskDomain</parameter>
+
     </parameters>
 
     <services>
         <!-- Mission Order domain -->
         <service id="extia_user.domain.mission_order" class="%extia_user.domain.mission_order.class%">
             <argument type="service" id="extia_user.bridge.mission_monitoring" />
+            <argument type="service" id="extia_user.domain.lunch_task" />
+        </service>
+
+        <!-- Lunch domain -->
+        <service id="extia_user.domain.lunch_task" class="%extia_user.domain.lunch_task.class%">
+            <argument type="service" id="extia_user.bridge.lunch" />
         </service>
 
         <!-- Consultant domain -->
