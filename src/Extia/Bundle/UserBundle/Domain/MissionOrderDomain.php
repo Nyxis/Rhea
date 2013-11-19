@@ -7,7 +7,7 @@ use Extia\Bundle\UserBundle\Model\MissionOrder;
 use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 use Extia\Bundle\UserBundle\Bridge\MissionMonitoringBridge;
 
-use Extia\Bundle\UserBundle\Domain\LunchTaskDomain;
+use Extia\Bundle\UserBundle\Bridge\LunchBridge;
 
 use \DateTime;
 
@@ -19,15 +19,15 @@ use \DateTime;
 class MissionOrderDomain
 {
     protected $missionMonitoringBridge;
-    protected $lunchTaskDomain;
+    protected $lunchBridge;
 
     /**
      * construct
      */
-    public function __construct(MissionMonitoringBridge $missionMonitoringBridge, LunchTaskDomain $lunchTaskDomain)
+    public function __construct(MissionMonitoringBridge $missionMonitoringBridge, LunchBridge $lunchBridge)
     {
         $this->missionMonitoringBridge = $missionMonitoringBridge;
-        $this->lunchTaskDomain = $lunchTaskDomain;
+        $this->lunchBridge = $lunchBridge;
     }
 
     /**
@@ -152,7 +152,8 @@ class MissionOrderDomain
     {
         $return = array('closed_mission_monitoring' => 0);
 
-        $this->lunchTaskDomain->closeLunchOnMissionOrderDeletion(
+        // update mission lunch
+        $this->lunchBridge->closeLunchOnMissionOrderDeletion(
             $missionOrder->getConsultant(),
             $pdo
         );
@@ -186,7 +187,8 @@ class MissionOrderDomain
         $missionOrder->setCurrent(true);
         $missionOrder->save($pdo);
 
-        $this->lunchTaskDomain->updateLunchOnMissionOrderCreation(
+        // update mission lunch
+        $this->lunchBridge->updateLunchOnMissionOrderCreation(
             $missionOrder->getConsultant(),
             $missionOrder->getMission(),
             $pdo

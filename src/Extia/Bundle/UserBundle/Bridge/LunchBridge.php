@@ -38,7 +38,7 @@ class LunchBridge extends AbstractTaskBridge {
             ->filterByTarget($target)
             ->joinWith('Node')
             ->joinWith('Node.Workflow')
-            ->find($pdo)->getFirst();
+            ->findOne($pdo);
 
         return $task;
     }
@@ -98,5 +98,57 @@ class LunchBridge extends AbstractTaskBridge {
         }
 
         return $task;
+    }
+
+    /**
+     *  Update lunch task data on mission order creation :
+     *      - Add consultant to lunch targets if lunch exist
+     *      - Create lunch with consultant as target if lunch doesn't exist
+     *
+     * @param Consultant $consultant
+     * @param Mission    $mission
+     * @Param \Pdo       $pdo
+     */
+    public function updateLunchOnMissionOrderCreation(Consultant $consultant, Mission $mission, \Pdo $pdo = null)
+    {
+        $task = $this->getLunchTask($mission, $pdo);
+
+        if (!empty($task))
+        {
+            $task->addTarget($consultant);
+            $task->save();
+        }
+        else
+        {
+            if ($mission->getType() == 'client')
+            {
+                $this->createLunch($consultant, $mission, $pdo);
+            }
+        }
+    }
+
+    /**
+     * Close lunch task on mission order deletion
+     *      - If $consultant is the last consultant of the lunch, we delete the target
+     *      - We close the lunch
+     *
+     * @param Consultant $consultant
+     * @param Mission $mission
+     * @param \Pdo $pdo
+     */
+    public function closeLunchOnMissionOrderDeletion(Consultant $consultant, \Pdo $pdo = null)
+    {
+        $task = $this->getLunchTask($consultant, $pdo);
+
+        if (!empty($task))
+        {
+            if ($task->getTaskTargets()->count() == 2)
+            {
+                $this->closeLunch($task, $pdo);
+            }
+
+            $task->removeTarget($consultant, $pdo);
+            $task->save($pdo);
+        }
     }
 }
