@@ -45,11 +45,14 @@ class TemporalTools
             return DateTime::createFromFormat('U', $date);
         }
 
-        if (strpos('-', $date) === false) {
+        if (strpos($date, '-') === false) {
             throw new \InvalidArgumentException(sprintf('Need a US date format, "%s" given', $date));
         }
 
-        return DateTime::createFromFormat('Y-m-d H:i:s', $date);
+        return DateTime::createFromFormat(
+            preg_match('/[0-9]{2}:[0-9]{2}:[0-9]{2}$/', $date) ? 'Y-m-d H:i:s' : 'Y-m-d',
+            $date
+        );
     }
 
     /**
@@ -77,11 +80,9 @@ class TemporalTools
      */
     public function findNextWorkingDay($date)
     {
-        $date          = $this->createDateTime($date);
-        $dateTimestamp = $date->format('U');
-        $dateDay       = $date->format('N');
+        $dateTimestamp = $this->createDateTime($date)->format('U');
 
-        while (in_array($dateDay, $this->offDays)) {
+        while (in_array(date('N', $dateTimestamp), $this->offDays)) {
             $dateTimestamp += 3600*24;
         }
 

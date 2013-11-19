@@ -29,6 +29,7 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         $task->data()->set('next_meeting_date',
             $this->temporalTools->findNextWorkingDay($data['next_date'])
         );
+
         $task->data()->set('notif_date',
             $this->temporalTools->findNextWorkingDay(
                 $this->temporalTools->changeDate($data['next_date'], '-7 days')

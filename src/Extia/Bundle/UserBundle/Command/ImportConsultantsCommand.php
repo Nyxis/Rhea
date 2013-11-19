@@ -56,10 +56,6 @@ class ImportConsultantsCommand extends ContainerAwareCommand
             ));
         }
 
-        // ConsultantQuery::create()->deleteAll();
-        // InternalQuery::create()->deleteAll();
-        // PersonQuery::create()->deleteAll();
-
         // for multiple rows
         $consultantList = array();
 

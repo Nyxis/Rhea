@@ -7,6 +7,7 @@ use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\TaskBundle\Workflow\Aggregator;
+use Extia\Bundle\TaskBundle\Tools\TemporalTools;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
