@@ -100,7 +100,6 @@ class LunchBridge extends AbstractTaskBridge {
         return $task;
     }
 
-
     /**
      *  Update lunch task data on mission order creation :
      *      - Add consultant to lunch targets if lunch exist
