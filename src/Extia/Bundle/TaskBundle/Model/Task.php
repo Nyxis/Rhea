@@ -301,11 +301,19 @@ class Task extends BaseTask
      * @param  TaskTargetInterface $taskTarget object to target
      * @return Task
      */
-    public function removeTarget(TaskTargetInterface $targetObject)
+    public function removeTarget(TaskTargetInterface $targetObject, $pdo = null)
     {
         $targets = $this->getTargets();
         foreach ($targets as $key => $target) {
             if (get_class($targetObject) == get_class($target) && $targetObject->getPrimaryKey() == $target->getPrimaryKey()) {
+                $taskTargets = $this->getTaskTargets();
+                foreach ($taskTargets as $key => $taskTarget)
+                {
+                    if ($taskTarget->getTargetModel() == get_class($target) && $taskTarget->getTargetId() == $target->getPrimaryKey())
+                    {
+                        $taskTarget->delete($pdo);
+                    }
+                }
                 unset($this->targets[$key]);
                 break;
             }
