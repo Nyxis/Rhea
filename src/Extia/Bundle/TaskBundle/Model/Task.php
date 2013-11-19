@@ -303,7 +303,8 @@ class Task extends BaseTask
      */
     public function removeTarget(TaskTargetInterface $targetObject)
     {
-        foreach ($this->getTarget as $key => $target) {
+        $targets = $this->getTargets();
+        foreach ($targets as $key => $target) {
             if (get_class($targetObject) == get_class($target) && $targetObject->getPrimaryKey() == $target->getPrimaryKey()) {
                 unset($this->targets[$key]);
                 break;
