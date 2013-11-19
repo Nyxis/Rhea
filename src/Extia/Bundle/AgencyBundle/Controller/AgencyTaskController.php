@@ -71,14 +71,14 @@ class AgencyTaskController extends Controller
 
         $taskCollection = WorkflowNodeQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Task', \Criteria::LEFT_JOIN)
+            ->joinWith('Task', \Criteria::INNER_JOIN)
             ->useTaskQuery()
                 ->filterByAssignedTo($this->getAgencyIdsAction($internalAgencyId)->getData())
             ->endUse()
             ->filterByCompletedAt(NULL, \Criteria::ISNOTNULL)
 
             ->find();
-
+//        var_dump(($taskCollection[0]->getTasks()[0]->getUserAssigned()));die;
         return $this->render('ExtiaAgencyBundle:Dashboard:agency_past_tasks.html.twig', array (
             'tasks' => $taskCollection
         ));

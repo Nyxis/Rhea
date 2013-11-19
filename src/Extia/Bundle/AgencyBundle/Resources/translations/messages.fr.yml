@@ -1,0 +1,20 @@
+dashboard:
+  da:
+    infos:
+      internalNb: Nombre d'internes
+      nbConsultants: Nombre de consultants
+      nbMissions: En mission
+      nbIntercontrats: En intercontrat
+      activeTasks: Tâches actives
+      nbLateTasks: En retard
+      nbTotalTasks: Cumulé
+      agencyTitle: Agences
+    past:
+      title: Dernières taches terminées de mon agence
+      header:
+        task: Nom de la tâche
+        assigned: Assignée à
+      task:
+        done: Terminée
+    late:
+      title: Tâches en retard de mon agence

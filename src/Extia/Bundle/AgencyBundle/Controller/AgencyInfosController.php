@@ -2,6 +2,7 @@
 
 namespace Extia\Bundle\AgencyBundle\Controller;
 
+use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\UserBundle\Model\MissionOrder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -16,7 +17,17 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class AgencyInfosController extends Controller
 {
 
-    public function getAgencyInternalsAction($internalAgencyId)
+    public function AgencyIds($internalAgencyId)
+    {
+        $agencyIdCollection = InternalQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->select(array('Id'))
+            ->filterByAgencyId($internalAgencyId)
+            ->find();
+        return $agencyIdCollection;
+    }
+
+    public function AgencyInternals($internalAgencyId)
     {
         $internalCollection = InternalQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -26,49 +37,68 @@ class AgencyInfosController extends Controller
         return $internalCollection;
     }
 
-    public function getAgencyConsultantsAction($internalAgencyId)
+    public function AgencyConsultantsInfos($internalAgencyId)
     {
-        $consultantCollection = ConsultantQuery::create()
-            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByAgencyId($internalAgencyId)
-            ->find();
+        $nbIc = ConsultantQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->select(array('id'))
+                ->useMissionOrderQuery()
+                    ->filterByCurrent(true)
+                    ->useMissionQuery()
+                        ->filterByType('ic')
+                    ->endUse()
+                ->endUse()
+                ->filterByActive()
+                ->filterByAgencyId($internalAgencyId)
+                ->count();
 
-        return $consultantCollection;
+        $nbConsultants = ConsultantQuery::create()->filterByActive()->filterByAgencyId($internalAgencyId)->count();
+
+
+        return array('nbConsultants' => $nbConsultants ,'nbActiveConsultant' => $nbConsultants - $nbIc, 'nbICConsultant' => $nbIc);
     }
 
-    public function getActiveConsultantsAction()
+    public function ActiveConsultants()
     {
         $idArray = MissionOrderQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->filterByCurrent(1)
             ->select(array('consultant_id'))
+            ->filterByCurrent(1)
             ->find()
             ->toArray();
 
         return $idArray;
     }
 
-    public function getNbInMission($consultantCollection)
-    {
-        $idArray = $this->getActiveConsultantsAction();
-        $nbInMission = 0;
-        for($i = 0;$i < count($idArray); $i++)
-            foreach ($consultantCollection as $agencyConsultant)
-                if ($agencyConsultant->getId() == $idArray[$i])
-                    $nbInMission++;
-        return $nbInMission;
-    }
-
     public function getAgencyInfosAction(Request $request, $internalAgencyId)
     {
-        $internalCollection = $this->getAgencyInternalsAction($internalAgencyId);
-        $consultantCollection = $this->getAgencyConsultantsAction($internalAgencyId);
-        $nbInMission = $this->getNbInMission($consultantCollection);
+        $internalCollection = $this->AgencyInternals($internalAgencyId);
+        $consultantsInfos = $this->AgencyConsultantsInfos($internalAgencyId);
+
+        // Nombre de taches en retard
+        $nbLateTasks = TaskQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->select(array('id'))
+            ->joinWithCurrentNodes()
+            ->filterByCompletionDate(array('max' => 'now'))
+            ->filterByAssignedTo($this->AgencyIds($internalAgencyId)->getData())
+            ->count();
+
+        // Nombre de taches actives total
+        $nbTotalTasks = TaskQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->select(array('id'))
+            ->joinWithCurrentNodes()
+            ->filterByAssignedTo($this->AgencyIds($internalAgencyId)->getData())
+            ->count();
 
         return $this->render('ExtiaAgencyBundle:Dashboard:agency_infos.html.twig', array(
             'internals' => $internalCollection,
-            'consultants' => $consultantCollection,
-            'nbInMission' => $nbInMission
+            'consultants' => $consultantsInfos['nbConsultants'],
+            'nbInMission' => $consultantsInfos['nbActiveConsultant'],
+            'nbIc'        => $consultantsInfos['nbICConsultant'],
+            'nbLateTasks' => $nbLateTasks,
+            'nbTotalTasks' => $nbTotalTasks
         ));
     }
 
