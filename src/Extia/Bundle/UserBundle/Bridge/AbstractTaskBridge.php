@@ -73,12 +73,12 @@ abstract class AbstractTaskBridge
      */
     protected function resolveNode(Task $task, array $nodeData = array(), \Pdo $pdo = null)
     {
-        if (!$task->getNode()->getCurrent()
-                || $task->getNode()->getCompletedAt() !== null
-                || $task->getNode()->getEnded()
-            ) {
-            throw new \InvlidArgumentException('Cannot resolved as closed or a completed workflow node.');
-        }
+        if         (!$task->getNode()->getCurrent()
+            || $task->getNode()->getCompletedAt() !== null
+            || $task->getNode()->getEnded()
+        ) {
+        throw new \InvalidArgumentException('Cannot resolved as closed or a completed workflow node.');
+    }
 
         return $task->getNode()->getType()->getHandler()->resolve(
             $nodeData, $task, $pdo
