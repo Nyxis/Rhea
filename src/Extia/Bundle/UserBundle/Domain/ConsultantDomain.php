@@ -39,11 +39,11 @@ class ConsultantDomain
         }
 
         $consultant->setPersonTypeId(
-                PersonTypeQuery::create()
-                    ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-                    ->select('Id')
-                    ->findOneByCode('clt')
-            );
+            PersonTypeQuery::create()
+                ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+                ->select('Id')
+                ->findOneByCode('clt')
+        );
     }
 
     /**
@@ -72,7 +72,7 @@ class ConsultantDomain
 
         // same for annual review
         if (!empty($options['with_annual_review'])) {
-            $this->annualReviewBridge->createReview($consultant, $pdo);
+            $this->annualReviewBridge->createReview($consultant, null, $pdo); // no date to use default one
         }
 
     }

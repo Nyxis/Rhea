@@ -23,7 +23,9 @@ class ExtiaTaskExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/services/'));
-        $loader->load('forms.xml');
         $loader->load('workflows.xml');
+        $loader->load('tools.xml');
+        $loader->load('domains.xml');
+        $loader->load('forms.xml');
     }
 }

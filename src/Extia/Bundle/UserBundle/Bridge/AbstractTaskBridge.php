@@ -7,6 +7,7 @@ use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\TaskBundle\Workflow\Aggregator;
+use Extia\Bundle\TaskBundle\Tools\TemporalTools;
 
 use EasyTask\Bundle\WorkflowBundle\Model\Workflow;
 
@@ -20,16 +21,18 @@ use Symfony\Component\Translation\TranslatorInterface;
 abstract class AbstractTaskBridge
 {
     protected $workflows;
+    protected $temporalTools;
     protected $translator;
 
     /**
      * construct
      * @param Aggregator $workflows
      */
-    public function __construct(Aggregator $workflows, TranslatorInterface $translator)
+    public function __construct(Aggregator $workflows, TemporalTools $temporalTools, TranslatorInterface $translator)
     {
-        $this->workflows  = $workflows;
-        $this->translator = $translator;
+        $this->workflows     = $workflows;
+        $this->temporalTools = $temporalTools;
+        $this->translator    = $translator;
     }
 
     /**

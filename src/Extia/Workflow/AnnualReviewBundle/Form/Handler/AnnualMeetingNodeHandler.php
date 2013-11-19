@@ -26,9 +26,11 @@ class AnnualMeetingNodeHandler extends AbstractNodeHandler
 
         $nextTimestamp = mktime(0, 0, 0, $monthContract, $dayContract, $yearActivation);
 
-        $task->data()->set('meeting_date', $task->findNextWorkingDay(
-            $task->calculateDate($nextTimestamp, '+1 year', 'U')
-        ));
+        $task->data()->set('meeting_date',
+            $this->temporalTools->findNextWorkingDay(
+                $this->temporalTools->changeDate($nextTimestamp, '+1 year')
+            )
+        );
 
         $task->save($pdo);
 

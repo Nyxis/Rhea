@@ -23,9 +23,10 @@ class AnnualReviewBridge extends AbstractTaskBridge
      * creates and init annual review for given consultant
      *
      * @param Consultant $consultant
+     * @param int        $nextDate   next meeting date (timestamp) - optionnal
      * @param \Pdo       $pdo
      */
-    public function createReview(Consultant $consultant, \Pdo $pdo = null)
+    public function createReview(Consultant $consultant, $nextDate = null, \Pdo $pdo = null)
     {
         $currentTask  = $this->createWorkflow(array(), $pdo);
 
@@ -45,9 +46,9 @@ class AnnualReviewBridge extends AbstractTaskBridge
                 // bootstrap data
                 'user_target_id' => $consultant->getId(),
                 'assigned_to'    => $consultant->getCrh($pdo),
-                'next_date'      => $currentTask->findNextWorkingDay(
-                    (int) $currentTask->calculateDate($consultant->getContractBeginDate(), '+1 year', 'U')
-                )
+                'next_date'      => empty($nextDate) ?
+                    $this->temporalTools->changeDate($consultant->getContractBeginDate(), '+1 year') :
+                    $nextDate
             ),
             $pdo
         );

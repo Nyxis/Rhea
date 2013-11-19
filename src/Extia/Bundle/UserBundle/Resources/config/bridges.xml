@@ -14,6 +14,7 @@
         <!-- Abstract definition -->
         <service id="extia_user.bridge.abstract_task" class="%extia_user.bridge.abstract_task.class%" abstract="true" >
             <argument type="service" id="workflows" />
+            <argument type="service" id="extia_task.tools.temporal" />
             <argument type="service" id="translator" />
         </service>
 

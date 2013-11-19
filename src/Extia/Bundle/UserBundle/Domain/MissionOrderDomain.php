@@ -5,7 +5,6 @@ namespace Extia\Bundle\UserBundle\Domain;
 use Extia\Bundle\UserBundle\Model\Consultant;
 use Extia\Bundle\UserBundle\Model\MissionOrder;
 use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
-
 use Extia\Bundle\UserBundle\Bridge\MissionMonitoringBridge;
 
 use \DateTime;
@@ -28,7 +27,24 @@ class MissionOrderDomain
     }
 
     /**
-     * synchronize all mission order on given date
+     * Assign given mission order to given consultant
+     *
+     * @param  Consultant               $consultant
+     * @param  MissionOrder             $missionOrder
+     * @return MissionOrderDomain
+     * @throws InvalidArgumentException If given mission order has any mission
+     */
+    public function assignOrder(Consultant $consultant, MissionOrder $missionOrder, \Pdo $pdo)
+    {
+        if (!$mission = $missionOrder->getMission()) {
+            throw new \InvalidArgumentException('Given mission order has no missions.');
+        }
+
+        // @todo import here change mission handler logic
+    }
+
+    /**
+     * synchronize all or consultant if passed mission orders on given date
      *   - ends missions which expires at given date - 1 day
      *       - close old mission_monitoring workflow
      *
@@ -36,11 +52,12 @@ class MissionOrderDomain
      *       - start next mission_monitoring workflow
      *       - calculate consultants manager
      *
-     * @param  DateTime $date
-     * @param  Pdo      $pdo
-     * @return array    report of impacted mission orders and tasks
+     * @param  DateTime   $date
+     * @param  Consultant $consultant opt consultant to only sync
+     * @param  Pdo        $pdo
+     * @return array      report of impacted mission orders and tasks
      */
-    public function synchronize(DateTime $date, \Pdo $pdo = null)
+    public function synchronize(DateTime $date, Consultant $consultant = null, \Pdo $pdo = null)
     {
         $return = array(
             'activated_mission_orders'    => 0,
@@ -65,6 +82,10 @@ class MissionOrderDomain
                 ->joinWith('Mission')
                 ->joinWith('Mission.Manager')
 
+                ->_if(!empty($consultant))
+                    ->filterByConsultant($consultant)
+                ->_endif()
+
                 ->filterByEndDate(array('max' => $expiringData->sub(date_interval_create_from_date_string('1 day'))))
                 ->filterByCurrent(true)
 
@@ -83,6 +104,10 @@ class MissionOrderDomain
                 ->joinWith('Consultant')
                 ->joinWith('Mission')
                 ->joinWith('Mission.Manager')
+
+                ->_if(!empty($consultant))
+                    ->filterByConsultant($consultant)
+                ->_endif()
 
                 ->filterByBeginDate($date)
                 ->filterByCurrent(false)

@@ -37,7 +37,9 @@ class TypeNodeController extends EasyTaskTypeNodeController
      */
     public function onTaskDiffering(Task $task)
     {
-        $task->defineCompletionDate('+1 day');
+        $this->get('extia_task.domain.task')->activateTaskFor(
+            $task, '+1 day'
+        );
     }
 
     /**
