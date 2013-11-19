@@ -8,6 +8,9 @@
         <parameter key="extia_user.domain.mission_order.class">Extia\Bundle\UserBundle\Domain\MissionOrderDomain</parameter>
         <parameter key="extia_user.domain.consultant.class">Extia\Bundle\UserBundle\Domain\ConsultantDomain</parameter>
 
+        <!-- Lunch Task domain -->
+        <parameter key="extia_user.domain.lunch_task.class">Extia\Bundle\UserBundle\Domain\LunchTaskDomain</parameter>
+
     </parameters>
 
     <services>
