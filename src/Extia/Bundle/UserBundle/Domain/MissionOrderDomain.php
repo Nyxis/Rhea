@@ -98,7 +98,7 @@ class MissionOrderDomain
                 $return['closed_mission_monitoring'] += $report['closed_mission_monitoring'];
             }
 
-            // beginning missions
+            // current missions
             $beginningMissionOrders = MissionOrderQuery::create()
                 ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
                 ->joinWith('Consultant')
@@ -109,8 +109,13 @@ class MissionOrderDomain
                     ->filterByConsultant($consultant)
                 ->_endif()
 
-                ->filterByBeginDate($date)
                 ->filterByCurrent(false)
+
+                ->filterByBeginDate(array('max' => $date))
+
+                ->filterByEndDate(array('min' => $date))
+                ->_or()
+                ->filterByEndDate(null, \Criteria::ISNULL)
 
                 ->find($pdo)
             ;

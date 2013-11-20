@@ -29,18 +29,19 @@ class DashboardController extends Controller
 
         $tasks = TaskQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Comment', \Criteria::LEFT_JOIN)
+            // ->joinWith('Comment', \Criteria::LEFT_JOIN)
             ->joinWithCurrentNodes()
 
             ->filterByAssignedTo($userId)
             ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('write')))
 
             ->orderByActivationDate()
+            ->limit(5)
             ->findWithTargets()
             ->getData();
 
         $page--;
-        $maxPerPage = 10;
+        $maxPerPage = 5;
         $paged = array_slice($tasks, $page*$maxPerPage, $page*$maxPerPage + $maxPerPage);
 
         return $paged;

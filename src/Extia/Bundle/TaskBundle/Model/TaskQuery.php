@@ -17,8 +17,9 @@ class TaskQuery extends BaseTaskQuery
                 ->filterByCurrent(true)
                 ->filterByEnded(false)
             ->endUse()
-            ->joinWith('Node')
-            ->joinWith('Node.Workflow');
+            ->join('Node')
+            ->join('Node.Workflow')
+        ;
     }
 
     /**
@@ -55,8 +56,8 @@ class TaskQuery extends BaseTaskQuery
     public function findWithTargets(\Pdo $pdo = null)
     {
         $collection = $this
-            ->joinWith('UserAssigned', \Criteria::LEFT_JOIN)
-            ->joinWith('TaskTarget')
+            ->join('UserAssigned', \Criteria::LEFT_JOIN)
+            ->join('TaskTarget')
             ->find($pdo);
 
         // build a mapping

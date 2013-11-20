@@ -215,13 +215,25 @@ class ImportConsultantsCommand extends ContainerAwareCommand
                 $missionOrder->setConsultant($consultant);
 
                 $missionOrder->setBeginDate(
-                    \DateTime::createFromFormat('d/m/y', $missionData['debut_mission'])
+                    \DateTime::createFromFormat('n/j/Y', $missionData['debut_mission'])
                 );
                 $missionOrder->setEndDate(
-                    \DateTime::createFromFormat('d/m/y', $missionData['fin_mission'])
+                    \DateTime::createFromFormat('n/j/Y', $missionData['fin_mission'])
                 );
 
                 $missionOrder->save();
+            }
+
+            // remove last mission order date, we consider all clt in mission : amazing !
+            $lastMissionOrder = MissionOrderQuery::create()
+                ->filterByConsultant($consultant)
+                ->orderByBeginDate(\Criteria::DESC)
+                ->findOne()
+            ;
+
+            if (!empty($lastMissionOrder)) {
+                $lastMissionOrder->setEndDate(null);
+                $lastMissionOrder->save();
             }
 
             // resync mission_orders through domain

@@ -157,7 +157,7 @@ class InternalController extends Controller
     {
         $taskCollection = TaskQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
-            ->joinWith('Comment', \Criteria::LEFT_JOIN)
+            // ->joinWith('Comment', \Criteria::LEFT_JOIN)
             ->joinWithCurrentNodes()
 
             ->filterByAssignedTo($internal->getTeamIds()->getData())
@@ -166,6 +166,9 @@ class InternalController extends Controller
             ->filterByCompletionDate(array('max' => 'now'))
 
             ->orderByActivationDate()
+
+            ->limit(10)
+
             ->findWithTargets();
 
         return $this->render('ExtiaUserBundle:Internal:team_past_tasks.html.twig', array (

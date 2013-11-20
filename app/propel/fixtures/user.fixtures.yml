@@ -180,6 +180,9 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_annual_review_write:
         GroupId: crh
         CredentialId: annual_review_write
+    gp_manager_auth:
+        GroupId: manager
+        CredentialId: authentication
     gp_manager_annual_review_read:
         GroupId: manager
         CredentialId: annual_review_read
@@ -192,3 +195,87 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_manager_user_read:
         GroupId: manager
         CredentialId: consultant_read
+    gp_pdg_admin:
+        GroupId: pdg
+        CredentialId: admin
+    gp_pdg_authentication:
+        GroupId: pdg
+        CredentialId: authentication
+    gp_pdg_consultant_write:
+        GroupId: pdg
+        CredentialId: consultant_write
+    gp_pdg_consultant_read:
+        GroupId: pdg
+        CredentialId: consultant_read
+    gp_pdg_internal_write:
+        GroupId: pdg
+        CredentialId: internal_write
+    gp_pdg_internal_read:
+        GroupId: pdg
+        CredentialId: internal_read
+    gp_pdg_mission_read:
+        GroupId: pdg
+        CredentialId: mission_read
+    gp_pdg_mission_write:
+        GroupId: pdg
+        CredentialId: mission_write
+    gp_pdg_crh_monitoring_read:
+        GroupId: pdg
+        CredentialId: crh_monitoring_read
+    gp_pdg_crh_monitoring_write:
+        GroupId: pdg
+        CredentialId: crh_monitoring_write
+    gp_pdg_mission_monitoring_read:
+        GroupId: pdg
+        CredentialId: mission_monitoring_read
+    gp_pdg_mission_monitoring_write:
+        GroupId: pdg
+        CredentialId: mission_monitoring_write
+    gp_pdg_annual_review_read:
+        GroupId: pdg
+        CredentialId: annual_review_read
+    gp_pdg_annual_review_write:
+        GroupId: pdg
+        CredentialId: annual_review_write
+    gp_da_admin:
+        GroupId: da
+        CredentialId: admin
+    gp_da_authentication:
+        GroupId: da
+        CredentialId: authentication
+    gp_da_consultant_write:
+        GroupId: da
+        CredentialId: consultant_write
+    gp_da_consultant_read:
+        GroupId: da
+        CredentialId: consultant_read
+    gp_da_internal_write:
+        GroupId: da
+        CredentialId: internal_write
+    gp_da_internal_read:
+        GroupId: da
+        CredentialId: internal_read
+    gp_da_mission_read:
+        GroupId: da
+        CredentialId: mission_read
+    gp_da_mission_write:
+        GroupId: da
+        CredentialId: mission_write
+    gp_da_crh_monitoring_read:
+        GroupId: da
+        CredentialId: crh_monitoring_read
+    gp_da_crh_monitoring_write:
+        GroupId: da
+        CredentialId: crh_monitoring_write
+    gp_da_mission_monitoring_read:
+        GroupId: da
+        CredentialId: mission_monitoring_read
+    gp_da_mission_monitoring_write:
+        GroupId: da
+        CredentialId: mission_monitoring_write
+    gp_da_annual_review_read:
+        GroupId: da
+        CredentialId: annual_review_read
+    gp_da_annual_review_write:
+        GroupId: da
+        CredentialId: annual_review_write
