@@ -20,14 +20,26 @@ class BootstrapNodeHandler extends AbstractNodeHandler
     {
         $task->addTarget($this->loadConsultant($data['user_target_id']), $pdo);
 
-        $task->setActivationDate(strtotime(date('Y-m-d')));
-        $task->defineCompletionDate('+1 day');
+        // assignation
+        if (!empty($data['assigned_to'])) {
+            $task->setAssignedTo($data['assigned_to']);
+        }
+
+        // activation @creation
+        $this->taskDomain->activateTaskOn(
+            $task, date('Y-m-d'), '+1 day'
+        );
 
         // activate before given date for pre-notification
-        $task->data()->set('next_meeting_date', $task->findNextWorkingDay($data['next_date']));
-        $task->data()->set('notif_date', $task->findNextWorkingDay(
-            (int) $task->calculateDate($data['next_date'], '-7 days', 'U')
-        ));
+        $task->data()->set('next_meeting_date',
+            $this->temporalTools->findNextWorkingDay($data['next_date'], 'U')
+        );
+
+        $task->data()->set('notif_date',
+            $this->temporalTools->findNextWorkingDay(
+                $this->temporalTools->changeDate($data['next_date'], '-7 days'), 'U'
+            )
+        );
 
         // updates workflow fields
         $this->updateWorkflow($data, $task, $pdo);

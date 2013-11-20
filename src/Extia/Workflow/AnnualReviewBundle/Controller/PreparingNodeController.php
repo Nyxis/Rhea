@@ -53,10 +53,12 @@ class PreparingNodeController extends TypeNodeController
         $meetingDate = $prevTask->data()->get('meeting_date');
         $nextTask->data()->set('meeting_date', $meetingDate);
 
-        $nextTask->setActivationDate($nextTask->findNextWorkingDay(
-            (int) $nextTask->calculateDate($meetingDate, '-1 month', 'U')
-        ));
-        $nextTask->defineCompletionDate('+21 days');
+        // activation
+        $this->get('extia_task.domain.task')->activateTaskOn(
+            $nextTask,
+            $this->get('extia_task.tools.temporal')->changeDate($meetingDate, '-1 month'),
+            '+21 days'
+        );
 
         return parent::onTaskCreation($nextTask, $prevTask, $parameters, $connection);
     }
@@ -66,7 +68,9 @@ class PreparingNodeController extends TypeNodeController
      */
     public function onTaskDiffering(Task $task)
     {
-        $task->defineCompletionDate('+21 days');
+        $this->get('extia_task.domain.task')->activateTaskFor(
+            $task, '+21 days'
+        );
     }
 
     /**

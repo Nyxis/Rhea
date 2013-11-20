@@ -28,7 +28,7 @@ class Consultant extends BaseConsultant implements TaskTargetInterface
 
         $currentMission = $this->getCurrentMission();
 
-        if ($currentMission->getType() == 'ic') {
+        if (empty($currentMission) || $currentMission->getType() == 'ic') {
             return self::STATUS_IC;
         }
 

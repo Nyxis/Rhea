@@ -6,12 +6,15 @@
     <parameters>
         <parameter key="extia_user.bridge.abstract_task.class">Extia\Bundle\UserBundle\Bridge\AbstractTaskBridge</parameter>
         <parameter key="extia_user.bridge.mission_monitoring.class">Extia\Bundle\UserBundle\Bridge\MissionMonitoringBridge</parameter>
+        <parameter key="extia_user.bridge.crh_monitoring.class">Extia\Bundle\UserBundle\Bridge\CrhMonitoringBridge</parameter>
+        <parameter key="extia_user.bridge.annual_review.class">Extia\Bundle\UserBundle\Bridge\AnnualReviewBridge</parameter>
     </parameters>
 
     <services>
         <!-- Abstract definition -->
         <service id="extia_user.bridge.abstract_task" class="%extia_user.bridge.abstract_task.class%" abstract="true" >
             <argument type="service" id="workflows" />
+            <argument type="service" id="extia_task.tools.temporal" />
             <argument type="service" id="translator" />
         </service>
 
@@ -22,8 +25,16 @@
         </service>
 
         <!-- Crh monitoring bridge -->
+        <service id="extia_user.bridge.crh_monitoring" class="%extia_user.bridge.crh_monitoring.class%"
+            parent="extia_user.bridge.abstract_task" >
+
+        </service>
 
         <!-- Annual review bridge -->
+        <service id="extia_user.bridge.annual_review" class="%extia_user.bridge.annual_review.class%"
+            parent="extia_user.bridge.abstract_task" >
+
+        </service>
 
     </services>
 

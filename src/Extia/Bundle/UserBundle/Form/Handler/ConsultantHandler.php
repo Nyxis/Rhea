@@ -2,6 +2,7 @@
 
 namespace Extia\Bundle\UserBundle\Form\Handler;
 
+use Extia\Bundle\UserBundle\Domain\ConsultantDomain;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Extia\Bundle\UserBundle\Model\PersonTypeQuery;
 use Extia\Bundle\UserBundle\Model\MissionOrder;
@@ -25,15 +26,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ConsultantHandler extends AdminHandler
 {
-    protected $workflows;
+    protected $consultantDomain;
 
     /**
      * construct
      * @see Extia/Bundles/UserBundle/Resources/config/admin.xml
      */
-    public function __construct(Aggregator $workflows)
+    public function __construct(ConsultantDomain $consultantDomain)
     {
-        $this->workflows = $workflows;
+        $this->consultantDomain = $consultantDomain;
     }
 
     /**
@@ -202,11 +203,7 @@ class ConsultantHandler extends AdminHandler
                 $consultant->getPersonCredentials()
             );
 
-            // success message
-            $this->notifier->add(
-                'success', 'consultant.admin.notifications.save_success',
-                array ('%consultant_name%' => $consultant->getLongName())
-            );
+
 
             // resignation
             if ($form->has('resignation')) {
@@ -252,46 +249,22 @@ class ConsultantHandler extends AdminHandler
                 }
             }
 
-            // task creation
-            if ($form->has('create_crh_monitoring') && true == $form->get('create_crh_monitoring')->getData()) {
-                $wfCrh = $this->workflows->create('crh_monitoring');
+            // transfer to domain for business logic
+            $this->consultantDomain->registerConsultant(
+                $consultant,
+                array(),
+                array(
+                    'with_crh_monitoring' => $form->has('create_crh_monitoring') && true == $form->get('create_crh_monitoring')->getData(),
+                    'with_annual_review'  => $form->has('create_annual_review') && true == $form->get('create_annual_review')->getData(),
+                ),
+                $pdo
+            );
 
-                $this->workflows->boot($wfCrh, array(), $pdo);  // first step
-
-                // second step : resolve like an user posted a form
-                $task = $this->workflows->getCurrentTask($wfCrh, $pdo);
-                $task->getNode()->getType()->getHandler()->resolve(array(
-                        'user_target_id' => $consultant->getId(),
-                        'next_date'      => $task->findNextWorkingDay(
-                            (int) $task->calculateDate($consultant->getContractBeginDate(), '+1 month', 'U')
-                        ),
-                        'workflow' => array(
-                            'name'           => $this->translator->trans('crh_monitoring.default_name', array('%user_target%' => $consultant->getLongName())),
-                            'description'    => $this->translator->trans('crh_monitoring.default_desc', array('%user_target%' => $consultant->getLongName()))
-                        )
-                    ), $task, $request, $pdo
-                );
-            }
-
-            if ($form->has('create_annual_review') && true == $form->get('create_annual_review')->getData()) {
-                $wfAnnualReview = $this->workflows->create('annual_review');
-
-                $this->workflows->boot($wfAnnualReview, array(), $pdo);  // first step
-
-                // second step : resolve like an user posted a form
-                $task = $this->workflows->getCurrentTask($wfAnnualReview, $pdo);
-                $task->getNode()->getType()->getHandler()->resolve(array(
-                        'user_target_id' => $consultant->getId(),
-                        'next_date'   => $task->findNextWorkingDay(
-                            (int) $task->calculateDate($consultant->getContractBeginDate(), '+1 year', 'U')
-                        ),
-                        'workflow' => array(
-                            'name'           => $this->translator->trans('annual_review.default_name', array('%user_target%' => $consultant->getLongName())),
-                            'description'    => $this->translator->trans('annual_review.default_desc', array('%user_target%' => $consultant->getLongName()))
-                        )
-                    ), $task, $request, $pdo
-                );
-            }
+            // success message
+            $this->notifier->add(
+                'success', 'consultant.admin.notifications.save_success',
+                array ('%consultant_name%' => $consultant->getLongName())
+            );
 
             $pdo->commit();
 
@@ -305,9 +278,7 @@ class ConsultantHandler extends AdminHandler
             }
 
             $this->logger->err($e->getMessage());
-            $this->notifier->add(
-                'error', 'consultant.admin.notifications.error'
-            );
+            $this->notifier->add('error', 'consultant.admin.notifications.error');
 
             return false;
         }
