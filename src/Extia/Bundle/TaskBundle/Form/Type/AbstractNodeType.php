@@ -2,6 +2,7 @@
 
 namespace Extia\Bundle\TaskBundle\Form\Type;
 
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 use Extia\Bundle\UserBundle\Model\InternalQuery;
 use Extia\Bundle\DocumentBundle\Factory\DocumentFactoryInterface;
@@ -97,5 +98,21 @@ abstract class AbstractNodeType extends AbstractType
             ->find();
 
         return $consultants->toKeyValue('Id', 'LongName');
+    }
+
+    /**
+     * construct a choice list for all missions order by client title
+     * @return array
+     */
+    protected function getMissionsChoices()
+    {
+        $missions = MissionQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->useClientQuery()
+                ->orderByTitle()
+            ->endUse()
+            ->find();
+
+        return $missions->toKeyValue('Id', 'FullLabel');
     }
 }

@@ -26,7 +26,7 @@ class MeetingNodeHandler extends AbstractNodeHandler
             $this->temporalTools->findNextWorkingDay($nextMeeting, 'U')
         );
 
-        $task->data()->set('notif_date', $task->findNextWorkingDay(
+        $task->data()->set('notif_date', $this->temporalTools->findNextWorkingDay(
             $this->temporalTools->findNextWorkingDay(
                 $this->temporalTools->changeDate($nextMeeting, '-7 days'), 'U'
             )

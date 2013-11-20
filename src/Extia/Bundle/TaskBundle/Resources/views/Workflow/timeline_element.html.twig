@@ -9,11 +9,13 @@
                 {% block task_title %}
                     {{ (task.node.workflow.type ~ '.' ~ task.node.name ~ '.timeline.hook')|trans }}
                 {% endblock %}<br />
-                {% if task.target('consultant') is not empty and params.user_target|default(false) == true %}
-                    {% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.target('consultant') } only %}
-                {% else %}
-                    <p>&nbsp;</p>
-                {% endif %}
+                {% block main_target %}
+                    {% if task.target('consultant') is not empty and params.user_target|default(false) == true %}
+                        {% include 'ExtiaUserBundle:Badges:consultant_small.html.twig' with { 'clt': task.target('consultant') } only %}
+                    {% else %}
+                        <p>&nbsp;</p>
+                    {% endif %}
+                {% endblock %}
             </h4>
         </div>
     </div>

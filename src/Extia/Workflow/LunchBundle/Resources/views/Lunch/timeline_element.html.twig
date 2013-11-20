@@ -1,0 +1,26 @@
+{% extends 'ExtiaTaskBundle:Workflow:timeline_element.html.twig' %}
+
+{% block task_title %}
+    {{ 'lunch.lunch.timeline.hook'|trans }} - {{ task.data.get('meeting_date')|date('H\\hi') }} - {{ task.data.get('meeting_place') }}
+{% endblock %}
+
+{% block main_target %}
+    {% if task.target('mission') is not empty %}
+        <a class="user" href="{{ path('MissionBundle_mission_admin_edit', task.target('mission').routing) }}">
+            {{ task.target('mission').fullLabel }}
+        </a>
+    {% else %}
+        <p>&nbsp;</p>
+    {% endif %}
+{% endblock %}
+
+{% block task_data %}
+    <p>
+        {{ 'lunch.lunch.timeline.meeting_at'|trans }}
+        <span class="data">{{ task.data.get('meeting_date')|date('lunch.lunch.date_format'|trans ~ ' ' ~ 'lunch.lunch.time_format'|trans) }}</span>.
+    </p>
+    {% if task.isCompleted == true %}
+        <p>{{ 'lunch.lunch.timeline.next_meeting'|trans }} <span class="data">{{ task.data.get('meeting_date')|date('date_format.ymd'|trans) }}</span>.</p>
+        <p>{{ 'lunch.lunch.timeline.notified_at'|trans }} <span class="data">{{ task.data.get('notif_date')|date('date_format.ymd'|trans) }}</span>.</p>
+    {% endif %}
+{% endblock %}

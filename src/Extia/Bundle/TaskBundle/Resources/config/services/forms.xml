@@ -57,6 +57,7 @@
             <argument type="service" id="security.context" />
             <argument type="service" id="translator" />
             <argument type="service" id="notifier" />
+            <argument type="service" id="temporal_tools" />
         </service>
 
     </services>

@@ -7,6 +7,8 @@ use Extia\Bundle\UserBundle\Model\MissionOrder;
 use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 use Extia\Bundle\UserBundle\Bridge\MissionMonitoringBridge;
 
+use Extia\Bundle\UserBundle\Bridge\LunchBridge;
+
 use \DateTime;
 
 /**
@@ -17,13 +19,15 @@ use \DateTime;
 class MissionOrderDomain
 {
     protected $missionMonitoringBridge;
+    protected $lunchBridge;
 
     /**
      * construct
      */
-    public function __construct(MissionMonitoringBridge $missionMonitoringBridge)
+    public function __construct(MissionMonitoringBridge $missionMonitoringBridge, LunchBridge $lunchBridge)
     {
         $this->missionMonitoringBridge = $missionMonitoringBridge;
+        $this->lunchBridge = $lunchBridge;
     }
 
     /**
@@ -148,6 +152,12 @@ class MissionOrderDomain
     {
         $return = array('closed_mission_monitoring' => 0);
 
+        // update mission lunch
+        $this->lunchBridge->closeLunchOnMissionOrderDeletion(
+            $missionOrder->getConsultant(),
+            $pdo
+        );
+
         // disactivate
         $missionOrder->setCurrent(false);
         $missionOrder->save($pdo);
@@ -176,6 +186,13 @@ class MissionOrderDomain
         // activate
         $missionOrder->setCurrent(true);
         $missionOrder->save($pdo);
+
+        // update mission lunch
+        $this->lunchBridge->updateLunchOnMissionOrderCreation(
+            $missionOrder->getConsultant(),
+            $missionOrder->getMission(),
+            $pdo
+        );
 
         // open mission_monitoring only if external mission (no ic)
         if ($missionOrder->getMission()->isExternal()) {

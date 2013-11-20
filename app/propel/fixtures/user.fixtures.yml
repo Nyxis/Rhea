@@ -75,6 +75,12 @@ Extia\Bundle\GroupBundle\Model\Credential:
     annual_review_write:
         type: task
         code: workflow_annual_review_write
+    lunch_read:
+        type: task
+        code: workflow_lunch_read
+    lunch_write:
+        type: task
+        code: workflow_lunch_write
 
 Extia\Bundle\GroupBundle\Model\CredentialI18n:
     admin_fr:
@@ -133,6 +139,14 @@ Extia\Bundle\GroupBundle\Model\CredentialI18n:
         id: annual_review_write
         locale: fr
         label: ""
+    lunch_read_fr:
+        id: lunch_read
+        locale: fr
+        label: ""
+    lunch_write_fr:
+        id: lunch_write
+        locale: fr
+        label: ""
 
 Extia\Bundle\GroupBundle\Model\Group:
     pdg:
@@ -180,6 +194,12 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_annual_review_write:
         GroupId: crh
         CredentialId: annual_review_write
+    gp_lunch_read:
+       GroupId: crh
+       CredentialId: lunch_read
+    gp_lunch_write:
+        GroupId: crh
+        CredentialId: lunch_write
     gp_manager_auth:
         GroupId: manager
         CredentialId: authentication
@@ -237,6 +257,12 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_pdg_annual_review_write:
         GroupId: pdg
         CredentialId: annual_review_write
+    gp_pdg_lunch_read:
+       GroupId: pdg
+       CredentialId: lunch_read
+    gp_pdg_lunch_write:
+        GroupId: pdg
+        CredentialId: lunch_write
     gp_da_admin:
         GroupId: da
         CredentialId: admin
@@ -279,3 +305,9 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_da_annual_review_write:
         GroupId: da
         CredentialId: annual_review_write
+    gp_da_lunch_read:
+       GroupId: da
+       CredentialId: lunch_read
+    gp_da_lunch_write:
+        GroupId: da
+        CredentialId: lunch_write

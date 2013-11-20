@@ -1,0 +1,50 @@
+lunch:
+    label: Déjeuner consultant
+    default_name: Déjeuner consultant %mission_target%
+    default_desc: Déjeuner consultant de la mission %mission_target%
+
+    credential:
+        read: Voir les déjeuners consultant
+        write: Créer et réaliser des déjeuners consultant
+
+    bootstrap:
+        label: Initialisation
+
+        hook: Veuillez remplir les informations nécessaires à l'initialisation du déjeuner :
+        notification: Le déjeuner a bien été initialisé pour la mission %mission%. Vous serez notifié pour planifier le déjeuner le %notif_date%.
+        timeline:
+            hook: Initialisation déjeuner consultant
+            next_meeting: Déjeuner prévu aux alentours du
+            notified_at: Prise de date le
+
+        mission_target_id: Mission
+        next_date: Date théorique du prochain déjeuner
+
+    appointement:
+        label: Prise de rendez vous
+
+        meeting_date: Déjeuner convenu le
+        meeting_place: Lieu du déjeuner
+        hook: Planification du déjeuner
+        notification: Déjeuner enregistré pour la mission %mission%, le %meeting_date%.
+        timeline:
+            hook: Prise de date pour le déjeuner
+            meeting_date: Déjeuner prévu planifié le
+            meeting_date_format: d/m/Y à H:i
+
+    lunch:
+        label: Déjeuner
+        next_meeting: Prochain déjeuner prévu dans
+        hook: Veuillez confirmer que le déjeuner a eu lieu pour la mission
+        task_submit: Confirmer
+        today: aujourd'hui
+        tomorrow: demain
+        date_format: \l\e d/m
+        at: à
+        time_format: à H:i
+        notification: Le déjeuner a été validé pour la mission %mission%. Vous serez notifié pour planifier le prochain déjeuner le %notif_date%.
+        timeline:
+            hook: Déjeuner
+            meeting_at: Déjeuner
+            next_meeting: Prochain déjeuner prévu aux alentours du
+            notified_at: Prise de date le

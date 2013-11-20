@@ -3,6 +3,7 @@
 namespace Extia\Bundle\UserBundle\Model;
 
 use Extia\Bundle\UserBundle\Model\om\BaseMissionOrder;
+use Extia\Bundle\TaskBundle\Workflow\TaskTargetInterface;
 
 class MissionOrder extends BaseMissionOrder
 {

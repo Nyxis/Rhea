@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <!-- Mission Order domain -->
+        <parameter key="lunch.domain.lunch_task.class">Extia\Workflow\LunchBundle\Domain\LunchTaskDomain</parameter>
+    </parameters>
+
+    <services>
+        <!-- Mission Order domain -->
+        <service id="lunch.domain.lunch_task" class="%lunch.domain.lunch_task.class%">
+
+        </service>
+
+    </services>
+
+</container>

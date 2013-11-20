@@ -141,7 +141,7 @@ class Task extends BaseTask
      */
     public function addDocument(Document $document)
     {
-        foreach ($this->getTargetedPersons() as $person) {
+        foreach ($this->getTargets('Person') as $person) {
             $personTaskDocument = new PersonTaskDocument();
             $personTaskDocument->setPerson($person);
             $personTaskDocument->setDocument($document);
@@ -297,14 +297,23 @@ class Task extends BaseTask
     }
 
     /**
-     * adds a new task target for this task
+     * remove a task target for this task
      * @param  TaskTargetInterface $taskTarget object to target
      * @return Task
      */
-    public function removeTarget(TaskTargetInterface $targetObject)
+    public function removeTarget(TaskTargetInterface $targetObject, $pdo = null)
     {
-        foreach ($this->getTarget as $key => $target) {
+        $targets = $this->getTargets();
+        foreach ($targets as $key => $target) {
             if (get_class($targetObject) == get_class($target) && $targetObject->getPrimaryKey() == $target->getPrimaryKey()) {
+                $taskTargets = $this->getTaskTargets();
+                foreach ($taskTargets as $key => $taskTarget)
+                {
+                    if ($taskTarget->getTargetModel() == get_class($target) && $taskTarget->getTargetId() == $target->getPrimaryKey())
+                    {
+                        $taskTarget->delete($pdo);
+                    }
+                }
                 unset($this->targets[$key]);
                 break;
             }

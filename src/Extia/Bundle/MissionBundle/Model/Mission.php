@@ -5,9 +5,11 @@ namespace Extia\Bundle\MissionBundle\Model;
 use Extia\Bundle\MissionBundle\Model\om\BaseMission;
 
 use Extia\Bundle\UserBundle\Model\Person;
+use Extia\Bundle\UserBundle\Model\MissionOrderQuery;
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
+use Extia\Bundle\TaskBundle\Workflow\TaskTargetInterface;
 
-class Mission extends BaseMission
+class Mission extends BaseMission implements TaskTargetInterface
 {
     /**
      * returns mission full label
@@ -20,6 +22,17 @@ class Mission extends BaseMission
             $this->getClient()->getTitle(),
             $sep,
             $this->getLabel()
+        );
+    }
+
+    /**
+     * returns array containing route params for routing generation
+     * @return array
+     */
+    public function getRouting()
+    {
+        return array(
+            'Id'  => $this->getId(),
         );
     }
 
@@ -98,5 +111,13 @@ class Mission extends BaseMission
             $consultant->setManagerId($newManager->getId());
             $consultant->save($con);
         }
+    }
+
+    /**
+     * @see TaskTargetInterface::getModel()
+     */
+    public function getModel()
+    {
+        return 'mission';
     }
 }

@@ -7,6 +7,7 @@ use Extia\Bundle\TaskBundle\Model\Task;
 use Extia\Bundle\TaskBundle\Tools\TemporalTools;
 
 use Extia\Bundle\UserBundle\Model\ConsultantQuery;
+use Extia\Bundle\MissionBundle\Model\MissionQuery;
 use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
 
 use EasyTask\Bundle\WorkflowBundle\Workflow\Aggregator;
@@ -157,4 +158,24 @@ abstract class AbstractNodeHandler
 
         return $consultant;
     }
+
+    /**
+     * load mission from it's id
+     * @param  int          $pk
+     * @return Mission
+     */
+    public function loadMission($pk, \Pdo $pdo = null)
+    {
+        $mission = MissionQuery::create()
+            ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
+            ->findPk($pk, $pdo)
+        ;
+
+        if (empty($mission)) {
+            throw new \RuntimeException('Selected mission doesnt exists for given id : '.$pk);
+        }
+
+        return $mission;
+    }
+
 }

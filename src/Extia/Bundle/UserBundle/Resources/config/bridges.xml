@@ -8,6 +8,7 @@
         <parameter key="extia_user.bridge.mission_monitoring.class">Extia\Bundle\UserBundle\Bridge\MissionMonitoringBridge</parameter>
         <parameter key="extia_user.bridge.crh_monitoring.class">Extia\Bundle\UserBundle\Bridge\CrhMonitoringBridge</parameter>
         <parameter key="extia_user.bridge.annual_review.class">Extia\Bundle\UserBundle\Bridge\AnnualReviewBridge</parameter>
+        <parameter key="extia_user.bridge.lunch.class">Extia\Bundle\UserBundle\Bridge\LunchBridge</parameter>
     </parameters>
 
     <services>
@@ -20,7 +21,13 @@
 
         <!-- Mission monitoring bridge -->
         <service id="extia_user.bridge.mission_monitoring" class="%extia_user.bridge.mission_monitoring.class%"
-            parent="extia_user.bridge.abstract_task" >
+                 parent="extia_user.bridge.abstract_task" >
+
+        </service>
+
+        <!-- Lunch bridge -->
+        <service id="extia_user.bridge.lunch" class="%extia_user.bridge.lunch.class%"
+                 parent="extia_user.bridge.abstract_task" >
 
         </service>
 

@@ -47,6 +47,7 @@ class AppKernel extends Kernel
             new Extia\Workflow\CrhMonitoringBundle\ExtiaWorkflowCrhMonitoringBundle(),
             new Extia\Workflow\MissionMonitoringBundle\ExtiaWorkflowMissionMonitoringBundle(),
             new Extia\Workflow\AnnualReviewBundle\ExtiaWorkflowAnnualReviewBundle(),
+            new Extia\Workflow\LunchBundle\ExtiaWorkflowLunchBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
