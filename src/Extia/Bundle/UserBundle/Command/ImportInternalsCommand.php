@@ -172,6 +172,9 @@ class ImportInternalsCommand extends ContainerAwareCommand
                 $internal->setTelephone($internalData['phone']);
             }
 
+            list($password, $rien) = explode('@', $internalData['email']);
+            $internal->setPassword(sha1($password));
+
             // make root on empty parent
             if (empty($internalData['parent'])) {
                 $internal->makeRoot();

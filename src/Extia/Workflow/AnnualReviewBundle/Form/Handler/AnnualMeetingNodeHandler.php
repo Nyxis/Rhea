@@ -28,7 +28,7 @@ class AnnualMeetingNodeHandler extends AbstractNodeHandler
 
         $task->data()->set('meeting_date',
             $this->temporalTools->findNextWorkingDay(
-                $this->temporalTools->changeDate($nextTimestamp, '+1 year')
+                $this->temporalTools->changeDate($nextTimestamp, '+1 year'), 'U'
             )
         );
 

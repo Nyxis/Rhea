@@ -76,9 +76,10 @@ class TemporalTools
      * find next working day from given date
      *
      * @param  mixed     $date
+     * @param  string    $format optionnal output format for datetime object
      * @return DateTime
      */
-    public function findNextWorkingDay($date)
+    public function findNextWorkingDay($date, $output = null)
     {
         $dateTimestamp = $this->createDateTime($date)->format('U');
 
@@ -86,6 +87,8 @@ class TemporalTools
             $dateTimestamp += 3600*24;
         }
 
-        return $this->createDateTime($dateTimestamp);
+        $return = $this->createDateTime($dateTimestamp);
+
+        return $output ? $return->format($output) : $return;
     }
 }

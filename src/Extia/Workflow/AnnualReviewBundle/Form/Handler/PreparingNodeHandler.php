@@ -22,7 +22,7 @@ class PreparingNodeHandler extends AbstractNodeHandler
 
         $task->data()->set('manager_id', $data['manager_id']);
         $task->data()->set('meeting_date',
-            $this->temporalTools->findNextWorkingDay($data['meeting_date'])
+            $this->temporalTools->findNextWorkingDay($data['meeting_date'], 'U')
         );
 
         $task->save($pdo);

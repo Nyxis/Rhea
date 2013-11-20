@@ -45,7 +45,7 @@ class CrhMonitoringBridge extends AbstractTaskBridge
 
                 // bootstrap data
                 'user_target_id' => $consultant->getId(),
-                'assigned_to'    => $consultant->getCrh($pdo),
+                'assigned_to'    => $consultant->getCrhId(),
                 'next_date'      => empty($nextDate) ?
                     $this->temporalTools->changeDate($consultant->getContractBeginDate(), '+1 month') :
                     $nextDate

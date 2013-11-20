@@ -55,8 +55,6 @@ class ImportTasksCommand extends ContainerAwareCommand
         // for multiple rows
         $consultantsList = array();
 
-        // ABATE François-Xavier ,AUL,9/4/2013
-
         $handle    = fopen($file, 'r');
         $firstLine = fgetcsv($handle);
         while ($data = fgetcsv($handle)) {

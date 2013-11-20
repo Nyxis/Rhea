@@ -20,6 +20,11 @@ class InitiationNodeHandler extends AbstractNodeHandler
     {
         $task->addTarget($this->loadConsultant($data['user_target_id']), $pdo);
 
+        // assignation
+        if (!empty($data['assigned_to'])) {
+            $task->setAssignedTo($data['assigned_to']);
+        }
+
         // activation @creation
         $this->taskDomain->activateTaskOn(
             $task, date('Y-m-d'), '+1 day'
@@ -27,7 +32,7 @@ class InitiationNodeHandler extends AbstractNodeHandler
 
         // next task activation
         $task->data()->set('meeting_date',
-            $this->temporalTools->findNextWorkingDay($data['next_date'])
+            $this->temporalTools->findNextWorkingDay($data['next_date'], 'U')
         );
 
         // updates workflow fields

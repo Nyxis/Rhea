@@ -21,12 +21,12 @@ class MeetingNodeHandler extends AbstractNodeHandler
         $nextMeeting = $this->temporalTools->changeDate($task->getActivationDate(), '+3 months')
 
         $task->data()->set('next_meeting_date',
-            $this->temporalTools->findNextWorkingDay($nextMeeting)
+            $this->temporalTools->findNextWorkingDay($nextMeeting, 'U')
         );
 
         $task->data()->set('notif_date',
             $this->temporalTools->findNextWorkingDay(
-                $this->temporalTools->changeDate($nextMeeting, '-7 days')
+                $this->temporalTools->changeDate($nextMeeting, '-7 days'), 'U'
             )
         );
 
