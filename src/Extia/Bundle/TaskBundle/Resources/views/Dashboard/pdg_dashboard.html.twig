@@ -1,0 +1,28 @@
+{% extends 'ExtiaTaskBundle::task_layout.html.twig' %}
+
+{% block main %}
+    <div class="row-fluid">
+        <div class="span12">
+            <fieldset>
+                <legend>Synthèse de l'entreprise</legend>
+            </fieldset>
+            {% render(controller('ExtiaCEOBundle:CEO:CompanyInformations')) %}
+        </div>
+    </div>
+{% endblock main %}
+
+{% block sidebar %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="row-fluid">
+    <div class="span6">
+        {% render(controller('ExtiaCEOBundle:CEO:ManagerWithLateTasks')) %}  {# Managers #}
+    </div>
+    <div class="span6">
+        {% render(controller('ExtiaCEOBundle:CEO:CrhWithLateTasks')) %}  {# Crh #}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+<div class="box dashboard-summaries">
+    <div class="tab-header">
+        <i class="icon-th-list"></i>
+        {{ ('dashboard.pdg.internals.labels.' ~ codeType)|trans }}
+    </div>
+    <table>
+        {% for internal in internals %}
+            <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                <td class="image">
+                    {% if internal.image is not empty %}
+                        <img style="width: 50px; height: 50px;" src="{{ asset(internal.image) }}">
+                    {% else %}
+                        <img src="{{ gravatar(internal.email, 50) }}">
+                    {% endif %}
+                </td>
+                <td class="name">
+                    <table class='internalInfos'>
+                        <tr>
+                            <td>
+                                <a href="{{ path('UserBundle_internal_timeline', internal.routing) }}">{{ internal.longname }}</a><br/>
+                            </td>
+                            <td>
+                                {{ internal.countActiveTasks }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ internal.job }}
+                            </td>
+                            <td>
+                                {{ attribute(lastTasks, internal.id).lateTasksRelatedByAssignedTo|length / internal.countActiveTasks * 100 }}% / {{ attribute(lastTasks, internal.id).cumulateTime }} jours cumulés de retard
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

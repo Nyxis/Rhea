@@ -1,0 +1,7 @@
+parameters:
+#    extia_ceo.example.class: Extia\Bundle\CEOBundle\Example
+
+services:
+#    extia_ceo.example:
+#        class: %extia_ceo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
