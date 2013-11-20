@@ -54,6 +54,7 @@ class LunchNodeController extends TypeNodeController
         $nextTask->setActivationDate($prevTask->data()->get('meeting_date'));
         $nextTask->defineCompletionDate('+1 day');
         $nextTask->data()->set('meeting_date', $prevTask->data()->get('meeting_date'));
+        $nextTask->data()->set('meeting_place', $prevTask->data()->get('meeting_place'));
 
         return parent::onTaskCreation($nextTask, $prevTask, $parameters, $connection);
     }

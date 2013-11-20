@@ -25,7 +25,7 @@ lunch:
 
         meeting_date: Déjeuner convenu le
         meeting_place: Lieu du déjeuner
-        hook: Planification du déjeuner le
+        hook: Planification du déjeuner
         notification: Déjeuner enregistré pour la mission %mission%, le %meeting_date%.
         timeline:
             hook: Prise de date pour le déjeuner
@@ -33,7 +33,7 @@ lunch:
             meeting_date_format: d/m/Y à H:i
 
     lunch:
-        label: Déjeuner consultant
+        label: Déjeuner
         next_meeting: Prochain déjeuner prévu dans
         hook: Veuillez confirmer que le déjeuner a eu lieu pour la mission
         task_submit: Confirmer
@@ -43,12 +43,8 @@ lunch:
         at: à
         time_format: à H:i
         notification: Le déjeuner a été validé pour la mission %mission%. Vous serez notifié pour planifier le prochain déjeuner le %notif_date%.
-        form:
-            doc_label: Compte rendu du déjeuner
-            doc_label_button: Télécharger le compte-rendu
         timeline:
             hook: Déjeuner
             meeting_at: Déjeuner
             next_meeting: Prochain déjeuner prévu aux alentours du
             notified_at: Prise de date le
-        next_meeting: Prochain déjeuner dans

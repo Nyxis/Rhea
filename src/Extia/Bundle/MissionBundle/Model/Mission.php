@@ -26,6 +26,17 @@ class Mission extends BaseMission implements TaskTargetInterface
     }
 
     /**
+     * returns array containing route params for routing generation
+     * @return array
+     */
+    public function getRouting()
+    {
+        return array(
+            'Id'  => $this->getId(),
+        );
+    }
+
+    /**
      * tests if mission is in client office
      * @return boolean
      */

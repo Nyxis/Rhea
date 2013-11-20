@@ -4,6 +4,16 @@
     {{ 'lunch.bootstrap.timeline.hook'|trans }}
 {% endblock %}
 
+{% block main_target %}
+    {% if task.target('mission') is not empty %}
+        <a class="user" href="{{ path('MissionBundle_mission_admin_edit', task.target('mission').routing) }}">
+            {{ task.target('mission').fullLabel }}
+        </a>
+    {% else %}
+        <p>&nbsp;</p>
+    {% endif %}
+{% endblock %}
+
 {% block task_data %}
     <p>
         {{ 'lunch.bootstrap.timeline.next_meeting'|trans }}
