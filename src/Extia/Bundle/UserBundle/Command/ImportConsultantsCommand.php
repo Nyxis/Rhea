@@ -192,6 +192,7 @@ class ImportConsultantsCommand extends ContainerAwareCommand
                 // create mission if not exists
                 $mission = MissionQuery::create()
                     ->filterByLabel($missionName)
+                    ->filterByType('client')
                     ->filterByContactEmail($email)
                     ->filterByClientId($client->getId())
                     ->filterByManagerId($manager->getId())
@@ -224,7 +225,7 @@ class ImportConsultantsCommand extends ContainerAwareCommand
             }
 
             // resync mission_orders through domain
-            $this->getContainer()->get('extia_user.domain.mission_order')->synchronize(
+            $return = $this->getContainer()->get('extia_user.domain.mission_order')->synchronize(
                 new \DateTime(), $consultant
             );
 
