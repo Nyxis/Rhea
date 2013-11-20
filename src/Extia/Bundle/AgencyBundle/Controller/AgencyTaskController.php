@@ -25,7 +25,7 @@ class AgencyTaskController extends Controller
      * returns team user ids
      * @return array
      */
-    public function AgencyInternalsId($internalAgencyId)
+    public function getAgencyInternalsId($internalAgencyId)
     {
         $agencyIdCollection = InternalQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -53,7 +53,7 @@ class AgencyTaskController extends Controller
             ->joinWith('Comment', \Criteria::LEFT_JOIN)
             ->joinWithCurrentNodes()
 
-            ->filterByAssignedTo($this->AgencyInternalsId($internalAgencyId)->getData())
+            ->filterByAssignedTo($this->getAgencyInternalsId($internalAgencyId)->getData())
             ->filterByWorkflowTypes(array_keys($this->get('workflows')->getAllowed('read')))
 
             ->filterByCompletionDate(array('max' => 'now'))
@@ -73,7 +73,7 @@ class AgencyTaskController extends Controller
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
             ->joinWith('Task', \Criteria::INNER_JOIN)
             ->useTaskQuery()
-                ->filterByAssignedTo($this->getAgencyIdsAction($internalAgencyId)->getData())
+                ->filterByAssignedTo($this->getAgencyInternalsId($internalAgencyId)->getData())
             ->endUse()
             ->filterByCompletedAt(NULL, \Criteria::ISNOTNULL)
 
