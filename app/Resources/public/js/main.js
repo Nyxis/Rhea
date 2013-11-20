@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
     $('[data-pager]').each(function(index, elt) {
 
         var options = {
-            'per_page': 2 // @change with more data
+            'per_page': 5 // @change with more data
         };
 
         var $pageSelector = $(elt).find('.page-selector');

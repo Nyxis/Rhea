@@ -22,12 +22,12 @@ admin:
     form:
         agency: Agence
         agency_choices:
-            tan: Agence TAN
-            nrj: Agence NRJ
-            rha: Agence RHA
-            bch: Agence BCH
-            paca: Agence PACA
-            belgique: Agence BELGIQUE
+            agence_bch: Agence TAN
+            agence_tan: Agence NRJ
+            agence_nrj: Agence RHA
+            agence_rha: Agence BCH
+            agence_paca: Agence PACA
+            agence_belgique: Agence BELGIQUE
         resignation_code: Type de démission
         resignation_code_choice:
             resignation: Démission
