@@ -1,0 +1,38 @@
+<div class="box team-past-tasks">
+    <div class="tab-header">
+        <i class="icon-tasks"></i>
+        Agence: {{ app.user.Agency.Code }}
+    </div>
+    <table class="table table-striped">
+        <tbody>
+            <tr class="odd">
+                <td class="name">{{ "dashboard.da.infos.internalNb"|trans }} : </td>
+                <td class="name"><div class="wrap bolder">{{ internals|length }}</div></td>
+            </tr>
+            <tr class="even">
+                <td class="name">
+                    {{ "dashboard.da.infos.nbConsultants"|trans }} : <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ "dashboard.da.infos.nbMissions"|trans }} : <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ "dashboard.da.infos.nbIntercontrats"|trans }} :
+                <td class="name"><div class="wrap bolder">
+                    {{ consultants }} <br>
+                    {{ nbInMission }} <br>
+                    {{ nbIc }}</div></td>
+            </tr>
+            <tr class="odd">
+                <td class="name">
+                    {{ "dashboard.da.infos.activeTasks"|trans }} : <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ "dashboard.da.infos.nbLateTasks"|trans }} :<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ "dashboard.da.infos.nbTotalTasks"|trans }} :
+                </td>
+                <td class="name">
+                    <div class="wrap bolder">
+                        <br>
+                        {{ nbLateTasks }}   <br>
+                        {{ nbTotalTasks }}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

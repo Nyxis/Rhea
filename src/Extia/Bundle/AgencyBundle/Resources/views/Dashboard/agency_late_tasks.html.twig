@@ -1,0 +1,48 @@
+    <div class="box team-past-tasks">
+        <div class="tab-header">
+            <i class="icon-tasks"></i>
+            {{ "dashboard.da.late.title"|trans }}
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <th colspan="2">{{ 'task.team_past_tasks.th_wf_name'|trans }}</th>
+            <th>{{ 'task.team_past_tasks.th_status'|trans }}</th>
+            <th></th>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                    <td class="image"><img src="{{ asset('images/workflows/' ~ task.node.workflow.type ~ '.jpg') }}"></td>
+                    <td class="name"><div class="wrap bolder">{{ task.node.workflow.name }} ({{ task.node.name }})</div></td>
+                    <td class="status">
+                        <div class="wrap">
+                        <span class="label label-important">
+                            {{ 'task.team_past_tasks.retard_of'|transchoice(task.pastDays, {'%retard%' : task.pastDays}) }}
+                        </span>
+                            {% include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': task.userAssigned } only %}
+                        </div>
+                    </td>
+                    <td class="actions">
+                        <div class="btn-group">
+                            <a class="button" title="{{ 'task.team_past_tasks.details_link'|trans }}"
+                               href="{{ path('TaskBundle_workflow_history', { 'workflow_id': task.node.workflow.id }) }}">
+                                <i class="icon-tasks"></i>
+                            </a>
+                            <a class="button" title="{{ 'task.team_past_tasks.comment_link'|trans }}" href="#" data-toggle-target="comments-{{ task.id }}">
+                                <i class="icon-comments-alt"></i> {% if task.comments.count > 0 %}({{ task.comments.count }}){% endif %}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="comments-{{ task.id }}" class="comments {% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                    <td colspan="4">
+                        {% include 'ExtiaCommentBundle:Comment:list_by_task.html.twig' with { 'task': task } only %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <td colspan="4">&nbsp;</td>
+            </tfoot>
+        </table>
+    </div>

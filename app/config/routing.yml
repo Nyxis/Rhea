@@ -1,3 +1,7 @@
+extia_agency:
+    resource: "@ExtiaAgencyBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # ---------------------------------------
 # localized routes
 # ---------------------------------------

@@ -1,0 +1,44 @@
+<div class="box team-past-tasks">
+    <div class="tab-header">
+        <i class="icon-tasks"></i>
+        {{ "dashboard.da.past.title"|trans }}
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <th>{{ 'task.team_past_tasks.th_wf_name'|trans }}</th>
+        <th>{{ "dashboard.da.past.header.task"|trans }}</th>
+        <th>{{ "dashboard.da.past.header.assigned"|trans }}</th>
+        <th>{{ 'task.team_past_tasks.th_status'|trans }}</th>
+        <th></th>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            {% set user = task.getTasks.0.getUserAssigned %}
+            <tr class="{% if loop.index0 % 2 == 0 %}odd{% else %}even{% endif %}">
+                <td class="image"><img src="{{ asset('images/workflows/' ~ task.workflow.type ~ '.jpg') }}"></td>
+                <td class="name"><div class="wrap bolder">{{ task.workflow.name }} ({{ task.name }})</div></td>
+                <td class='name'>{{ user.longname }}</td>
+                <td class="status">
+                    <div class="wrap">
+                        <span class="label label-success">
+                            {{ "dashboard.da.past.task.done"|trans }}
+                        </span>
+                        {# include 'ExtiaUserBundle:Badges:badge.html.twig' with { 'internal': task.userAssigned } only #}
+                    </div>
+                </td>
+                <td class="actions">
+                    <div class="btn-group">
+                        <a class="button" title="{{ 'task.team_past_tasks.details_link'|trans }}"
+                           href="{{ path('TaskBundle_workflow_history', { 'workflow_id': task.workflow.id }) }}">
+                            <i class="icon-tasks"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <td colspan="4">&nbsp;</td>
+        </tfoot>
+    </table>
+</div>
