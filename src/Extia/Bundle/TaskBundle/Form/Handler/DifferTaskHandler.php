@@ -5,6 +5,7 @@ namespace Extia\Bundle\TaskBundle\Form\Handler;
 use Extia\Bundle\TaskBundle\Model\TaskQuery;
 use Extia\Bundle\TaskBundle\Workflow\Aggregator;
 
+use Extia\Bundle\TaskBundle\Tools\TemporalTools;
 use Extia\Bundle\CommentBundle\Model\Comment;
 use Extia\Bundle\NotificationBundle\Notification\NotifierInterface;
 
@@ -23,16 +24,18 @@ class DifferTaskHandler
     protected $securityContext;
     protected $translator;
     protected $notifier;
+    protected $temporalTools;
 
     /**
      * construct
      */
-    public function __construct(Aggregator $workflows, SecurityContextInterface $securityContext, TranslatorInterface $translator, NotifierInterface $notifier)
+    public function __construct(Aggregator $workflows, SecurityContextInterface $securityContext, TranslatorInterface $translator, NotifierInterface $notifier, TemporalTools $temporalTools)
     {
         $this->workflows       = $workflows;
         $this->securityContext = $securityContext;
         $this->translator      = $translator;
         $this->notifier        = $notifier;
+        $this->temporalTools   = $temporalTools;
     }
 
     /**
@@ -81,7 +84,9 @@ class DifferTaskHandler
 
             // modify date
             $oldDate = $task->getActivationDate();
-            $task->setActivationDate($task->findNextWorkingDay($data['differ_date']));
+            $task->setActivationDate(
+                $this->temporalTools->findNextWorkingDay($data['differ_date'])
+            );
             $task->getNode()->getType()->onTaskDiffering($task);
 
             // create comment

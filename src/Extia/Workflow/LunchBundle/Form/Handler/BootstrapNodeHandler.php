@@ -32,7 +32,9 @@ class BootstrapNodeHandler extends AbstractNodeHandler
         // activate before given date for pre-notification
         $task->data()->set('next_meeting_date', $data['next_date']);
         $task->data()->set('notif_date',
-            (int) $task->calculateDate($data['next_date'], '-7 days', 'U')
+            $this->temporalTools->findNextWorkingDay(
+                $this->temporalTools->changeDate($data['next_date'], '-7 days'), 'U'
+            )
         );
 
         // updates workflow fields

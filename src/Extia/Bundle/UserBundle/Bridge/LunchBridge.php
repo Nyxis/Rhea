@@ -72,9 +72,9 @@ class LunchBridge extends AbstractTaskBridge {
                 // bootstrap data
                 'mission_target_id' => $mission->getId(),
                 'assigned_to'    => $mission->getManagerId(),
-                'next_date'      => $currentTask->findNextWorkingDay(
-                        (int) $currentTask->calculateDate($consultant->getCurrentMissionOrder()->getBeginDate(), '+2 months', 'U')
-                    )
+                'next_date'      => $this->temporalTools->findNextWorkingDay(
+                    $this->temporalTools->changeDate($consultant->getCurrentMissionOrder()->getBeginDate(), '+2 months', 'U'
+                )
             ),
             $pdo
         );

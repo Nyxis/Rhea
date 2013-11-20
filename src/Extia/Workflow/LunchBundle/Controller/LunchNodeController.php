@@ -51,8 +51,13 @@ class LunchNodeController extends TypeNodeController
         $mission = $lunchTaskDomain->getLunchTargetedMission($taskTargets, $connection);
         $nextTask = $lunchTaskDomain->calculateLunchTargets($mission, $nextTask, $connection);
 
-        $nextTask->setActivationDate($prevTask->data()->get('meeting_date'));
-        $nextTask->defineCompletionDate('+1 day');
+        // activation
+        $this->get('extia_task.domain.task')->activateTaskOn(
+            $nextTask,
+            $prevTask->data()->get('meeting_date'),
+            '+1 day'
+        );
+
         $nextTask->data()->set('meeting_date', $prevTask->data()->get('meeting_date'));
         $nextTask->data()->set('meeting_place', $prevTask->data()->get('meeting_place'));
 

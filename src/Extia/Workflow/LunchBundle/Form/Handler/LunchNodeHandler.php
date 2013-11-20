@@ -18,11 +18,16 @@ class LunchNodeHandler extends AbstractNodeHandler
      */
     public function resolve(array $data, Task $task, \Pdo $pdo = null)
     {
-        $nextLunchTmstp = $task->calculateDate($task->getActivationDate(), '+2 months', 'U');
+        $nextLunchTmstp = $this->temporalTools->changeDate(
+            $task->getActivationDate(), '+2 months', 'U'
+        );
 
-        $task->data()->set('next_meeting_date', $task->findNextWorkingDay($nextLunchTmstp));
-        $task->data()->set('notif_date', $task->findNextWorkingDay(
-            (int) $task->calculateDate($nextLunchTmstp, '-7 days', 'U'))
+        $task->data()->set('next_meeting_date', 
+            $this->temporalTools->findNextWorkingDay($nextLunchTmstp)
+        );
+
+        $task->data()->set('notif_date', $this->temporalTools->findNextWorkingDay(
+            $this->temporalTools->changeDate($nextLunchTmstp, '-7 days', 'U'))
         );
 
         $task->save($pdo);

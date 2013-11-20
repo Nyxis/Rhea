@@ -51,8 +51,13 @@ class AppointementNodeController extends TypeNodeController
         $mission = $lunchTaskDomain->getLunchTargetedMission($taskTargets, $connection);
         $nextTask = $lunchTaskDomain->calculateLunchTargets($mission, $nextTask, $connection);
 
-        $nextTask->setActivationDate($prevTask->data()->get('notif_date'));
-        $nextTask->defineCompletionDate('+1 day');
+        // activation
+        $this->get('extia_task.domain.task')->activateTaskOn(
+            $nextTask,
+            $prevTask->data()->get('notif_date'),
+            '+1 day'
+        );
+
         $nextTask->data()->set('meeting_date', $prevTask->data()->get('next_meeting_date'));
 
         return parent::onTaskCreation($nextTask, $prevTask, $parameters, $connection);
