@@ -34,9 +34,15 @@
                         <div class="span4 referer">
                             <h5>{{ 'internal.details.referer.header'|trans }}</h5>
                             <dl class="dl-horizontal">
-                                <dt>{{ 'internal.details.referer.internal'|trans }}</dt>
+                                <dt>{{ 'internal.details.referer.n+1'|trans }}</dt>
                                 <dd>{% include 'ExtiaUserBundle:Badges:internal_small.html.twig' with { 'int': internal.parent } only %}</dd>
                             </dl>
+                            {% if internal.parent.parent is defined %}
+                                <dl class="dl-horizontal">
+                                    <dt>{{ 'internal.details.referer.n+2'|trans }}</dt>
+                                    <dd>{% include 'ExtiaUserBundle:Badges:internal_small.html.twig' with { 'int': internal.parent.parent } only %}</dd>
+                                </dl>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -73,7 +73,9 @@
                             {{ 'workflow.details.created_at'|trans }}
                             <span class="data">{{ workflow.createdAt|date(('date_format.ymd'|trans)) }}</span>
                             {{ 'workflow.details.created_by'|trans }}
-                            <a class="user" href="#">{{ currentTask.userCreatedWorkflow.longname }}</a>.
+                            {% if currentTask.userCreatedWorkflow is not empty %}
+                                <a class="user" href="#">{{ currentTask.userCreatedWorkflow.longname }}</a>.
+                            {% endif %}
                         </small>
                     </blockquote>
                     <div class="btn-group">

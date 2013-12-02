@@ -1,17 +1,15 @@
 <div class="row-fluid extia-infos">
     <div class="span6">
-        <p>Nombre d'internes : <span>{{ data.nbInternals }}</span></p>
-        <p>Nombre de consultants : <span>{{ data.nbConsultants }}</span></p>
-        <p class="subData">En mission : <span>{{ data.nbMissions }}</span></p>
-        <p class="subData">En intercontrat : <span>{{ data.nbIntercontrats }}</span></p>
-        {#<p class="subData">Insatisfaits : ?</p>#}
+        <p>{{ 'dashboard.pdg.infos.internalNb'|trans }} : <span>{{ data.nbInternals }}</span></p>
+        <p>{{ 'dashboard.pdg.infos.nbConsultants'|trans }} : <span>{{ data.nbConsultants }}</span></p>
+        <p class="subData">{{ 'dashboard.pdg.infos.nbMissions'|trans }} : <span>{{ data.nbMissions }}</span></p>
+        <p class="subData">{{ 'dashboard.pdg.infos.nbIntercontrats'|trans }} : <span>{{ data.nbIntercontrats }}</span></p>
     </div>
     <div class="span6">
-        <h4>Tâches actives :</h4>
-        <p class="subData">En retard : <span class="redInfo">{{ data.nbLateTasks }}</span></p>
-        <p class="subData">Cumuleé : <span>{{ data.nbTotalTasks }}</span></p>
-        <h4>Agences :</h4>
-        <p class="subData">La plus en retard : <span>{{ data.slowestAgency.agency.Code }}</span></p>
+        <h4>{{ 'dashboard.pdg.infos.activeTasks'|trans }} :</h4>
+        <p class="subData">{{ 'dashboard.pdg.infos.nbLateTasks'|trans }} : <span class="redInfo">{{ data.nbLateTasks }}</span></p>
+        <p class="subData">{{ 'dashboard.pdg.infos.nbTotalTasks'|trans }} : <span>{{ data.nbTotalTasks }}</span></p>
+        <h4>{{ 'dashboard.pdg.infos.agencyTitle'|trans }} :</h4>
+        <p class="subData">{{ 'dashboard.pdg.infos.slowestAgency'|trans }} : <span>{{ data.slowestAgency.agency.Code }}</span></p>
     </div>
 </div>
-

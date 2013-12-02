@@ -14,25 +14,21 @@
                     {% endif %}
                 </td>
                 <td class="name">
-                    <table class='internalInfos'>
+                    <table class='internalInfos' style="height:100%">
                         <tr>
-                            <td>
-                                <a href="{{ path('UserBundle_internal_timeline', internal.routing) }}">{{ internal.longname }}</a><br/>
+                            <td rowspan="2">
+                                <a href="{{ path('UserBundle_internal_timeline', internal.routing) }}"><strong>{{ internal.longname }}</strong></a>
                             </td>
                             <td>
-                                {{ internal.countActiveTasks }}
+                                <strong>{{ 'dashboard.pdg.internals.tasks'|trans }} :</strong> {{ internal.countActiveTasks }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                {{ internal.job }}
-                            </td>
-                            <td>
-                                {{ attribute(lastTasks, internal.id).lateTasksRelatedByAssignedTo|length / internal.countActiveTasks * 100 }}% / {{ attribute(lastTasks, internal.id).cumulateTime }} jours cumulés de retard
+                                {{ attribute(lastTasks, internal.id).lateTasksRelatedByAssignedTo|length / internal.countActiveTasks * 100 // 1 }}% {{ 'dashboard.pdg.internals.PercentLateTask'|trans }} / {{ attribute(lastTasks, internal.id).cumulateTime }} {{ 'dashboard.pdg.internals.nbLateDays'|trans }}
                             </td>
                         </tr>
                     </table>
-                    <br>
                 </td>
             </tr>
         {% endfor %}
