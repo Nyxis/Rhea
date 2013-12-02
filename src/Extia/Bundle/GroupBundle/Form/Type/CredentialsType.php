@@ -43,10 +43,12 @@ class CredentialsType extends AbstractType
             ->find();
 
         $typeChoices = array();
+        $typeTranslation = array();
         foreach ($credentials as $credential) {
             $type = $credential->getType();
             if (empty($typeChoices[$type])) {
                 $typeChoices[$type] = array();
+                $typeTranslation[$type] = $credential->getTypeLabel();
             }
 
             $typeChoices[$type][$credential->getId()] = $credential->getLabel();
@@ -57,6 +59,7 @@ class CredentialsType extends AbstractType
                 'required' => false,
                 'expanded' => true,
                 'multiple' => true,
+                'label' => $typeTranslation[$type],
                 'choices'  => $choices
             ));
         }

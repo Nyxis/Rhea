@@ -20,4 +20,4 @@ group:
         new:
             header: Nouveau groupe
         edit:
-            header: Edition du groupe %group_label%
+            header: Edition des droits du groupe %group_label%

@@ -30,9 +30,10 @@
 
         <!-- I18n -->
         <column name="label" type="VARCHAR" size="255" required="true" />
+        <column name="type_label" type="VARCHAR" size="255" required="true" />
 
         <behavior name="i18n">
-            <parameter name="i18n_columns" value="label" />
+            <parameter name="i18n_columns" value="type_label, label" />
             <parameter name="default_locale" value="fr" />
         </behavior>
     </table>

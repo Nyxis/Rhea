@@ -87,66 +87,82 @@ Extia\Bundle\GroupBundle\Model\CredentialI18n:
         id: admin
         locale: fr
         label: Administration
+        type_label: Général
     authentication_fr:
         id: authentication
         locale: fr
         label: Connexion
+        type_label: Général
     consultant_write_fr:
         id: consultant_write
         locale: fr
         label: Créer / éditer un consultant
+        type_label: Utilisateur
     consultant_read_fr:
         id: consultant_read
         locale: fr
         label: Voir les fiches consultant
+        type_label: Utilisateur
     internal_write_fr:
         id: internal_write
         locale: fr
         label: Créer / éditer un interne
+        type_label: Utilisateur
     internal_read_fr:
         id: internal_read
         locale: fr
         label: Voir les fiches internes
+        type_label: Utilisateur
     mission_read_fr:
         id: mission_read
         locale: fr
         label: Voir les fiches mission
+        type_label: Mission
     mission_write_fr:
         id: mission_write
         locale: fr
         label: Créer / éditer les fiches mission
+        type_label: Mission
     crh_monitoring_read_fr:
         id: crh_monitoring_read
         locale: fr
         label: Voir les suivis RH
+        type_label: Tâche
     crh_monitoring_write_fr:
         id: crh_monitoring_write
         locale: fr
         label: Créer / éditer les suivis RH
+        type_label: Tâche
     mission_monitoring_read_fr:
         id: mission_monitoring_read
         locale: fr
         label: Voir les suivis de missions
+        type_label: Tâche
     mission_monitoring_write_fr:
         id: mission_monitoring_write
         locale: fr
         label: Créer / éditer les suivis de missions
+        type_label: Tâche
     annual_review_read_fr:
         id: annual_review_read
         locale: fr
         label: Voir les bilans annuels
+        type_label: Tâche
     annual_review_write_fr:
         id: annual_review_write
         locale: fr
         label: Créer / éditer les bilans annuels
+        type_label: Tâche
     lunch_read_fr:
         id: lunch_read
         locale: fr
         label: Voir les déjeuners
+        type_label: Tâche
     lunch_write_fr:
         id: lunch_write
         locale: fr
         label: Créer / éditer les déjeuners
+        type_label: Tâche
 
 Extia\Bundle\GroupBundle\Model\Group:
     pdg:
@@ -156,7 +172,7 @@ Extia\Bundle\GroupBundle\Model\Group:
     crh:
         label: CRH
     manager:
-        label: IA - Manager
+        label: Manager
     consultant:
         label: Consultant
 
@@ -311,3 +327,11 @@ Extia\Bundle\GroupBundle\Model\GroupCredential:
     gp_da_lunch_write:
         GroupId: da
         CredentialId: lunch_write
+
+Extia\Bundle\MissionBundle\Model\Client:
+    extia:
+        title: Extia
+        description: SSII
+        address: 1, avenue de la Cristallerie
+        zipCode: 92310
+        city: Sèvres

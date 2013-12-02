@@ -133,13 +133,13 @@ class ImportInternalsCommand extends ContainerAwareCommand
 
         // groups
         $groups = GroupQuery::create()
-            ->filterByLabel(array('IA - Manager', 'CRH', 'Directeur Général', 'Directeur d\'Agence'))
+            ->filterByLabel(array('Manager', 'CRH', 'Directeur Général', 'Directeur d\'Agence'))
             ->find()
             ->toKeyValue('Label', 'Id')
         ;
 
         $groupMap = array(
-            'COMMERCIAL'          => $groups['IA - Manager'],
+            'COMMERCIAL'          => $groups['Manager'],
             'DIRECTION'           => $groups['Directeur Général'],
             'RESSOURCES HUMAINES' => $groups['CRH'],
             'DIRECTEUR AGENCE'    => $groups['Directeur d\'Agence'],

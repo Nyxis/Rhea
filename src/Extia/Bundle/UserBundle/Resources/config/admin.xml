@@ -91,7 +91,7 @@
         </service>
         <service id="extia_user.admin.consultant_form_handler" class="%extia_user.admin.consultant_form_handler.class%"
             parent="extia_user.admin.admin_form_handler">
-            <argument type="service" id="workflows" />
+            <argument type="service" id="extia_user.domain.consultant" />
         </service>
 
 
