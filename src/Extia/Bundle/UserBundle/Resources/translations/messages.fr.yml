@@ -13,8 +13,8 @@ user_status:
     recruited: embauche directe
 
 person_type:
-    crh: Crh
-    dir: Directeur d'agence
+    crh: CRH
+    dir: Directeur d'Agence
     ia: Manager
     pdg: P. Directeur Gal
 
@@ -110,7 +110,6 @@ consultant:
                     title:
         new:
             header: Nouveau consultant
-
         form:
             tab:
                 general: Info générales
@@ -136,7 +135,7 @@ consultant:
             contract_begin: Date d'entrée
             job: Poste
             agency: Agence
-            crh: Crh
+            crh: CRH
             coopted_by: Coopté par
             begin_at: Débute le
             on_profile: Recrutement sur profil
@@ -215,8 +214,9 @@ internal:
         header: Détails
         contact: Contact
         referer:
-            header: Référents
-            internal: Supérieur
+            header: Responsable
+            n+1: N+1
+            n+2: N+2
     actions:
         edit_user: Editer l'interne
         back_list: Liste des internes

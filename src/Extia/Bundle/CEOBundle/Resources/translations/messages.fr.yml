@@ -7,11 +7,13 @@ dashboard:
       nbIntercontrats: En intercontrat
       activeTasks: Tâches actives
       nbLateTasks: En retard
-      nbTotalTasks: Cumuleé
+      nbTotalTasks: Cumulée
       agencyTitle: Agences
       slowestAgency: La plus en retard
     internals:
       nbLateDays: jours cumulés de retard
+      PercentLateTask: de tâches en retard
+      tasks: Tâches
       labels:
         crh: CRH
         ia: Managers

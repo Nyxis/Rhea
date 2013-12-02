@@ -53,8 +53,6 @@ class AgencyInfosController extends Controller
                 ->count();
 
         $nbConsultants = ConsultantQuery::create()->filterByActive()->filterByAgencyId($internalAgencyId)->count();
-
-
         return array('nbConsultants' => $nbConsultants ,'nbActiveConsultant' => $nbConsultants - $nbIc, 'nbICConsultant' => $nbIc);
     }
 
@@ -101,6 +99,5 @@ class AgencyInfosController extends Controller
             'nbTotalTasks' => $nbTotalTasks
         ));
     }
-
 
 }

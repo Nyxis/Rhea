@@ -20,6 +20,8 @@ task_managed_for: pour le consultant
 
 # dashboard
 dashboard:
+    pdg:
+        company_summary: Synthèse de l'entreprise
     timeline:
         header:
             past: En retard

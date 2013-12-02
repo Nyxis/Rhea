@@ -9,8 +9,9 @@ dashboard:
       nbLateTasks: En retard
       nbTotalTasks: Cumulé
       agencyTitle: Agences
+      agency: Agence
     past:
-      title: Dernières taches terminées de mon agence
+      title: Dernières tâches terminées de mon agence
       header:
         task: Nom de la tâche
         assigned: Assignée à

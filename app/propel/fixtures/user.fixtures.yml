@@ -14,11 +14,11 @@ Extia\Bundle\UserBundle\Model\PersonTypeI18n:
     pdg_fr:
         locale: fr
         id: pdg
-        label: Président directeur général
+        label: Président Directeur Général
     dir_fr:
         locale: fr
         id: dir
-        label: Directeur d'agence
+        label: Directeur d'Agence
     crh_fr:
         locale: fr
         id: crh
@@ -26,7 +26,7 @@ Extia\Bundle\UserBundle\Model\PersonTypeI18n:
     ia_fr:
         locale: fr
         id: ia
-        label: Ingénieur d'affaires
+        label: Ingénieur d'Affaires
     clt_fr:
         locale: fr
         id: clt
@@ -118,43 +118,43 @@ Extia\Bundle\GroupBundle\Model\CredentialI18n:
     crh_monitoring_read_fr:
         id: crh_monitoring_read
         locale: fr
-        label: ""
+        label: Voir les suivis RH
     crh_monitoring_write_fr:
         id: crh_monitoring_write
         locale: fr
-        label: ""
+        label: Créer / éditer les suivis RH
     mission_monitoring_read_fr:
         id: mission_monitoring_read
         locale: fr
-        label: ""
+        label: Voir les suivis de missions
     mission_monitoring_write_fr:
         id: mission_monitoring_write
         locale: fr
-        label: ""
+        label: Créer / éditer les suivis de missions
     annual_review_read_fr:
         id: annual_review_read
         locale: fr
-        label: ""
+        label: Voir les bilans annuels
     annual_review_write_fr:
         id: annual_review_write
         locale: fr
-        label: ""
+        label: Créer / éditer les bilans annuels
     lunch_read_fr:
         id: lunch_read
         locale: fr
-        label: ""
+        label: Voir les déjeuners
     lunch_write_fr:
         id: lunch_write
         locale: fr
-        label: ""
+        label: Créer / éditer les déjeuners
 
 Extia\Bundle\GroupBundle\Model\Group:
     pdg:
-        label: Directeur général
+        label: Directeur Général
     da:
-        label: Directeur d'agence
+        label: Directeur d'Agence
     crh:
-        label: Crh
+        label: CRH
     manager:
         label: IA - Manager
     consultant:

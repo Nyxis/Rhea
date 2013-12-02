@@ -78,7 +78,7 @@ class AgencyTaskController extends Controller
             ->filterByCompletedAt(NULL, \Criteria::ISNOTNULL)
 
             ->find();
-//        var_dump(($taskCollection[0]->getTasks()[0]->getUserAssigned()));die;
+
         return $this->render('ExtiaAgencyBundle:Dashboard:agency_past_tasks.html.twig', array (
             'tasks' => $taskCollection
         ));
