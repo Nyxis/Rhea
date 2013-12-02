@@ -144,12 +144,17 @@ class ImportConsultantsCommand extends ContainerAwareCommand
                 \DateTime::createFromFormat('n/d/Y', $consultantData['contract_begin_date'])
             );
 
-            // find crh
-            $consultant->setCrh(InternalQuery::create()
+            $crh = InternalQuery::create()
                 ->filterByFirstname(ucfirst(strtolower($consultantData['crh_firstname'])))
                 ->filterByLastname(ucfirst(strtolower($consultantData['crh_lastname'])))
-                ->findOne()
-            );
+                ->findOne();
+
+            // find crh
+            if (!empty($crh)) {
+                $consultant->setCrh($crh);
+            } else {
+                $consultant->setCrh(null);
+            }
 
             // tmp manager
             $consultant->setManager($tmpManager);

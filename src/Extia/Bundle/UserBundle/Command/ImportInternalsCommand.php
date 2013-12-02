@@ -133,16 +133,16 @@ class ImportInternalsCommand extends ContainerAwareCommand
 
         // groups
         $groups = GroupQuery::create()
-            ->filterByLabel(array('IA - Manager', 'Crh', 'Directeur général', 'Directeur d\'agence'))
+            ->filterByLabel(array('IA - Manager', 'CRH', 'Directeur Général', 'Directeur d\'Agence'))
             ->find()
             ->toKeyValue('Label', 'Id')
         ;
 
         $groupMap = array(
             'COMMERCIAL'          => $groups['IA - Manager'],
-            'DIRECTION'           => $groups['Directeur général'],
-            'RESSOURCES HUMAINES' => $groups['Crh'],
-            'DIRECTEUR AGENCE'    => $groups['Directeur d\'agence'],
+            'DIRECTION'           => $groups['Directeur Général'],
+            'RESSOURCES HUMAINES' => $groups['CRH'],
+            'DIRECTEUR AGENCE'    => $groups['Directeur d\'Agence'],
         );
 
         $this->internalsList = $internalsList;
@@ -236,17 +236,19 @@ class ImportInternalsCommand extends ContainerAwareCommand
                 ->findOne()
             ;
 
-            $director->setAgency($agency);
-            $director->setPersonTypeId($typeMap['DIRECTEUR AGENCE']);
-            $director->setGroupId($typeMap['DIRECTEUR AGENCE']);
-            $director->save();
+            if (!empty($director)) {
+                $director->setAgency($agency);
+                $director->setPersonTypeId($typeMap['DIRECTEUR AGENCE']);
+                $director->setGroupId($typeMap['DIRECTEUR AGENCE']);
+                $director->save();
 
-            InternalQuery::create()
-                ->descendantsOf($director)
-                ->update(array(
-                    'AgencyId' => $agency->getId()
-                ))
-            ;
+                InternalQuery::create()
+                    ->descendantsOf($director)
+                    ->update(array(
+                        'AgencyId' => $agency->getId()
+                    ))
+                ;
+            }
         }
     }
 }

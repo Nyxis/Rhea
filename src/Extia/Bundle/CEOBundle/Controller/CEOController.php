@@ -17,11 +17,8 @@ class CEOController extends Controller
 {
     public function CompanyInformationsAction(Request $request)
     {
-
         $data = array();
-
-        $data['nbInternals'] = InternalQuery::create()->count();
-
+        $data['nbInternals'] = InternalQuery::create()->filterByDescendantClass(null)->count();
         $data['nbConsultants'] = ConsultantQuery::create()->filterByActive()->count();
         $data['nbIntercontrats'] = ConsultantQuery::create()
             ->setComment(sprintf('%s l:%s', __METHOD__, __LINE__))
@@ -61,7 +58,6 @@ class CEOController extends Controller
 
     public function getAgencyWithMostLateTasks()
     {
-
         $agencyArray = AgencyQuery::create()->find()->toArray();
 
         $slowestAgency = array();
@@ -170,11 +166,7 @@ class CEOController extends Controller
         return array('internals' => $internals_, 'internalsLateTasks' => $internalsLateTasks);
     }
 
-
-
-
     public function orderByLateTasks($a, $b) {
         return count($b["TasksRelatedByAssignedTo"]) - count($a["TasksRelatedByAssignedTo"]);
     }
-
 }

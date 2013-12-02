@@ -3,6 +3,7 @@
 namespace Extia\Workflow\LunchBundle\Domain;
 
 use Extia\Bundle\TaskBundle\Model\Task;
+use Extia\Bundle\UserBundle\Model\ConsultantQuery;
 use Extia\Bundle\MissionBundle\Model\Mission;
 use Extia\Bundle\MissionBundle\Model\MissionQuery;
 
